@@ -2,9 +2,32 @@
 
 {% block title 'Énigmant' %}
 
-{% block body %}
-     <div class="jumbotron text-center">
-        <h1>Bienvenue sur Enigmant</h1>
-        <p>Un texte</p>
-    </div>
-{% endblock body %}
+    {% block body %}
+        <div class="jumbotron text-center">
+            <h1>Bienvenue sur Enigmant</h1>
+            <p>Un texte</p>
+        </div>
+
+        <div class="container">
+            <h2>Les derniers jeux en chêne</h2>
+            <div class="row flex">
+                {% for jeuEnChene in jeuxEnChene %}
+                    <div class="col-3" >
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="{{ path('JeuEnChene.show', {id: jeuEnChene.id, slug: jeuEnChene.getSlug()} ) }}">{{ jeuEnChene.intitule }}</a>
+                                </h5>
+                                <p class="card-Text">{{ jeuEnChene.commentaire }}</p>
+                                <div class="text-primary" style="font-weight:bold; font-size:2rem;">
+                                    {{ jeuEnChene.getPrixFormate() }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endblock body %}
+    
+   

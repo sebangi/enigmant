@@ -1,0 +1,48 @@
+{% extends "base.html.twig" %}
+
+{% block title  %} 
+    jeuEnChaine.intitule
+{% endblock %}
+
+{% block body %}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+
+                </div>
+                <div class="col-md-4">
+                    <h1>{{ jeuEnChene.intitule }}</h1>
+                    <h2>Temps de location : {{ jeuEnChene.getTempsLocationString() }}</h2>
+                    <div class="text-primary" style="font-weight:bold; font-size:2rem;">
+                        {{ jeuEnChene.getPrixFormate() }}
+                    </div>
+                    <a href="#" class="btn btn-primary">Réserver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container mt-4">
+        <p>{{ jeuEnChene.commentaire | nl2br }}</p>
+
+        <div class="row">
+            <div class="col-md-8">
+                <table class="table table-striped">
+                    <tr>
+                        <td>Difficulté d'observation</td>
+                        <td>{{ jeuEnChene.difficulteObservation }} / 10</td>
+                    </tr>
+                    <tr>
+                        <td>Difficulté de raisonnement</td>
+                        <td>{{ jeuEnChene.difficulteRaisonnement }} / 10</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
+    {% endblock body %}
+
