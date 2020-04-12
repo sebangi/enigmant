@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\JeuEnCheneRepository")
+ * @UniqueEntity("intitule")
  */
 class JeuEnChene
 {
@@ -42,6 +45,7 @@ class JeuEnChene
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @assert\Range(min=0, max=10)
      */
     private $difficulteObservation;
 

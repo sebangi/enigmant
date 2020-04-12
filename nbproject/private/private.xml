@@ -3,26 +3,35 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/sebastien/public_html/enigmant/composer.json</file>
-            <file>file:/home/sebastien/public_html/enigmant/composer.lock</file>
             <file>file:/home/sebastien/public_html/enigmant/symfony.lock</file>
-            <file>file:/home/sebastien/public_html/enigmant/public/index.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/HomeController.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Migrations/Version20200411161002.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Migrations/Version20200411155638.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/.gitignore</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Kernel.php</file>
             <file>file:/home/sebastien/public_html/enigmant/phpunit.xml.dist</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Entity/.gitignore</file>
-            <file>file:/home/sebastien/public_html/enigmant/config/services.yaml</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/base.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/.env</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/pages/chene/jeuEnChene/index.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Repository/JeuEnCheneRepository.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/pages/admin/chene/jeuEnChene/edit.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/pages/admin/chene/jeuEnChene/new.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/config/routes.yaml</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/pages/home.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Controller/JeuEnCheneController.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Entity/JeuEnChene.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/AdminJeuEnCheneController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/composer.json</file>
+            <file>file:/home/sebastien/public_html/enigmant/composer.lock</file>
+            <file>file:/home/sebastien/public_html/enigmant/public/index.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/pages/admin/chene/jeuEnChene/index.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/config/packages/twig.yaml</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/pages/admin/chene/jeuEnChene/_form.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/.gitignore</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Kernel.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/config/services.yaml</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/pages/chene/jeuEnChene/index.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/translations/forms.fr_FR.yml</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/JeuEnCheneType.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/pages/home.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/config/packages/translation.yaml</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/JeuEnCheneController.php</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/pages/chene/jeuEnChene/show.html.twig</file>
         </group>
     </open-files>
