@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+
+{% endblock title %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Éditer le jeu en chêne</h1>
+
+        {{ include('pages/admin/chene/jeuEnChene/_form.html.twig', {button: 'Éditer'}) }}       
+
+    </div>
+
+{% endblock body %}
+

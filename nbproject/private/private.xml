@@ -6,11 +6,11 @@
             <file>file:/home/sebastien/public_html/enigmant/composer.json</file>
             <file>file:/home/sebastien/public_html/enigmant/composer.lock</file>
             <file>file:/home/sebastien/public_html/enigmant/symfony.lock</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Controller/JeuEnChaineController.php</file>
             <file>file:/home/sebastien/public_html/enigmant/public/index.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/HomeController.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Migrations/Version20200411161002.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Migrations/Version20200411155638.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/.gitignore</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Kernel.php</file>
             <file>file:/home/sebastien/public_html/enigmant/phpunit.xml.dist</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Entity/.gitignore</file>
@@ -21,7 +21,9 @@
             <file>file:/home/sebastien/public_html/enigmant/src/Repository/JeuEnCheneRepository.php</file>
             <file>file:/home/sebastien/public_html/enigmant/config/routes.yaml</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/pages/home.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/JeuEnCheneController.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Entity/JeuEnChene.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/pages/chene/jeuEnChene/show.html.twig</file>
         </group>
     </open-files>
 </project-private>

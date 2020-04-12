@@ -33,7 +33,7 @@ class JeuEnChene
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $Commentaire;
+    private $commentaire;
 
     /**
      * @ORM\Column(type="boolean", options={"default" : false})
@@ -88,12 +88,12 @@ class JeuEnChene
 
     public function getCommentaire(): ?string
     {
-        return $this->Commentaire;
+        return $this->commentaire;
     }
 
-    public function setCommentaire(?string $Commentaire): self
+    public function setCommentaire(?string $commentaire): self
     {
-        $this->Commentaire = $Commentaire;
+        $this->commentaire = $commentaire;
 
         return $this;
     }

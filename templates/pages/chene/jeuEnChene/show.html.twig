@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block title  %} 
-    jeuEnChaine.intitule
+    {{ jeu_en_chene.intitule }}
 {% endblock %}
 
 {% block body %}
@@ -12,10 +12,10 @@
 
                 </div>
                 <div class="col-md-4">
-                    <h1>{{ jeuEnChene.intitule }}</h1>
-                    <h2>Temps de location : {{ jeuEnChene.getTempsLocationString() }}</h2>
+                    <h1>{{ jeu_en_chene.intitule }}</h1>
+                    <h2>Temps de location : {{ jeu_en_chene.getTempsLocationString() }}</h2>
                     <div class="text-primary" style="font-weight:bold; font-size:2rem;">
-                        {{ jeuEnChene.getPrixFormate() }}
+                        {{ jeu_en_chene.getPrixFormate() }}
                     </div>
                     <a href="#" class="btn btn-primary">Réserver</a>
                 </div>
@@ -25,18 +25,18 @@
 
 
     <div class="container mt-4">
-        <p>{{ jeuEnChene.commentaire | nl2br }}</p>
+        <p>{{ jeu_en_chene.commentaire | nl2br }}</p>
 
         <div class="row">
             <div class="col-md-8">
                 <table class="table table-striped">
                     <tr>
                         <td>Difficulté d'observation</td>
-                        <td>{{ jeuEnChene.difficulteObservation }} / 10</td>
+                        <td>{{ jeu_en_chene.difficulteObservation }} / 10</td>
                     </tr>
                     <tr>
                         <td>Difficulté de raisonnement</td>
-                        <td>{{ jeuEnChene.difficulteRaisonnement }} / 10</td>
+                        <td>{{ jeu_en_chene.difficulteRaisonnement }} / 10</td>
                     </tr>
                 </table>
             </div>

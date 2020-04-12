@@ -12,7 +12,7 @@ class HomeController extends AbstractController
 {
    
     /**
-     * @route("/", name="Home.index")  
+     * @route("/", name="home.index")  
      * @return Response
      */
     public function index( JeuEnCheneRepository $repository ) : Response
@@ -20,7 +20,7 @@ class HomeController extends AbstractController
         $jeuxEnChene = $repository->findDerniersDisponible();
         
         return $this->render('pages/home.html.twig', [
-            'jeuxEnChene' => $jeuxEnChene
+            'jeux_en_chene' => $jeuxEnChene
         ]);
     }
     
