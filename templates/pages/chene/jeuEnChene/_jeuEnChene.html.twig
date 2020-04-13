@@ -1,0 +1,16 @@
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">
+            <a href="{{ path("jeuEnChene.show", { slug: jeu_en_chene.slug, id: jeu_en_chene.id }) }}" class="className">
+                {{ jeu_en_chene.intitule }}
+            </a>
+        </h5>
+        <p class="card-text">Disponible : {{ jeu_en_chene.disponible }}</p>    
+        <p class="card-text">Durée de location : {{ jeu_en_chene.getTempsLocationString }}</p>    
+        <p class="card-text">{{ jeu_en_chene.difficulteObservation }} {{ jeu_en_chene.difficulteRaisonnement }}</p>    
+        <p class="card-text">{{ jeu_en_chene.commentaire|nl2br(false) }}</p>    
+        <div class="text-primary" style="font-size:2rem; font-weight:bold;">
+            Prix : {{ jeu_en_chene.prixFormate }}
+        </div>
+    </div>
+</div>

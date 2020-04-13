@@ -2,9 +2,21 @@
 
 {% block title 'Jeux en chêne' %}
 
-{% block body %}
-     <div class="container mt-4">
-        <h1>Jeux en chêne</h1>
-        <p>Un texte</p>
-    </div>
-{% endblock body %}
+    {% block body %}
+        <div class="container mt-4">
+            <h1>Voir tous les jeux en chêne</h1>
+
+            <div class="row">
+                {% for jeu_en_chene in jeux_en_chene  %}
+                    <div class="col-md-4">
+                        {%  include 'pages/chene/jeuEnChene/_jeuEnChene.html.twig' %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            {# display navigation #}
+            <div class="pagination">
+                {{ knp_pagination_render(jeux_en_chene) }}
+            </div>
+        </div>
+    {% endblock body %}

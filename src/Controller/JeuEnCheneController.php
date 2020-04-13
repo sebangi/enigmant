@@ -2,13 +2,15 @@
 
 namespace App\Controller;
 
-use App\Entity\JeuEnChene;
-use App\Repository\JeuEnCheneRepository;
+use App\Entity\Chene\JeuEnChene;
+use App\Repository\Chene\JeuEnCheneRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 class JeuEnCheneController extends AbstractController {
 
@@ -29,12 +31,16 @@ class JeuEnCheneController extends AbstractController {
 
     /**
      * @route("/jeuEnChene", name="jeuEnChene.index")  
+     * @var PaginatorInterface $paginator
+     * @var Request $Request
      * @return Response
      */
-    public function index(): Response {
-        $em = $this->getDoctrine()->getManager();
-
-        $jeuxEnChene = $this->repository->findAllDisponible();
+    public function index(PaginatorInterface $paginator, Request $Request): Response {
+        $jeuxEnChene = $paginator->paginate( 
+                $this->repository->findAllDisponibleQuery(), 
+                $Request->query->getInt('page', 1), 
+                6
+                );
 
         return $this->render('pages/chene/jeuEnChene/index.html.twig', [
             'menu_courant' => 'Chêne',

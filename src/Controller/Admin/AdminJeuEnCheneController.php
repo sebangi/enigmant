@@ -2,8 +2,8 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\JeuEnChene;
-use App\Repository\JeuEnCheneRepository;
+use App\Entity\Chene\JeuEnChene;
+use App\Repository\Chene\JeuEnCheneRepository;
 use App\Form\Chene\JeuEnCheneType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;

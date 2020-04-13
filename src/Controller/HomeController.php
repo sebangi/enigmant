@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\JeuEnCheneRepository;
+use App\Repository\Chene\JeuEnCheneRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

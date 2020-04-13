@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\Chene;
 
-use App\Entity\JeuEnChene;
+use App\Entity\Chene\JeuEnChene;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Orm\QueryBuilder;
+use Doctrine\Orm\Query;
 
 /**
  * @method JeuEnChene|null find($id, $lockMode = null, $lockVersion = null)
@@ -21,13 +22,12 @@ class JeuEnCheneRepository extends ServiceEntityRepository
     }
        
     /**
-      * @return JeuEnChene[]
+      * @return Query
       */
-    public function findAllDisponible() : array
+    public function findAllDisponibleQuery() : Query
     {
         return $this->findDisponibleQuery()
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
     }
 
     /**
@@ -47,7 +47,7 @@ class JeuEnCheneRepository extends ServiceEntityRepository
     private function findDisponibleQuery() : QueryBuilder
     {
         return $this->createQueryBuilder('j')
-            ->andWhere('j.disponible = false');
+            ->andWhere('j.disponible = true');
     }
     
     // /**
