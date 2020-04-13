@@ -18,7 +18,17 @@
                     <li class="nav-item">
                         <a class="nav-link {% if menu_courant is defined and menu_courant == 'Chêne' %}active{% endif %}" href="{{ path('jeuEnChene.index') }}">Chêne <span class="sr-only">(current)</span></a>
                     </li>
-                </ul>    
+                </ul>  
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        {% if app.user %}
+                            {{ app.user.getUsername() }}
+                            <a href="{{ path('logout') }}" class="nav-link" style="display: inline-block">Se déconnecter</a>
+                        {% else %}
+                            <a href="{{ path('login') }}" class="nav-link">Se connecter</a>
+                        {% endif%}
+                    </li>
+                </ul>
             </div>
         </nav>
 

@@ -10,7 +10,14 @@ use Twig\Environment;
 
 class HomeController extends AbstractController
 {
-   
+   /*
+     * @route("/login", name="login")
+     * @return Response
+     */
+    public function login() : Response {
+        return $this->render( 'security/login.html.twig');
+    }
+    
     /**
      * @route("/", name="home.index")  
      * @return Response
