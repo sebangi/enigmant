@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Chene;
 
 use App\Entity\Chene\JeuEnChene;
 use App\Repository\Chene\JeuEnCheneRepository;
@@ -32,7 +32,7 @@ class JeuEnCheneController extends AbstractController {
     }
 
     /**
-     * @route("/jeuEnChene", name="jeuEnChene.index")  
+     * @route("/chene/jeu-en-chene", name="jeuEnChene.index")  
      * @var PaginatorInterface $paginator
      * @var Request $Request
      * @return Response
@@ -48,7 +48,7 @@ class JeuEnCheneController extends AbstractController {
                 6
                 );
 
-        return $this->render('pages/chene/jeuEnChene/index.html.twig', [
+        return $this->render('chene/jeuEnChene/index.html.twig', [
             'menu_courant'  => 'Chêne',
             'jeux_en_chene' => $jeuxEnChene,
             'form'          => $form->createView()
@@ -56,7 +56,7 @@ class JeuEnCheneController extends AbstractController {
     }
 
     /**
-     * @route("/jeuEnChene/{slug}-{id}", name="jeuEnChene.show", requirements={"slug": "[a-z0-9\-]*"})  
+     * @route("/chene/jeu-en-chene/{slug}-{id}", name="jeuEnChene.show", requirements={"slug": "[a-z0-9\-]*"})  
      * @param JeuEnChene $jeuEnChene
      * @return Response
      */
@@ -67,7 +67,7 @@ class JeuEnCheneController extends AbstractController {
                 'slug' => $jeuEnChene->getSlug()
                 ], 301);
 
-        return $this->render('pages/chene/jeuEnChene/show.html.twig', [
+        return $this->render('chene/jeuEnChene/show.html.twig', [
             'jeu_en_chene' => $jeuEnChene,
             'menu_courant' => 'Chêne'
             ]);

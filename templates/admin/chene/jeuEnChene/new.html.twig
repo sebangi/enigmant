@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+
+{% endblock title %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Créer un nouveau jeu en chêne</h1>
+
+        {{ include('admin/chene/jeuEnChene/_form.html.twig', {button: 'Créer'}) }}       
+
+    </div>
+
+{% endblock body %}
+

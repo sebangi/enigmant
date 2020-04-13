@@ -1,12 +1,12 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    Gérer les jeux en chêne 
+    Gérer les babioles
 {% endblock title %}
 
 {% block body %}
     <div class="container mt-4">
-        <h1>Gérer les jeux en chêne</h1>
+        <h1>Gérer les babioles</h1>
 
         {% for message in app.flashes('success')  %}
             <div class="alert alert-success">
@@ -15,7 +15,7 @@
         {% endfor %}           
         
         <div class="text-right mb-4">
-            <a href="{{ path("admin.chene.jeuEnChene.new") }}" class="btn btn-primary">Créer un nouveau jeu en chêne</a>
+            <a href="{{ path("admin_chene_babiole_new") }}" class="btn btn-primary">Créer une nouvelle babiole</a>
         </div>
         
         <table class="table table-striped">
@@ -26,14 +26,14 @@
                 </tr>
             </thead>
             <tbody>
-                {% for jeu_en_chene in jeux_en_chene %}
+                {% for babiole in babioles %}
                     <tr>
-                        <td>{{ jeu_en_chene.intitule }}</td>
+                        <td>{{ babiole.nom }}</td>
                         <td>
-                            <a href="{{ path("admin.chene.jeuEnChene.edit", {id : jeu_en_chene.id} ) }}" class="btn btn-secondary">Éditer</a>
-                            <form method="post" action="{{ path("admin.chene.jeuEnChene.delete", {id: jeu_en_chene.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+                            <a href="{{ path("admin_chene_babiole_edit", {id : babiole.id} ) }}" class="btn btn-secondary">Éditer</a>
+                            <form method="post" action="{{ path("admin_chene_babiole_delete", {id: babiole.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
                                 <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ jeu_en_chene.id) }}">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ babiole.id) }}">
                                 <button class="btn btn-danger">Supprimer</button>
                             </form>
                         </td>

@@ -11,6 +11,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 
+/**
+ * @Route("/admin/chene/jeu-en-chene")
+ */
 class AdminJeuEnCheneController extends AbstractController {
 
     /**
@@ -29,19 +32,19 @@ class AdminJeuEnCheneController extends AbstractController {
     }
 
     /**
-     * @route("/admin/chene/jeuEnChene", name="admin.chene.jeuEnChene.index")  
+     * @route("/", name="admin_chene_jeuEnChene_index")  
      * @return Response
      */
     public function index(): Response {
         $jeuxEnChene = $this->repository->findAll();
 
-        return $this->render('pages/admin/chene/jeuEnChene/index.html.twig', [
+        return $this->render('admin/chene/jeuEnChene/index.html.twig', [
                     'jeux_en_chene' => $jeuxEnChene,
                     'menu_courant' => 'Chêne']);
     }
 
     /**
-     * @route("/admin/chene/jeuEnChene/create", name="admin.chene.jeuEnChene.new")  
+     * @route("/create", name="admin_chene_jeuEnChene_new")  
      * @param Request $requete
      * @return Response
      */
@@ -55,17 +58,17 @@ class AdminJeuEnCheneController extends AbstractController {
             $this->em->persist($jeuEnChene); // Pour l'ajouter
             $this->em->flush();            
             $this->addFlash('success', 'Bien créé avec succès.');
-            return $this->redirectToRoute('admin.chene.jeuEnChene.index');
+            return $this->redirectToRoute('admin_chene_jeuEnChene_index');
         }
 
-        return $this->render('pages/admin/chene/jeuEnChene/new.html.twig', [
+        return $this->render('admin/chene/jeuEnChene/new.html.twig', [
                     'jeu_en_chene' => $jeuEnChene,
                     'form' => $form->createView(),
                     'menu_courant' => 'Chêne']);
     }
 
     /**
-     * @route("/admin/chene/jeuEnChene/{id}", name="admin.chene.jeuEnChene.edit", methods="GET|POST")  
+     * @route("/{id}/edit", name="admin_chene_jeuEnChene_edit", methods="GET|POST")  
      * @param JeuEnChene $jeuEnChene
      * @param Request $requete
      * @return Response
@@ -77,17 +80,17 @@ class AdminJeuEnCheneController extends AbstractController {
         if ($form->isSubmitted() and $form->isValid()) {
             $this->em->flush();
             $this->addFlash('success', 'Bien modifé avec succès.');
-            return $this->redirectToRoute('admin.chene.jeuEnChene.index');
+            return $this->redirectToRoute('admin_chene_jeuEnChene_index');
         }
 
-        return $this->render('pages/admin/chene/jeuEnChene/edit.html.twig', [
+        return $this->render('admin/chene/jeuEnChene/edit.html.twig', [
                     'jeu_en_chene' => $jeuEnChene,
                     'form' => $form->createView(),
                     'menu_courant' => 'Chêne']);
     }
 
     /**
-     * @route("/admin/chene/jeuEnChene/{id}", name="admin.chene.jeuEnChene.delete", methods="DELETE")  
+     * @route("/{id}", name="admin_chene_jeuEnChene_delete", methods="DELETE")  
      * @param JeuEnChene $jeuEnChene
      * @param Request $requete
      * @return Response
@@ -101,7 +104,7 @@ class AdminJeuEnCheneController extends AbstractController {
             $this->addFlash('success', 'Bien supprimé avec succès.');
         }
 
-        return $this->redirectToRoute('admin.chene.jeuEnChene.index');
+        return $this->redirectToRoute('admin_chene_jeuEnChene_index');
     }
 
 }

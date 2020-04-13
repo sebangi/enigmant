@@ -2,10 +2,13 @@
 
 namespace App\Entity\Chene;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use \App\Entity\Chene\Babiole;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Chene\JeuEnCheneRepository")
@@ -64,9 +67,14 @@ class JeuEnChene
      */
     private $prix = 1;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="\App\Entity\Chene\Babiole", inversedBy="jeuEnChenes")
+     */
+    private $babioles;
+
     public function __construct()
     {
-        
+        $this->babioles = new ArrayCollection();
     }
         
     public function getId(): ?int
@@ -172,6 +180,32 @@ class JeuEnChene
     public function setPrix(int $prix): self
     {
         $this->prix = $prix;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Babiole[]
+     */
+    public function getBabioles(): Collection
+    {
+        return $this->babioles;
+    }
+
+    public function addBabiole(Babiole $babiole): self
+    {
+        if (!$this->babioles->contains($babiole)) {
+            $this->babioles[] = $babiole;
+        }
+
+        return $this;
+    }
+
+    public function removeBabiole(Babiole $babiole): self
+    {
+        if ($this->babioles->contains($babiole)) {
+            $this->babioles->removeElement($babiole);
+        }
 
         return $this;
     }

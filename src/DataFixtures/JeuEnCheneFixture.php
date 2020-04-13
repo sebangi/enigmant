@@ -30,5 +30,4 @@ class JeuEnCheneFixture extends Fixture {
 
         $manager->flush();
     }
-
 }
