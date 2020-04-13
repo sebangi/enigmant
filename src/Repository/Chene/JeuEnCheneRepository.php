@@ -3,6 +3,7 @@
 namespace App\Repository\Chene;
 
 use App\Entity\Chene\JeuEnChene;
+use App\Entity\Chene\JeuEnCheneRecherche;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Orm\QueryBuilder;
@@ -24,10 +25,25 @@ class JeuEnCheneRepository extends ServiceEntityRepository
     /**
       * @return Query
       */
-    public function findAllDisponibleQuery() : Query
+    public function findAllDisponibleQuery( JeuEnCheneRecherche $recherche ) : Query
     {
-        return $this->findDisponibleQuery()
-            ->getQuery();
+        $query = $this->findDisponibleQuery();
+        
+        if ( $recherche->getMaxPrix() )
+        {
+            $query = $query
+                ->andwhere( 'j.prix <= :maxPrix' )
+                ->setParameter( 'maxPrix', $recherche->getMaxPrix() );
+        }
+        
+        if ( $recherche->getMinDifficulteRaisonnement() )
+        {
+            $query = $query
+                ->andwhere( 'j.difficulteRaisonnement >= :minDifficulteRaisonnement' )
+                ->setParameter( 'minDifficulteRaisonnement', $recherche->getMinDifficulteRaisonnement() );
+        }
+            
+        return $query->getQuery();
     }
 
     /**

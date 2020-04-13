@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Chene\JeuEnChene;
 use App\Repository\Chene\JeuEnCheneRepository;
+use \App\Entity\Chene\JeuEnCheneRecherche;
+use \App\Form\Chene\JeuEnCheneRechercheType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,16 +37,21 @@ class JeuEnCheneController extends AbstractController {
      * @var Request $Request
      * @return Response
      */
-    public function index(PaginatorInterface $paginator, Request $Request): Response {
+    public function index(PaginatorInterface $paginator, Request $Requete): Response {
+        $recherche = new JeuEnCheneRecherche();
+        $form = $this->createForm( JeuEnCheneRechercheType::class, $recherche);
+        $form->handleRequest($Requete);
+        
         $jeuxEnChene = $paginator->paginate( 
-                $this->repository->findAllDisponibleQuery(), 
-                $Request->query->getInt('page', 1), 
+                $this->repository->findAllDisponibleQuery($recherche), 
+                $Requete->query->getInt('page', 1), 
                 6
                 );
 
         return $this->render('pages/chene/jeuEnChene/index.html.twig', [
-            'menu_courant' => 'Chêne',
-            'jeux_en_chene' => $jeuxEnChene        
+            'menu_courant'  => 'Chêne',
+            'jeux_en_chene' => $jeuxEnChene,
+            'form'          => $form->createView()
             ]);
     }
 
