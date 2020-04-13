@@ -8,7 +8,7 @@ class JeuEnCheneRecherche {
     /**
      *
      * @var int|null 
-     * @assert\Range(min=0, max=10)
+     * @assert\Range(min=0)
      */
     private $maxPrix;
     

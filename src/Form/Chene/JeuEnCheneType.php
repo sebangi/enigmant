@@ -5,6 +5,8 @@ namespace App\Form\Chene;
 use App\Entity\Chene\JeuEnChene;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,13 +17,27 @@ class JeuEnCheneType extends AbstractType
         $builder
             ->add('intitule')
             ->add('commentaire')
-            ->add('disponible')
-            ->add('difficulteObservation')
-            ->add('difficulteRaisonnement')
+            ->add('disponible', CheckboxType::class)
+            ->add('difficulteObservation', IntegerType::class, [
+               'attr' => [
+                   'min' => 1,
+                   'max' => 10
+                ]
+            ])
+            ->add('difficulteRaisonnement', IntegerType::class, [
+               'attr' => [
+                   'min' => 1,
+                   'max' => 10
+                ]
+            ])
             ->add('tempsLocation', ChoiceType::class, [
                 'choices' => $this->getChoix()
             ])
-            ->add('prix')
+            ->add('prix', IntegerType::class, [
+               'attr' => [
+                   'min' => 0
+                ]
+            ])
         ;
     }
 

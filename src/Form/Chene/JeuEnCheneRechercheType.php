@@ -18,14 +18,17 @@ class JeuEnCheneRechercheType extends AbstractType
                 'required' => false,
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Prix maximal'
+                    'placeholder' => 'Prix maximal',
+                    'min' => 0
                 ]
             ])
             ->add('minDifficulteRaisonnement', IntegerType::class, [
                 'required' => false,
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Difficulté de raisonnement minimale'
+                    'placeholder' => 'Difficulté de raisonnement minimale',
+                    'min' => 0,
+                    'max' => 10
                 ]
             ])
         ;

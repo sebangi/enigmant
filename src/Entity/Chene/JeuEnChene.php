@@ -44,15 +44,15 @@ class JeuEnChene
     private $disponible = false;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=true, options={"default" : 5})
      * @assert\Range(min=0, max=10)
      */
-    private $difficulteObservation;
+    private $difficulteObservation = 5;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=true, options={"default" : 5})
      */
-    private $difficulteRaisonnement;
+    private $difficulteRaisonnement = 5;
 
     /**
      * @ORM\Column(type="integer")
@@ -60,9 +60,9 @@ class JeuEnChene
     private $tempsLocation;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", options={"default" : 1})
      */
-    private $prix;
+    private $prix = 1;
 
     public function __construct()
     {

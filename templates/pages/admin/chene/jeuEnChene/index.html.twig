@@ -12,8 +12,12 @@
             <div class="alert alert-success">
                 {{ message }}
             </div>
-        {% endfor %}
-            
+        {% endfor %}           
+        
+        <div class="text-right mb-4">
+            <a href="{{ path("admin.chene.jeuEnChene.new") }}" class="btn btn-primary">Créer un nouveau jeu en chêne</a>
+        </div>
+        
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -37,9 +41,6 @@
                 {% endfor %}
             </tbody>
         </table>
-        <div class="text-right">
-            <a href="{{ path("admin.chene.jeuEnChene.new") }}" class="btn btn-primary">Créer un nouveau jeu en chêne</a>
-        </div>
     </div>
 
 {% endblock body %}
