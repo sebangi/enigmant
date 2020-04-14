@@ -57,7 +57,7 @@ class JeuEnCheneController extends AbstractController {
 
     /**
      * @route("/chene/jeu-en-chene/{slug}-{id}", name="jeuEnChene.show", requirements={"slug": "[a-z0-9\-]*"})  
-     * @param JeuEnChene $jeuEnChene
+     * @param JeuEnChene $je()uEnChene
      * @return Response
      */
     public function show(JeuEnChene $jeuEnChene, string $slug): Response {

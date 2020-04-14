@@ -9,7 +9,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-
+                    {% if jeu_en_chene.badgeImageName %}
+                        <img src="{{ vich_uploader_asset(jeu_en_chene, 'badgeImageFile') }}" class="card-img-top" style="width:100%; height:500px;"> 
+                    {% else %}
+                        <img src="{{ '/images/badges/vide.png' }}" class="card-img-top" style="width:100%; height:230px;"> 
+                    {% endif%}
                 </div>
                 <div class="col-md-4">
                     <h1>{{ jeu_en_chene.intitule }}</h1>
@@ -28,7 +32,7 @@
         <p>{{ jeu_en_chene.commentaire | nl2br }}</p>
 
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <table class="table table-striped">
                     <tr>
                         <td>Difficulté d'observation</td>
@@ -40,7 +44,15 @@
                     </tr>
                 </table>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-5">
+                <h4>Babioles utilisées pour sa construction</h4>
+                <ul class="list-group">
+                    {% for babiole in jeu_en_chene.babioles  %}
+                        <li class="list-group-item">{{ babiole.nom }}</li>  
+                    {% endfor %}
+
+                </ul>
+
 
             </div>
         </div>

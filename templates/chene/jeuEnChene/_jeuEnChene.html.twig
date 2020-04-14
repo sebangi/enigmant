@@ -1,4 +1,10 @@
 <div class="card mb-4">
+    {% if jeu_en_chene.badgeImageName %}
+        <img src="{{ vich_uploader_asset(jeu_en_chene, 'badgeImageFile') }}" class="card-img-top" style="width:100%; height:230px;"> 
+    {% else %}
+        <img src="{{ '/images/badges/vide.png' }}" class="card-img-top" style="width:100%; height:230px;"> 
+    {% endif%}
+
     <div class="card-body">
         <h5 class="card-title">
             <a href="{{ path("jeuEnChene.show", { slug: jeu_en_chene.slug, id: jeu_en_chene.id }) }}" class="className">

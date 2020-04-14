@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -44,7 +45,10 @@ class JeuEnCheneType extends AbstractType
                             ->orderBy('b.nom', 'ASC');
                     },
                 'multiple' => true
-            ])    
+            ])  
+            ->add('badgeImageFile', FileType::class, [
+                'required' => false
+            ] )                
             ->add('prix', IntegerType::class, [
                'attr' => [
                    'min' => 0

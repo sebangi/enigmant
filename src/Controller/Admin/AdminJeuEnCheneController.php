@@ -50,7 +50,6 @@ class AdminJeuEnCheneController extends AbstractController {
      */
     public function new(Request $requete) {
         $jeuEnChene = new JeuEnChene();
-
         $form = $this->createForm(JeuEnCheneType::class, $jeuEnChene);
 
         $form->handleRequest($requete);
@@ -75,7 +74,7 @@ class AdminJeuEnCheneController extends AbstractController {
      */
     public function edit(JeuEnChene $jeuEnChene, Request $requete): Response {
         $form = $this->createForm(JeuEnCheneType::class, $jeuEnChene);
-
+        
         $form->handleRequest($requete);
         if ($form->isSubmitted() and $form->isValid()) {
             $this->em->flush();

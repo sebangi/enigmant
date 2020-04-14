@@ -3,41 +3,56 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/sebastien/public_html/enigmant/templates/pages/chene/jeuEnChene/_jeuEnChene.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/AdminBabioleController.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Migrations/Version20200413192603.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/JeuEnCheneRecherche.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Migrations/Version20200413191448.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/show.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/SecurityController.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Controller/HomeController.php</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/base.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/config/bundles.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Repository/Chene/JeuEnCheneRepository.php</file>
             <file>file:/home/sebastien/public_html/enigmant/config/packages/test/twig.yaml</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Repository/JeuEnCheneRepository.php</file>
             <file>file:/home/sebastien/public_html/enigmant/config/routes.yaml</file>
             <file>file:/home/sebastien/public_html/enigmant/config/packages/knp_paginator.yml</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/_jeuEnChene.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/BabioleType.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Repository/Chene/BabioleRepository.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Migrations/Version20200413215010.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/AdminJeuEnCheneController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/Babiole.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/jeuEnChene/edit.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Chene/JeuEnCheneController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Entity/User.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/JeuEnCheneType.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/config/packages/translation.yaml</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/JeuEnCheneRechercheType.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/JeuEnCheneRecherche.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Migrations/Version20200413191448.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/HomeController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/home.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/config/packages/vich_uploader.yaml</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Repository/Chene/JeuEnCheneRepository.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/DataFixtures/BabioleFixtures.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/jeuEnChene/_form.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/babiole/edit.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/jeuEnChene/index.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/babiole/_form.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Repository/UserRepository.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/DataFixtures/UserFixtures.php</file>
             <file>file:/home/sebastien/public_html/enigmant/config/packages/routing.yaml</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/Babiole.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/babiole/index.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/JeuEnChene.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Migrations/Version20200413160845.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/pages/admin/chene/jeuEnChene/index.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/config/packages/twig.yaml</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/pages/admin/chene/jeuEnChene/_form.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/DataFixtures/AppFixtures.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/index.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Repository/CheneJeuEnCheneRepository.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/DataFixtures/JeuEnCheneFixture.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/jeuEnChene/new.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/config/services.yaml</file>
             <file>file:/home/sebastien/public_html/enigmant/config/packages/security.yaml</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Entity/User.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/pages/chene/jeuEnChene/index.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/JeuEnCheneType.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/pages/security/login.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/pages/home.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/config/packages/translation.yaml</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Controller/JeuEnCheneController.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/JeuEnCheneRechercheType.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/pages/chene/jeuEnChene/show.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/security/login.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/translations/forms.fr_FR.yml</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/babiole/new.html.twig</file>
         </group>
     </open-files>
 </project-private>
