@@ -40,7 +40,9 @@ class AdminJeuEnCheneController extends AbstractController {
 
         return $this->render('admin/chene/jeuEnChene/index.html.twig', [
                     'jeux_en_chene' => $jeuxEnChene,
-                    'menu_courant' => 'Chêne']);
+                    'menu_courant' => 'AdminJeuEnChene',
+                    'theme_courant' => 'Chêne'
+                    ]);
     }
 
     /**
@@ -56,14 +58,16 @@ class AdminJeuEnCheneController extends AbstractController {
         if ($form->isSubmitted() and $form->isValid()) {
             $this->em->persist($jeuEnChene); // Pour l'ajouter
             $this->em->flush();            
-            $this->addFlash('success', 'Bien créé avec succès.');
+            $this->addFlash('success', 'Jeu en chêne créé avec succès.');
             return $this->redirectToRoute('admin_chene_jeuEnChene_index');
         }
 
         return $this->render('admin/chene/jeuEnChene/new.html.twig', [
-                    'jeu_en_chene' => $jeuEnChene,
+                    'jeuEnChene' => $jeuEnChene,
                     'form' => $form->createView(),
-                    'menu_courant' => 'Chêne']);
+                    'menu_courant' => 'AdminJeuEnChene',
+                    'theme_courant' => 'Chêne'
+                    ]);
     }
 
     /**
@@ -78,14 +82,15 @@ class AdminJeuEnCheneController extends AbstractController {
         $form->handleRequest($requete);
         if ($form->isSubmitted() and $form->isValid()) {
             $this->em->flush();
-            $this->addFlash('success', 'Bien modifé avec succès.');
+            $this->addFlash('success', 'Jeu en chêne modifé avec succès.');
             return $this->redirectToRoute('admin_chene_jeuEnChene_index');
         }
 
         return $this->render('admin/chene/jeuEnChene/edit.html.twig', [
-                    'jeu_en_chene' => $jeuEnChene,
+                    'jeuEnChene' => $jeuEnChene,
                     'form' => $form->createView(),
-                    'menu_courant' => 'Chêne']);
+                    'menu_courant' => 'AdminJeuEnChene',
+                    'theme_courant' => 'Chêne']);
     }
 
     /**
@@ -100,7 +105,7 @@ class AdminJeuEnCheneController extends AbstractController {
             $this->em->remove($jeuEnChene);
             $this->em->flush();
             
-            $this->addFlash('success', 'Bien supprimé avec succès.');
+            $this->addFlash('success', 'Jeu en chêne supprimé avec succès.');
         }
 
         return $this->redirectToRoute('admin_chene_jeuEnChene_index');

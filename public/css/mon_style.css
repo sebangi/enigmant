@@ -1,13 +1,16 @@
 body {
     background-color: whitesmoke;
-    padding-top: 105px;
 }
 
-.fixed-top-2 {
-    margin-top: 66px;
+.second-nav {
+     top: 56px;
+}
+
+.third-nav {
+     top: 128px;
 }
 
 .admin-bar {
     background-color: orange;
-    margin-bottom: 10px;
 }
+

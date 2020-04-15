@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-lg admin-bar navbar-light sticky-top third-nav opaque-navbar">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav navbar-brand">
+            <li class="nav-item">
+                <div class="nav-link">
+                    Utilisateurs
+                </div>
+            </li>  
+        </ul>
+        <ul class="navbar-nav navbar-brand">                
+            <li class="nav-item">
+                <a class="nav-link {% if menu_courant is defined and menu_courant == 'AdminJeuEnChene' %}active{% endif %}" href="{{ path('admin_chene_jeuEnChene_index') }}">Jeux<span class="sr-only">(current)</span></a>
+            </li>                
+        </ul>  
+        <ul class="navbar-nav navbar-brand">
+            <li class="nav-item navbar-light">
+                <a class="nav-link {% if menu_courant is defined and menu_courant == 'AdminBabiole' %}active{% endif %}" href="{{ path('admin_chene_babiole_index') }}">Babioles<span class="sr-only">(current)</span></a>
+            </li>
+        </ul> 
+    </div>
+</nav>          

@@ -21,6 +21,8 @@ class AdminBabioleController extends AbstractController
     public function index(BabioleRepository $babioleRepository): Response
     {
         return $this->render('admin/chene/babiole/index.html.twig', [
+            'menu_courant' => 'AdminBabiole',
+            'theme_courant' => 'Chêne',
             'babioles' => $babioleRepository->findAll(),
         ]);
     }
@@ -38,11 +40,14 @@ class AdminBabioleController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($babiole);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Babiole ajoutée avec succès.');
+            
             return $this->redirectToRoute('admin_chene_babiole_index');
         }
 
         return $this->render('admin/chene/babiole/new.html.twig', [
+            'menu_courant' => 'AdminBabiole',
+            'theme_courant' => 'Chêne',
             'babiole' => $babiole,
             'form' => $form->createView(),
         ]);
@@ -58,11 +63,14 @@ class AdminBabioleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
+            $this->addFlash('success', 'Babiole créée avec succès.');
+            
             return $this->redirectToRoute('admin_chene_babiole_index');
         }
 
         return $this->render('admin/chene/babiole/edit.html.twig', [
+            'menu_courant' => 'AdminBabiole',
+            'theme_courant' => 'Chêne',
             'babiole' => $babiole,
             'form' => $form->createView(),
         ]);
@@ -77,6 +85,7 @@ class AdminBabioleController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($babiole);
             $entityManager->flush();
+            $this->addFlash('success', 'Babiole supprimée avec succès.');            
         }
 
         return $this->redirectToRoute('admin_chene_babiole_index');

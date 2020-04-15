@@ -63,8 +63,8 @@ class JeuEnCheneRepository extends ServiceEntityRepository
     private function findDisponibleQuery() : QueryBuilder
     {
         return $this->createQueryBuilder('j')
-            //->select('j', 'babs')
-            //->leftJoin('j.babioles', 'babs')
+            ->select('j', 'babs')
+            ->leftJoin('j.babioles', 'babs')
             ->andWhere('j.disponible = true');
     }
     

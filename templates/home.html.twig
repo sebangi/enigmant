@@ -1,33 +1,35 @@
 {% extends "base.html.twig" %}
 
-{% block title 'Énigmant' %}
+{% block title  %}
+    'Énigmant'
+{% endblock title %}
 
-    {% block body %}
-        <div class="jumbotron text-center">
-            <h1>Bienvenue sur Enigmant</h1>
-            <p>Un texte</p>
-        </div>
+{% block body %}
+    <div class="jumbotron text-center">
+        <h1>Bienvenue sur Enigmant</h1>
+        <p>Un texte</p>
+    </div>
 
-        <div class="container">
-            <h2>Les derniers jeux en chêne</h2>
-            <div class="row flex">
-                {% for jeu_en_chene in jeux_en_chene %}
-                    <div class="col-3" >
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <a href="{{ path('jeuEnChene.show', {id: jeu_en_chene.id, slug: jeu_en_chene.getSlug()} ) }}">{{ jeu_en_chene.intitule }}</a>
-                                </h5>
-                                <p class="card-Text">{{ jeu_en_chene.commentaire }}</p>
-                                <div class="text-primary" style="font-weight:bold; font-size:2rem;jeux_en_chene">
-                                    {{ jeu_en_chene.getPrixFormate() }}
-                                </div>
+    <div class="container">
+        <h2>Les derniers jeux en chêne</h2>
+        <div class="row flex">
+            {% for jeu_en_chene in jeux_en_chene %}
+                <div class="col-3" >
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{{ path('jeuEnChene.show', {id: jeu_en_chene.id, slug: jeu_en_chene.getSlug()} ) }}">{{ jeu_en_chene.nom }}</a>
+                            </h5>
+                            <p class="card-Text">{{ jeu_en_chene.description }}</p>
+                            <div class="text-primary" style="font-weight:bold; font-size:2rem;jeux_en_chene">
+                                {{ jeu_en_chene.getPrixFormate() }}
                             </div>
                         </div>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+            {% endfor %}
         </div>
-    {% endblock body %}
-    
-   
+    </div>
+{% endblock body %}
+
+

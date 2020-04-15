@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Chene\JeuEnCheneRepository")
- * @UniqueEntity("intitule")
+ * @UniqueEntity("nom")
  * @Vich\Uploadable
  */
 class JeuEnChene
@@ -24,8 +24,7 @@ class JeuEnChene
         0 => 'une semaine',
         1 => 'deux semaines',
         2 => 'un mois'
-    ];
-    
+    ];    
     
     /**
      * @ORM\Id()
@@ -37,12 +36,12 @@ class JeuEnChene
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $intitule;
+    private $nom;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $commentaire;
+    private $description;
 
     /**
      * @ORM\Column(type="boolean", options={"default" : false})
@@ -84,7 +83,7 @@ class JeuEnChene
     private $badgeImageFile;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @var string|null
      */
     private $badgeImageName;
@@ -94,6 +93,21 @@ class JeuEnChene
      * @param \DateTimeInterface
      */
     private $majDate;
+
+    /**
+     * @ORM\Column(type="integer", options={"default" : 1})
+     */
+    private $num = 1;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $enCoursConstruction = false;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true, options={"default" : 1})
+     */
+    private $nombreEtapes = 1;
 
     public function __construct()
     {
@@ -157,20 +171,20 @@ class JeuEnChene
      * 
      * @return string|null
      */
-    public function getIntitule(): ?string
+    public function getNom(): ?string
     {
-        return $this->intitule;
+        return $this->nom;
     }
     
     
     /**
      * 
-     * @param string $intitule
+     * @param string $nom
      * @return \App\Entity\Chene\JeuEnChene
      */
-    public function setIntitule(string $intitule): JeuEnChene 
+    public function setNom(string $nom): JeuEnChene 
     {
-        $this->intitule = $intitule;
+        $this->nom = $nom;
 
         return $this;
     }
@@ -180,26 +194,26 @@ class JeuEnChene
      * @return string
      */
     public function getSlug() : string {
-        return ( new Slugify() )->slugify($this->intitule); 
+        return ( new Slugify() )->slugify($this->nom); 
     }
 
     /**
      * 
      * @return string|null
      */
-    public function getCommentaire(): ?string
+    public function getDescription(): ?string
     {
-        return $this->commentaire;
+        return $this->description;
     }
 
     /**
      * 
-     * @param string|null $commentaire
+     * @param string|null $description
      * @return \App\Entity\Chene\JeuEnChene 
      */
-    public function setCommentaire(?string $commentaire): JeuEnChene
+    public function setDescription(?string $description): JeuEnChene
     {
-        $this->commentaire = $commentaire;
+        $this->description = $description;
 
         return $this;
     }
@@ -380,6 +394,42 @@ class JeuEnChene
     public function setMajDate(\DateTimeInterface $majDate): JeuEnChene
     {
         $this->majDate = $majDate;
+
+        return $this;
+    }
+
+    public function getNum(): ?int
+    {
+        return $this->num;
+    }
+
+    public function setNum(int $num): self
+    {
+        $this->num = $num;
+
+        return $this;
+    }
+
+    public function getEnCoursConstruction(): ?bool
+    {
+        return $this->enCoursConstruction;
+    }
+
+    public function setEnCoursConstruction(bool $enCoursConstruction): self
+    {
+        $this->enCoursConstruction = $enCoursConstruction;
+
+        return $this;
+    }
+
+    public function getNombreEtapes(): ?int
+    {
+        return $this->nombreEtapes;
+    }
+
+    public function setNombreEtapes(?int $nombreEtapes): self
+    {
+        $this->nombreEtapes = $nombreEtapes;
 
         return $this;
     }

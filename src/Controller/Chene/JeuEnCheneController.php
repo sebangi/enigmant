@@ -14,14 +14,16 @@ use Twig\Environment;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
+use \Liip\ImagineBundle\Imagine\Cache\CacheManager;
+
 class JeuEnCheneController extends AbstractController {
 
     /**
      * @var JeuEnCheneRepository
      */
-    private $repository;    
-    
-     /**
+    private $repository;
+
+    /**
      * @var EntityManagerInterface
      */
     private $em;
@@ -37,22 +39,23 @@ class JeuEnCheneController extends AbstractController {
      * @var Request $Request
      * @return Response
      */
-    public function index(PaginatorInterface $paginator, Request $Requete): Response {
+    public function index(PaginatorInterface $paginator, Request $Requete, CacheManager $imagineCacheManager ): Response {
         $recherche = new JeuEnCheneRecherche();
-        $form = $this->createForm( JeuEnCheneRechercheType::class, $recherche);
+        $form = $this->createForm(JeuEnCheneRechercheType::class, $recherche);
         $form->handleRequest($Requete);
-        
-        $jeuxEnChene = $paginator->paginate( 
-                $this->repository->findAllDisponibleQuery($recherche), 
-                $Requete->query->getInt('page', 1), 
+
+        $jeuxEnChene = $paginator->paginate(
+                $this->repository->findAllDisponibleQuery($recherche),
+                $Requete->query->getInt('page', 1),
                 6
-                );
+        );
 
         return $this->render('chene/jeuEnChene/index.html.twig', [
-            'menu_courant'  => 'Chêne',
-            'jeux_en_chene' => $jeuxEnChene,
-            'form'          => $form->createView()
-            ]);
+                    'menu_courant' => 'JeuEnChene',
+                    'theme_courant' => 'Chêne',
+                    'jeux_en_chene' => $jeuxEnChene,
+                    'form' => $form->createView()
+        ]);
     }
 
     /**
@@ -63,14 +66,15 @@ class JeuEnCheneController extends AbstractController {
     public function show(JeuEnChene $jeuEnChene, string $slug): Response {
         if ($jeuEnChene->getSlug() !== $slug)
             return $this->redirectToRoute('JeuEnChene.show', [
-                'id' => $jeuEnChene->getId(),
-                'slug' => $jeuEnChene->getSlug()
-                ], 301);
+                        'id' => $jeuEnChene->getId(),
+                        'slug' => $jeuEnChene->getSlug()
+                            ], 301);
 
         return $this->render('chene/jeuEnChene/show.html.twig', [
-            'jeu_en_chene' => $jeuEnChene,
-            'menu_courant' => 'Chêne'
-            ]);
+                    'menu_courant' => 'JeuEnChene',
+                    'jeuEnChene' => $jeuEnChene,
+                    'theme_courant' => 'Chêne'
+        ]);
     }
 
 }

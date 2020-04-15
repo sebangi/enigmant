@@ -1,0 +1,21 @@
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">
+            <a href="{{ path("babiole.show", { slug: babiole.slug, id: babiole.id }) }}">
+                {{ babiole.nom }}
+            </a>
+        </h5>   
+        <p class="card-text">{{ babiole.description|nl2br(false) }}</p>    
+                
+        <p class="card-text">
+            Cette babiole a été utilisée dans les jeux suivants : 
+            {% for jeuEnChene in babiole.jeuEnChenes  %}
+                {{ jeuEnChene.nom }} -
+            {% endfor %}
+            {{ babiole.commentaireGourou }}        
+        </p>    
+        <div class="text-primary" style="font-size:2rem; font-weight:bold;">
+            Valeur : {{ babiole.valeur }}
+        </div>
+    </div>
+</div>

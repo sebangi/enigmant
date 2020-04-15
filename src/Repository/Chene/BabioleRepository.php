@@ -3,8 +3,11 @@
 namespace App\Repository\Chene;
 
 use App\Entity\Chene\Babiole;
+use App\Entity\Chene\BabioleRecherche;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Orm\QueryBuilder;
+use Doctrine\Orm\Query;
 
 /**
  * @method Babiole|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,6 +21,24 @@ class BabioleRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Babiole::class);
     }
+    
+    /**
+      * @return Query
+      */
+    public function findAllQuery( BabioleRecherche $recherche ) : Query
+    {
+        $query = $this->createQueryBuilder('b');
+        
+        if ( $recherche->getMaxValeur() )
+        {
+            $query = $query
+                ->andwhere( 'b.valeur <= :maxValeur' )
+                ->setParameter( 'maxValeur', $recherche->getMaxValeur() );
+        }
+            
+        return $query->getQuery();
+    }
+   
 
     // /**
     //  * @return Babiole[] Returns an array of Babiole objects

@@ -19,9 +19,15 @@ class JeuEnCheneType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('intitule')
-            ->add('commentaire')
+            ->add('nom')
+            ->add('description')
+            ->add('num', IntegerType::class, [
+               'attr' => [
+                   'min' => 1
+                ]
+            ])
             ->add('disponible', CheckboxType::class)
+            ->add('enCoursConstruction', CheckboxType::class)
             ->add('difficulteObservation', IntegerType::class, [
                'attr' => [
                    'min' => 0,
@@ -34,8 +40,13 @@ class JeuEnCheneType extends AbstractType
                    'max' => 10
                 ]
             ])
+            ->add('nombreEtapes', IntegerType::class, [
+               'attr' => [
+                   'min' => 1
+                ]
+            ])
             ->add('tempsLocation', ChoiceType::class, [
-                'choices' => $this->getChoix()
+                'choices' => $this->getChoixLocation()
             ])
             ->add('babioles', EntityType::class, [
                 'class' => Babiole::class,
@@ -44,7 +55,8 @@ class JeuEnCheneType extends AbstractType
                         return $er->createQueryBuilder('b')
                             ->orderBy('b.nom', 'ASC');
                     },
-                'multiple' => true
+                'multiple' => true,                            
+                'required' => false
             ])  
             ->add('badgeImageFile', FileType::class, [
                 'required' => false
@@ -65,7 +77,7 @@ class JeuEnCheneType extends AbstractType
         ]);
     }
     
-    private function getChoix() {
+    private function getChoixLocation() {
         $choix = JeuEnChene::codeLocation;
         
         $output = [];

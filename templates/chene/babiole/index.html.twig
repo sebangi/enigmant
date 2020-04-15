@@ -10,10 +10,7 @@
             {{ form_start(form) }}
             <div class="form-row align-items-end">
                 <div class="col">
-                    {{ form_row(form.maxPrix) }}
-                </div>
-                <div class="col">
-                    {{ form_row(form.minDifficulteRaisonnement) }}
+                    {{ form_row(form.maxValeur) }}
                 </div>
                 <div class="col">
                     <div class="form-group">
@@ -25,19 +22,19 @@
         </div>
     </div>
     <div class="container mt-4">
-        <h1>Voir tous les jeux en chêne</h1>
+        <h1>Voir toutes les babioles</h1>
 
         <div class="row">
-            {% for jeuEnChene in jeux_en_chene  %}
+            {% for babiole in babioles  %}
                 <div class="col-md-4">
-                    {%  include 'chene/jeuEnChene/_jeuEnChene.html.twig' %}
+                    {%  include 'chene/babiole/_babiole.html.twig' %}
                 </div>
             {% endfor %}
         </div>
 
         {# display navigation #}
         <div class="pagination">
-            {{ knp_pagination_render(jeux_en_chene) }}
+            {{ knp_pagination_render(babioles) }}
         </div>
     </div>
 {% endblock body %}

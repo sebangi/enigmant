@@ -1,21 +1,29 @@
 {{ form_start(form) }}
 <div class="row">
-    <div class="col-md-4">{{ form_row(form.intitule) }}</div>
-    <div class="col-md-4">{{ form_row(form.disponible) }}</div>
-    <div class="col-md-2">{{ form_row(form.prix) }}</div>
+    <div class="col-md-4">{{ form_row(form.nom) }}</div>
+    <div class="col-md-2">{{ form_row(form.num) }}</div>
+    <div class="col-md-2">{{ form_row(form.disponible) }}</div>
+    <div class="col-md-2">{{ form_row(form.enCoursConstruction) }}</div>
 </div>
 <div class="row">
-    <div class="col-md-2">{{ form_row(form.badgeImageFile) }}</div>    
-    <div class="col-md-2">{{ form_row(form.difficulteObservation) }}</div>
-    <div class="col-md-2">{{ form_row(form.difficulteRaisonnement) }}</div>
+    <div class="col-md-3">{{ form_row(form.badgeImageFile) }}</div> 
     <div class="col-md-2">{{ form_row(form.tempsLocation) }}</div>
+    <div class="col-md-2">{{ form_row(form.prix) }}</div>
+ </div>
+ <div class="row">
+    <div class="col-md-3">{{ form_row(form.difficulteObservation) }}</div>
+    <div class="col-md-3">{{ form_row(form.difficulteRaisonnement) }}</div>    
+    <div class="col-md-3">{{ form_row(form.nombreEtapes) }}</div>
 </div>
 
 <div class="row">
-    <div class="col-md-12">{{ form_row(form.commentaire) }}</div>
+    <div class="col-md-12">{{ form_row(form.description) }}</div>
 </div>
-
+    
+    
 {{ form_widget(form) }}
 
 <button class="btn btn-primary">{{ button|default('Enregistrer') }}</button>
+
+
 {{ form_end(form) }} 

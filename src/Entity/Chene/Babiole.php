@@ -4,6 +4,7 @@ namespace App\Entity\Chene;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -29,12 +30,12 @@ class Babiole
     private $valeur = 1;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $commentaireGourou;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      */
     private $description;
 
@@ -127,5 +128,13 @@ class Babiole
         }
 
         return $this;
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    public function getSlug() : string {
+        return ( new Slugify() )->slugify($this->nom); 
     }
 }
