@@ -71,7 +71,7 @@ class JeuEnChene
     private $prix = 1;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\App\Entity\Chene\Babiole", inversedBy="jeuEnChenes")
+     * @ORM\ManyToMany(targetEntity="\App\Entity\Chene\Babiole", inversedBy="jeuEnChenes", cascade={"persist"})
      * @var ArrayCollection<Babiole> $babioles
      */
     private $babioles;

@@ -7,6 +7,7 @@
             <file>file:/home/sebastien/public_html/enigmant/src/Migrations/Version20200413192603.php</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/show.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/SecurityController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/config/packages/dev/web_profiler.yaml</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/base.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/config/bundles.php</file>
             <file>file:/home/sebastien/public_html/enigmant/config/packages/test/twig.yaml</file>
@@ -18,9 +19,14 @@
             <file>file:/home/sebastien/public_html/enigmant/src/Repository/Chene/BabioleRepository.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Migrations/Version20200413215010.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/AdminJeuEnCheneController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/composer.json</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/Babiole.php</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/jeuEnChene/edit.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/Chene/JeuEnCheneController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/.gitignore</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Kernel.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/config/packages/liip_imagine.yaml</file>
+            <file>file:/home/sebastien/public_html/enigmant/config/routes/liip_imagine.yaml</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Entity/User.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/JeuEnCheneType.php</file>
             <file>file:/home/sebastien/public_html/enigmant/config/packages/translation.yaml</file>
