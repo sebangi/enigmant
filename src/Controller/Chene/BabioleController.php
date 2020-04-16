@@ -16,6 +16,9 @@ use Knp\Component\Pager\PaginatorInterface;
 
 use \Liip\ImagineBundle\Imagine\Cache\CacheManager;
 
+/**
+ * @Route("/chene/babiole")
+ */
 class BabioleController extends AbstractController {
 
     /**
@@ -27,6 +30,17 @@ class BabioleController extends AbstractController {
      * @var EntityManagerInterface
      */
     private $em;
+    
+    /**
+     * @var string
+     */
+    private $menu_courant = "Babiole";
+    
+    /**
+     * @var string
+     */
+    private $theme_courant = "Chêne";
+    
 
     public function __construct(BabioleRepository $repository, EntityManagerInterface $em) {
         $this->repository = $repository;
@@ -34,7 +48,7 @@ class BabioleController extends AbstractController {
     }
 
     /**
-     * @route("/chene/babiole", name="babiole.index")  
+     * @route("/", name="babiole.index")  
      * @var PaginatorInterface $paginator
      * @var Request $Request
      * @return Response
@@ -60,7 +74,7 @@ class BabioleController extends AbstractController {
     }
 
     /**
-     * @route("/chene/babiole/{slug}-{id}", name="babiole.show", requirements={"slug": "[a-z0-9\-]*"})  
+     * @route("/{slug}-{id}", name="babiole.show", requirements={"slug": "[a-z0-9\-]*"})  
      * @param babiole $je()uEnChene
      * @return Response
      */

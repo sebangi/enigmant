@@ -17,6 +17,16 @@ use Doctrine\ORM\EntityManagerInterface;
 class AdminJeuEnCheneController extends AbstractController {
 
     /**
+     * @var string
+     */
+    private $menu_courant = "AdminJeuEnChene";
+    
+    /**
+     * @var string
+     */
+    private $theme_courant = "Chêne";
+    
+    /**
      * @var JeuEnCheneRepository
      */
     private $repository;

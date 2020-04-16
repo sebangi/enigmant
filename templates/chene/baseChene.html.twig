@@ -2,29 +2,29 @@
 
 {% block theme %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top second-nav">
-            
-            
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav navbar-brand">
-                    <li class="nav-item">
-                            <a class="nav-link {% if menu_courant is defined and menu_courant == 'EnigmesEnChene' %}active{% endif %}" href="{{ path('home.index') }}">Énigmes en chêne<span class="sr-only">(current)</span></a>
-                    </li>
-                </ul>
-                    <ul class="navbar-nav navbar-brand">
-                    <li class="nav-item">
-                        <a class="nav-link {% if menu_courant is defined and menu_courant == 'JeuEnChene' %}active{% endif %}" href="{{ path('jeuEnChene.index') }}">Jeux<span class="sr-only">(current)</span></a>
-                    </li>
-                </ul>  
-                <ul class="navbar-nav navbar-brand">
-                    <li class="nav-item">
-                        <a class="nav-link {% if menu_courant is defined and menu_courant == 'Babiole' %}active{% endif %}" href="{{ path('babiole.index') }}">Babioles<span class="sr-only">(current)</span></a>
-                    </li>
-                </ul> 
-            </div>
-        </nav>
-    
+
+        <ul class="navbar-nav navbar-brand">
+            <li class="nav-item">
+                <a class="nav-link {% if menu_courant is defined and menu_courant == 'EnigmesEnChene' %}active{% endif %}" href="{{ path('chene.home') }}">Énigmes en chêne<span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav navbar-brand">
+                <li class="nav-item">
+                    <a class="nav-link {% if menu_courant is defined and menu_courant == 'JeuEnChene' %}active{% endif %}" href="{{ path('jeuEnChene.index') }}">Jeux<span class="sr-only">(current)</span></a>
+                </li>
+            </ul>  
+            <ul class="navbar-nav navbar-brand">
+                <li class="nav-item">
+                    <a class="nav-link {% if menu_courant is defined and menu_courant == 'Babiole' %}active{% endif %}" href="{{ path('babiole.index') }}">Babioles<span class="sr-only">(current)</span></a>
+                </li>
+            </ul>                     
+        </div>
+    </nav>
+
     {% if is_granted('ROLE_ADMIN') %}
         {{ include('admin/chene/adminBaseChene.html.twig') }}
     {% endif %}
-    
+
 {% endblock theme %}

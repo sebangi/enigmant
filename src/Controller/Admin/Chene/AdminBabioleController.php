@@ -16,6 +16,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminBabioleController extends AbstractController
 {
     /**
+     * @var string
+     */
+    private $menu_courant = "AdminBabiole";
+    
+    /**
+     * @var string
+     */
+    private $theme_courant = "Chêne";
+    
+    /**
      * @Route("/", name="admin_chene_babiole_index", methods={"GET"})
      */
     public function index(BabioleRepository $babioleRepository): Response

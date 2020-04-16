@@ -14,7 +14,29 @@ use Symfony\Component\Routing\Annotation\Route;
  * @Route("/admin/chene/user")
  */
 class AdminUserController extends AbstractController
-{
+{    
+    /**
+     * @var string
+     */
+    private $menu_courant = "User";
+    
+    /**
+     * @var string
+     */
+    private $theme_courant = "Chêne";
+    
+    /**
+     * @Route("/", name="admin_home", methods={"GET"})
+     */
+    public function home(UserRepository $userRepository): Response
+    {
+        return $this->render('admin/user/index.html.twig', [
+            'menu_courant' => 'AdminUser',
+            'theme_courant' => 'Chêne',
+            'users' => $userRepository->findAll(),
+        ]);
+    }
+    
     /**
      * @Route("/", name="admin_user_index", methods={"GET"})
      */

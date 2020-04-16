@@ -14,3 +14,11 @@ body {
     background-color: orange;
 }
 
+.invisible {
+    visibility: visible;
+}
+
+/* Right-aligned section inside the top navigation */
+.topnav-right {
+  float: right;
+}

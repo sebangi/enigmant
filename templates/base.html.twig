@@ -7,12 +7,15 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css">  
         <link rel="stylesheet" href="/css/mon_style.css">
-        
+
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-            <a class="navbar-brand" href="{{ path('home.index') }}">Énigmant...</a>
+            <a class="navbar-brand navbar-brand" href="{{ path('home.index') }}">
+                Énigmant...
+            </a>
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -20,21 +23,23 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link {% if theme_courant is defined and theme_courant == 'Chêne' %}active{% endif %}" href="{{ path('jeuEnChene.index') }}">Chêne <span class="sr-only">(current)</span></a>
-                    </li>
-                </ul>  
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        {% if app.user %}
-                            {{ app.user.getUsername() }}
+
+                        {% if theme_courant is defined %} 
+                            {{ theme_courant }}
+                        {% else %}
+                            theme
                         {% endif%}
                     </li>
-                </ul>      
+                </ul>
                 <ul class="navbar-nav">
-                    <a class="nav-link" href="{{ path('admin_chene_jeuEnChene_index') }}">Admin</a>
                     <li class="nav-item">
                         {% if app.user %}
-                            {{ app.user.getUsername() }}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                Administrateur {{ app.user.getUsername() }}
+                            {% else %}
+                                {% if theme_courant is defined %} Grade en {{theme_courant}} {{ app.user.getUsername() }} {% endif %}
+                                {{ app.user.getUsername() }}
+                            {% endif %}
                             <a href="{{ path('logout') }}" class="nav-link" style="display: inline-block">Se déconnecter</a>
                         {% else %}
                             <a href="{{ path('login') }}" class="nav-link">Se connecter</a>
@@ -42,14 +47,16 @@
                     </li>
                 </ul>
             </div>
+
+
         </nav>
         {% block theme %}{% endblock theme %}
-        
+
         {% block body %}{% endblock %}
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-        
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script> 
         <script>
             $('select').select2();

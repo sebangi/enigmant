@@ -16,6 +16,9 @@ use Knp\Component\Pager\PaginatorInterface;
 
 use \Liip\ImagineBundle\Imagine\Cache\CacheManager;
 
+/**
+ * @Route("/chene/jeu-en-chene")
+ */
 class JeuEnCheneController extends AbstractController {
 
     /**
@@ -27,14 +30,25 @@ class JeuEnCheneController extends AbstractController {
      * @var EntityManagerInterface
      */
     private $em;
+    
+    /**
+     * @var string
+     */
+    private $menu_courant = "JeuEnChene";
+    
+    /**
+     * @var string
+     */
+    private $theme_courant = "Chêne";
 
+    
     public function __construct(JeuEnCheneRepository $repository, EntityManagerInterface $em) {
         $this->repository = $repository;
         $this->em = $em;
     }
 
     /**
-     * @route("/chene/jeu-en-chene", name="jeuEnChene.index")  
+     * @route("/", name="jeuEnChene.index")  
      * @var PaginatorInterface $paginator
      * @var Request $Request
      * @return Response
@@ -51,15 +65,15 @@ class JeuEnCheneController extends AbstractController {
         );
 
         return $this->render('chene/jeuEnChene/index.html.twig', [
-                    'menu_courant' => 'JeuEnChene',
-                    'theme_courant' => 'Chêne',
+                    'menu_courant' => $this->menu_courant,
+                    'theme_courant' => $this->theme_courant,
                     'jeux_en_chene' => $jeuxEnChene,
                     'form' => $form->createView()
         ]);
     }
 
     /**
-     * @route("/chene/jeu-en-chene/{slug}-{id}", name="jeuEnChene.show", requirements={"slug": "[a-z0-9\-]*"})  
+     * @route("/{slug}-{id}", name="jeuEnChene.show", requirements={"slug": "[a-z0-9\-]*"})  
      * @param JeuEnChene $je()uEnChene
      * @return Response
      */
@@ -71,9 +85,9 @@ class JeuEnCheneController extends AbstractController {
                             ], 301);
 
         return $this->render('chene/jeuEnChene/show.html.twig', [
-                    'menu_courant' => 'JeuEnChene',
-                    'jeuEnChene' => $jeuEnChene,
-                    'theme_courant' => 'Chêne'
+                    'menu_courant' => $this->menu_courant,
+                    'theme_courant' => $this->theme_courant,
+                    'jeuEnChene' => $jeuEnChene
         ]);
     }
 
