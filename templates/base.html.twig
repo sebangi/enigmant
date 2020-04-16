@@ -27,7 +27,7 @@
                         {% if theme_courant is defined %} 
                             {{ theme_courant }}
                         {% else %}
-                            theme
+                            ?
                         {% endif%}
                     </li>
                 </ul>
@@ -40,6 +40,21 @@
                                 {% if theme_courant is defined %} Grade en {{theme_courant}} {{ app.user.getUsername() }} {% endif %}
                                 {{ app.user.getUsername() }}
                             {% endif %}
+                        {% endif%}
+                    </li>
+                </ul>
+                <ul class="navbar-nav  mr-auto">
+                    <li class="nav-item">
+                        {% if app.user %}
+                           
+                                TEST
+                           
+                        {% endif%}
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        {% if app.user %}
                             <a href="{{ path('logout') }}" class="nav-link" style="display: inline-block">Se déconnecter</a>
                         {% else %}
                             <a href="{{ path('login') }}" class="nav-link">Se connecter</a>

@@ -1,8 +1,12 @@
-{% extends "admin/chene/adminBaseChene.html.twig" %}
+{% extends "admin/adminGeneral.html.twig" %}
+
+{% block title %}
+    Gérer les thèmes
+{% endblock title %}
 
 {% block body %}
     <div class="container mt-4">
-        <h1>Gérer les babioles</h1>
+        <h1>Gérer les thèmes</h1>
 
         {% for message in app.flashes('success')  %}
             <div class="alert alert-success">
@@ -11,25 +15,25 @@
         {% endfor %}           
         
         <div class="text-right mb-4">
-            <a href="{{ path("admin_chene_babiole_new") }}" class="btn btn-primary">Créer une nouvelle babiole</a>
+            <a href="{{ path("admin_theme_new") }}" class="btn btn-primary">Créer un nouveau thème</a>
         </div>
         
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Nom</th>
+                    <th>Login</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                {% for babiole in babioles %}
+                {% for theme in themes %}
                     <tr>
-                        <td>{{ babiole.nom }}</td>
+                        <td>{{ theme.nom }}</td>
                         <td>
-                            <a href="{{ path("admin_chene_babiole_edit", {id : babiole.id} ) }}" class="btn btn-secondary">Éditer</a>
-                            <form method="post" action="{{ path("admin_chene_babiole_delete", {id: babiole.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+                            <a href="{{ path("admin_theme_edit", {id : theme.id} ) }}" class="btn btn-secondary">Éditer</a>
+                            <form method="post" action="{{ path("admin_theme_delete", {id: theme.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
                                 <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ babiole.id) }}">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ theme.id) }}">
                                 <button class="btn btn-danger">Supprimer</button>
                             </form>
                         </td>

@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+
+{% block title  %}
+    Énigmant administration
+{% endblock title  %}
+
+{% block theme %}
+    
+    {% if is_granted('ROLE_ADMIN') %}
+        {{ include('chene/navBarChene.html.twig') }}
+        {{ include('admin/adminNavBarGeneral.html.twig') }}
+    {% endif %}
+
+{% endblock theme %}

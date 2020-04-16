@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin/chene/user")
+ * @Route("/admin/user")
  */
 class AdminUserController extends AbstractController
 {    
@@ -32,7 +32,6 @@ class AdminUserController extends AbstractController
     {
         return $this->render('admin/user/index.html.twig', [
             'menu_courant' => 'AdminUser',
-            'theme_courant' => 'Chêne',
             'users' => $userRepository->findAll(),
         ]);
     }
@@ -44,7 +43,6 @@ class AdminUserController extends AbstractController
     {
         return $this->render('admin/user/index.html.twig', [
             'menu_courant' => 'AdminUser',
-            'theme_courant' => 'Chêne',
             'users' => $userRepository->findAll(),
         ]);
     }
@@ -64,12 +62,11 @@ class AdminUserController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Utilisateur ajoutée avec succès.');
             
-            return $this->redirectToRoute('admin_chene_user_index');
+            return $this->redirectToRoute('admin_user_index');
         }
 
         return $this->render('admin/user/new.html.twig', [
             'menu_courant' => 'AdminUser',
-            'theme_courant' => 'Chêne',
             'user' => $user,
             'form' => $form->createView(),
         ]);
@@ -87,12 +84,11 @@ class AdminUserController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Utilisateur créée avec succès.');
             
-            return $this->redirectToRoute('admin_chene_user_index');
+            return $this->redirectToRoute('admin_user_index');
         }
 
         return $this->render('admin/user/edit.html.twig', [
             'menu_courant' => 'AdminUser',
-            'theme_courant' => 'Chêne',
             'user' => $user,
             'form' => $form->createView(),
         ]);
