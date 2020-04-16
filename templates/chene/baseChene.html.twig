@@ -2,13 +2,15 @@
 
 {% block theme %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top second-nav">
-            <a class="navbar-brand" href="{{ path('home.index') }}">Énigmes en chêne</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
+            
+            
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav navbar-brand">
+                    <li class="nav-item">
+                            <a class="nav-link {% if menu_courant is defined and menu_courant == 'EnigmesEnChene' %}active{% endif %}" href="{{ path('home.index') }}">Énigmes en chêne<span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+                    <ul class="navbar-nav navbar-brand">
                     <li class="nav-item">
                         <a class="nav-link {% if menu_courant is defined and menu_courant == 'JeuEnChene' %}active{% endif %}" href="{{ path('jeuEnChene.index') }}">Jeux<span class="sr-only">(current)</span></a>
                     </li>

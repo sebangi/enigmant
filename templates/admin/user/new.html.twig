@@ -1,14 +1,14 @@
 {% extends "chene/baseChene.html.twig" %}
 
 {% block title %}
-
+    Créer un nouvel utilisateur
 {% endblock title %}
-    Créer une nouvelle babiole
+
 {% block body %}
     <div class="container mt-4">
-        <h1>Créer une nouvelle babiole</h1>
+        <h1>Créer un nouvel utilisateur</h1>
 
-        {{ include('admin/chene/babiole/_form.html.twig', {button: 'Créer'}) }}       
+        {{ include('admin/user/_form.html.twig', {button: 'Créer'}) }}       
 
     </div>
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\Admin\Chene;
 
 use App\Entity\Chene\Babiole;
 use App\Form\Chene\BabioleType;
