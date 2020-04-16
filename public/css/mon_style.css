@@ -14,11 +14,7 @@ body {
     background-color: orange;
 }
 
-.invisible {
-    visibility: visible;
+.mon-jumbotron {
+    padding: 32px;
 }
 
-/* Right-aligned section inside the top navigation */
-.topnav-right {
-  float: right;
-}

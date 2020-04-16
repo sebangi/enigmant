@@ -11,7 +11,7 @@ use Twig\Environment;
 /**
      * @route("/chene") 
      */
-class HomeCheneController extends AbstractController
+class CheneController extends AbstractController
 {
     
     /**
@@ -32,7 +32,7 @@ class HomeCheneController extends AbstractController
     {
         $jeuxEnChene = $repository->findDerniersDisponible();
         
-        return $this->render('chene/homeChene.html.twig', [
+        return $this->render('chene/home.html.twig', [
             'menu_courant' => $this->menu_courant,
             'theme_courant' => $this->theme_courant,
             'jeux_en_chene' => $jeuxEnChene

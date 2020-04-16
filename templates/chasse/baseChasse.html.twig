@@ -1,13 +1,14 @@
 {% extends "base.html.twig" %}
 
 {% block title  %}
-    Énigmant chêne
+    Énigmant chasse
 {% endblock title  %}
 
 {% block theme %}
-    {{ include('chene/_navBarChene.html.twig') }}
+    {{ include('chasse/_navBarChasse.html.twig') }}
 
     {% if is_granted('ROLE_ADMIN') %}
-        {{ include('admin/chene/_adminNavBarChene.html.twig') }}
+        {{ include('admin/chasse/_adminNavBarChasse.html.twig') }}
     {% endif %}
+
 {% endblock theme %}

@@ -5,16 +5,23 @@
 {% endblock title %}
 
 {% block body %}
-    <div class="jumbotron text-center">
-        <h1>Bienvenue sur Enigmant</h1>
-        <p>Un texte</p>
+    <div class="jumbotron mon-jumbotron text-center">
+        <h1>Bienvenue sur Énigmant</h1>
+        <h3><i>des énigmes en tout genre</i></h3>
     </div>
 
     <div class="container">
         <a class="nav-link" href="{{ path('chene.home') }}">Les énigmes en Chêne</a>
-        <a class="nav-link" href="{{ path('chene.home') }}">Les énigmes en Chasse</a>        
-        
+        <a class="nav-link" href="{{ path('chasse.home') }}">Les énigmes en Chasse</a>        
+
         <h2>Les dernières actualités</h2>
+
+        <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            Enter a valid email address
+        </div>
+        
         {#
         <div class="row flex">
             {% for jeu_en_chene in jeux_en_chene %}
