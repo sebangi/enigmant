@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
- * @Route("admin/chene/collection-chene")
+ * @Route("/admin/chene/collection")
  */
 class AdminCollectionCheneController extends AbstractController
 {
@@ -68,7 +68,7 @@ class AdminCollectionCheneController extends AbstractController
             $this->em->flush();
             $this->addFlash('success', 'Collection modifée avec succès.');
 
-            return $this->redirectToRoute('admin/chene.collection.chene.index');
+            return $this->redirectToRoute('admin/chene.collectionChene.index');
         }
 
         return $this->render('admin/chene/collectionChene/new.html.twig', [
@@ -92,7 +92,7 @@ class AdminCollectionCheneController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="admin.collectionChene.edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="admin.chene.collectionChene.edit", methods={"GET","POST"})
      */
     public function edit(Request $request, CollectionChene $collectionChene): Response
     {
@@ -103,7 +103,7 @@ class AdminCollectionCheneController extends AbstractController
             $this->em->flush();
             $this->addFlash('success', 'Collection modifée avec succès.');
 
-            return $this->redirectToRoute('admin.chene.collection.chene.index');
+            return $this->redirectToRoute('admin.chene.collectionChene.index');
         }
 
         return $this->render('admin/chene/collectionChene/edit.html.twig', [
@@ -115,7 +115,7 @@ class AdminCollectionCheneController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="admin.collection.chene.delete", methods={"DELETE"})
+     * @Route("/{id}", name="admin.chene.collectionChene.delete", methods={"DELETE"})
      */
     public function delete(Request $request, CollectionChene $collectionChene): Response
     {
@@ -125,6 +125,6 @@ class AdminCollectionCheneController extends AbstractController
             $this->addFlash('success', 'Collection supprimée avec succès.');
         }
 
-        return $this->redirectToRoute('admin.chene.collection.chene.index');
+        return $this->redirectToRoute('admin.chene.collectionChene.index');
     }
 }

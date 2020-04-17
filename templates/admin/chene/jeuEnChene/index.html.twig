@@ -18,6 +18,7 @@
             <thead>
                 <tr>
                     <th>Nom</th>
+                    <th>Collection</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -25,6 +26,7 @@
                 {% for jeuEnChene in jeuxEnChene %}
                     <tr>
                         <td>{{ jeuEnChene.nom }}</td>
+                        <td> {% if jeuEnChene.collectionChene %} {{ jeuEnChene.collectionChene.num }} : {{ jeuEnChene.collectionChene.nom }} {% endif%}</td>
                         <td>
                             <a href="{{ path("admin.chene.jeuEnChene.edit", {id : jeuEnChene.id} ) }}" class="btn btn-secondary">Éditer</a>
                             <form method="post" action="{{ path("admin.chene.jeuEnChene.delete", {id: jeuEnChene.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">

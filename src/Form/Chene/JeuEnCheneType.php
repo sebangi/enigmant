@@ -5,6 +5,8 @@ namespace App\Form\Chene;
 use App\Entity\Chene\JeuEnChene;
 use App\Entity\Chene\Babiole;
 use App\Repository\Chene\BabioleRepository;
+use App\Entity\Chene\CollectionChene;
+use App\Repository\Chene\CollectionCheneRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -20,6 +22,15 @@ class JeuEnCheneType extends AbstractType
     {
         $builder
             ->add('nom')
+            ->add('collectionChene', EntityType::class, [
+                'class' => CollectionChene::class,
+                'choice_label' => 'nom',
+                'query_builder' => function (CollectionCheneRepository $er) {
+                        return $er->createQueryBuilder('b')
+                            ->orderBy('b.nom', 'ASC');
+                    },                            
+                'required' => false
+            ])
             ->add('description')
             ->add('num', IntegerType::class, [
                'attr' => [

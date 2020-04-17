@@ -46,7 +46,7 @@ class AdminJeuEnCheneController extends AbstractController {
      * @return Response
      */
     public function index(): Response {
-        $jeuxEnChene = $this->repository->findAll();
+        $jeuxEnChene = $this->repository->findAllBOrderByCollection();
 
         return $this->render('admin/chene/jeuEnChene/index.html.twig', [
                     'jeuxEnChene' => $jeuxEnChene,

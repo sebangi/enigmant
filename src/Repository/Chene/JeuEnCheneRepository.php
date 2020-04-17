@@ -45,6 +45,21 @@ class JeuEnCheneRepository extends ServiceEntityRepository
             
         return $query->getQuery();
     }
+    
+    /**
+      * @return JeuEnChene[]
+      */
+    public function findAllBOrderByCollection() : array
+    {
+        return $this->createQueryBuilder('j')
+            ->select('j', 'col')
+            ->leftJoin('j.collectionChene', 'col')
+            ->orderBy('col.num', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
 
     /**
       * @return JeuEnChene[]
