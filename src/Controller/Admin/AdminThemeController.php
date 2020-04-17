@@ -18,27 +18,28 @@ class AdminThemeController extends AbstractController
     /**
      * @var string
      */
-    private $menu_courant = "Theme";
+    private $menuCourant = "Thême";
     
     /**
      * @var string
      */
-    private $theme_courant = "Général";
+    private $themeCourant = "Général";
     
     
     /**
-     * @Route("/", name="admin_theme_index", methods={"GET"})
+     * @Route("/", name="admin.theme.index", methods={"GET"})
      */
     public function index(ThemeRepository $themeRepository): Response
     {
         return $this->render('admin/theme/index.html.twig', [
-            'menu_courant' => 'AdminTheme',
+            'menuCourant' => $this->menuCourant,
+            'themeCourant' => $this->themeCourant,
             'themes' => $themeRepository->findAll(),
         ]);
     }
 
     /**
-     * @Route("/new", name="admin_theme_new", methods={"GET","POST"})
+     * @Route("/new", name="admin.theme.new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -52,18 +53,19 @@ class AdminThemeController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Utilisateur ajoutée avec succès.');
             
-            return $this->redirectToRoute('admin_theme_index');
+            return $this->redirectToRoute('admin.theme.index');
         }
 
         return $this->render('admin/theme/new.html.twig', [
-            'menu_courant' => 'AdminTheme',
+            'menuCourant' => $this->menuCourant,
+            'themeCourant' => $this->themeCourant,
             'theme' => $theme,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="admin_theme_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="admin.theme.edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Theme $theme): Response
     {
@@ -74,18 +76,19 @@ class AdminThemeController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Utilisateur créée avec succès.');
             
-            return $this->redirectToRoute('admin_theme_index');
+            return $this->redirectToRoute('admin.theme.index');
         }
 
         return $this->render('admin/theme/edit.html.twig', [
-            'menu_courant' => 'AdminTheme',
+            'menuCourant' => $this->menuCourant,
+            'themeCourant' => $this->themeCourant,
             'theme' => $theme,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="admin_theme_delete", methods={"DELETE"})
+     * @Route("/{id}", name="admin.theme.delete", methods={"DELETE"})
      */
     public function delete(Request $request, Theme $theme): Response
     {
@@ -96,6 +99,6 @@ class AdminThemeController extends AbstractController
             $this->addFlash('success', 'Utilisateur supprimé avec succès.');            
         }
 
-        return $this->redirectToRoute('admin_theme_index');
+        return $this->redirectToRoute('admin.theme.index');
     }
 }

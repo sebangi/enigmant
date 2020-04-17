@@ -18,27 +18,27 @@ class AdminBabioleController extends AbstractController
     /**
      * @var string
      */
-    private $menu_courant = "AdminBabiole";
+    private $menuCourant = "AdminBabiole";
     
     /**
      * @var string
      */
-    private $theme_courant = "Chêne";
+    private $themeCourant = "Chêne";
     
     /**
-     * @Route("/", name="admin_chene_babiole_index", methods={"GET"})
+     * @Route("/", name="admin.chene.babiole.index", methods={"GET"})
      */
     public function index(BabioleRepository $babioleRepository): Response
     {
         return $this->render('admin/chene/babiole/index.html.twig', [
-            'menu_courant' => 'AdminBabiole',
-            'theme_courant' => 'Chêne',
+            'menuCourant' => 'AdminBabiole',
+            'themeCourant' => 'Chêne',
             'babioles' => $babioleRepository->findAll(),
         ]);
     }
 
     /**
-     * @Route("/new", name="admin_chene_babiole_new", methods={"GET","POST"})
+     * @Route("/new", name="admin.chene.babiole.new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -52,19 +52,19 @@ class AdminBabioleController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Babiole ajoutée avec succès.');
             
-            return $this->redirectToRoute('admin_chene_babiole_index');
+            return $this->redirectToRoute('admin.chene.babiole.index');
         }
 
         return $this->render('admin/chene/babiole/new.html.twig', [
-            'menu_courant' => 'AdminBabiole',
-            'theme_courant' => 'Chêne',
+            'menuCourant' => 'AdminBabiole',
+            'themeCourant' => 'Chêne',
             'babiole' => $babiole,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="admin_chene_babiole_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="admin.chene.babiole.edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Babiole $babiole): Response
     {
@@ -75,19 +75,19 @@ class AdminBabioleController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Babiole créée avec succès.');
             
-            return $this->redirectToRoute('admin_chene_babiole_index');
+            return $this->redirectToRoute('admin.chene.babiole.index');
         }
 
         return $this->render('admin/chene/babiole/edit.html.twig', [
-            'menu_courant' => 'AdminBabiole',
-            'theme_courant' => 'Chêne',
+            'menuCourant' => 'AdminBabiole',
+            'themeCourant' => 'Chêne',
             'babiole' => $babiole,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="admin_chene_babiole_delete", methods={"DELETE"})
+     * @Route("/{id}", name="admin.chene.babiole.delete", methods={"DELETE"})
      */
     public function delete(Request $request, Babiole $babiole): Response
     {
@@ -98,6 +98,6 @@ class AdminBabioleController extends AbstractController
             $this->addFlash('success', 'Babiole supprimée avec succès.');            
         }
 
-        return $this->redirectToRoute('admin_chene_babiole_index');
+        return $this->redirectToRoute('admin.chene.babiole.index');
     }
 }

@@ -16,12 +16,12 @@ class AdminChasseController extends AbstractController
     /**
      * @var string
      */
-    private $menu_courant = "Chasse";
+    private $menuCourant = "Chasse";
     
     /**
      * @var string
      */
-    private $theme_courant = "Chasse";
+    private $themeCourant = "Chasse";
         
     /**
      * @route("/", name="admin.chasse.home")  
@@ -30,8 +30,8 @@ class AdminChasseController extends AbstractController
     public function home( ) : Response
     {
         return $this->render('admin/chasse/home.html.twig', [
-            'menu_courant' => $this->menu_courant,
-            'theme_courant' => $this->theme_courant
+            'menuCourant' => $this->menuCourant,
+            'themeCourant' => $this->themeCourant
         ]);
     }
     

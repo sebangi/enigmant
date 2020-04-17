@@ -26,8 +26,8 @@ class JeuEnCheneType extends AbstractType
                    'min' => 1
                 ]
             ])
-            ->add('disponible', CheckboxType::class)
-            ->add('enCoursConstruction', CheckboxType::class)
+            ->add('disponible')
+            ->add('enCoursConstruction')
             ->add('difficulteObservation', IntegerType::class, [
                'attr' => [
                    'min' => 0,

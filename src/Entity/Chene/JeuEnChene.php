@@ -71,7 +71,7 @@ class JeuEnChene
 
     /**
      * @ORM\ManyToMany(targetEntity="\App\Entity\Chene\Babiole", inversedBy="jeuEnChenes", cascade={"persist"})
-     * @var ArrayCollection<Babiole> $babioles
+     * @var ArrayCollection<Babiole> 
      */
     private $babioles;
     
@@ -108,6 +108,12 @@ class JeuEnChene
      * @ORM\Column(type="integer", nullable=true, options={"default" : 1})
      */
     private $nombreEtapes = 1;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Chene\CollectionChene", inversedBy="jeuEnChenes")
+     * @var CollectionChene     
+     */
+    private $collectionChene;
 
     public function __construct()
     {
@@ -398,11 +404,20 @@ class JeuEnChene
         return $this;
     }
 
+    /**
+     * 
+     * @return int|null
+     */
     public function getNum(): ?int
     {
         return $this->num;
     }
 
+    /**
+     * 
+     * @param int $num
+     * @return \self
+     */
     public function setNum(int $num): self
     {
         $this->num = $num;
@@ -410,26 +425,65 @@ class JeuEnChene
         return $this;
     }
 
+    /**
+     * 
+     * @return bool|null
+     */
     public function getEnCoursConstruction(): ?bool
     {
         return $this->enCoursConstruction;
     }
 
-    public function setEnCoursConstruction(bool $enCoursConstruction): self
+    /**
+     * 
+     * @param bool $enCoursConstruction
+     * @return \App\Entity\Chene\JeuEnChene
+     */
+    public function setEnCoursConstruction(bool $enCoursConstruction): JeuEnChene
     {
         $this->enCoursConstruction = $enCoursConstruction;
 
         return $this;
     }
 
+    /**
+     * 
+     * @return int|null
+     */
     public function getNombreEtapes(): ?int
     {
         return $this->nombreEtapes;
     }
 
-    public function setNombreEtapes(?int $nombreEtapes): self
+    /**
+     * 
+     * @param int|null $nombreEtapes
+     * @return \App\Entity\Chene\JeuEnChene
+     */
+    public function setNombreEtapes(?int $nombreEtapes): JeuEnChene
     {
         $this->nombreEtapes = $nombreEtapes;
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @return \App\Entity\Chene\CollectionChene|null
+     */
+    public function getCollectionChene(): ?CollectionChene
+    {
+        return $this->collectionChene;
+    }
+    
+    /**
+     * 
+     * @param \App\Entity\Chene\CollectionChene|null $collectionChene
+     * @return \App\Entity\Chene\JeuEnChene
+     */
+    public function setCollectionChene(?CollectionChene $collectionChene): JeuEnChene
+    {
+        $this->collectionChene = $collectionChene;
 
         return $this;
     }

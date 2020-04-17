@@ -18,9 +18,7 @@ class HomeController extends AbstractController
     {
         $jeuxEnChene = $repository->findDerniersDisponible();
         
-        return $this->render('home.html.twig', [
-            'jeux_en_chene' => $jeuxEnChene
-        ]);
+        return $this->render('home.html.twig');
     }
     
 }

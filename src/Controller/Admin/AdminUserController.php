@@ -18,37 +18,39 @@ class AdminUserController extends AbstractController
     /**
      * @var string
      */
-    private $menu_courant = "User";
+    private $menuCourant = "User";
     
     /**
      * @var string
      */
-    private $theme_courant = "Chêne";
+    private $themeCourant = "Chêne";
     
     /**
-     * @Route("/", name="admin_home", methods={"GET"})
+     * @Route("/", name="admin.user.home", methods={"GET"})
      */
     public function home(UserRepository $userRepository): Response
     {
         return $this->render('admin/user/index.html.twig', [
-            'menu_courant' => 'AdminUser',
+            'menuCourant' => $this->menuCourant,
+            'themeCourant' => $this->themeCourant,
             'users' => $userRepository->findAll(),
         ]);
     }
     
     /**
-     * @Route("/", name="admin_user_index", methods={"GET"})
+     * @Route("/", name="admin.user.index", methods={"GET"})
      */
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('admin/user/index.html.twig', [
-            'menu_courant' => 'AdminUser',
+            'menuCourant' => $this->menuCourant,
+            'themeCourant' => $this->themeCourant,
             'users' => $userRepository->findAll(),
         ]);
     }
 
     /**
-     * @Route("/new", name="admin_user_new", methods={"GET","POST"})
+     * @Route("/new", name="admin.user.new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -62,18 +64,19 @@ class AdminUserController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Utilisateur ajoutée avec succès.');
             
-            return $this->redirectToRoute('admin_user_index');
+            return $this->redirectToRoute('admin.user.index');
         }
 
         return $this->render('admin/user/new.html.twig', [
-            'menu_courant' => 'AdminUser',
+            'menuCourant' => $this->menuCourant,
+            'themeCourant' => $this->themeCourant,
             'user' => $user,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="admin_user_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="admin.user.edit", methods={"GET","POST"})
      */
     public function edit(Request $request, User $user): Response
     {
@@ -84,18 +87,19 @@ class AdminUserController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Utilisateur créée avec succès.');
             
-            return $this->redirectToRoute('admin_user_index');
+            return $this->redirectToRoute('admin.user.index');
         }
 
         return $this->render('admin/user/edit.html.twig', [
-            'menu_courant' => 'AdminUser',
+            'menuCourant' => $this->menuCourant,
+            'themeCourant' => $this->themeCourant,
             'user' => $user,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="admin_user_delete", methods={"DELETE"})
+     * @Route("/{id}", name="admin.user.delete", methods={"DELETE"})
      */
     public function delete(Request $request, User $user): Response
     {
@@ -106,6 +110,6 @@ class AdminUserController extends AbstractController
             $this->addFlash('success', 'Utilisateur supprimé avec succès.');            
         }
 
-        return $this->redirectToRoute('admin_user_index');
+        return $this->redirectToRoute('admin.user.index');
     }
 }

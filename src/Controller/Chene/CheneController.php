@@ -17,12 +17,12 @@ class CheneController extends AbstractController
     /**
      * @var string
      */
-    private $menu_courant = "EnigmesEnChene";
+    private $menuCourant = "EnigmesEnChene";
     
     /**
      * @var string
      */
-    private $theme_courant = "Chêne";
+    private $themeCourant = "Chêne";
         
     /**
      * @route("/", name="chene.home")  
@@ -33,8 +33,8 @@ class CheneController extends AbstractController
         $jeuxEnChene = $repository->findDerniersDisponible();
         
         return $this->render('chene/home.html.twig', [
-            'menu_courant' => $this->menu_courant,
-            'theme_courant' => $this->theme_courant,
+            'menuCourant' => $this->menuCourant,
+            'themeCourant' => $this->themeCourant,
             'jeux_en_chene' => $jeuxEnChene
         ]);
     }

@@ -15,12 +15,12 @@ class AdminController extends AbstractController
     /**
      * @var string
      */
-    private $menu_courant = "User";
+    private $menuCourant = "AdminHome";
     
     /**
      * @var string
      */
-    private $theme_courant = "Chêne";
+    private $themeCourant = "Administration";
     
     /**
      * @Route("/", name="admin.home", methods={"GET"})
@@ -28,28 +28,8 @@ class AdminController extends AbstractController
     public function home(): Response
     {
         return $this->render('admin/adminHome.html.twig', [
-            'menu_courant' => 'AdminHome'
+            'menuCourant' => $this->menuCourant,
+            'themeCourant' => $this->themeCourant            
         ]);
     }
-    
-    /**
-     * @Route("/", name="admin.chene", methods={"GET"})
-     */
-    public function chene(): Response
-    {
-        return $this->render('admin/chene/adminBaseChene.html.twig', [
-            'menu_courant' => 'AdminChene'
-        ]);
-    }
-    
-    /**
-     * @Route("/", name="admin.theme", methods={"GET"})
-     */
-    public function theme(): Response
-    {
-        return $this->render('admin/theme/index.html.twig', [
-            'menu_courant' => 'AdminTheme'
-        ]);
-    }
-    
 }

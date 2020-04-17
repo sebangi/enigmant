@@ -15,7 +15,7 @@
         {% endfor %}           
         
         <div class="text-right mb-4">
-            <a href="{{ path("admin_theme_new") }}" class="btn btn-primary">Créer un nouveau thème</a>
+            <a href="{{ path("admin.theme.new") }}" class="btn btn-primary">Créer un nouveau thème</a>
         </div>
         
         <table class="table table-striped">
@@ -30,8 +30,8 @@
                     <tr>
                         <td>{{ theme.nom }}</td>
                         <td>
-                            <a href="{{ path("admin_theme_edit", {id : theme.id} ) }}" class="btn btn-secondary">Éditer</a>
-                            <form method="post" action="{{ path("admin_theme_delete", {id: theme.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+                            <a href="{{ path("admin.theme.edit", {id : theme.id} ) }}" class="btn btn-secondary">Éditer</a>
+                            <form method="post" action="{{ path("admin.theme.delete", {id: theme.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ theme.id) }}">
                                 <button class="btn btn-danger">Supprimer</button>

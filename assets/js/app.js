@@ -16,10 +16,21 @@ const $ = require('jquery');
 // the bootstrap module doesn't export/return anything
 require('bootstrap');
 
-
 // or you can include specific pieces
 // require('bootstrap/js/dist/tooltip');
 // require('bootstrap/js/dist/popover');
+
+// require the JavaScript
+require('bootstrap-star-rating');
+// require 2 CSS files needed
+require('bootstrap-star-rating/css/star-rating.css');
+require('bootstrap-star-rating/themes/krajee-svg/theme.css');
+
+
+require('@fortawesome/fontawesome-free/css/all.min.css');
+require('@fortawesome/fontawesome-free/js/all.js');
+
+
 
 $(document).ready(function() {
     $('[data-toggle="popover"]').popover();
@@ -27,12 +38,8 @@ $(document).ready(function() {
 // FIN TEST BOOSTRAP
 
 
-
-
-//import 'select2';
-
-
-//$('select').select2();
+import 'select2';
+$('select').select2();
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 // import $ from 'jquery';

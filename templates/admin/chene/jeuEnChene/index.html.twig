@@ -11,7 +11,7 @@
         {% endfor %}           
         
         <div class="text-right mb-4">
-            <a href="{{ path("admin_chene_jeuEnChene_new") }}" class="btn btn-primary">Créer un nouveau jeu en chêne</a>
+            <a href="{{ path("admin.chene.jeuEnChene.new") }}" class="btn btn-primary">Créer un nouveau jeu en chêne</a>
         </div>
         
         <table class="table table-striped">
@@ -22,12 +22,12 @@
                 </tr>
             </thead>
             <tbody>
-                {% for jeuEnChene in jeux_en_chene %}
+                {% for jeuEnChene in jeuxEnChene %}
                     <tr>
                         <td>{{ jeuEnChene.nom }}</td>
                         <td>
-                            <a href="{{ path("admin_chene_jeuEnChene_edit", {id : jeuEnChene.id} ) }}" class="btn btn-secondary">Éditer</a>
-                            <form method="post" action="{{ path("admin_chene_jeuEnChene_delete", {id: jeuEnChene.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+                            <a href="{{ path("admin.chene.jeuEnChene.edit", {id : jeuEnChene.id} ) }}" class="btn btn-secondary">Éditer</a>
+                            <form method="post" action="{{ path("admin.chene.jeuEnChene.delete", {id: jeuEnChene.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ jeuEnChene.id) }}">
                                 <button class="btn btn-danger">Supprimer</button>

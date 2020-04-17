@@ -3,11 +3,12 @@ body {
 }
 
 .second-nav {
-     top: 56px;
+     top: 40px;
+/*     background-image: url("/images/chaine.png");  assuming img folder is one step back from css*/
 }
 
 .third-nav {
-     top: 128px;
+     top: 96px;
 }
 
 .admin-bar {
@@ -16,4 +17,53 @@ body {
 
 .mon-jumbotron {
     padding: 32px;
+}
+
+@media (min-width: 567px) {
+    .abs-center-x {
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+.ma-nav {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.ma-navbar-brand {
+    margin-right: 0px;
+    margin-left: 8px;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  filter: invert(1);
+}
+
+.carousel-indicators li {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin: 10px;
+    text-indent: 0;
+    cursor: pointer;
+    border: none;
+    border-radius: 50%;
+    background-color: #0000ff;
+    box-shadow: inset 1px 1px 1px 1px rgba(0,0,0,0.5);    
+}
+.carousel-indicators .active {
+    width: 24px;
+    height: 24px;
+    margin: 10px;
+    background-color: #ffff99;
+}
+
+.colonne-centree
+{
+    float: none;
+    margin: 0 auto;
 }

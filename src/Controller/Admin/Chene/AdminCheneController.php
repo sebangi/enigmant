@@ -16,12 +16,12 @@ class AdminCheneController extends AbstractController
     /**
      * @var string
      */
-    private $menu_courant = "Chêne";
+    private $menuCourant = "Chêne";
     
     /**
      * @var string
      */
-    private $theme_courant = "Chêne";
+    private $themeCourant = "Chêne";
         
     /**
      * @route("/", name="admin.chene.home")  
@@ -30,8 +30,8 @@ class AdminCheneController extends AbstractController
     public function home( ) : Response
     {
         return $this->render('admin/chene/home.html.twig', [
-            'menu_courant' => $this->menu_courant,
-            'theme_courant' => $this->theme_courant
+            'menuCourant' => $this->menuCourant,
+            'themeCourant' => $this->themeCourant
         ]);
     }
     

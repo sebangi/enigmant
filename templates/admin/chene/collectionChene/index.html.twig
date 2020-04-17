@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="container mt-4">
-        <h1>Gérer les babioles</h1>
+        <h1>Gérer les collections</h1>
 
         {% for message in app.flashes('success')  %}
             <div class="alert alert-success">
@@ -11,7 +11,7 @@
         {% endfor %}           
         
         <div class="text-right mb-4">
-            <a href="{{ path("admin.chene.babiole.new") }}" class="btn btn-primary">Créer une nouvelle babiole</a>
+            <a href="{{ path("admin.chene.collectionChene.new") }}" class="btn btn-primary">Créer une nouvelle collection</a>
         </div>
         
         <table class="table table-striped">
@@ -22,14 +22,14 @@
                 </tr>
             </thead>
             <tbody>
-                {% for babiole in babioles %}
+                {% for collectionChene in collectionChenes %}
                     <tr>
-                        <td>{{ babiole.nom }}</td>
+                        <td>{{ collectionChene.nom }}</td>
                         <td>
-                            <a href="{{ path("admin.chene.babiole.edit", {id : babiole.id} ) }}" class="btn btn-secondary">Éditer</a>
-                            <form method="post" action="{{ path("admin.chene.babiole.delete", {id: babiole.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+                            <a href="{{ path("admin.chene.collectionChene.edit", {id : collectionChene.id} ) }}" class="btn btn-secondary">Éditer</a>
+                            <form method="post" action="{{ path("admin.chene.collectionChene.delete", {id: collectionChene.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
                                 <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ babiole.id) }}">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ collectionChene.id) }}">
                                 <button class="btn btn-danger">Supprimer</button>
                             </form>
                         </td>

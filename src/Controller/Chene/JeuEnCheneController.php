@@ -34,12 +34,12 @@ class JeuEnCheneController extends AbstractController {
     /**
      * @var string
      */
-    private $menu_courant = "JeuEnChene";
+    private $menuCourant = "JeuEnChene";
     
     /**
      * @var string
      */
-    private $theme_courant = "Chêne";
+    private $themeCourant = "Chêne";
 
     
     public function __construct(JeuEnCheneRepository $repository, EntityManagerInterface $em) {
@@ -65,8 +65,8 @@ class JeuEnCheneController extends AbstractController {
         );
 
         return $this->render('chene/jeuEnChene/index.html.twig', [
-                    'menu_courant' => $this->menu_courant,
-                    'theme_courant' => $this->theme_courant,
+                    'menuCourant' => $this->menuCourant,
+                    'themeCourant' => $this->themeCourant,
                     'jeux_en_chene' => $jeuxEnChene,
                     'form' => $form->createView()
         ]);
@@ -85,8 +85,8 @@ class JeuEnCheneController extends AbstractController {
                             ], 301);
 
         return $this->render('chene/jeuEnChene/show.html.twig', [
-                    'menu_courant' => $this->menu_courant,
-                    'theme_courant' => $this->theme_courant,
+                    'menuCourant' => $this->menuCourant,
+                    'themeCourant' => $this->themeCourant,
                     'jeuEnChene' => $jeuEnChene
         ]);
     }

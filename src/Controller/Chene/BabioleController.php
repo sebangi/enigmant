@@ -34,12 +34,12 @@ class BabioleController extends AbstractController {
     /**
      * @var string
      */
-    private $menu_courant = "Babiole";
+    private $menuCourant = "Babiole";
     
     /**
      * @var string
      */
-    private $theme_courant = "Chêne";
+    private $themeCourant = "Chêne";
     
 
     public function __construct(BabioleRepository $repository, EntityManagerInterface $em) {
@@ -66,8 +66,8 @@ class BabioleController extends AbstractController {
         );
 
         return $this->render('chene/babiole/index.html.twig', [
-                    'menu_courant' => 'Babiole',
-                    'theme_courant' => 'Chêne',
+                    'menuCourant' => 'Babiole',
+                    'themeCourant' => 'Chêne',
                     'babioles' => $babioles,
                     'form' => $form->createView()
         ]);
@@ -87,8 +87,8 @@ class BabioleController extends AbstractController {
 
         return $this->render('chene/babiole/show.html.twig', [
                     'babiole' => $babiole,
-                    'menu_courant' => 'Babiole',
-                    'theme_courant' => 'Chêne'
+                    'menuCourant' => 'Babiole',
+                    'themeCourant' => 'Chêne'
         ]);
     }
 
