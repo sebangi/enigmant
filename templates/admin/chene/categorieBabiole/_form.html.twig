@@ -1,0 +1,17 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-md-6">{{ form_row(form.nom) }}</div>   
+    <div class="col-md-2">{{ form_row(form.num) }}</div>   
+</div> 
+
+<div class="row">
+    <div class="col-md-12">{{ form_row(form.description) }}</div>
+</div>
+    
+    
+{{ form_widget(form) }}
+
+<button class="btn btn-primary">{{ button|default('Enregistrer') }}</button>
+
+
+{{ form_end(form) }} 

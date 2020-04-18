@@ -68,7 +68,7 @@ class AdminCollectionCheneController extends AbstractController
             $this->em->flush();
             $this->addFlash('success', 'Collection modifée avec succès.');
 
-            return $this->redirectToRoute('admin/chene.collectionChene.index');
+            return $this->redirectToRoute('admin.chene.collectionChene.index');
         }
 
         return $this->render('admin/chene/collectionChene/new.html.twig', [

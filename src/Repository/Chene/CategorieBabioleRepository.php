@@ -2,37 +2,37 @@
 
 namespace App\Repository\Chene;
 
-use App\Entity\Chene\TypeBabiole;
+use App\Entity\Chene\CategorieBabiole;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method TypeBabiole|null find($id, $lockMode = null, $lockVersion = null)
- * @method TypeBabiole|null findOneBy(array $criteria, array $orderBy = null)
- * @method TypeBabiole[]    findAll()
- * @method TypeBabiole[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method CategorieBabiole|null find($id, $lockMode = null, $lockVersion = null)
+ * @method CategorieBabiole|null findOneBy(array $criteria, array $orderBy = null)
+ * @method CategorieBabiole[]    findAll()
+ * @method CategorieBabiole[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TypeBabioleRepository extends ServiceEntityRepository
+class CategorieBabioleRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, TypeBabiole::class);
+        parent::__construct($registry, CategorieBabiole::class);
     }
     
     /**
-      * @return TypeBabiole[]
+      * @return CategorieBabiole[]
       */
     public function findAllByNum() : array
     {
-        return $this->createQueryBuilder('t')
-            ->orderBy('t.num', 'ASC')
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.num', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
 
     // /**
-    //  * @return TypeBabiole[] Returns an array of TypeBabiole objects
+    //  * @return CategorieBabiole[] Returns an array of CategorieBabiole objects
     //  */
     /*
     public function findByExampleField($value)
@@ -49,7 +49,7 @@ class TypeBabioleRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?TypeBabiole
+    public function findOneBySomeField($value): ?CategorieBabiole
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.exampleField = :val')

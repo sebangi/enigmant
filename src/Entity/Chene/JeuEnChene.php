@@ -56,6 +56,7 @@ class JeuEnChene
 
     /**
      * @ORM\Column(type="integer", nullable=true, options={"default" : 5})
+     * @assert\Range(min=0, max=10)
      */
     private $difficulteRaisonnement = 5;
 

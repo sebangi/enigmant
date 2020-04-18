@@ -31,5 +31,10 @@
                 <a class="nav-link {% if menuCourant is defined and menuCourant == 'AdminTypeBabiole' %}active{% endif %}" href="{{ path('admin.chene.typeBabiole.index') }}">Type de babioles<span class="sr-only">(current)</span></a>
             </li>
         </ul> 
+        <ul class="navbar-nav navbar-brand">
+            <li class="nav-item navbar-light">
+                <a class="nav-link {% if menuCourant is defined and menuCourant == 'AdminCategorieBabiole' %}active{% endif %}" href="{{ path('admin.chene.categorieBabiole.index') }}">Catégorie de babioles<span class="sr-only">(current)</span></a>
+            </li>
+        </ul> 
     </div>
 </nav>          

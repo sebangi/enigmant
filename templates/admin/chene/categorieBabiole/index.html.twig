@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="container mt-4">
-        <h1>Gérer les types de babioles</h1>
+        <h1>Gérer les catégories de babioles</h1>
 
         {% for message in app.flashes('success')  %}
             <div class="alert alert-success">
@@ -11,7 +11,7 @@
         {% endfor %}           
         
         <div class="text-right mb-4">
-            <a href="{{ path("admin.chene.typeBabiole.new") }}" class="btn btn-primary">Créer un nouveau type de babiole</a>
+            <a href="{{ path("admin.chene.categorieBabiole.new") }}" class="btn btn-primary">Créer une nouvelle catégorie de babiole</a>
         </div>
         
         <table class="table table-striped">
@@ -24,16 +24,16 @@
                 </tr>
             </thead>
             <tbody>
-                {% for typeBabiole in typeBabioles %}
+                {% for categorieBabiole in categorieBabioles %}
                     <tr>
-                        <td>{{ typeBabiole.num }}</td>
-                        <td>{{ typeBabiole.nom }}</td>
-                        <td>{{ typeBabiole.description }}</td>
+                        <td>{{ categorieBabiole.num }}</td>
+                        <td>{{ categorieBabiole.nom }}</td>
+                        <td>{{ categorieBabiole.description }}</td>
                         <td>
-                            <a href="{{ path("admin.chene.typeBabiole.edit", {id : typeBabiole.id} ) }}" class="btn btn-secondary">Éditer</a>
-                            <form method="post" action="{{ path("admin.chene.typeBabiole.delete", {id: typeBabiole.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+                            <a href="{{ path("admin.chene.categorieBabiole.edit", {id : categorieBabiole.id} ) }}" class="btn btn-secondary">Éditer</a>
+                            <form method="post" action="{{ path("admin.chene.categorieBabiole.delete", {id: categorieBabiole.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
                                 <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ typeBabiole.id) }}">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ categorieBabiole.id) }}">
                                 <button class="btn btn-danger">Supprimer</button>
                             </form>
                         </td>

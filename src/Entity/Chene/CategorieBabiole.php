@@ -10,10 +10,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\Chene\TypeBabioleRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Chene\CategorieBabioleRepository")
  * @UniqueEntity("nom")
  */
-class TypeBabiole
+class CategorieBabiole
 {
     /**
      * @ORM\Id()
@@ -39,7 +39,7 @@ class TypeBabiole
     private $num = 1;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Chene\Babiole", mappedBy="typeBabiole")
+     * @ORM\OneToMany(targetEntity="App\Entity\Chene\Babiole", mappedBy="categorieBabiole")
      * @var ArrayCollection<Babiole> 
      */
     private $babioles;
@@ -70,9 +70,9 @@ class TypeBabiole
     /**
      * 
      * @param string $nom
-     * @return \App\Entity\Chene\TypeBabiole
+     * @return \App\Entity\Chene\CategorieBabiole
      */
-    public function setNom(string $nom): TypeBabiole
+    public function setNom(string $nom): CategorieBabiole
     {
         $this->nom = $nom;
 
@@ -91,9 +91,9 @@ class TypeBabiole
     /**
      * 
      * @param string $description
-     * @return \App\Entity\Chene\TypeBabiole
+     * @return \App\Entity\Chene\CategorieBabiole
      */
-    public function setDescription(string $description): TypeBabiole
+    public function setDescription(string $description): CategorieBabiole
     {
         $this->description = $description;
 
@@ -120,9 +120,9 @@ class TypeBabiole
     /**
      * 
      * @param int|null $num
-     * @return \App\Entity\Chene\TypeBabiole
+     * @return \App\Entity\Chene\CategorieBabiole
      */
-    public function setNum(?int $num): TypeBabiole
+    public function setNum(?int $num): CategorieBabiole
     {
         $this->num = $num;
 
@@ -140,13 +140,13 @@ class TypeBabiole
     /**
      * 
      * @param \App\Entity\Chene\Babiole $babiole
-     * @return TypeBabiole
+     * @return CategorieBabiole
      */
-    public function addBabiole(Babiole $babiole): TypeBabiole
+    public function addBabiole(Babiole $babiole): CategorieBabiole
     {
         if (!$this->babioles->contains($babiole)) {
             $this->babioles[] = $babiole;
-            $babiole->setTypeBabiole($this);
+            $babiole->setCategorieBabiole($this);
         }
 
         return $this;
@@ -155,15 +155,15 @@ class TypeBabiole
     /**
      * 
      * @param \App\Entity\Chene\Babiole $babiole
-     * @return TypeBabiole
+     * @return CategorieBabiole
      */
-    public function removeBabiole(Babiole $babiole): TypeBabiole
+    public function removeBabiole(Babiole $babiole): CategorieBabiole
     {
         if ($this->babioles->contains($babiole)) {
             $this->babioles->removeElement($babiole);
             // set the owning side to null (unless already changed)
-            if ($babiole->getTypeBabiole() === $this) {
-                $babiole->setTypeBabiole(null);
+            if ($babiole->getCategorieBabiole() === $this) {
+                $babiole->setCategorieBabiole(null);
             }
         }
 

@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use \App\Entity\Chene\TypeBabiole;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Chene\BabioleRepository")
@@ -27,6 +28,7 @@ class Babiole
 
     /**
      * @ORM\Column(type="integer", options={"default" : 1})
+     * @assert\Range(min=0)
      */
     private $valeur = 1;
 
@@ -49,6 +51,11 @@ class Babiole
      * @ORM\ManyToOne(targetEntity="\App\Entity\Chene\TypeBabiole", inversedBy="babioles")
      */
     private $typeBabiole;
+        
+    /**
+     * @ORM\ManyToOne(targetEntity="\App\Entity\Chene\CategorieBabiole", inversedBy="babioles")
+     */
+    private $categorieBabiole;
 
     public function __construct()
     {
@@ -211,6 +218,27 @@ class Babiole
     public function setTypeBabiole(?TypeBabiole $typeBabiole): Babiole
     {
         $this->typeBabiole = $typeBabiole;
+
+        return $this;
+    }    
+    
+    /**
+     * 
+     * @return CategorieBabiole|null
+     */
+    public function getCategorieBabiole(): ?CategorieBabiole
+    {
+        return $this->categorieBabiole;
+    }
+
+    /**
+     * 
+     * @param \App\Entity\Chene\CategorieBabiole|null $categorieBabiole
+     * @return \App\Entity\Chene\Babiole
+     */
+    public function setCategorieBabiole(?CategorieBabiole $categorieBabiole): Babiole
+    {
+        $this->categorieBabiole = $categorieBabiole;
 
         return $this;
     }

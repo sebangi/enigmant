@@ -18,7 +18,9 @@
             <thead>
                 <tr>
                     <th>Nom</th>
+                    <th>Valeur</th>
                     <th>Type</th>
+                    <th>Catégorie</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -26,7 +28,9 @@
                 {% for babiole in babioles %}
                     <tr>
                         <td>{{ babiole.nom }}</td>
+                        <td>{{ babiole.valeur }}</td>
                         <td>{% if babiole.typeBabiole %}{{ babiole.typeBabiole.nom }}{% endif %}</td>
+                        <td>{% if babiole.categorieBabiole %}{{ babiole.categorieBabiole.nom }}{% endif %}</td>
                         <td>
                             <a href="{{ path("admin.chene.babiole.edit", {id : babiole.id} ) }}" class="btn btn-secondary">Éditer</a>
                             <form method="post" action="{{ path("admin.chene.babiole.delete", {id: babiole.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">

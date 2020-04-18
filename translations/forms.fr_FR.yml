@@ -3,6 +3,7 @@ Difficulte observation: Difficulté d'observation
 Difficulte raisonnement: Difficulté de raisonnement
 Temps location: Temps de location
 Nom : Nom
+Num : Numéro
 Valeur: Valeur
 Description: Description
 Commentaire gourou: Commentaires du Grand Gourou
@@ -15,3 +16,11 @@ un mois: un mois
 Commentaire: Commentaires
 Prix maximal: Prix maximal
 Difficulté de raisonnement minimale: Difficulté de raisonnement minimale
+Type babiole: Type de babiole
+Categorie babiole: Catégorie de babiole
+Image file: Image
+Collection chene: Collection chene
+Badge image file: Image du badge
+En cours construction: En cours de construction
+Nombre etapes: Nombre d'étapes
+        

@@ -36,7 +36,7 @@ class CollectionChene
      * @ORM\Column(type="integer")
      * @assert\Range(min=1)
      */
-    private $num;
+    private $num = 1;
     
     /**
      * @Vich\UploadableField(mapping="image", fileNameProperty="imageName")     
