@@ -3,6 +3,9 @@
 namespace App\Form\Chene;
 
 use App\Entity\Chene\Babiole;
+use App\Entity\Chene\TypeBabiole;
+use App\Repository\Chene\TypeBabioleRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,6 +22,15 @@ class BabioleType extends AbstractType
                'attr' => [
                    'min' => 0
                 ]
+            ])
+            ->add('typeBabiole', EntityType::class, [
+                'class' => TypeBabiole::class,
+                'choice_label' => 'nom',
+                'query_builder' => function (TypeBabioleRepository $er) {
+                        return $er->createQueryBuilder('b')
+                            ->orderBy('b.nom', 'ASC');
+                    },                            
+                'required' => false
             ])
             ->add('commentaireGourou')
             ->add('description')

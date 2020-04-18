@@ -33,7 +33,7 @@ class AdminBabioleController extends AbstractController
         return $this->render('admin/chene/babiole/index.html.twig', [
             'menuCourant' => 'AdminBabiole',
             'themeCourant' => 'Chêne',
-            'babioles' => $babioleRepository->findAll(),
+            'babioles' => $babioleRepository->findAllByType(),
         ]);
     }
 

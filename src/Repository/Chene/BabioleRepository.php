@@ -39,6 +39,20 @@ class BabioleRepository extends ServiceEntityRepository
         return $query->getQuery();
     }
    
+    
+    /**
+      * @return Babiole[]
+      */
+    public function findAllByType() : array
+    {
+        return $this->createQueryBuilder('b')
+            ->select('b', 'typ')
+            ->leftJoin('b.typeBabiole', 'typ')
+            ->orderBy('typ.num', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     // /**
     //  * @return Babiole[] Returns an array of Babiole objects

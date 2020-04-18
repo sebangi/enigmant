@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+use \App\Entity\Chene\TypeBabiole;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Chene\BabioleRepository")
@@ -44,58 +45,103 @@ class Babiole
      */
     private $jeuEnChenes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="\App\Entity\Chene\TypeBabiole", inversedBy="babioles")
+     */
+    private $typeBabiole;
+
     public function __construct()
     {
         $this->jeuEnChenes = new ArrayCollection();
     }
 
+    /**
+     * 
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * 
+     * @return string|null
+     */
     public function getNom(): ?string
     {
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
+    /**
+     * 
+     * @param string $nom
+     * @return \App\Entity\Chene\Babiole
+     */
+    public function setNom(string $nom): Babiole
     {
         $this->nom = $nom;
 
         return $this;
     }
 
+    /**
+     * 
+     * @return int|null
+     */
     public function getValeur(): ?int
     {
         return $this->valeur;
     }
 
-    public function setValeur(int $valeur): self
+    /**
+     * 
+     * @param int $valeur
+     * @return \App\Entity\Chene\Babiole
+     */
+    public function setValeur(int $valeur): Babiole
     {
         $this->valeur = $valeur;
 
         return $this;
     }
 
+    /**
+     * 
+     * @return string|null
+     */
     public function getCommentaireGourou(): ?string
     {
         return $this->commentaireGourou;
     }
 
-    public function setCommentaireGourou(string $commentaireGourou): self
+    /**
+     * 
+     * @param string $commentaireGourou
+     * @return \App\Entity\Chene\Babiole
+     */
+    public function setCommentaireGourou(string $commentaireGourou): Babiole
     {
         $this->commentaireGourou = $commentaireGourou;
 
         return $this;
     }
 
+    /**
+     * 
+     * @return string|null
+     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
+    /**
+     * 
+     * @param string|null $description
+     * @return \App\Entity\Chene\Babiole
+     */
+    public function setDescription(?string $description): Babiole
     {
         $this->description = $description;
 
@@ -110,7 +156,12 @@ class Babiole
         return $this->jeuEnChenes;
     }
 
-    public function addJeuEnChene(JeuEnChene $jeuEnChene): self
+    /**
+     * 
+     * @param \App\Entity\Chene\JeuEnChene $jeuEnChene
+     * @return \App\Entity\Chene\Babiole
+     */
+    public function addJeuEnChene(JeuEnChene $jeuEnChene): Babiole
     {
         if (!$this->jeuEnChenes->contains($jeuEnChene)) {
             $this->jeuEnChenes[] = $jeuEnChene;
@@ -120,7 +171,12 @@ class Babiole
         return $this;
     }
 
-    public function removeJeuEnChene(JeuEnChene $jeuEnChene): self
+    /**
+     * 
+     * @param \App\Entity\Chene\JeuEnChene $jeuEnChene
+     * @return \App\Entity\Chene\Babiole
+     */
+    public function removeJeuEnChene(JeuEnChene $jeuEnChene): Babiole
     {
         if ($this->jeuEnChenes->contains($jeuEnChene)) {
             $this->jeuEnChenes->removeElement($jeuEnChene);
@@ -136,5 +192,26 @@ class Babiole
      */
     public function getSlug() : string {
         return ( new Slugify() )->slugify($this->nom); 
+    }
+
+    /**
+     * 
+     * @return TypeBabiole|null
+     */
+    public function getTypeBabiole(): ?TypeBabiole
+    {
+        return $this->typeBabiole;
+    }
+
+    /**
+     * 
+     * @param TypeBabiole|null $typeBabiole
+     * @return \App\Entity\Chene\Babiole
+     */
+    public function setTypeBabiole(?TypeBabiole $typeBabiole): Babiole
+    {
+        $this->typeBabiole = $typeBabiole;
+
+        return $this;
     }
 }
