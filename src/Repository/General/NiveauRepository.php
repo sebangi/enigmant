@@ -30,7 +30,7 @@ class NiveauRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('n')
             ->select('n', 'the')
             ->leftJoin('n.theme', 'the')
-            ->orderBy('the.nom', 'ASC')
+            ->orderBy('the.num', 'ASC')
             ->addOrderBy('n.num', 'ASC')
         ;
     }

@@ -120,6 +120,11 @@ class Niveau
         return $this->num;
     }
 
+    /**
+     * 
+     * @param int $num
+     * @return \App\Entity\General\Niveau
+     */
     public function setNum(int $num): Niveau
     {
         $this->num = $num;

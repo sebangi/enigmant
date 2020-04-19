@@ -12,8 +12,7 @@ use Twig\Environment;
      * @route("/chene") 
      */
 class CheneController extends AbstractController
-{
-    
+{    
     /**
      * @var string
      */

@@ -1,0 +1,13 @@
+<a href="{{ path("login") }}" class="btn btn-outline-success ma-nav">
+    {% if is_granted('ROLE_ADMIN') %}
+        {% if themeCourant is defined %}
+            {{ app.user.getGrade( themeCourant ) }}
+        {% else %}
+            Administrateur sans thème
+        {% endif %}
+    {% else %}
+        {% if themeCourant is defined %} Grade en {{themeCourant}} {{ app.user.getUsername() }} {% endif %}
+        {{ app.user.getUsername() }}
+    {% endif %}
+    <span class="fas fa-medal" aria-hidden="true"></span>
+</a>

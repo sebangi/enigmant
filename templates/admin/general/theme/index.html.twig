@@ -21,13 +21,15 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Login</th>
+                    <th>Num.</th>
+                    <th>Nom</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {% for theme in themes %}
                     <tr>
+                        <td>{{ theme.num }}</td>
                         <td>{{ theme.nom }}</td>
                         <td>
                             <a href="{{ path("admin.theme.edit", {id : theme.id} ) }}" class="btn btn-secondary">Éditer</a>

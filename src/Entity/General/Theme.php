@@ -5,6 +5,7 @@ namespace App\Entity\General;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\General\ThemeRepository")
@@ -22,6 +23,12 @@ class Theme
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
+    
+    /**
+     * @ORM\Column(type="integer")
+     * @assert\Range(min=1)
+     */
+    private $num = 1;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -64,6 +71,27 @@ class Theme
         return $this;
     }
 
+    /**
+     * 
+     * @return int|null
+     */
+    public function getNum(): ?int
+    {
+        return $this->num;
+    }
+
+    /**
+     * 
+     * @param int $num
+     * @return \App\Entity\General\Theme
+     */
+    public function setNum(int $num): Theme
+    {
+        $this->num = $num;
+
+        return $this;
+    }
+    
     /**
      * 
      * @return string|null

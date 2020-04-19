@@ -27,17 +27,7 @@
                 <ul class="navbar-nav abs-center-x">
                     <li class="nav-item">
                         {% if app.user %}
-
-                            <a href="{{ path("login") }}" class="btn btn-outline-success ma-nav">
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    Administrateur {{ app.user.getUsername() }}
-                                {% else %}
-                                    {% if themeCourant is defined %} Grade en {{themeCourant}} {{ app.user.getUsername() }} {% endif %}
-                                    {{ app.user.getUsername() }}
-                                {% endif %}
-                                <span class="fas fa-medal" aria-hidden="true"></span>
-                            </a>
-
+                            {{ include('_grade.html.twig') }}
                         {% endif%}
                     </li>
                 </ul>

@@ -3,6 +3,7 @@
 namespace App\Repository\General;
 
 use App\Entity\General\User;
+use App\Entity\General\Niveau;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -34,6 +35,23 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $user->setPassword($newEncodedPassword);
         $this->_em->persist($user);
         $this->_em->flush();
+    }
+    
+    public function getGrade( integer $id, string $theme ) : Niveau
+    {
+        return $this->createQueryBuilder('u')
+            ->select('niv')
+            ->leftJoin('u.obtentionNiveau', 'obt')
+            ->leftJoin('obt.niveau', 'niv')
+            ->leftJoin('niv.theme', 'the')
+            ->Where('u.id = :id')
+            ->andWhere('the.nom = :theme')
+            ->orderBy('obt.date', 'DESC')
+            ->setParameter('id', $id)
+            ->setParameter('theme', $theme)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
     }
 
     // /**

@@ -13,6 +13,7 @@ class ThemeType extends AbstractType
     {
         $builder
             ->add('nom')
+            ->add('num')
             ->add('description')
         ;
     }
