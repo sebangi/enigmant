@@ -11,8 +11,8 @@ use App\Repository\General\UserRepository;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\General\UserRepository")
  */
-class User implements UserInterface
-{
+class User implements UserInterface {
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -44,8 +44,7 @@ class User implements UserInterface
     /**
      * 
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->obtentionNiveaux = new ArrayCollection();
     }
 
@@ -53,8 +52,7 @@ class User implements UserInterface
      * 
      * @return int|null
      */
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
@@ -63,8 +61,7 @@ class User implements UserInterface
      *
      * @see UserInterface
      */
-    public function getUsername(): string
-    {
+    public function getUsername(): string {
         return (string) $this->username;
     }
 
@@ -73,8 +70,7 @@ class User implements UserInterface
      * @param string $username
      * @return \App\Entity\General\User
      */
-    public function setUsername(string $username): User
-    {
+    public function setUsername(string $username): User {
         $this->username = $username;
 
         return $this;
@@ -83,8 +79,7 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getRoles(): array
-    {
+    public function getRoles(): array {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
@@ -97,8 +92,7 @@ class User implements UserInterface
      * @param array $roles
      * @return \App\Entity\General\User
      */
-    public function setRoles(array $roles): User
-    {
+    public function setRoles(array $roles): User {
         $this->roles = $roles;
 
         return $this;
@@ -107,8 +101,7 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getPassword(): string
-    {
+    public function getPassword(): string {
         return (string) $this->password;
     }
 
@@ -117,8 +110,7 @@ class User implements UserInterface
      * @param string $password
      * @return \App\Entity\General\User
      */
-    public function setPassword(string $password): User
-    {
+    public function setPassword(string $password): User {
         $this->password = $password;
 
         return $this;
@@ -127,16 +119,14 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getSalt()
-    {
+    public function getSalt() {
         // not needed when using the "bcrypt" algorithm in security.yaml
     }
 
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
-    {
+    public function eraseCredentials() {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
@@ -144,8 +134,7 @@ class User implements UserInterface
     /**
      * @return Collection|ObtentionNiveau[]
      */
-    public function getObtentionNiveaux(): Collection
-    {
+    public function getObtentionNiveaux(): Collection {
         return $this->obtentionNiveaux;
     }
 
@@ -154,8 +143,7 @@ class User implements UserInterface
      * @param \App\Entity\General\ObtentionNiveau $obtentionNiveau
      * @return \App\Entity\General\User
      */
-    public function addObtentionNiveau(ObtentionNiveau $obtentionNiveau): User
-    {
+    public function addObtentionNiveau(ObtentionNiveau $obtentionNiveau): User {
         if (!$this->obtentionNiveaux->contains($obtentionNiveau)) {
             $this->obtentionNiveaux[] = $obtentionNiveau;
             $obtentionNiveau->setUser($this);
@@ -169,8 +157,7 @@ class User implements UserInterface
      * @param \App\Entity\General\ObtentionNiveau $obtentionNiveau
      * @return \App\Entity\General\User
      */
-    public function removeObtentionNiveau(ObtentionNiveau $obtentionNiveau): User
-    {
+    public function removeObtentionNiveau(ObtentionNiveau $obtentionNiveau): User {
         if ($this->obtentionNiveaux->contains($obtentionNiveau)) {
             $this->obtentionNiveaux->removeElement($obtentionNiveau);
             // set the owning side to null (unless already changed)
@@ -180,25 +167,38 @@ class User implements UserInterface
         }
 
         return $this;
-    }    
-    
+    }
+
     /**
      * 
-     * @param string $theme
+     * @param string|null $theme
      * @return string
      */
-    public function getGrade( string $theme ): string
-    {
-               
-//        $niveau = $userRepository->getGrade($this->id, $theme);
-//        
-//        if ( $niveau )
-//        {
-//            return $niveau->getGrade() . " en " . $this->username;
-//        }
-//        else
-//        {
-            return "Grade en " . $theme . " " . $this->username;
-//        }
+    public function getGrade(?string $theme): string {
+        if ($theme) {
+            $niveaux = new ArrayCollection();
+            foreach ($this->obtentionNiveaux->toArray() as $obt) {
+                if ($obt->getNiveau()->getTheme()->getNom() == strtolower($theme))
+                    $niveaux->add($obt);
+            }
+
+            if (!$niveaux->isEmpty()) {
+                $iterator = $niveaux->getIterator();
+                $niveauxTrie = new ArrayCollection();
+
+                $iterator->uasort(function ($a, $b) {
+                    return $a->getdate() <=> $b->getdate();
+                });
+
+                $niveauxTrie = new ArrayCollection(iterator_to_array($iterator));
+
+                return $niveauxTrie->last()->getNiveau()->getGrade() . " " . $this->username;
+            } else {
+                return $this->username;
+            }
+        } else {
+            return $this->username;
+        }        
     }
+
 }
