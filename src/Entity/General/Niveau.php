@@ -56,7 +56,7 @@ class Niveau
     private $theme;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\General\ObtentionNiveau", mappedBy="niveau")
+     * @ORM\OneToMany(targetEntity="App\Entity\General\ObtentionNiveau", mappedBy="niveau", cascade={"persist", "remove"})
      */
     private $obtentionNiveaux;
 

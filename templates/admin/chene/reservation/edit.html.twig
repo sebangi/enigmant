@@ -1,0 +1,12 @@
+{% extends "admin/chene/adminBaseChene.html.twig" %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Éditer la réservation</h1>
+        <h3>Réservation de {{ reservation.jeu.getNomEtCollection() }} par {{ reservation.user.username }}</h3>
+
+        {{ include('admin/chene/reservation/_form.html.twig', {button: 'Éditer'}) }}       
+
+    </div>
+
+{% endblock %}

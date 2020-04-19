@@ -20,7 +20,7 @@ class AdminController extends AbstractController
     /**
      * @var string
      */
-    private $themeCourant = "Administration";
+    private $themeCourant = "Général";
     
     /**
      * @Route("/", name="admin.home", methods={"GET"})

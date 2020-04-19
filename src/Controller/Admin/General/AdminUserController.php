@@ -23,7 +23,7 @@ class AdminUserController extends AbstractController
     /**
      * @var string
      */
-    private $themeCourant = "Chêne";
+    private $themeCourant = "Général";
     
     /**
      * @Route("/", name="admin.user.home", methods={"GET"})

@@ -13,12 +13,17 @@
         </ul>  
         <ul class="navbar-nav navbar-brand">                
             <li class="nav-item">
-                <a class="nav-link {% if menuCourant is defined and menuCourant == 'AdminCollectionEnChene' %}active{% endif %}" href="{{ path('admin.chene.collectionChene.index') }}">Collections<span class="sr-only">(current)</span></a>
+                <a class="nav-link {% if menuCourant is defined and menuCourant == 'AdminReservation' %}active{% endif %}" href="{{ path('admin.chene.reservation.index') }}">Réservations<span class="sr-only">(current)</span></a>
             </li>                
         </ul>  
         <ul class="navbar-nav navbar-brand">                
             <li class="nav-item">
                 <a class="nav-link {% if menuCourant is defined and menuCourant == 'AdminJeuEnChene' %}active{% endif %}" href="{{ path('admin.chene.jeuEnChene.index') }}">Jeux<span class="sr-only">(current)</span></a>
+            </li>                
+        </ul>  
+        <ul class="navbar-nav navbar-brand">                
+            <li class="nav-item">
+                <a class="nav-link {% if menuCourant is defined and menuCourant == 'AdminCollectionEnChene' %}active{% endif %}" href="{{ path('admin.chene.collectionChene.index') }}">Collections<span class="sr-only">(current)</span></a>
             </li>                
         </ul>  
         <ul class="navbar-nav navbar-brand">

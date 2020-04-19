@@ -2,14 +2,19 @@
 
 namespace App\Entity\General;
 
+use App\Entity\Chene\ReservationJeu;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Repository\General\UserRepository;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\Email;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\General\UserRepository")
+ * @UniqueEntity("nom")
  */
 class User implements UserInterface {
 
@@ -37,15 +42,52 @@ class User implements UserInterface {
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\General\ObtentionNiveau", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\General\ObtentionNiveau", mappedBy="user", cascade={"persist", "remove"})
      */
     private $obtentionNiveaux;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Chene\ReservationJeu", mappedBy="user", orphanRemoval=true, cascade={"persist", "remove"})
+     */
+    private $reservations;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Email()
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $prenom;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $masque = false;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" : true})
+     */
+    private $receptionInformationChasse = false;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" : true})
+     */
+    private $receptionInformationChene = false;
 
     /**
      * 
      */
     public function __construct() {
         $this->obtentionNiveaux = new ArrayCollection();
+        $this->reservationJeux = new ArrayCollection();
     }
 
     /**
@@ -172,9 +214,9 @@ class User implements UserInterface {
     /**
      * 
      * @param string|null $theme
-     * @return string
+     * @return string|null
      */
-    public function getGrade(?string $theme): string {
+    public function getGrade(?string $theme): ?string {
         if ($theme) {
             $niveaux = new ArrayCollection();
             foreach ($this->obtentionNiveaux->toArray() as $obt) {
@@ -184,21 +226,187 @@ class User implements UserInterface {
 
             if (!$niveaux->isEmpty()) {
                 $iterator = $niveaux->getIterator();
-                $niveauxTrie = new ArrayCollection();
-
+                
                 $iterator->uasort(function ($a, $b) {
                     return $a->getdate() <=> $b->getdate();
                 });
 
                 $niveauxTrie = new ArrayCollection(iterator_to_array($iterator));
 
-                return $niveauxTrie->last()->getNiveau()->getGrade() . " " . $this->username;
+                return $niveauxTrie->last()->getNiveau()->getGrade();
             } else {
-                return $this->username;
+                return null;
             }
         } else {
-            return $this->username;
+            return null;
         }        
+    }
+
+    /**
+     * @return Collection|ReservationJeu[]
+     */
+    public function getReservationJeux(): Collection
+    {
+        return $this->reservationJeux;
+    }
+
+    /**
+     * 
+     * @param ReservationJeu $reservationJeux
+     * @return \App\Entity\General\User
+     */
+    public function addReservationJeux(ReservationJeu $reservationJeux): User
+    {
+        if (!$this->reservationJeux->contains($reservationJeux)) {
+            $this->reservationJeux[] = $reservationJeux;
+            $reservationJeux->setUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @param ReservationJeu $reservationJeux
+     * @return \App\Entity\General\User
+     */
+    public function removeReservationJeux(ReservationJeu $reservationJeux): User
+    {
+        if ($this->reservationJeux->contains($reservationJeux)) {
+            $this->reservationJeux->removeElement($reservationJeux);
+            // set the owning side to null (unless already changed)
+            if ($reservationJeux->getUser() === $this) {
+                $reservationJeux->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * 
+     * @param string|null $email
+     * @return \App\Entity\General\User
+     */
+    public function setEmail(?string $email): User
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @return string|null
+     */
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    /**
+     * 
+     * @param string $nom
+     * @return \App\Entity\General\User
+     */
+    public function setNom(string $nom): User
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @return string|null
+     */
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    /**
+     * 
+     * @param string $prenom
+     * @return \App\Entity\General\User
+     */
+    public function setPrenom(string $prenom): User
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @return bool|null
+     */
+    public function getMasque(): ?bool
+    {
+        return $this->masque;
+    }
+
+    /**
+     * 
+     * @param bool $masque
+     * @return \App\Entity\General\User
+     */
+    public function setMasque(bool $masque): User
+    {
+        $this->masque = $masque;
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @return bool|null
+     */
+    public function getReceptionInformationChasse(): ?bool
+    {
+        return $this->receptionInformationChasse;
+    }
+
+    /**
+     * 
+     * @param bool $receptionInformationChasse
+     * @return \App\Entity\General\User
+     */
+    public function setReceptionInformationChasse(bool $receptionInformationChasse): User
+    {
+        $this->receptionInformationChasse = $receptionInformationChasse;
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @return bool|null
+     */
+    public function getReceptionInformationChene(): ?bool
+    {
+        return $this->receptionInformationChene;
+    }
+
+    /**
+     * 
+     * @param bool $receptionInformationChene
+     * @return \App\Entity\General\User
+     */
+    public function setReceptionInformationChene(bool $receptionInformationChene): User
+    {
+        $this->receptionInformationChene = $receptionInformationChene;
+
+        return $this;
     }
 
 }

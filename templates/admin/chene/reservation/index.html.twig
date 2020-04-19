@@ -1,0 +1,56 @@
+{% extends "admin/chene/adminBaseChene.html.twig" %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Gérer les réservations</h1>
+
+        {% for message in app.flashes('success')  %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}           
+        
+        <div class="text-right mb-4">
+            <a href="{{ path("admin.chene.reservation.new") }}" class="btn btn-primary">Créer une nouvelle réservation</a>
+        </div>
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Joueur</th>
+                    <th>Jeu</th>
+                    <th>Réussi</th>
+                    <th>Demande</th>
+                    <th>Retrait</th>
+                    <th>Fin prévue</th>
+                    <th>Rendu</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reservation in reservations %}
+                    <tr>
+                        <td>{{ reservation.user.username }}</td>
+                        <td>{{ reservation.jeu.nom }}</td>
+                        <td>{{ include('outils/_booleen.html.twig', {bvaleur : reservation.reussi}) }}</td>
+                        <td>{{ reservation.dateDemande | date("d/m/Y")}}</td>
+                        <td>{{ reservation.dateRetrait | date("d/m/Y")}}</td>
+                        <td>{{ reservation.dateFinPrevue | date("d/m/Y")}}</td>
+                        <td>{{ reservation.dateRendu | date("d/m/Y")}}</td>
+                        <td>
+                            <a href="{{ path("admin.chene.reservation.edit", {id : reservation.id} ) }}" class="btn btn-secondary">Éditer</a>
+                            <form method="post" action="{{ path("admin.chene.reservation.delete", {id: reservation.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.id) }}">
+                                <button class="btn btn-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock body %}
+
+

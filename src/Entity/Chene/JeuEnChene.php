@@ -129,9 +129,15 @@ class JeuEnChene
      */
     private $collectionChene;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Chene\ReservationJeu", mappedBy="jeu", orphanRemoval=true, cascade={"persist", "remove"})
+     */
+    private $reservations;
+
     public function __construct()
     {
         $this->babioles = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
     
     /**
@@ -194,6 +200,21 @@ class JeuEnChene
     public function getNom(): ?string
     {
         return $this->nom;
+    }
+    
+    /**
+     * 
+     * @return string|null
+     */
+    public function getNomEtCollection(): ?string
+    {
+        if ( $this->collectionChene ) {
+            return $this->nom . " [" . $this->collectionChene->getNom() . "]";
+        }    
+        else
+        {
+            return $this->nom;
+        }
     }
     
     
@@ -543,6 +564,47 @@ class JeuEnChene
     public function setImageName(?string $imageName) : JeuEnChene
     {
         $this->imageName = imageName;
+        return $this;
+    }
+
+    /**
+     * @return Collection|ReservationJeu[]
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    /**
+     * 
+     * @param \App\Entity\Chene\ReservationJeu $reservation
+     * @return \App\Entity\Chene\JeuEnChene
+     */
+    public function addReservation(ReservationJeu $reservation): JeuEnChene
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setJeu($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @param \App\Entity\Chene\ReservationJeu $reservation
+     * @return \App\Entity\Chene\JeuEnChene
+     */
+    public function removeReservation(ReservationJeu $reservation): JeuEnChene
+    {
+        if ($this->reservations->contains($reservation)) {
+            $this->reservations->removeElement($reservation);
+            // set the owning side to null (unless already changed)
+            if ($reservation->getJeu() === $this) {
+                $reservation->setJeu(null);
+            }
+        }
+
         return $this;
     }
 }
