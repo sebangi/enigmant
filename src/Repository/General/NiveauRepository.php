@@ -5,6 +5,9 @@ namespace App\Repository\General;
 use App\Entity\General\Niveau;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Orm\QueryBuilder;
+use Doctrine\Orm\Query;
+
 
 /**
  * @method Niveau|null find($id, $lockMode = null, $lockVersion = null)
@@ -20,15 +23,24 @@ class NiveauRepository extends ServiceEntityRepository
     }
     
     /**
-      * @return Niveau[]
+      * @return QueryBuilder
       */
-    public function findAllByTheme() : array
+    public function findAllByThemeQueryBuilder() : QueryBuilder
     {
         return $this->createQueryBuilder('n')
             ->select('n', 'the')
             ->leftJoin('n.theme', 'the')
             ->orderBy('the.nom', 'ASC')
             ->addOrderBy('n.num', 'ASC')
+        ;
+    }
+    
+    /**
+      * @return Niveau[]
+      */
+    public function findAllByTheme() : array
+    {
+        return $this->findAllByThemeQueryBuilder()                
             ->getQuery()
             ->getResult()
         ;

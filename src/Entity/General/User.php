@@ -2,6 +2,8 @@
 
 namespace App\Entity\General;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -32,6 +34,16 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\General\ObtentionNiveau", mappedBy="user")
+     */
+    private $obtentionNiveaux;
+
+    public function __construct()
+    {
+        $this->obtentionNiveaux = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,5 +116,36 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|ObtentionNiveau[]
+     */
+    public function getObtentionNiveaux(): Collection
+    {
+        return $this->obtentionNiveaux;
+    }
+
+    public function addObtentionNiveau(ObtentionNiveau $obtentionNiveau): self
+    {
+        if (!$this->obtentionNiveaux->contains($obtentionNiveau)) {
+            $this->obtentionNiveaux[] = $obtentionNiveau;
+            $obtentionNiveau->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeObtentionNiveau(ObtentionNiveau $obtentionNiveau): self
+    {
+        if ($this->obtentionNiveaux->contains($obtentionNiveau)) {
+            $this->obtentionNiveaux->removeElement($obtentionNiveau);
+            // set the owning side to null (unless already changed)
+            if ($obtentionNiveau->getUser() === $this) {
+                $obtentionNiveau->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

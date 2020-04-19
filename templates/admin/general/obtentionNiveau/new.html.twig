@@ -1,0 +1,16 @@
+{% extends "admin/general/adminGeneral.html.twig" %}
+
+{% block title %}
+    Donner un nouveau grade
+{% endblock title %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Donner un nouveau gade</h1>
+
+        {{ include('admin/general/obtentionNiveau/_form.html.twig', {button: 'Créer'}) }}       
+
+    </div>
+
+{% endblock body %}
+

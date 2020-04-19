@@ -25,6 +25,7 @@ class NiveauType extends AbstractType
             ])
             ->add('disponible')
             ->add('conditionTexte')
+            ->add('raison')
             ->add('couleur', ColorType::class)
             ->add('theme', EntityType::class, [
                 'class' => Theme::class,

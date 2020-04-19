@@ -1,0 +1,54 @@
+{% extends "admin/general/adminGeneral.html.twig" %}
+
+{% block title %}
+    Gérer les grades
+{% endblock title %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Gérer les grades</h1>
+
+        {% for message in app.flashes('success')  %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}           
+        
+        <div class="text-right mb-4">
+            <a href="{{ path("admin.obtentionNiveau.new") }}" class="btn btn-primary">Donner un nouveau grade</a>
+        </div>
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Joueur</th>
+                    <th>Grade</th>
+                    <th>Date</th>
+                    <th>Vu</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for obtentionNiveau in obtentionNiveaux %}
+                    <tr>
+                        <td>{{ obtentionNiveau.user.username }}</td>
+                        <td>{{ obtentionNiveau.niveau.getGrade() }}</td>
+                        <td>{{ obtentionNiveau.date | date("d/m/Y") }}</td>                        
+                        <td>{{ include('outils/_booleen.html.twig', {bvaleur : obtentionNiveau.vu}) }}</td>
+                        <td>
+                            <a href="{{ path("admin.obtentionNiveau.edit", {id : obtentionNiveau.id} ) }}" class="btn btn-secondary">Éditer</a>
+                            <form method="post" action="{{ path("admin.obtentionNiveau.delete", {id: obtentionNiveau.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ obtentionNiveau.id) }}">
+                                <button class="btn btn-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock body %}
+
+

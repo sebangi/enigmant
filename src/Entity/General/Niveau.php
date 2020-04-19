@@ -2,6 +2,8 @@
 
 namespace App\Entity\General;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -37,6 +39,11 @@ class Niveau
      * @ORM\Column(type="text", nullable=true)
      */
     private $conditionTexte;
+    
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $raison;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -47,6 +54,16 @@ class Niveau
      * @ORM\ManyToOne(targetEntity="App\Entity\General\Theme", inversedBy="niveaux")
      */
     private $theme;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\General\ObtentionNiveau", mappedBy="niveau")
+     */
+    private $obtentionNiveaux;
+
+    public function __construct()
+    {
+        $this->obtentionNiveaux = new ArrayCollection();
+    }
 
     /**
      * 
@@ -64,6 +81,22 @@ class Niveau
     public function getNom(): ?string
     {
         return $this->nom;
+    }
+    
+    /**
+     * 
+     * @return string|null
+     */
+    public function getGrade(): ?string
+    {
+        if ( $this->nom ) 
+        {
+            return $this->nom . " en " . $this->getTheme()->getNom();
+        }
+        else 
+        {
+            return null;            
+        }
     }
 
     /**
@@ -135,6 +168,29 @@ class Niveau
 
         return $this;
     }
+    
+    
+    /**
+     * 
+     * @return string|null
+     */
+    public function getRaison(): ?string
+    {
+        return $this->raison;
+    }
+
+    /**
+     * 
+     * @param string $raison
+     * @return \App\Entity\General\Niveau
+     */
+    public function setRaison(string $raison): Niveau
+    {
+        $this->raison = $raison;
+
+        return $this;
+    }
+
 
     /**
      * 
@@ -174,6 +230,37 @@ class Niveau
     public function setTheme(?Theme $theme): Niveau
     {
         $this->theme = $theme;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ObtentionNiveau[]
+     */
+    public function getObtentionNiveaux(): Collection
+    {
+        return $this->obtentionNiveaux;
+    }
+
+    public function addObtentionNiveau(ObtentionNiveau $obtentionNiveau): self
+    {
+        if (!$this->obtentionNiveaux->contains($obtentionNiveau)) {
+            $this->obtentionNiveaux[] = $obtentionNiveau;
+            $obtentionNiveau->setNiveau($this);
+        }
+
+        return $this;
+    }
+
+    public function removeObtentionNiveau(ObtentionNiveau $obtentionNiveau): self
+    {
+        if ($this->obtentionNiveaux->contains($obtentionNiveau)) {
+            $this->obtentionNiveaux->removeElement($obtentionNiveau);
+            // set the owning side to null (unless already changed)
+            if ($obtentionNiveau->getNiveau() === $this) {
+                $obtentionNiveau->setNiveau(null);
+            }
+        }
 
         return $this;
     }
