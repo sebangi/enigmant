@@ -45,6 +45,9 @@
                     <li class="nav-item">
                         {% if app.user %}
                             <a href="{{ path("login") }}" class="btn">
+                                <span class="fas fa-envelope-open-text" aria-hidden="true"></span> {#envelope#}
+                            </a>    
+                            <a href="{{ path("login") }}" class="btn">
                                 <span class="fas fa-user" aria-hidden="true"></span>
                             </a>
                             <a href="{{ path('logout') }}" class="nav-link btn" style="display: inline-block" >

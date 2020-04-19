@@ -26,6 +26,11 @@
             <li class="nav-item">
                 <a class="nav-link {% if menuCourant is defined and menuCourant == 'AdminTheme' %}active{% endif %}" href="{{ path('admin.theme.index') }}">Thèmes<span class="sr-only">(current)</span></a>
             </li>                
-        </ul>          
+        </ul>  
+        <ul class="navbar-nav navbar-brand">                
+            <li class="nav-item">
+                <a class="nav-link {% if menuCourant is defined and menuCourant == 'AdminNiveau' %}active{% endif %}" href="{{ path('admin.niveau.index') }}">Niveaux<span class="sr-only">(current)</span></a>
+            </li>                
+        </ul>             
     </div>
 </nav>          

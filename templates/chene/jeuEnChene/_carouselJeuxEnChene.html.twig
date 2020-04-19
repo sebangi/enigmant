@@ -9,8 +9,12 @@
 
     <div class="carousel-inner">
         {% for jeuEnChene in jeux_en_chene  %}                
-            <div class="carousel-item {% if loop.index0 == 0 %}active{% endif %}">
-                <img class="d-block w-100" src="{{ vich_uploader_asset(jeuEnChene, 'badgeImageFile') }}" style="width:auto; height:400px;">
+            <div class="carousel-item {% if loop.index0 == 0 %}active{% endif %}">                
+                {% if jeuEnChene.imageName %}
+                    <img class="d-block w-100" src="{{ vich_uploader_asset(jeuEnChene, 'imageFile') }}" style="width:auto; height:400px;"> 
+                {% else %}
+                    <img class="d-block w-100" src="{{ '/images/jeuEnChene/vide.jpg' }}" style="width:auto; height:400px;">
+                 {% endif%}
             </div>
         {% endfor %}
     </div>

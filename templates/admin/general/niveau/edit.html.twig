@@ -1,0 +1,15 @@
+{% extends "admin/general/adminGeneral.html.twig" %}
+
+{% block title %}
+    Éditer le niveau
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Éditer le niveau</h1>
+
+        {{ include('admin/general/niveau/_form.html.twig', {button: 'Éditer'}) }}       
+
+    </div>
+
+{% endblock %}

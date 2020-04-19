@@ -6,7 +6,7 @@ security:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
             entity:
-                class: App\Entity\User
+                class: App\Entity\General\User
                 property: username
                 
     firewalls:
@@ -37,6 +37,6 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
         
     encoders:
-        App\Entity\User:
+        App\Entity\General\User:
             algorithm: bcrypt
             cost: 12

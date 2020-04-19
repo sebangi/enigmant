@@ -1,0 +1,58 @@
+{% extends "admin/general/adminGeneral.html.twig" %}
+
+{% block title %}
+    Gérer les niveaux
+{% endblock title %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Gérer les niveaux</h1>
+
+        {% for message in app.flashes('success')  %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}           
+        
+        <div class="text-right mb-4">
+            <a href="{{ path("admin.niveau.new") }}" class="btn btn-primary">Créer un nouveau niveau</a>
+        </div>
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Thème</th>
+                    <th>Num.</th>
+                    <th>Dispo.</th>
+                    <th>Condition</th>
+                    <th>Couleur</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for niveau in niveaux %}
+                    <tr>
+                        <td>{{ niveau.nom }}</td>
+                        <td>{% if niveau.theme %}{{ niveau.theme.nom }}{% endif %}</td>
+                        <td>{{ niveau.num }}</td>                        
+                        <td>{{ include('outils/_booleen.html.twig', {bvaleur : niveau.disponible}) }}</td>
+                        <td>{{ niveau.conditionTexte }}</td>
+                        <td>{{ include('outils/_cercle.html.twig', {couleur : niveau.couleur}) }}</td>
+                        <td>
+                            <a href="{{ path("admin.niveau.edit", {id : niveau.id} ) }}" class="btn btn-secondary">Éditer</a>
+                            <form method="post" action="{{ path("admin.niveau.delete", {id: niveau.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ niveau.id) }}">
+                                <button class="btn btn-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock body %}
+
+

@@ -88,6 +88,19 @@ class JeuEnChene
      * @var string|null
      */
     private $badgeImageName;
+    
+    /**
+     * @Vich\UploadableField(mapping="image", fileNameProperty="imageName")     
+     * @assert\Image(mimeTypes="image/jpeg") 
+     * @var File|null
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
+     */
+    private $imageName;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -486,6 +499,50 @@ class JeuEnChene
     {
         $this->collectionChene = $collectionChene;
 
+        return $this;
+    }
+    
+     /**
+     * 
+     * @return null|File
+     */
+    public function getImageFile(): ?File 
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param null|File $imageFile
+     * @return JeuEnChene
+     */
+    public function setImageFile(?File $imageFile) : JeuEnChene 
+    {
+        $this->imageFile = $imageFile;
+        
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->majDate = new \DateTime('now');
+        }
+        
+        return $this;
+    }
+    
+     /**
+     * 
+     * @return null|string
+     */
+    public function getImageName() : ?string 
+    {
+        return $this->imageName;
+    }
+    
+    /**
+     * 
+     * @param null|string $imageName
+     * @return JeuEnChene
+     */
+    public function setImageName(?string $imageName) : JeuEnChene
+    {
+        $this->imageName = imageName;
         return $this;
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\Admin\General;
 
-use App\Entity\User;
-use App\Form\UserType;
-use App\Repository\UserRepository;
+use App\Entity\General\User;
+use App\Form\General\UserType;
+use App\Repository\General\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +30,7 @@ class AdminUserController extends AbstractController
      */
     public function home(UserRepository $userRepository): Response
     {
-        return $this->render('admin/user/index.html.twig', [
+        return $this->render('admin/general/user/index.html.twig', [
             'menuCourant' => $this->menuCourant,
             'themeCourant' => $this->themeCourant,
             'users' => $userRepository->findAll(),
@@ -42,7 +42,7 @@ class AdminUserController extends AbstractController
      */
     public function index(UserRepository $userRepository): Response
     {
-        return $this->render('admin/user/index.html.twig', [
+        return $this->render('admin/general/user/index.html.twig', [
             'menuCourant' => $this->menuCourant,
             'themeCourant' => $this->themeCourant,
             'users' => $userRepository->findAll(),
@@ -62,12 +62,12 @@ class AdminUserController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-            $this->addFlash('success', 'Utilisateur ajoutée avec succès.');
+            $this->addFlash('success', 'Utilisateur ajouté avec succès.');
             
             return $this->redirectToRoute('admin.user.index');
         }
 
-        return $this->render('admin/user/new.html.twig', [
+        return $this->render('admin/general/user/new.html.twig', [
             'menuCourant' => $this->menuCourant,
             'themeCourant' => $this->themeCourant,
             'user' => $user,
@@ -85,12 +85,12 @@ class AdminUserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', 'Utilisateur créée avec succès.');
+            $this->addFlash('success', 'Utilisateur créé avec succès.');
             
             return $this->redirectToRoute('admin.user.index');
         }
 
-        return $this->render('admin/user/edit.html.twig', [
+        return $this->render('admin/general/user/edit.html.twig', [
             'menuCourant' => $this->menuCourant,
             'themeCourant' => $this->themeCourant,
             'user' => $user,

@@ -8,7 +8,7 @@
     
     {% if is_granted('ROLE_ADMIN') %}
         {{ include('chene/_navBarChene.html.twig') }}
-        {{ include('admin/_adminNavBarGeneral.html.twig') }}
+        {{ include('admin/general/_adminNavBarGeneral.html.twig') }}
     {% endif %}
 
 {% endblock theme %}

@@ -1,10 +1,10 @@
 {% cache 'jeuEnChene' ~ jeuEnChene.id  jeuEnChene.majDate.timestamp|default(2019) %}
 <div class="card mb-4">
     <div class="card-body">
-    {% if jeuEnChene.badgeImageName %}
-        <img src="{{ vich_uploader_asset(jeuEnChene, 'badgeImageFile') | imagine_filter("my_thumb") }}" > 
+    {% if jeuEnChene.imageName %}
+        <img src="{{ vich_uploader_asset(jeuEnChene, 'imageFile') | imagine_filter("my_thumb") }}" > 
     {% else %}
-        <img src="{{ '/images/badges/vide.png' | imagine_filter("my_thumb") }}" class="card-img-top" style="width:100%; height:230px;"> 
+        <img src="{{ '/images/jeuEnChene/vide.jpg' | imagine_filter("my_thumb") }}" class="card-img-top" style="width:100%; height:230px;"> 
     {% endif%}
 
         <h5 class="card-title">

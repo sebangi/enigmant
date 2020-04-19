@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\Admin\General;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,7 +27,7 @@ class AdminController extends AbstractController
      */
     public function home(): Response
     {
-        return $this->render('admin/adminHome.html.twig', [
+        return $this->render('admin/general/adminHome.html.twig', [
             'menuCourant' => $this->menuCourant,
             'themeCourant' => $this->themeCourant            
         ]);

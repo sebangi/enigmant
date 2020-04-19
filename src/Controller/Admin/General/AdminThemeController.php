@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\Admin\General;
 
-use App\Entity\Theme;
-use App\Form\ThemeType;
-use App\Repository\ThemeRepository;
+use App\Entity\General\Theme;
+use App\Form\General\ThemeType;
+use App\Repository\General\ThemeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +18,7 @@ class AdminThemeController extends AbstractController
     /**
      * @var string
      */
-    private $menuCourant = "Thême";
+    private $menuCourant = "Thème";
     
     /**
      * @var string
@@ -31,7 +31,7 @@ class AdminThemeController extends AbstractController
      */
     public function index(ThemeRepository $themeRepository): Response
     {
-        return $this->render('admin/theme/index.html.twig', [
+        return $this->render('admin/general/theme/index.html.twig', [
             'menuCourant' => $this->menuCourant,
             'themeCourant' => $this->themeCourant,
             'themes' => $themeRepository->findAll(),
@@ -51,12 +51,12 @@ class AdminThemeController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($theme);
             $entityManager->flush();
-            $this->addFlash('success', 'Utilisateur ajoutée avec succès.');
+            $this->addFlash('success', 'Thème ajouté avec succès.');
             
             return $this->redirectToRoute('admin.theme.index');
         }
 
-        return $this->render('admin/theme/new.html.twig', [
+        return $this->render('admin/general/theme/new.html.twig', [
             'menuCourant' => $this->menuCourant,
             'themeCourant' => $this->themeCourant,
             'theme' => $theme,
@@ -74,12 +74,12 @@ class AdminThemeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', 'Utilisateur créée avec succès.');
+            $this->addFlash('success', 'Thème créé avec succès.');
             
             return $this->redirectToRoute('admin.theme.index');
         }
 
-        return $this->render('admin/theme/edit.html.twig', [
+        return $this->render('admin/general/theme/edit.html.twig', [
             'menuCourant' => $this->menuCourant,
             'themeCourant' => $this->themeCourant,
             'theme' => $theme,
@@ -96,7 +96,7 @@ class AdminThemeController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($theme);
             $entityManager->flush();
-            $this->addFlash('success', 'Utilisateur supprimé avec succès.');            
+            $this->addFlash('success', 'Thême supprimé avec succès.');            
         }
 
         return $this->redirectToRoute('admin.theme.index');
