@@ -25,10 +25,12 @@ class ObtentionNiveauRepository extends ServiceEntityRepository
     public function findAllAvecJointure() : array
     {
         return $this->createQueryBuilder('o')
-            ->select('o', 'niv', 'user')
+            ->select('o', 'niv', 'user', 'theme')
             ->leftJoin('o.niveau', 'niv')
             ->leftJoin('o.user', 'user')
+            ->leftJoin('niv.theme', 'theme')
             ->orderBy('user.username', 'ASC')
+            ->orderBy('theme.num', 'ASC')
             ->addorderBy('o.date', 'DESC')
             ->getQuery()
             ->getResult()

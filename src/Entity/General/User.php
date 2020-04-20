@@ -3,6 +3,7 @@
 namespace App\Entity\General;
 
 use App\Entity\Chene\ReservationJeu;
+use App\Entity\General\ObtentionNiveau;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -43,6 +44,7 @@ class User implements UserInterface {
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\General\ObtentionNiveau", mappedBy="user", cascade={"persist", "remove"})
+     * @var Collection|ObtentionNiveau[] 
      */
     private $obtentionNiveaux;
 
@@ -241,6 +243,27 @@ class User implements UserInterface {
             return null;
         }        
     }
+    
+    /**
+     * 
+     * @param Niveau $niveau
+     * @return bool
+     */
+    public function hasGrade(Niveau $niveau): bool {
+        if ( $this->obtentionNiveaux->isEmpty() )
+        {
+            return false;
+        }
+        else
+        {
+            foreach ($this->obtentionNiveaux->toArray() as $obt) {
+                if ( $obt->getNiveau()->getId() == $niveau->getId() )
+                    return true;
+            }
+            
+            return false;
+        }        
+    }    
 
     /**
      * @return Collection|ReservationJeu[]

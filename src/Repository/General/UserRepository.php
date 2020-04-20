@@ -37,23 +37,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
     
-    public function getGrade( integer $id, string $theme ) : Niveau
-    {
-        return $this->createQueryBuilder('u')
-            ->select('niv')
-            ->leftJoin('u.obtentionNiveau', 'obt')
-            ->leftJoin('obt.niveau', 'niv')
-            ->leftJoin('niv.theme', 'the')
-            ->Where('u.id = :id')
-            ->andWhere('the.nom = :theme')
-            ->orderBy('obt.date', 'DESC')
-            ->setParameter('id', $id)
-            ->setParameter('theme', $theme)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

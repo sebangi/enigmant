@@ -46,6 +46,24 @@ class NiveauRepository extends ServiceEntityRepository
         ;
     }
 
+    public function getGrades( $id, $theme ) 
+    {
+        return $this->createQueryBuilder('niveau')
+            ->select('niveau', 'theme', 'obtention')
+            ->Join('niveau.theme', 'theme')
+            ->LeftJoin('niveau.obtentionNiveaux', 'obtention')
+            ->LeftJoin('obtention.user', 'user')
+            ->Where('user.id = :id or obtention.id is null')
+//            ->andWhere('theme.nom = :theme')
+            ->orderBy('theme.num', 'ASC')
+            ->addOrderBy('niveau.num', 'ASC')
+            ->setParameter('id', $id)
+//            ->setParameter('theme', $theme)
+            ->getQuery()
+            ->getScalarResult()
+        ;
+    } 
+    
     // /**
     //  * @return Niveau[] Returns an array of Niveau objects
     //  */

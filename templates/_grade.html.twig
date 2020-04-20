@@ -1,4 +1,4 @@
-<a href="{{ path("login") }}" class="btn btn-outline-success ma-nav">
+<a href="{{ path("grade.index") }}" class="btn btn-outline-success ma-nav">
     {% if themeCourant is defined %}
         {{ app.user.getGrade( themeCourant ) ~ " " }}    
     {% endif %}

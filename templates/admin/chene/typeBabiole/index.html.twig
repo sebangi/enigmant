@@ -4,10 +4,12 @@
     <div class="container mt-4">
         <h1>Gérer les types de babioles</h1>
 
-        {% for message in app.flashes('success')  %}
-            <div class="alert alert-success">
-                {{ message }}
-            </div>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endfor %}           
         
         <div class="text-right mb-4">

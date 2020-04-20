@@ -28,7 +28,7 @@ class ObtentionNiveauType extends AbstractType
                 'query_builder' => function (NiveauRepository $er) {
                         return $er->findAllByThemeQueryBuilder();
                     },                            
-                'required' => false
+                'required' => true
             ])
             ->add('user', EntityType::class, [
                 'class' => User::class,
@@ -37,7 +37,7 @@ class ObtentionNiveauType extends AbstractType
                         return $er->createQueryBuilder('t')
                             ->orderBy('t.username', 'ASC');
                     },                            
-                'required' => false
+                'required' => true
             ]);
     }
 

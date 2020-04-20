@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+
+{% block title  %}
+    Mes grades
+{% endblock title  %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Mes grades</h1>
+
+        <div class="row mt-4">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Grade</th>                       
+                        <th>Date</th>
+                        <th>Condition d'obtention</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for grade in grades %}
+                        <tr bgcolor="{{ grade.niveau_couleur }}" 
+                            {% if not grade.obtention_id is null %}class="font-weight-bold"{% endif %}>
+                            <td>
+                                {% if grade.niveau_disponible %}
+                                    {{ include('outils/_booleen.html.twig', {bvaleur : grade.obtention_id}) }}
+                                {% else %}
+                                    <span class="fas fa-lock" aria-hidden="true"></span>
+                                {% endif %}
+                                </td>
+                            <td>{{ grade.niveau_nom }} en {{ grade.theme_nom }}</td>
+                            {% if grade.obtention_id is null %}                                                               
+                                <td>?</td>                            
+                                <td>{{ grade.niveau_conditionTexte }}</td>
+                            {% else %} 
+                                <td>{{ grade.obtention_date | date("d/m/Y") }}</td>                            
+                                <td>{{ grade.niveau_raison }}</td>                            
+                            {% endif%}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+{% endblock body %}
