@@ -13,23 +13,26 @@
                 <thead>
                     <tr>
                         <th></th>
-                        <th>Grade</th>                       
+                        <th style="width: 20%">Grade</th>                       
                         <th>Date</th>
                         <th>Condition d'obtention</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for grade in grades %}
-                        <tr bgcolor="{{ grade.niveau_couleur }}" 
-                            {% if not grade.obtention_id is null %}class="font-weight-bold"{% endif %}>
+                        <tr bgcolor="{{ grade.niveau_couleur }}">
                             <td>
                                 {% if grade.niveau_disponible %}
-                                    {{ include('outils/_booleen.html.twig', {bvaleur : grade.obtention_id}) }}
+                                    {% if grade.obtention_id %}
+                                        <span class="fas fa-medal text-success" aria-hidden="true"></span>
+                                    {% else %}
+                                        <span class="fas fa-medal text-light" aria-hidden="true"></span>
+                                    {% endif%}
                                 {% else %}
                                     <span class="fas fa-lock" aria-hidden="true"></span>
                                 {% endif %}
-                                </td>
-                            <td>{{ grade.niveau_nom }} en {{ grade.theme_nom }}</td>
+                            </td>
+                            <td {% if not grade.obtention_id is null %}class="font-weight-bold"{% endif %}>{{ grade.niveau_nom }} en {{ grade.theme_nom }}</td>
                             {% if grade.obtention_id is null %}                                                               
                                 <td>?</td>                            
                                 <td>{{ grade.niveau_conditionTexte }}</td>

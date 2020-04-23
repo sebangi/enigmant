@@ -3,7 +3,10 @@
     <div class="col-md-4">{{ form_row(form.username) }}</div>
 </div>
 <div class="row">
-    <div class="col-md-4">{{ form_row(form.password) }}</div>
+    <div class="col-md-4">{{ form_row(form.password.first) }}</div>
+</div>
+<div class="row">
+    <div class="col-md-4">{{ form_row(form.password.second) }}</div>
 </div>
 
 {{ form_widget(form) }}

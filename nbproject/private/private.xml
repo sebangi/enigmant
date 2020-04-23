@@ -14,6 +14,7 @@
             <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/_jeuEnChene.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Repository/Chene/BabioleRepository.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/ReservationJeuType.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/composer.json</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/Babiole.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/General/AdminThemeController.php</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/chene/baseChene.html.twig</file>
@@ -28,6 +29,7 @@
             <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/niveau/edit.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/niveau/index.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/Chene/AdminTypeBabioleController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/General/GradeController.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/General/AdminNiveauController.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Form/General/ObtentionNiveauType.php</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/_carouselJeuxEnChene.html.twig</file>
@@ -48,10 +50,12 @@
             <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/jeuEnChene/index.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Entity/General/Theme.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/Chene/AdminCollectionCheneController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/composer.lock</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/reservation/_form.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Repository/General/UserRepository.php</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/index.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/assets/css/app.css</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/babiole/index.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/categorieBabiole/new.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Form/General/NiveauType.php</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/typeBabiole/_form.html.twig</file>
@@ -73,6 +77,7 @@
             <file>file:/home/sebastien/public_html/enigmant/templates/base.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/General/AdminObtentionNiveauController.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/BabioleType.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/webpack.config.js</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Repository/General/ThemeRepository.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Repository/Chene/ReservationJeuRepository.php</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/_grade.html.twig</file>
@@ -93,6 +98,7 @@
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/HomeController.php</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/outils/_booleen.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/adminHome.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/.env</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/Chene/AdminCheneController.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Repository/General/NiveauRepository.php</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/babiole/edit.html.twig</file>
@@ -100,6 +106,7 @@
             <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/obtentionNiveau/new.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/babiole/index.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/JeuEnChene.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/general/grade/index.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/theme/edit.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/obtentionNiveau/index.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Repository/Chene/TypeBabioleRepository.php</file>
