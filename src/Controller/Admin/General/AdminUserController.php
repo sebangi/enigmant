@@ -4,14 +4,17 @@ namespace App\Controller\Admin\General;
 
 use App\Entity\General\User;
 use App\Form\General\UserType;
+use App\Form\General\UserPasswordType;
 use App\Repository\General\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
- * @Route("/admin/user")
+ * @Route("/admin/user", name="admin.user.")
  */
 class AdminUserController extends AbstractController
 {    
@@ -26,7 +29,29 @@ class AdminUserController extends AbstractController
     private $themeCourant = "Général";
     
     /**
-     * @Route("/", name="admin.user.home", methods={"GET"})
+     *
+     * @var UserRepository 
+     */
+    private $userRepository;
+    
+    /**
+     *
+     * @var EntityManagerInterface 
+     */
+    private $em;
+
+    /**
+     * 
+     * @param UserRepository $repository
+     * @param \App\Controller\Admin\General\EntityManagerInterface $em
+     */
+    public function __construct(UserRepository $repository, EntityManagerInterface $em) {
+        $this->userRepository = $repository;
+        $this->em = $em;
+    }
+    
+    /**
+     * @Route("/", name="home", methods={"GET"})
      */
     public function home(UserRepository $userRepository): Response
     {
@@ -38,7 +63,7 @@ class AdminUserController extends AbstractController
     }
     
     /**
-     * @Route("/", name="admin.user.index", methods={"GET"})
+     * @Route("/", name="index", methods={"GET"})
      */
     public function index(UserRepository $userRepository): Response
     {
@@ -50,18 +75,21 @@ class AdminUserController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="admin.user.new", methods={"GET","POST"})
+     * @Route("/new", name="new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, ['create' => true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            
+            $user->setPassword($passwordEncoder->encodePassword($user, $form->get('plainPassword')->getData()));
+            
+            $this->em->persist($user);
+            $this->em->flush();
             $this->addFlash('success', 'Utilisateur ajouté avec succès.');
             
             return $this->redirectToRoute('admin.user.index');
@@ -76,7 +104,7 @@ class AdminUserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="admin.user.edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
      */
     public function edit(Request $request, User $user): Response
     {
@@ -84,7 +112,8 @@ class AdminUserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $this->em->persist($user);
+            $this->em->flush();
             $this->addFlash('success', 'Utilisateur créé avec succès.');
             
             return $this->redirectToRoute('admin.user.index');
@@ -99,7 +128,7 @@ class AdminUserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="admin.user.delete", methods={"DELETE"})
+     * @Route("/{id}", name="delete", methods={"DELETE"})
      */
     public function delete(Request $request, User $user): Response
     {
@@ -112,4 +141,65 @@ class AdminUserController extends AbstractController
 
         return $this->redirectToRoute('admin.user.index');
     }
+        
+    /**
+     * @Route("/password/change/{id}", name="password.change")
+     */
+    public function changePassword(User $user, Request $request, UserPasswordEncoderInterface $passwordEncoder) {
+        
+        $form = $this->createForm(UserPasswordType::class, $user, ['require_current_password' => true]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if(!$passwordEncoder->isPasswordValid($user, $form->get('plainPassword')->getData())) {
+                
+                $this->addFlash('danger', 'Mot de passe incorrect.');
+                return $this->redirectToRoute('admin.password.change', ['id' => $user]);
+            }
+            
+            $user->setPassword($passwordEncoder->encodePassword($user, $form->get('plainPassword')->getData()));
+            
+            $this->em->persist($user);
+            $this->em->flush();
+
+            $this->addFlash('success', 'Le mot de passe a été modifié avec succès');
+            return $this->redirectToRoute('admin.user.index');
+        }
+
+        return $this->render('admin/general/user/password.html.twig', [
+                    'menuCourant' => $this->menuCourant,
+                    'themeCourant' => $this->themeCourant,
+                    'user' => $user,
+                    'form' => $form->createView(),
+        ]);
+        
+    }
+    
+    /**
+     * @Route("/password/reset/{id}", name="password.reset")
+     */
+    public function resetPassword(User $user, Request $request, UserPasswordEncoderInterface $passwordEncoder) {
+        $form = $this->createForm(UserPasswordType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $user->setPassword($passwordEncoder->encodePassword($user, $form->get('plainPassword')->getData()));
+            
+            $this->em->persist($user);
+            $this->em->flush();
+
+            $this->addFlash('success', 'Le mot de passe a été modifié avec succès');
+            return $this->redirectToRoute('admin.user.index');
+        }
+
+        return $this->render('admin/general/user/password.html.twig', [
+                    'menuCourant' => $this->menuCourant,
+                    'themeCourant' => $this->themeCourant,
+                    'user' => $user,
+                    'form' => $form->createView(),
+        ]);
+    }
+    
 }

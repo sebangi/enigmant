@@ -40,5 +40,10 @@ Avis prive technique: Avis privé technique
 User: Joueur
 Jeu: Jeu
 Temps jeu estime: Temps de jeu estimé
-Username: Nom d'utilisateur
+Username: Identifiant
 Password: Mot de passe
+Prenom: Prénom
+Masque: Voulez-vous être masqué sur le site ? (votre identifiant, votre progression et vos avis ne seront plus visibles)
+Reception information generale: Voulez-vous être informé par mail des actualités générales ? (environ 4 mails par an)
+Reception information chasse: Voulez-vous être informé par mail de l'actualité des chasses aux trésor ? (environ 4 mails par an)
+Reception information chene: Voulez-vous être informé par mail de l'actualité des jeux en chêne ? (moins de 10 mails par an)

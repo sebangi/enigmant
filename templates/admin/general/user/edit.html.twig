@@ -6,7 +6,7 @@
 
 {% block body %}
     <div class="container mt-4">
-        <h1>Éditer l'utilisateur</h1>
+        <h1>Éditer l'utilisateur  <i>{{ user.username }}</i></h1>
 
         {{ include('admin/general/user/_form.html.twig', {button: 'Éditer'}) }}       
 

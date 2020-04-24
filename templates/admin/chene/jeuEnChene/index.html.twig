@@ -4,13 +4,7 @@
     <div class="container mt-4">
         <h1>Gérer les jeux en chêne</h1>
 
-        {% for label, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="alert alert-{{ label }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endfor %}           
+        {{ include('outils/_flash.html.twig') }}             
         
         <div class="text-right mb-4">
             <a href="{{ path("admin.chene.jeuEnChene.new") }}" class="btn btn-primary">Créer un nouveau jeu en chêne</a>

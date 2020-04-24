@@ -55,7 +55,7 @@ class User implements UserInterface {
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Email()
+     * @Assert\Email(message = "'{{ value }}' n'est pas un email valide.")
      */
     private $email;
 
@@ -77,13 +77,18 @@ class User implements UserInterface {
     /**
      * @ORM\Column(type="boolean", options={"default" : true})
      */
-    private $receptionInformationChasse = false;
+    private $receptionInformationChasse = true;
 
     /**
      * @ORM\Column(type="boolean", options={"default" : true})
      */
-    private $receptionInformationChene = false;
-
+    private $receptionInformationChene = true;    
+    
+    /**
+     * @ORM\Column(type="boolean", options={"default" : true})
+     */
+    private $receptionInformationGenerale = true;
+    
     /**
      * 
      */
@@ -165,6 +170,7 @@ class User implements UserInterface {
      */
     public function getSalt() {
         // not needed when using the "bcrypt" algorithm in security.yaml
+        return null;
     }
 
     /**
@@ -432,4 +438,42 @@ class User implements UserInterface {
         return $this;
     }
 
+    /**
+     * 
+     * @return bool|null
+     */
+    public function getReceptionInformationGenerale(): ?bool
+    {
+        return $this->receptionInformationGenerale;
+    }
+
+    /**
+     * 
+     * @param bool $receptionInformationGenerale
+     * @return \App\Entity\General\User
+     */
+    public function setReceptionInformationGenerale(bool $receptionInformationGenerale): User
+    {
+        $this->receptionInformationGenerale = $receptionInformationGenerale;
+
+        return $this;
+    }    
+    
+    
+    
+    public function serialize() {
+        return serialize([
+            $this->id,
+            $this->username,
+            $this->password
+        ]);
+    }
+
+    public function unserialize($serialized) {
+        list(
+            $this->id,
+            $this->username,
+            $this->password
+        ) = unserialize($serialized, ['allowed_classes' => false]);
+    }
 }
