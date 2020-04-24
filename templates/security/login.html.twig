@@ -5,30 +5,52 @@
 {% endblock title %}
 
 {% block body %}
+    <div class="jumbotron mon-jumbotron text-center">
+        <h4 class="text-center">Pour continuer, connectez-vous à Énigmant</h4>
+    </div>
+    
+    
     <div class="container mt-4">
-        
-        {% if error  %}
-            <div class="alert alert-danger">
-                {{ error.messageKey|trans(error.messagedata, 'security') }}
-            </div>
-        {% endif %}
-        
-        
-        
-        
-        <form action="{{ path('login') }}" method='post'>
-            <div class="form-group">
-                <label for="username">Nom d'utilisateur</label>
-                <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}"> </input>
-            </div>
+        <div class="row mt-6 mb-4">
+            <div class="col-md-4 colonne-centree">
 
-            <div class="form-group">
-                <label for="password">Mot de passe</label>
-                <input type="text" id="password" name="_password" class='form-control'> </input>
-            </div>
+                {% if error  %}
+                    <div class="alert alert-danger">
+                        {{ error.messageKey|trans(error.messagedata, 'security') }}
+                    </div>
+                {% endif %}
 
-            <button type="submit" class="btn btn-primary">Se connecter</button>
-        </form>
+                <form action="{{ path('login') }}" method='post'>
+                    <div class="form-group">
+                        <label for="username">Identifiant</label>
+                        <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}"> </input>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Mot de passe</label>
+                        <input type="text" id="password" name="_password" class='form-control'> </input>
+                    </div>
+
+
+                    <div>
+                        <div style="position: relative; float: left;">
+                            <button type="submit" class="btn btn-primary"  display:inline>Se connecter</button>
+                        </div>
+                        <div style="position: relative; float: right;">
+                            <a href="{{ path("registration") }}">Mot de passe oublié</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-6 mb-4">
+            <div class="col-md-4 colonne-centree">
+                <hr>
+                <div class="col-mt-6 colonne-centree">
+                    Vous êtes nouveau : <a href="{{ path("registration") }}">Créer un compte</a>   
+                </div>  
+            </div>
+        </div>      
     </div>
 {% endblock body %}
 

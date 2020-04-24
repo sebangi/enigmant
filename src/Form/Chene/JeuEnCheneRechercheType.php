@@ -18,7 +18,7 @@ class JeuEnCheneRechercheType extends AbstractType
                 'required' => false,
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Prix maximal',
+                    'placeholder' => 'Prix maximal (en babiole)',
                     'min' => 0
                 ]
             ])
