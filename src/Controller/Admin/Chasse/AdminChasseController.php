@@ -16,7 +16,7 @@ class AdminChasseController extends AbstractController
     /**
      * @var string
      */
-    private $menuCourant = "Chasse";
+    private $menuCourant = "AdminChasse";
     
     /**
      * @var string

@@ -54,11 +54,11 @@ class NiveauRepository extends ServiceEntityRepository
             ->LeftJoin('niveau.obtentionNiveaux', 'obtention')
             ->LeftJoin('obtention.user', 'user')
             ->Where('user.id = :id or obtention.id is null')
-//            ->andWhere('theme.nom = :theme')
+            ->AndWhere('theme.nom = :theme')
             ->orderBy('theme.num', 'ASC')
             ->addOrderBy('niveau.num', 'ASC')
             ->setParameter('id', $id)
-//            ->setParameter('theme', $theme)
+            ->setParameter('theme', $theme)
             ->getQuery()
             ->getScalarResult()
         ;

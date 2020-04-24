@@ -18,7 +18,7 @@ class AdminUserController extends AbstractController
     /**
      * @var string
      */
-    private $menuCourant = "User";
+    private $menuCourant = "AdminUser";
     
     /**
      * @var string

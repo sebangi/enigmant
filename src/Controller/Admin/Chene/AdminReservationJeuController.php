@@ -31,8 +31,8 @@ class AdminReservationJeuController extends AbstractController
     public function index(ReservationJeuRepository $reservationJeuRepository): Response
     {
         return $this->render('admin/chene/reservation/index.html.twig', [
-            'menuCourant' => 'AdminReservationJeu',
-            'themeCourant' => 'Chêne',
+            'menuCourant' => $this->menuCourant,
+            'themeCourant' => $this->themeCourant,
             'reservations' => $reservationJeuRepository->findAll(),
         ]);
     }
@@ -57,8 +57,8 @@ class AdminReservationJeuController extends AbstractController
         }
 
         return $this->render('admin/chene/reservation/new.html.twig', [
-            'menuCourant' => 'AdminReservationJeu',
-            'themeCourant' => 'Chêne',
+            'menuCourant' => $this->menuCourant,
+            'themeCourant' => $this->themeCourant,
             'reservation' => $reservation,
             'form' => $form->createView(),
         ]);
@@ -80,8 +80,8 @@ class AdminReservationJeuController extends AbstractController
         }
 
         return $this->render('admin/chene/reservation/edit.html.twig', [
-            'menuCourant' => 'AdminReservationJeu',
-            'themeCourant' => 'Chêne',
+            'menuCourant' => $this->menuCourant,
+            'themeCourant' => $this->themeCourant,
             'reservation' => $reservation,
             'form' => $form->createView(),
         ]);

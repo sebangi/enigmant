@@ -18,7 +18,7 @@ class AdminThemeController extends AbstractController
     /**
      * @var string
      */
-    private $menuCourant = "Thème";
+    private $menuCourant = "AdminTheme";
     
     /**
      * @var string

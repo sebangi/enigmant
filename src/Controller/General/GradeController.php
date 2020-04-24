@@ -5,6 +5,8 @@ namespace App\Controller\General;
 use App\Entity\General\ObtentionNiveau;
 use App\Entity\General\Niveau;
 use App\Repository\General\NiveauRepository;
+use App\Entity\General\Theme;
+use App\Repository\General\ThemeRepository;
 use App\Repository\General\ObtentionNiveauRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,27 +24,31 @@ class GradeController extends AbstractController
     private $menuCourant = "Grades";
         
     /**
-     * @Route("/", name="grade.index", methods={"GET"})
+     * @Route("/{themeCourant}", name="grade.index", methods={"GET"})
      * @param NiveauRepository $niveauRepository
      * @param string|null $themeCourant
      * @return Response
      */
-    public function index(NiveauRepository $niveauRepository, ?string $themeCourant): Response
+    public function index(NiveauRepository $niveauRepository, ThemeRepository $themeRepository,
+                    ?string $themeCourant): Response
     {       
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-//        if ( $this->get('security.context')->isGranted('ROLE_ADMIN') ||
-//             $this->get('security.context')->isGranted('ROLE_USER') )
-//        {           
-            $grades =  $niveauRepository->getGrades($this->getUser()->getId(), $themeCourant);
-            dump($grades);     
+        //$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if ( $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN') ||
+             $this->get('security.authorization_checker')->isGranted('ROLE_USER') )
+        {           
+            if( ! $themeCourant )
+                $themeCourant = "Chêne";
+            $themes = $themeRepository->findAll();
+            $grades = $niveauRepository->getGrades($this->getUser()->getId(), $themeCourant);            
             
             return $this->render('general/grade/index.html.twig', [
                 'menuCourant' => $this->menuCourant,
                 'themeCourant' => $themeCourant,
+                'themes' => $themes,
                 'grades' => $grades,
             ]);
-//        }
-//        else
-//            $this->redirectToRoute('home.index');
+        }
+        else
+            $this->redirectToRoute('home.index');
     }
 }

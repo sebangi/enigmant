@@ -18,7 +18,7 @@ class AdminObtentionNiveauController extends AbstractController {
     /**
      * @var string
      */
-    private $menuCourant = "ObtentionNiveau";
+    private $menuCourant = "AdminObtentionNiveau";
 
     /**
      * @var string

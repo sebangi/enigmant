@@ -8,15 +8,7 @@
     <div class="container mt-4">
         <h1>Gérer les grades</h1>
 
-        {% if app.session.flashbag.peekAll|length > 0 %}
-            {% for type, messages in app.session.flashbag.all %}
-                {% for message in messages %}
-                    <div class="{{ type ? type : '' }}">
-                        {{ message|trans({}, domain|default('messages')) }}
-                    </div>
-                {% endfor %}
-            {% endfor %}
-        {% endif %}      
+        {{ include('outils/_flash.html.twig') }}          
 
         <div class="text-right mb-4">
             <a href="{{ path("admin.obtentionNiveau.new") }}" class="btn btn-primary">Donner un nouveau grade</a>

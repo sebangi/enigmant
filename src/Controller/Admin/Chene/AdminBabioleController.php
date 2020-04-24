@@ -31,8 +31,8 @@ class AdminBabioleController extends AbstractController
     public function index(BabioleRepository $babioleRepository): Response
     {
         return $this->render('admin/chene/babiole/index.html.twig', [
-            'menuCourant' => 'AdminBabiole',
-            'themeCourant' => 'Chêne',
+            'menuCourant' => $this->menuCourant,
+            'themeCourant' => $this->themeCourant,
             'babioles' => $babioleRepository->findAllByType(),
         ]);
     }
@@ -56,8 +56,8 @@ class AdminBabioleController extends AbstractController
         }
 
         return $this->render('admin/chene/babiole/new.html.twig', [
-            'menuCourant' => 'AdminBabiole',
-            'themeCourant' => 'Chêne',
+            'menuCourant' => $this->menuCourant,
+            'themeCourant' => $this->themeCourant,
             'babiole' => $babiole,
             'form' => $form->createView(),
         ]);
@@ -79,8 +79,8 @@ class AdminBabioleController extends AbstractController
         }
 
         return $this->render('admin/chene/babiole/edit.html.twig', [
-            'menuCourant' => 'AdminBabiole',
-            'themeCourant' => 'Chêne',
+            'menuCourant' => $this->menuCourant,
+            'themeCourant' => $this->themeCourant,
             'babiole' => $babiole,
             'form' => $form->createView(),
         ]);

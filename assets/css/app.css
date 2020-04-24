@@ -67,3 +67,27 @@ body {
     float: none;
     margin: 0 auto;
 }
+
+.table-grade {
+	font-size: .8em;
+	background-color: #D22828;        
+	border-collapse: separate;
+	border-spacing: 0px;
+	border-radius: 14px;
+}
+
+.table-grade > tr:first-child > td:first-child {
+	border-top-left-radius: 14px;
+}
+
+.table-grade > tr:first-child > td:last-child {
+	border-top-right-radius: 14px;
+}
+
+.table-grade > tr:last-child td:first-child {
+	border-bottom-left-radius: 14px;
+}
+
+.table-grade > tr:last-child td:last-child {
+	border-bottom-right-radius: 14px;
+}

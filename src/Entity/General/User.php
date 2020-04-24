@@ -222,7 +222,7 @@ class User implements UserInterface {
         if ($theme) {
             $niveaux = new ArrayCollection();
             foreach ($this->obtentionNiveaux->toArray() as $obt) {
-                if ($obt->getNiveau()->getTheme()->getNom() == strtolower($theme))
+                if ($obt->getNiveau()->getTheme()->getNom() == $theme)
                     $niveaux->add($obt);
             }
 

@@ -16,7 +16,7 @@ class AdminCheneController extends AbstractController
     /**
      * @var string
      */
-    private $menuCourant = "Chêne";
+    private $menuCourant = "AdminChene";
     
     /**
      * @var string
