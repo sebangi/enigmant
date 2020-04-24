@@ -35,8 +35,27 @@
                 </thead>
                 <tbody>
                     {% for grade in grades %}
+                        {% set obt = user.getObtentionGrade( grade.niveau_id ) %}
                         <tr bgcolor="{{ grade.niveau_couleur }}">
                             <td>
+                                {% if not obt is null %}
+                                        <span class="fas fa-medal text-success" aria-hidden="true"></span>
+                                {% elseif not grade.niveau_disponible %}
+                                    <span class="fas fa-lock" aria-hidden="true"></span>
+                                {% endif %}
+                            </td>
+                            <td {% if not obt is null %}class="font-weight-bold"{% else %}class="font-italic"{% endif %}>{{ grade.niveau_nom }} en {{ grade.theme_nom }}</td>
+                            {% if obt is null %}                                                               
+                                <td></td>                            
+                                <td class="font-italic">{{ grade.niveau_conditionTexte }}</td>
+                            {% else %} 
+                                <td>{{ obt.date | date("d/m/Y") }}</td>                            
+                                <td>{{ grade.niveau_raison }}</td>                            
+                            {% endif%}
+                            
+                            
+                            
+                            {#<td>
                                 {% if grade.obtention_id %}
                                         <span class="fas fa-medal text-success" aria-hidden="true"></span>
                                 {% elseif not grade.niveau_disponible %}
@@ -50,7 +69,7 @@
                             {% else %} 
                                 <td>{{ grade.obtention_date | date("d/m/Y") }}</td>                            
                                 <td>{{ grade.niveau_raison }}</td>                            
-                            {% endif%}
+                            {% endif%}#}
                         </tr>
                     {% endfor %}
                 </tbody>

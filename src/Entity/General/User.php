@@ -220,7 +220,7 @@ class User implements UserInterface {
     }
 
     /**
-     * 
+     * Retourne le plus haut grade acquis d'un thème donné
      * @param string|null $theme
      * @return string|null
      */
@@ -269,7 +269,27 @@ class User implements UserInterface {
             
             return false;
         }        
-    }    
+    }   
+    
+    /**
+     * 
+     * @return ObtentionNiveaux|null
+     */
+    public function GetObtentionGrade($niveau_id): ?ObtentionNiveau {
+        if ( $this->obtentionNiveaux->isEmpty() )
+        {
+            return null;
+        }
+        else
+        {
+            foreach ($this->obtentionNiveaux->toArray() as $obt) {
+                if ( $obt->getNiveau()->getId() == $niveau_id )
+                    return $obt;
+            }
+            
+            return null;
+        }        
+    }   
 
     /**
      * @return Collection|ReservationJeu[]

@@ -39,13 +39,15 @@ class GradeController extends AbstractController
             if( ! $themeCourant )
                 $themeCourant = "Chêne";
             $themes = $themeRepository->findAll();
-            $grades = $niveauRepository->getGrades($this->getUser()->getId(), $themeCourant);            
+//            $grades = $niveauRepository->getGrades($this->getUser()->getId(), $themeCourant);  
+            $grades = $niveauRepository->getGradesDunTheme($themeCourant);
             
             return $this->render('general/grade/index.html.twig', [
                 'menuCourant' => $this->menuCourant,
                 'themeCourant' => $themeCourant,
                 'themes' => $themes,
                 'grades' => $grades,
+                'user' => $this->getUser(),
             ]);
         }
         else
