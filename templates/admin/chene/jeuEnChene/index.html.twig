@@ -13,16 +13,20 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Nom</th>
-                    <th>Collection</th>
-                    <th>Actions</th>
+                    <th  style="width: 5%"></th>
+                    <th  style="width: 35%">Nom</th>
+                    <th  style="width: 35%">Collection</th>
+                    <th  style="width: 5%">Dispo.</th>                    
+                    <th  style="width: 20%">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {% for jeuEnChene in jeuxEnChene %}
                     <tr>
+                        <td>{{ jeuEnChene.num }}</td>
                         <td>{{ jeuEnChene.nom }}</td>
-                        <td> {% if jeuEnChene.collectionChene %} {{ jeuEnChene.collectionChene.num }} : {{ jeuEnChene.collectionChene.nom }} {% endif%}</td>
+                        <td>{% if jeuEnChene.collectionChene %} {{ jeuEnChene.collectionChene.num }} : {{ jeuEnChene.collectionChene.nom }} {% endif%}</td>
+                        <td style="width: 3%">{{ include('outils/_booleen.html.twig', {bvaleur : jeuEnChene.disponible}) }}</td>
                         <td>
                             <a href="{{ path("admin.chene.jeuEnChene.edit", {id : jeuEnChene.id} ) }}" class="btn btn-secondary">Éditer</a>
                             <form method="post" action="{{ path("admin.chene.jeuEnChene.delete", {id: jeuEnChene.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">

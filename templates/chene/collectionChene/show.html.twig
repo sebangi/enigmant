@@ -1,0 +1,28 @@
+{% extends "chene/baseChene.html.twig" %}
+
+{% block body %}
+    <div class="jumbotron mon-jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    {% if collectionChene.imageName %}
+                        <img src="{{ vich_uploader_asset(collectionChene, 'imageFile') }}" class="card-img-top" style="width:720px; height:auto;"> 
+                    {% else %}
+                        <img src="{{ '/images/collectionChene/vide.jpg' }}" class="card-img-top" style="width:100%; height:230px;"> 
+                    {% endif%}
+                </div>
+                <div class="col-md-4">
+                    <h1>{{ collectionChene.nom }}</h1>
+                    <div class="mt-4">
+                        <h3>{{ collectionChene.description | nl2br }}</h3>                    
+                    </div>     
+                    <div class="mt-4">
+                         Nombre de jeux de la collection : {{ collectionChene.getJeuEnChenes() | length }}</p>
+                    </div>     
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}
+

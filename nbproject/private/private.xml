@@ -3,128 +3,47 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/niveau/_form.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/show.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/assets/js/app.js</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/CategorieBabioleType.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/collectionChene/index.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/TypeBabiole.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/user/edit.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/user/index.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/_jeuEnChene.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Repository/Chene/BabioleRepository.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/ReservationJeuType.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/composer.json</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/Babiole.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/General/AdminThemeController.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/chene/baseChene.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/_adminNavBarGeneral.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/chene/home.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/theme/new.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/reservation/edit.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/user/new.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/obtentionNiveau/_form.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/General/AdminController.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/categorieBabiole/edit.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/niveau/edit.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/niveau/index.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/Chene/AdminTypeBabioleController.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Controller/General/GradeController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/Chene/AdminJeuEnCheneController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/CollectionChene.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/outils/_flash.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/General/AdminNiveauController.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Form/General/ObtentionNiveauType.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/_carouselJeuxEnChene.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Chene/CheneController.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/categorieBabiole/index.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/theme/index.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Entity/General/Niveau.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chasse/_adminNavBarChasse.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/home.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/TypeBabioleType.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Repository/Chene/JeuEnCheneRepository.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/niveau/new.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/reservation/index.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/typeBabiole/index.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/General/AdminUserController.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chasse/home.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/typeBabiole/edit.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/jeuEnChene/_form.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Entity/General/ObtentionNiveau.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/jeuEnChene/index.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Entity/General/Theme.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/Chene/AdminCollectionCheneController.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/composer.lock</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/reservation/_form.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Repository/General/UserRepository.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/index.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/assets/css/app.css</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/chene/babiole/index.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/categorieBabiole/new.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Form/General/NiveauType.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/typeBabiole/_form.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/chasse/_navBarChasse.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/adminBaseChene.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/CollectionChene.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/Chene/AdminJeuEnCheneController.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/BabioleRechercheType.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/chasse/baseChasse.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/translations/security.fr_FR.yml</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Repository/General/ObtentionNiveauRepository.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Controller/SecurityController.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/Chene/AdminReservationJeuController.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/theme/_form.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/SecurityController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Form/General/UserType.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/ReservationJeu.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Entity/General/User.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/categorieBabiole/_form.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/typeBabiole/new.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/Chene/AdminBabioleController.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/CollectionCheneType.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/obtentionNiveau/edit.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/base.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Entity/General/Niveau.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Form/General/RegistrationFormType.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/General/AdminObtentionNiveauController.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/BabioleType.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/webpack.config.js</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Repository/General/ThemeRepository.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/chene/_navBarChene.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Repository/Chene/ReservationJeuRepository.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/_grade.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Chene/JeuEnCheneController.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/chasse/home.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/Chene/AdminCategorieBabioleController.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Repository/Chene/CollectionCheneRepository.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/JeuEnCheneType.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/_adminNavBarChene.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/CategorieBabiole.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/JeuEnCheneRechercheType.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/user/_form.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/outils/_flash.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/BabioleRecherche.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/reservation/new.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/JeuEnCheneRecherche.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/outils/_cercle.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Form/General/UserType.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Controller/HomeController.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/outils/_booleen.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/adminHome.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/.env</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/user/edit.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/Chene/AdminCheneController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/user/index.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/General/AdminUserController.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Repository/General/NiveauRepository.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/babiole/edit.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/Chasse/AdminChasseController.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/babiole/_form.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/obtentionNiveau/new.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/babiole/index.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/JeuEnChene.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/general/grade/index.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/Chene/AdminCollectionCheneController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/General/AdminThemeController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/_grade.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/user/password.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/theme/edit.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/general/grade/index.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Repository/General/UserRepository.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Form/General/UserPasswordType.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/obtentionNiveau/index.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Repository/Chene/TypeBabioleRepository.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/General/AdminController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/registration/register.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/Chene/AdminCategorieBabioleController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/assets/css/app.css</file>
             <file>file:/home/sebastien/public_html/enigmant/config/packages/security.yaml</file>
-            <file>file:/home/sebastien/public_html/enigmant/translations/forms.fr_FR.yml</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/security/login.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Form/General/ThemeType.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Repository/Chene/CategorieBabioleRepository.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/adminGeneral.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/translations/forms.fr_FR.yml</file>
+            <file>file:/home/sebastien/public_html/enigmant/config/packages/validator.yaml</file>
+            <file>file:/home/sebastien/public_html/enigmant/config/packages/translation.yaml</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/Chene/AdminTypeBabioleController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/General/GradeController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/user/_form.html.twig</file>
         </group>
     </open-files>
 </project-private>

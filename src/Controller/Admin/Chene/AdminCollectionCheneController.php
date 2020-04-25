@@ -50,7 +50,7 @@ class AdminCollectionCheneController extends AbstractController
     public function index(CollectionCheneRepository $collectionCheneRepository): Response
     {
         return $this->render('admin/chene/collectionChene/index.html.twig', [
-                    'collectionChenes' => $collectionCheneRepository->findAll(),
+                    'collectionChenes' => $collectionCheneRepository->findBy(array(), array('num'=>'asc')),
                     'menuCourant' => $this->menuCourant,
                     'themeCourant' => $this->themeCourant
             ]);

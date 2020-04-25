@@ -15,8 +15,12 @@
             <a class="navbar-brand ma-navbar-brand" href="{{ path('home.index') }}">
                 Énigmant...
                 {% if not themeCourant is defined %}
-                    ?
-                {% endif %}
+                    ? 
+                
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path("admin.home" ) }}" class="btn btn-warning">Administration</a>
+                    {% endif %}
+                {% endif %}            
             </a>
             
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

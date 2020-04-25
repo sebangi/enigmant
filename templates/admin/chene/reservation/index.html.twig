@@ -17,9 +17,9 @@
                     <th>Jeu</th>
                     <th>Réussi</th>
                     <th>Demande</th>
-                    <th>Retrait</th>
+                    <th>RDV Retrait</th>
                     <th>Fin prévue</th>
-                    <th>Rendu</th>
+                    <th>RDV Rendu</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -30,7 +30,7 @@
                         <td>{{ reservation.jeu.nom }}</td>
                         <td>{{ include('outils/_booleen.html.twig', {bvaleur : reservation.reussi}) }}</td>
                         <td>{{ reservation.dateDemande | date("d/m/Y")}}</td>
-                        <td>{{ reservation.dateRetrait | date("d/m/Y")}}</td>
+                        <td>{{ reservation.dateRetrait |format_datetime('short', 'short', locale='fr')}}</td>
                         <td>{{ reservation.dateFinPrevue | date("d/m/Y")}}</td>
                         <td>{{ reservation.dateRendu | date("d/m/Y")}}</td>
                         <td>

@@ -55,6 +55,7 @@ class JeuEnCheneRepository extends ServiceEntityRepository
             ->select('j', 'col')
             ->leftJoin('j.collectionChene', 'col')
             ->orderBy('col.num', 'ASC')
+            ->addOrderBy('j.num', 'ASC')
             ->getQuery()
             ->getResult()
         ;

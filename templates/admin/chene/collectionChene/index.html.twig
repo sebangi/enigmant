@@ -13,14 +13,18 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Nom</th>
-                    <th>Actions</th>
+                    <th width="5%"></th>
+                    <th width="70%">Nom</th>
+                    <th width="5%">Nb Jeux</th>
+                    <th width="20%">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {% for collectionChene in collectionChenes %}
                     <tr>
+                        <td>{{ collectionChene.num }}</td>
                         <td>{{ collectionChene.nom }}</td>
+                        <td>{{ collectionChene.jeuEnChenes|length }}</td>
                         <td>
                             <a href="{{ path("admin.chene.collectionChene.edit", {id : collectionChene.id} ) }}" class="btn btn-secondary">Éditer</a>
                             <form method="post" action="{{ path("admin.chene.collectionChene.delete", {id: collectionChene.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">

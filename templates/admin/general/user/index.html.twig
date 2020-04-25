@@ -29,11 +29,13 @@
                             <a href="{{ path("admin.user.edit", {id : user.id} ) }}" class="btn btn-secondary">Éditer</a>
                             <a class="ml-2 text-danger" href="{{ path('admin.user.password.reset', {'id': user.id}) }}" title="Réinitialiser le mot de passe"><i class="fas fa-key"></i></a>
                             <a class="ml-2 text-warning" href="{{ path('admin.user.password.change', {'id': user.id}) }}" title="Changer le mot de passe"><i class="fas fa-key"></i></a>
-                            <form method="post" action="{{ path("admin.user.delete", {id: user.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
-                                <button class="btn btn-danger">Supprimer</button>
-                            </form>
+                            {% if not user.estAdmin() %}
+                                <form method="post" action="{{ path("admin.user.delete", {id: user.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                                    <button class="btn btn-danger">Supprimer</button>
+                                </form>
+                            {% endif%}
                         </td>
                     </tr>
                 {% endfor %}

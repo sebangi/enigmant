@@ -5,6 +5,10 @@
     <div class="col-md-5">{{ form_row(form.imageFile) }}</div>     
 </div>
 
+<div class="row">
+    <div class="col-md-12">{{ form_row(form.description) }}</div>
+</div>
+
 {{ form_widget(form) }}
 
 <button class="btn btn-primary">{{ button|default('Enregistrer') }}</button>

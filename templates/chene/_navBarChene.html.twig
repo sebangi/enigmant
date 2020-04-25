@@ -9,6 +9,11 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav navbar-brand">
             <li class="nav-item">
+                <a class="nav-link {% if menuCourant is defined and menuCourant == 'CollectionChene' %}active{% endif %}" href="{{ path('collectionChene.index') }}">Les collections<span class="sr-only">(current)</span></a>
+            </li>
+        </ul>  
+        <ul class="navbar-nav navbar-brand">
+            <li class="nav-item">
                 <a class="nav-link {% if menuCourant is defined and menuCourant == 'JeuEnChene' %}active{% endif %}" href="{{ path('jeuEnChene.index') }}">Les jeux<span class="sr-only">(current)</span></a>
             </li>
         </ul>  

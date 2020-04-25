@@ -78,7 +78,7 @@ class JeuEnChene
     
     /**
      * @Vich\UploadableField(mapping="badge_image", fileNameProperty="badgeImageName")     
-     * @assert\Image(mimeTypes="image/png") 
+     * @assert\Image(mimeTypes="image/jpeg") 
      * @var File|null
      */
     private $badgeImageFile;
@@ -90,7 +90,7 @@ class JeuEnChene
     private $badgeImageName;
     
     /**
-     * @Vich\UploadableField(mapping="image", fileNameProperty="imageName")     
+     * @Vich\UploadableField(mapping="jeu_en_chene_image", fileNameProperty="imageName")     
      * @assert\Image(mimeTypes="image/jpeg") 
      * @var File|null
      */
@@ -563,7 +563,7 @@ class JeuEnChene
      */
     public function setImageName(?string $imageName) : JeuEnChene
     {
-        $this->imageName = imageName;
+        $this->imageName = $imageName;
         return $this;
     }
 

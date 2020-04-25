@@ -1,5 +1,15 @@
 # See dos how to configure the bundle: https://symfony.com/doc/current/bundles/LiipImagineBundle/basic-usage.html
 liip_imagine:
+    
+    # loaders probalement à retirer pour le mode en ligne
+    loaders:
+        default:
+            filesystem:
+                data_root:
+                    - '%kernel.project_dir%/public/'
+                    - '%env(LIIP_PUBLIC_PATH)%'
+    
+    
     # valid drivers options include "gd" or "gmagick" or "imagick"
     driver: "imagick"
 

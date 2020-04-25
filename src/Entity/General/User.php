@@ -146,6 +146,14 @@ class User implements UserInterface {
 
         return $this;
     }
+    
+    /**
+     * 
+     * @return bool
+     */
+    public function estAdmin(): bool {
+        return in_array( "ROLE_ADMIN", $this->roles);
+    }
 
     /**
      * @see UserInterface
@@ -236,7 +244,7 @@ class User implements UserInterface {
                 $iterator = $niveaux->getIterator();
                 
                 $iterator->uasort(function ($a, $b) {
-                    return $a->getdate() <=> $b->getdate();
+                    return $a->getNiveau()->getNum() <=> $b->getNiveau()->getNum();
                 });
 
                 $niveauxTrie = new ArrayCollection(iterator_to_array($iterator));

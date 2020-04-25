@@ -10,3 +10,14 @@ vich_uploader:
             uri_prefix: /images/badges
             upload_destination: '%kernel.project_dir%/public/images/badges'
             namer: Vich\UploaderBundle\Naming\UniqidNamer
+            
+        jeu_en_chene_image:
+            uri_prefix: /images/jeuEnChene
+            upload_destination: '%kernel.project_dir%/public/images/jeuEnChene'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+         
+        collection_chene_image:
+            uri_prefix: /images/collectionChene
+            upload_destination: '%kernel.project_dir%/public/images/collectionChene'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+            

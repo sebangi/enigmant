@@ -1,0 +1,18 @@
+<div class="card mb-4 rounded_card">
+    {% if collectionChene.imageName %}
+        <img class="card-img-top rounded_card" src="{{ vich_uploader_asset(collectionChene, 'imageFile') | imagine_filter("my_thumb") }}" > 
+    {% else %}
+        <img class="card-img-top rounded_card" src="{{ '/images/collectionChene/vide.jpg' | imagine_filter("my_thumb") }}" > 
+    {% endif%}
+    <div class="card-body">
+    
+        <h5 class="card-title">
+            <a href="{{ path("collectionChene.show", { slug: collectionChene.slug, id: collectionChene.id }) }}">
+                {{ collectionChene.nom }}
+            </a>
+        </h5>
+        <p class="card-text">Nombre de jeux : {{ collectionChene.getJeuEnChenes().count() }}</p>    
+{#        <p class="card-text">{{ collectionChene.description|nl2br(false) }}</p>    #}
+        
+    </div>
+</div>

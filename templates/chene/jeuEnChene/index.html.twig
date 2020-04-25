@@ -1,8 +1,10 @@
 {% extends "chene/baseChene.html.twig" %}
 
 {% block body %}
-    <div class="jumbotron">
-        <div class="container">
+    <div class="jumbotron mon-jumbotron  text-center">
+            <div class="container">
+            <h1>Il existe actuellement {{ jeux_en_chene|length }} jeux en chêne</h1>
+            <hr>
             {{ form_start(form) }}
             <div class="form-row align-items-end">
                 <div class="col">
@@ -20,17 +22,11 @@
             {{ form_end(form) }}
         </div>
     </div>
-    <div class="container mt-4">
-        <h1>Voir tous les jeux en chêne</h1>
-        <div class="row">
-            <div class="col-md-6 colonne-centree">
-                {%  include 'chene/jeuEnChene/_carouselJeuxEnChene.html.twig' %}
-            </div>
-        </div>
+    <div class="container mt-4 ">
             
         <div class="row mt-4">
             {% for jeuEnChene in jeux_en_chene  %}
-                <div class="col-md-4">
+                <div class="d-flex align-items-stretch col-md-4">
                     {%  include 'chene/jeuEnChene/_jeuEnChene.html.twig' %}
                 </div>
             {% endfor %}

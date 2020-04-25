@@ -39,8 +39,8 @@ class CollectionChene
     private $num = 1;
     
     /**
-     * @Vich\UploadableField(mapping="image", fileNameProperty="imageName")     
-     * @assert\Image(mimeTypes="image/jpg") 
+     * @Vich\UploadableField(mapping="collection_chene_image", fileNameProperty="imageName") 
+     * @assert\Image(mimeTypes="image/jpeg") 
      * @var File|null
      */
     private $imageFile;
@@ -50,6 +50,40 @@ class CollectionChene
      * @var string|null
      */
     private $imageName;
+        
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @param \DateTimeInterface
+     */
+    private $majDate;
+    
+    
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+    
+    
+    /**
+     * 
+     * @return string|null
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    /**
+     * 
+     * @param string|null $description
+     * @return \App\Entity\Chene\CollectionChene 
+     */
+    public function setDescription(?string $description): CollectionChene
+    {
+        $this->description = $description;
+
+        return $this;
+    }
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Chene\JeuEnChene", mappedBy="collectionChene")
@@ -85,6 +119,11 @@ class CollectionChene
      */
     public function setImageFile(File $imageFile): CollectionChene {
         $this->imageFile = $imageFile;
+        
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->majDate = new \DateTime('now');
+        }
+        
         return $this;
     }
 
@@ -97,6 +136,29 @@ class CollectionChene
         $this->imageName = $imageName;
         return $this;
     }
+    
+    
+    /**
+     * 
+     * @return \DateTimeInterface|null
+     */
+    public function getMajDate(): ?\DateTimeInterface
+    {
+        return $this->majDate;
+    }
+
+    /**
+     * 
+     * @param \DateTimeInterface $majDate
+     * @return \App\Entity\Chene\JeuEnChene
+     */
+    public function setMajDate(\DateTimeInterface $majDate): JeuEnChene
+    {
+        $this->majDate = $majDate;
+
+        return $this;
+    }
+
 
     /**
      * 
@@ -149,13 +211,6 @@ class CollectionChene
         return $this;
     }
     
-    /**
-     * 
-     * @return string
-     */
-    public function getSlug() : string {
-        return ( new Slugify() )->slugify($this->nom); 
-    }
 
     /**
      * @return Collection|jeuEnChene[]
@@ -198,5 +253,12 @@ class CollectionChene
         return $this;
     }
     
+    /**
+     * 
+     * @return string
+     */
+    public function getSlug() : string {
+        return ( new Slugify() )->slugify($this->nom); 
+    }
 
 }
