@@ -91,3 +91,12 @@ body {
 .table-grade > tr:last-child td:last-child {
 	border-bottom-right-radius: 14px;
 }
+
+.clignotement {
+  color:red; 
+  animation: colorblink 2s infinite;
+}
+@keyframes colorblink { 
+0% { }
+50% { color:green; } 
+}

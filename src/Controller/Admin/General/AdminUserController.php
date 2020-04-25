@@ -12,9 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use App\Entity\General\Niveau;
+use App\Entity\General\ObtentionNiveau;
+use App\Repository\General\NiveauRepository;
 
 /**
  * @Route("/admin/user", name="admin.user.")
+ * @IsGranted("ROLE_ADMIN")
  */
 class AdminUserController extends AbstractController
 {    
@@ -73,6 +78,22 @@ class AdminUserController extends AbstractController
             'users' => $userRepository->findAll(),
         ]);
     }
+    
+    public function ajouterPremierBadge(User $user) 
+    {
+        $niveauRepository = $this->getDoctrine()->getRepository(Niveau::class);
+        $niveaux = $niveauRepository->findBy(array("num" => "1"));
+        
+        foreach ($niveaux as $niveau) {
+            $opt = new ObtentionNiveau();
+            $opt->setVu(false);
+            $opt->setNiveau($niveau);
+            $opt->setUser($user);
+            $opt->setDate(new \DateTime('now'));
+            
+            $this->em->persist($opt);
+        }        
+    }
 
     /**
      * @Route("/new", name="new", methods={"GET","POST"})
@@ -84,11 +105,11 @@ class AdminUserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            
             $user->setPassword($passwordEncoder->encodePassword($user, $form->get('plainPassword')->getData()));
             
             $this->em->persist($user);
+            $this->ajouterPremierBadge($user);
+            
             $this->em->flush();
             $this->addFlash('success', 'Utilisateur ajouté avec succès.');
             

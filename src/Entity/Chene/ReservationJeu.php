@@ -23,7 +23,7 @@ class ReservationJeu
     private $dateDemande;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateRetrait;
 
@@ -33,7 +33,7 @@ class ReservationJeu
     private $dateFinPrevue;
     
      /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateRendu;
    

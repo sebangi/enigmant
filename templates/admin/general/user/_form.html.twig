@@ -1,17 +1,16 @@
+{{ form_start(form) }}
 
-        {{ form_start(form) }}
+<div class="row">
+    <div class="col-md-4">{{ form_row(form.username) }}</div>
+</div>
 
-        <div class="row">
-            <div class="col-md-4">{{ form_row(form.username) }}</div>
+{% if action is defined and action == "create" %}    
+    <div class="row mt-4">
+        <div class="col-md-10 col-12">
+            {{ form_row(form.plainPassword) }} 
         </div>
-
-        {% if action is defined and action == "create" %}    
-            <div class="row mt-4">
-                <div class="col-md-10 col-12">
-                    {{ form_row(form.plainPassword) }} 
-                </div>
-            </div>
-        {% endif %}    
+    </div>
+{% endif %}    
 
 
 {{ form_widget(form) }}

@@ -1,0 +1,56 @@
+{% extends "base.html.twig" %}
+
+{% block title %} 
+    S'inscrire
+{% endblock title %}
+
+{% block body %}
+    <div class="jumbotron mon-jumbotron text-center">
+        <h4 class="text-center">S'inscrire à Énigmant</h4>
+        Vous avez déjà un compte ? <a href="{{ path("login") }}">Se connecter</a>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row mt-6 mb-6">
+            <div class="col-md-6 colonne-centree">
+                {{ form_start(registrationForm) }}
+
+                {{ form_row(registrationForm.username) }}
+                {{ form_row(registrationForm.plainPassword) }} 
+                                
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.prenom) }}
+                {{ form_row(registrationForm.nom) }}
+                
+                {{ form_row(registrationForm.receptionInformationGenerale) }}
+                {{ form_row(registrationForm.receptionInformationChene) }}
+                {{ form_row(registrationForm.receptionInformationChasse) }}
+                {{ form_row(registrationForm.masque) }}
+                
+                <div class="form-check form-check-inline">
+                    {{ form_widget(registrationForm.agreeTerms) }}
+                    <div class="text-justify ml-2 text-muted" style="font-size:0.8rem">
+                        Je déclare avoir plus de 18 ans et avoir lu, compris et accepté les REF Conditions Générales d’Utilisation.
+                    </div>
+                    {{ form_errors(registrationForm.agreeTerms) }}
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary"  display:inline>S'inscrire</button>
+                </div>
+
+                {{ form_end(registrationForm) }}
+
+                <div class="text-justify mt-4 mb-4 text-muted"  style="font-size:0.8rem">
+                    Les informations que vous communiquez, à l’exception de votre mot de passe qui est crypté et ne peut pas être lu, sont destinées au personnel habilité d’Énigmant qui est le responsable de traitement. Énigmant collecte vos données pour gérer votre compte utilisateur et permettre l’hébergement.
+                    Vous disposez de certains droits (droit d'opposition, droit d'accès à vos données, droit de rectification et d'effacement de vos données). 
+                    Pour exercer ces droits, écrire à privacy@enigmant.fr ou vous rendre directement sur votre compte pour effectuer votre demande. Pour plus de détails :REF Politique de Confidentialité d’Énigmant.
+                </div>
+
+            </div>
+        </div>  
+    </div>
+{% endblock body %}
+
+
+

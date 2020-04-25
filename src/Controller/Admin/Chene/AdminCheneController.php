@@ -6,10 +6,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-/**
-     * @route("/admin/chene") 
-     */
+    /**
+    * @route("/admin/chene") 
+    * @IsGranted("ROLE_ADMIN")
+    */
 class AdminCheneController extends AbstractController
 {
     

@@ -15,8 +15,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\Email;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\General\UserRepository")
- * @UniqueEntity("nom")
- */
+ * @UniqueEntity(fields={"username"}, message="L'identifiant {{ value }} existe déjà. Choisissez-en un autre.")
+     */
 class User implements UserInterface {
 
     /**
@@ -220,11 +220,11 @@ class User implements UserInterface {
     }
 
     /**
-     * Retourne le plus haut grade acquis d'un thème donné
+     * Retourne le plus haut grade acquis d'un thème donné sous forme de chaine
      * @param string|null $theme
      * @return string|null
      */
-    public function getGrade(?string $theme): ?string {
+    public function getGradeString(?string $theme): ?string {
         if ($theme) {
             $niveaux = new ArrayCollection();
             foreach ($this->obtentionNiveaux->toArray() as $obt) {
@@ -249,6 +249,58 @@ class User implements UserInterface {
             return null;
         }        
     }
+    
+    
+    /**
+     * Retourne le plus haut grade acquis d'un thème donné sous forme de chaine
+     * @param string|null $theme
+     * @return ObtentionNiveau|null
+     */
+    public function getGrade(?string $theme): ?ObtentionNiveau {
+        if ($theme) {
+            $niveaux = new ArrayCollection();
+            foreach ($this->obtentionNiveaux->toArray() as $obt) {
+                if ($obt->getNiveau()->getTheme()->getNom() == $theme)
+                    $niveaux->add($obt);
+            }
+
+            if (!$niveaux->isEmpty()) {
+                $iterator = $niveaux->getIterator();
+                
+                $iterator->uasort(function ($a, $b) {
+                    return $a->getdate() <=> $b->getdate();
+                });
+
+                $niveauxTrie = new ArrayCollection(iterator_to_array($iterator));
+
+                return $niveauxTrie->last();
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }        
+    }
+    
+    /**
+     * 
+     * @return bool
+     */
+    public function hasGradeNonVu(): bool {
+        if ( $this->obtentionNiveaux->isEmpty() )
+        {
+            return false;
+        }
+        else
+        {
+            foreach ($this->obtentionNiveaux->toArray() as $obt) {
+                if ( ! $obt->getVu() )
+                    return true;
+            }
+            
+            return false;
+        }        
+    }   
     
     /**
      * 
@@ -334,9 +386,9 @@ class User implements UserInterface {
 
     /**
      * 
-     * @return string
+     * @return string|null
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }

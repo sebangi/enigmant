@@ -6,13 +6,13 @@
 
 {% block body %}
     <div class="jumbotron mon-jumbotron text-center">
-        <h4 class="text-center">Pour continuer, connectez-vous à Énigmant</h4>
+        <h4 class="text-center">Bienvenue sur Énigmant</h4>
     </div>
-    
-    
+
     <div class="container mt-4">
-        <div class="row mt-6 mb-4">
-            <div class="col-md-4 colonne-centree">
+        <div class="row mt-6 mb-6">
+            <div class="col-md-6 colonne-centree">
+                <p class="text-center">Veuillez vous identifier pour accéder au site.</p>
 
                 {% if error  %}
                     <div class="alert alert-danger">
@@ -20,38 +20,43 @@
                     </div>
                 {% endif %}
 
-                <form action="{{ path('login') }}" method='post'>
+
+                <form action="{{ path('login') }}" method="post">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                     <div class="form-group">
                         <label for="username">Identifiant</label>
-                        <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}"> </input>
+                        <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mot de passe</label>
+                        <input type="password" id="password" name="_password" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label for="password">Mot de passe</label>
-                        <input type="text" id="password" name="_password" class='form-control'> </input>
+                        <input type="checkbox" id="remember_me" name="_remember_me" checked/>
+                        <label for="remember_me">Se souvenir de moi</label>                        
                     </div>
 
-
-                    <div>
-                        <div style="position: relative; float: left;">
-                            <button type="submit" class="btn btn-primary"  display:inline>Se connecter</button>
-                        </div>
-                        <div style="position: relative; float: right;">
-                            <a href="{{ path("registration") }}">Mot de passe oublié</a>
-                        </div>
+                    <div style="position: relative; float: left;">
+                        <button type="submit" class="btn btn-primary"  display:inline>Se connecter</button>
+                    </div>
+                    <div style="position: relative; float: right;">
+                        <a href="{{ path("login") }}">Mot de passe oublié ?</a>
                     </div>
                 </form>
             </div>
-        </div>
+        </div>                
         <div class="row mt-6 mb-4">
-            <div class="col-md-4 colonne-centree">
+            <div class="col-md-6 colonne-centree">
                 <hr>
-                <div class="col-mt-6 colonne-centree">
-                    Vous êtes nouveau : <a href="{{ path("registration") }}">Créer un compte</a>   
+                <div class="col-mt-4 colonne-centree text-center">
+                    Première fois sur Énigmant ? <a href="{{ path("registration") }}">Inscrivez-vous !</a>   
                 </div>  
             </div>
-        </div>      
+        </div>
     </div>
+
 {% endblock body %}
+
 
 

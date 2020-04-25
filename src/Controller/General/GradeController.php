@@ -7,11 +7,13 @@ use App\Entity\General\Niveau;
 use App\Repository\General\NiveauRepository;
 use App\Entity\General\Theme;
 use App\Repository\General\ThemeRepository;
+use App\Repository\General\UserRepository;
 use App\Repository\General\ObtentionNiveauRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @Route("/grades")
@@ -22,6 +24,16 @@ class GradeController extends AbstractController
      * @var string
      */
     private $menuCourant = "Grades";
+       
+    
+    /**
+     * @var EntityManagerInterface
+     */
+    private $em;
+
+    public function __construct(EntityManagerInterface $em) {
+        $this->em = $em;
+    } 
         
     /**
      * @Route("/{themeCourant}", name="grade.index", methods={"GET"})
@@ -29,7 +41,10 @@ class GradeController extends AbstractController
      * @param string|null $themeCourant
      * @return Response
      */
-    public function index(NiveauRepository $niveauRepository, ThemeRepository $themeRepository,
+    public function index(
+            ObtentionNiveauRepository $optRepository, 
+            NiveauRepository $niveauRepository,
+            ThemeRepository $themeRepository,
                     ?string $themeCourant): Response
     {       
         //$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -39,8 +54,17 @@ class GradeController extends AbstractController
             if( ! $themeCourant )
                 $themeCourant = "Chêne";
             $themes = $themeRepository->findAll();
-//            $grades = $niveauRepository->getGrades($this->getUser()->getId(), $themeCourant);  
             $grades = $niveauRepository->getGradesDunTheme($themeCourant);
+            $nouveaux_grades = $optRepository->getNouveauxGrades($this->getUser()->getId(), $themeCourant);
+            foreach ($nouveaux_grades as $nouveau_grade) {
+                $this->get('session')->getFlashBag()->add('nouveaux_grades', array('type' => 'success',
+                        "message" => 'Vous êtes maintenant ' . $nouveau_grade->getNiveau()->getGrade(), 
+                        "title" => $nouveau_grade->getNiveau()->getRaison() ) );
+                
+                $nouveau_grade->setVu(true);
+                $this->em->persist( $nouveau_grade );
+                $this->em->flush();
+            }
             
             return $this->render('general/grade/index.html.twig', [
                 'menuCourant' => $this->menuCourant,

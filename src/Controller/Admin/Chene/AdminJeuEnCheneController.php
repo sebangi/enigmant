@@ -10,9 +10,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/admin/chene/jeu-en-chene")
+ * @IsGranted("ROLE_ADMIN")
  */
 class AdminJeuEnCheneController extends AbstractController {
 
