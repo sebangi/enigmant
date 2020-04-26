@@ -19,6 +19,24 @@ class ConversationRepository extends ServiceEntityRepository
         parent::__construct($registry, Conversation::class);
     }
 
+    
+    /**
+      * @return Conversation[]
+      */
+    public function getByDate($user_id) : array
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c', 'mess')
+            ->Join('c.user', 'user')
+            ->LeftJoin('c.messages', 'mess')
+            ->Where('user.id = :id')
+            ->orderBy('mess.date', 'DESC')
+            ->setParameter('id', $user_id)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
     // /**
     //  * @return Conversation[] Returns an array of Conversation objects
     //  */

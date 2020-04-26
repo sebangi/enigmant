@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% block title  %}
+    Énigmant chêne
+{% endblock title  %}
+
+{% block theme %}
+    {{ include('general/_navBarGeneral.html.twig') }}
+
+    {% if is_granted('ROLE_ADMIN') %}
+        {{ include('admin/general/_adminNavBarGeneral.html.twig') }}
+    {% endif %}
+{% endblock theme %}

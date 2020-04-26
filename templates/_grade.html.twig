@@ -1,7 +1,7 @@
 {% if themeCourant is defined %}
     <a href="{{ path("grade.index", {themeCourant: themeCourant}) }}" class="btn btn-outline-success ma-nav">
 {% else %}
-    <a href="{{ path("grade.index", {themeCourant: "Chêne"}) }}" class="btn btn-outline-success ma-nav">
+    <a href="{{ path("grade.index", {themeCourant: "Actuel"}) }}" class="btn btn-outline-success ma-nav">
 {% endif %}
 
     {% if themeCourant is defined %}

@@ -7,6 +7,7 @@ use App\Entity\Chene\ReservationJeu;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Cocur\Slugify\Slugify;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\General\ConversationRepository")
@@ -23,7 +24,7 @@ class Conversation
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Sujet;
+    private $sujet;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Chene\ReservationJeu", inversedBy="conversation", cascade={"persist", "remove"})
@@ -51,6 +52,14 @@ class Conversation
         $this->messages = new ArrayCollection();
     }
 
+     /**
+     * 
+     * @return string
+     */
+    public function getSlug() : string {
+        return ( new Slugify() )->slugify($this->sujet); 
+    }
+    
     /**
      * 
      * @return int|null

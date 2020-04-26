@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
- * @Route("/grades")
+ * @Route("/general/grade")
  */
 class GradeController extends AbstractController
 {    
@@ -38,24 +38,38 @@ class GradeController extends AbstractController
     /**
      * @Route("/{themeCourant}", name="grade.index", methods={"GET"})
      * @param NiveauRepository $niveauRepository
-     * @param string|null $themeCourant
+     * @param string $themeCourant
      * @return Response
      */
     public function index(
             ObtentionNiveauRepository $optRepository, 
             NiveauRepository $niveauRepository,
             ThemeRepository $themeRepository,
-                    ?string $themeCourant): Response
+                    string $themeCourant): Response
     {       
-        //$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         if ( $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN') ||
              $this->get('security.authorization_checker')->isGranted('ROLE_USER') )
         {           
-            if( ! $themeCourant )
-                $themeCourant = "Chêne";
             $themes = $themeRepository->findAll();
-            $grades = $niveauRepository->getGradesDunTheme($themeCourant);
-            $nouveaux_grades = $optRepository->getNouveauxGrades($this->getUser()->getId(), $themeCourant);
+            
+            if( $themeCourant == "Actuel" )
+            {
+                $grades;
+                foreach ($themes as $t)
+                {
+                    $obt = $this->getUser()->getGrade($t->getNom());
+                    if ( $obt )
+                        $grades[] = $obt;
+                }
+                $nouveaux_grades = $optRepository->getNouveauxGrades($this->getUser()->getId());
+            }
+            else
+            {
+                $grades = $niveauRepository->getGradesDunTheme($themeCourant);
+                $nouveaux_grades = $optRepository->getNouveauxGradesTheme($this->getUser()->getId(), $themeCourant);
+            }
+            
+            
             foreach ($nouveaux_grades as $nouveau_grade) {
                 $this->get('session')->getFlashBag()->add('nouveaux_grades', array('type' => 'success',
                         "message" => 'Vous êtes maintenant ' . $nouveau_grade->getNiveau()->getGrade(), 

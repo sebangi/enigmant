@@ -75,7 +75,7 @@ class BabioleController extends AbstractController {
 
     /**
      * @route("/{slug}-{id}", name="babiole.show", requirements={"slug": "[a-z0-9\-]*"})  
-     * @param babiole $je()uEnChene
+     * @param babiole $babiole
      * @return Response
      */
     public function show(babiole $babiole, string $slug): Response {

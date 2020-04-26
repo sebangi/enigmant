@@ -1,4 +1,4 @@
-{% extends "base.html.twig" %}
+{% extends "general/baseGeneral.html.twig" %}
 
 {% block title  %}
     Mes grades
@@ -22,12 +22,17 @@
         <nav class="navbar navbar-expand-lg navbar-light">
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                {% for theme in themes %}
                 <ul class="navbar-nav navbar-brand">
                     <li class="nav-item">
-                        <a class="nav-link {% if themeCourant is defined and themeCourant == theme.getNom() %}active{% endif %}" href="{{ path('grade.index', {themeCourant: theme.nom}  ) }}">Grades en {{ theme.nom }}<span class="sr-only">(current)</span></a>
+                        <a class="nav-link {% if themeCourant is defined and themeCourant == "Actuel"%}active{% endif %}" href="{{ path('grade.index', {themeCourant: "Actuel"} ) }}">Grades actuels<span class="sr-only">(current)</span></a>
                     </li>
-                </ul>           
+                </ul>
+                {% for theme in themes %}
+                    <ul class="navbar-nav navbar-brand">
+                        <li class="nav-item">
+                            <a class="nav-link {% if themeCourant is defined and themeCourant == theme.getNom() %}active{% endif %}" href="{{ path('grade.index', {themeCourant: theme.nom}  ) }}">Historique en {{ theme.nom }}<span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>           
                 {% endfor %}
             </div>
         </nav>
@@ -44,24 +49,38 @@
                 </thead>
                 <tbody>
                     {% for grade in grades %}
-                        {% set obt = user.getObtentionGrade( grade.niveau_id ) %}
-                        <tr bgcolor="{{ grade.niveau_couleur }}">
-                            <td>
-                                {% if not obt is null %}
+                        {% if themeCourant == "Actuel" %}
+                            <tr bgcolor="{{ grade.niveau.couleur }}">
+                                <td>
+                                    <span class="fas fa-medal text-success" aria-hidden="true"></span>
+                                </td>
+                                <td class="font-weight-bold">{{ grade.niveau.nom }} en {{ grade.niveau.theme.nom }}</td>
+                                <td>{{ grade.date | date("d/m/Y") }}</td>                            
+                                <td>{{ grade.niveau.raison }}</td>                            
+                            </tr>
+                        {% else %}
+                            {% set obt = user.getObtentionGrade( grade.niveau_id ) %}
+                            <tr bgcolor="{{ grade.niveau_couleur }}">
+                                <td>
+                                    {% if not obt is null %}
                                         <span class="fas fa-medal text-success" aria-hidden="true"></span>
-                                {% elseif not grade.niveau_disponible %}
-                                    <span class="fas fa-lock" aria-hidden="true"></span>
-                                {% endif %}
-                            </td>
-                            <td {% if not obt is null %}class="font-weight-bold"{% else %}class="font-italic"{% endif %}>{{ grade.niveau_nom }} en {{ grade.theme_nom }}</td>
-                            {% if obt is null %}                                                               
-                                <td></td>                            
-                                <td class="font-italic">{{ grade.niveau_conditionTexte }}</td>
-                            {% else %} 
-                                <td>{{ obt.date | date("d/m/Y") }}</td>                            
-                                <td>{{ grade.niveau_raison }}</td>                            
-                            {% endif%}
-                        </tr>
+                                    {% elseif not grade.niveau_disponible %}
+                                        <span class="fas fa-lock" aria-hidden="true"></span>
+                                    {% endif %}
+                                </td>
+                                <td {% if not obt is null %}class="font-weight-bold"{% else %}class="font-italic"{% endif %}>{{ grade.niveau_nom }} en {{ grade.theme_nom }}</td>
+                                {% if obt is null %}                                                               
+                                    <td></td>                            
+                                    <td class="font-italic">{{ grade.niveau_conditionTexte }}</td>
+                                {% else %} 
+                                    <td>{{ obt.date | date("d/m/Y") }}</td>                            
+                                    <td>{{ grade.niveau_raison }}</td>                            
+                                {% endif%}
+                            </tr>    
+                        {% endif%}
+
+
+
                     {% endfor %}
                 </tbody>
             </table>

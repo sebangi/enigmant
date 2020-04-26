@@ -16,7 +16,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\Email;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\General\UserRepository")
  * @UniqueEntity(fields={"username"}, message="L'identifiant {{ value }} existe déjà. Choisissez-en un autre.")
-     */
+ */
 class User implements UserInterface {
 
     /**
@@ -82,8 +82,8 @@ class User implements UserInterface {
     /**
      * @ORM\Column(type="boolean", options={"default" : true})
      */
-    private $receptionInformationChene = true;    
-    
+    private $receptionInformationChene = true;
+
     /**
      * @ORM\Column(type="boolean", options={"default" : true})
      */
@@ -93,7 +93,7 @@ class User implements UserInterface {
      * @ORM\OneToMany(targetEntity="App\Entity\General\Conversation", mappedBy="user", orphanRemoval=true)
      */
     private $conversations;
-    
+
     /**
      * 
      */
@@ -152,13 +152,13 @@ class User implements UserInterface {
 
         return $this;
     }
-    
+
     /**
      * 
      * @return bool
      */
     public function estAdmin(): bool {
-        return in_array( "ROLE_ADMIN", $this->roles);
+        return in_array("ROLE_ADMIN", $this->roles);
     }
 
     /**
@@ -248,7 +248,7 @@ class User implements UserInterface {
 
             if (!$niveaux->isEmpty()) {
                 $iterator = $niveaux->getIterator();
-                
+
                 $iterator->uasort(function ($a, $b) {
                     return $a->getNiveau()->getNum() <=> $b->getNiveau()->getNum();
                 });
@@ -261,10 +261,9 @@ class User implements UserInterface {
             }
         } else {
             return null;
-        }        
+        }
     }
-    
-    
+
     /**
      * Retourne le plus haut grade acquis d'un thème donné sous forme de chaine
      * @param string|null $theme
@@ -280,9 +279,9 @@ class User implements UserInterface {
 
             if (!$niveaux->isEmpty()) {
                 $iterator = $niveaux->getIterator();
-                
+
                 $iterator->uasort(function ($a, $b) {
-                    return $a->getdate() <=> $b->getdate();
+                    return $a->getNiveau()->getNum() <=> $b->getNiveau()->getNum();
                 });
 
                 $niveauxTrie = new ArrayCollection(iterator_to_array($iterator));
@@ -293,7 +292,7 @@ class User implements UserInterface {
             }
         } else {
             return null;
-        }        
+        }
     }
     
     /**
@@ -301,67 +300,73 @@ class User implements UserInterface {
      * @return bool
      */
     public function hasGradeNonVu(): bool {
-        if ( $this->obtentionNiveaux->isEmpty() )
-        {
+        if ($this->obtentionNiveaux->isEmpty()) {
             return false;
-        }
-        else
-        {
+        } else {
             foreach ($this->obtentionNiveaux->toArray() as $obt) {
-                if ( ! $obt->getVu() )
+                if (!$obt->getVu())
                     return true;
             }
-            
+
             return false;
-        }        
-    }   
-    
+        }
+    }
+
     /**
      * 
      * @param Niveau $niveau
      * @return bool
      */
     public function hasGrade(Niveau $niveau): bool {
-        if ( $this->obtentionNiveaux->isEmpty() )
-        {
+        if ($this->obtentionNiveaux->isEmpty()) {
             return false;
-        }
-        else
-        {
+        } else {
             foreach ($this->obtentionNiveaux->toArray() as $obt) {
-                if ( $obt->getNiveau()->getId() == $niveau->getId() )
+                if ($obt->getNiveau()->getId() == $niveau->getId())
                     return true;
             }
-            
+
             return false;
-        }        
-    }   
-    
+        }
+    }
+
     /**
      * 
      * @return ObtentionNiveaux|null
      */
     public function GetObtentionGrade($niveau_id): ?ObtentionNiveau {
-        if ( $this->obtentionNiveaux->isEmpty() )
-        {
+        if ($this->obtentionNiveaux->isEmpty()) {
             return null;
-        }
-        else
-        {
+        } else {
             foreach ($this->obtentionNiveaux->toArray() as $obt) {
-                if ( $obt->getNiveau()->getId() == $niveau_id )
+                if ($obt->getNiveau()->getId() == $niveau_id)
                     return $obt;
             }
-            
+
             return null;
-        }        
-    }   
+        }
+    }
+
+    /**
+     * 
+     * @return bool
+     */
+    public function hasMessageNonVu(): bool {
+        foreach ($this->conversations->toArray() as $conv) {
+
+            foreach ($conv->messages->toArray() as $mess) {
+                if (!$mess->getVu())
+                    return true;
+            }
+        }
+
+        return false;
+    }
 
     /**
      * @return Collection|ReservationJeu[]
      */
-    public function getReservationJeux(): Collection
-    {
+    public function getReservationJeux(): Collection {
         return $this->reservationJeux;
     }
 
@@ -370,8 +375,7 @@ class User implements UserInterface {
      * @param ReservationJeu $reservationJeux
      * @return \App\Entity\General\User
      */
-    public function addReservationJeux(ReservationJeu $reservationJeux): User
-    {
+    public function addReservationJeux(ReservationJeu $reservationJeux): User {
         if (!$this->reservationJeux->contains($reservationJeux)) {
             $this->reservationJeux[] = $reservationJeux;
             $reservationJeux->setUser($this);
@@ -385,8 +389,7 @@ class User implements UserInterface {
      * @param ReservationJeu $reservationJeux
      * @return \App\Entity\General\User
      */
-    public function removeReservationJeux(ReservationJeu $reservationJeux): User
-    {
+    public function removeReservationJeux(ReservationJeu $reservationJeux): User {
         if ($this->reservationJeux->contains($reservationJeux)) {
             $this->reservationJeux->removeElement($reservationJeux);
             // set the owning side to null (unless already changed)
@@ -402,8 +405,7 @@ class User implements UserInterface {
      * 
      * @return string|null
      */
-    public function getEmail(): ?string
-    {
+    public function getEmail(): ?string {
         return $this->email;
     }
 
@@ -412,8 +414,7 @@ class User implements UserInterface {
      * @param string|null $email
      * @return \App\Entity\General\User
      */
-    public function setEmail(?string $email): User
-    {
+    public function setEmail(?string $email): User {
         $this->email = $email;
 
         return $this;
@@ -423,8 +424,7 @@ class User implements UserInterface {
      * 
      * @return string|null
      */
-    public function getNom(): ?string
-    {
+    public function getNom(): ?string {
         return $this->nom;
     }
 
@@ -433,8 +433,7 @@ class User implements UserInterface {
      * @param string $nom
      * @return \App\Entity\General\User
      */
-    public function setNom(string $nom): User
-    {
+    public function setNom(string $nom): User {
         $this->nom = $nom;
 
         return $this;
@@ -444,8 +443,7 @@ class User implements UserInterface {
      * 
      * @return string|null
      */
-    public function getPrenom(): ?string
-    {
+    public function getPrenom(): ?string {
         return $this->prenom;
     }
 
@@ -454,8 +452,7 @@ class User implements UserInterface {
      * @param string $prenom
      * @return \App\Entity\General\User
      */
-    public function setPrenom(string $prenom): User
-    {
+    public function setPrenom(string $prenom): User {
         $this->prenom = $prenom;
 
         return $this;
@@ -465,8 +462,7 @@ class User implements UserInterface {
      * 
      * @return bool|null
      */
-    public function getMasque(): ?bool
-    {
+    public function getMasque(): ?bool {
         return $this->masque;
     }
 
@@ -475,8 +471,7 @@ class User implements UserInterface {
      * @param bool $masque
      * @return \App\Entity\General\User
      */
-    public function setMasque(bool $masque): User
-    {
+    public function setMasque(bool $masque): User {
         $this->masque = $masque;
 
         return $this;
@@ -486,8 +481,7 @@ class User implements UserInterface {
      * 
      * @return bool|null
      */
-    public function getReceptionInformationChasse(): ?bool
-    {
+    public function getReceptionInformationChasse(): ?bool {
         return $this->receptionInformationChasse;
     }
 
@@ -496,8 +490,7 @@ class User implements UserInterface {
      * @param bool $receptionInformationChasse
      * @return \App\Entity\General\User
      */
-    public function setReceptionInformationChasse(bool $receptionInformationChasse): User
-    {
+    public function setReceptionInformationChasse(bool $receptionInformationChasse): User {
         $this->receptionInformationChasse = $receptionInformationChasse;
 
         return $this;
@@ -507,8 +500,7 @@ class User implements UserInterface {
      * 
      * @return bool|null
      */
-    public function getReceptionInformationChene(): ?bool
-    {
+    public function getReceptionInformationChene(): ?bool {
         return $this->receptionInformationChene;
     }
 
@@ -517,8 +509,7 @@ class User implements UserInterface {
      * @param bool $receptionInformationChene
      * @return \App\Entity\General\User
      */
-    public function setReceptionInformationChene(bool $receptionInformationChene): User
-    {
+    public function setReceptionInformationChene(bool $receptionInformationChene): User {
         $this->receptionInformationChene = $receptionInformationChene;
 
         return $this;
@@ -528,8 +519,7 @@ class User implements UserInterface {
      * 
      * @return bool|null
      */
-    public function getReceptionInformationGenerale(): ?bool
-    {
+    public function getReceptionInformationGenerale(): ?bool {
         return $this->receptionInformationGenerale;
     }
 
@@ -538,15 +528,12 @@ class User implements UserInterface {
      * @param bool $receptionInformationGenerale
      * @return \App\Entity\General\User
      */
-    public function setReceptionInformationGenerale(bool $receptionInformationGenerale): User
-    {
+    public function setReceptionInformationGenerale(bool $receptionInformationGenerale): User {
         $this->receptionInformationGenerale = $receptionInformationGenerale;
 
         return $this;
-    }    
-    
-    
-    
+    }
+
     public function serialize() {
         return serialize([
             $this->id,
@@ -557,22 +544,20 @@ class User implements UserInterface {
 
     public function unserialize($serialized) {
         list(
-            $this->id,
-            $this->username,
-            $this->password
-        ) = unserialize($serialized, ['allowed_classes' => false]);
+                $this->id,
+                $this->username,
+                $this->password
+                ) = unserialize($serialized, ['allowed_classes' => false]);
     }
 
     /**
      * @return Collection|Conversation[]
      */
-    public function getConversations(): Collection
-    {
+    public function getConversations(): Collection {
         return $this->conversations;
     }
 
-    public function addConversation(Conversation $conversation): self
-    {
+    public function addConversation(Conversation $conversation): self {
         if (!$this->conversations->contains($conversation)) {
             $this->conversations[] = $conversation;
             $conversation->setUser($this);
@@ -581,8 +566,7 @@ class User implements UserInterface {
         return $this;
     }
 
-    public function removeConversation(Conversation $conversation): self
-    {
+    public function removeConversation(Conversation $conversation): self {
         if ($this->conversations->contains($conversation)) {
             $this->conversations->removeElement($conversation);
             // set the owning side to null (unless already changed)
@@ -593,4 +577,5 @@ class User implements UserInterface {
 
         return $this;
     }
+
 }

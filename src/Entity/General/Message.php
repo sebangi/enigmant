@@ -3,6 +3,7 @@
 namespace App\Entity\General;
 
 use Doctrine\ORM\Mapping as ORM;
+use Cocur\Slugify\Slugify;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\General\MessageRepository")
@@ -45,6 +46,14 @@ class Message
     public function __construct()
     {
         $this->date = new \DateTime('now');
+    }
+    
+     /**
+     * 
+     * @return string
+     */
+    public function getSlug() : string {
+        return ( new Slugify() )->slugify($this->texte); 
     }
     
     /**

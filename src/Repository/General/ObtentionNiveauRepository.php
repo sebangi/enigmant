@@ -40,7 +40,7 @@ class ObtentionNiveauRepository extends ServiceEntityRepository
     /**
       * @return ObtentionNiveau[]
       */
-    public function getNouveauxGrades( $id_user, $nom_theme ) : array
+    public function getNouveauxGradesTheme( $id_user, $nom_theme ) : array
     {
         return $this->createQueryBuilder('o')
             ->select('o', 'niv', 'user', 'the')
@@ -50,14 +50,33 @@ class ObtentionNiveauRepository extends ServiceEntityRepository
             ->Where('user.id = :id_u')
             ->andWhere('the.nom = :id_t')
             ->andWhere('o.vu = false')
-            ->addOrderBy('niv.num', 'ASC')
+            ->orderBy('niv.num', 'ASC')
             ->setParameter('id_u', $id_user)
             ->setParameter('id_t', $nom_theme)
             ->getQuery()
             ->getResult()
         ;
+    }    
+    
+     /**
+      * @return ObtentionNiveau[]
+      */
+    public function getNouveauxGrades( $id_user ) : array
+    {
+        return $this->createQueryBuilder('o')
+            ->select('o', 'niv', 'user', 'the')
+            ->leftJoin('o.niveau', 'niv')
+            ->leftJoin('niv.theme', 'the')
+            ->leftJoin('o.user', 'user')
+            ->Where('user.id = :id_u')
+            ->andWhere('o.vu = false')
+            ->addOrderBy('niv.num', 'ASC')
+            ->setParameter('id_u', $id_user)
+            ->getQuery()
+            ->getResult()
+        ;
     }
-
+    
     // /**
     //  * @return ObtentionNiveau[] Returns an array of ObtentionNiveau objects
     //  */
