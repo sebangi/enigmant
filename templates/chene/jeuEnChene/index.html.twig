@@ -7,14 +7,14 @@
             <hr>
             {{ form_start(form) }}
             <div class="form-row align-items-end">
-                <div class="col">
-                    {{ form_row(form.maxPrix) }}
+                <div class="col form-group no-margin">
+                    {{ form_widget(form.maxPrix) }}
+                </div>
+                <div class="col form-group no-margin">
+                    {{ form_widget(form.minDifficulteRaisonnement) }}
                 </div>
                 <div class="col">
-                    {{ form_row(form.minDifficulteRaisonnement) }}
-                </div>
-                <div class="col">
-                    <div class="form-group">
+                    <div class="form-group no-margin">
                         <button class="btn btn-primary">Rechercher</button>
                     </div>
                 </div>

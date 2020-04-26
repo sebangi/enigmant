@@ -5,11 +5,11 @@
         <div class="container">
             {{ form_start(form) }}
             <div class="form-row align-items-end">
-                <div class="col">
-                    {{ form_row(form.maxValeur) }}
+                <div class="col form-group no-margin">
+                    {{ form_widget(form.maxValeur) }}
                 </div>
                 <div class="col">
-                    <div class="form-group">
+                    <div class="form-group no-margin">
                         <button class="btn btn-primary">Rechercher</button>
                     </div>
                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Entity\Chene;
 
+use App\Entity\General\Conversation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -134,10 +135,16 @@ class JeuEnChene
      */
     private $reservations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\General\Conversation", mappedBy="lienJeuEnChene")
+     */
+    private $conversations;
+
     public function __construct()
     {
         $this->babioles = new ArrayCollection();
         $this->reservations = new ArrayCollection();
+        $this->conversations = new ArrayCollection();
     }
     
     /**
@@ -602,6 +609,37 @@ class JeuEnChene
             // set the owning side to null (unless already changed)
             if ($reservation->getJeu() === $this) {
                 $reservation->setJeu(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Conversation[]
+     */
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
+    }
+
+    public function addConversation(Conversation $conversation): self
+    {
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations[] = $conversation;
+            $conversation->setLienJeuEnChene($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversation(Conversation $conversation): self
+    {
+        if ($this->conversations->contains($conversation)) {
+            $this->conversations->removeElement($conversation);
+            // set the owning side to null (unless already changed)
+            if ($conversation->getLienJeuEnChene() === $this) {
+                $conversation->setLienJeuEnChene(null);
             }
         }
 

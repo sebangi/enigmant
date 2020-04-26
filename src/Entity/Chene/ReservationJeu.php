@@ -2,6 +2,7 @@
 
 namespace App\Entity\Chene;
 
+use App\Entity\General\Conversation;
 use App\Entity\General\User;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -73,6 +74,11 @@ class ReservationJeu
      * @ORM\JoinColumn(nullable=false)
      */
     private $jeu;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\General\Conversation", mappedBy="lienReservation", cascade={"persist", "remove"})
+     */
+    private $conversation;
 
     /**
      * 
@@ -307,6 +313,24 @@ class ReservationJeu
     public function setJeu(?JeuEnChene $jeu): ReservationJeu
     {
         $this->jeu = $jeu;
+
+        return $this;
+    }
+
+    public function getConversation(): ?Conversation
+    {
+        return $this->conversation;
+    }
+
+    public function setConversation(?Conversation $conversation): self
+    {
+        $this->conversation = $conversation;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newLienReservation = null === $conversation ? null : $this;
+        if ($conversation->getLienReservation() !== $newLienReservation) {
+            $conversation->setLienReservation($newLienReservation);
+        }
 
         return $this;
     }

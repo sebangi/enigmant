@@ -16,7 +16,11 @@ body {
 }
 
 .mon-jumbotron {
-    padding: 32px;
+    padding-top: 16px; 
+    padding-left: 0px;
+    padding-right: 0px; 
+    padding-bottom: 16px;
+    margin: 0px;
 }
 
 @media (min-width: 567px) {
@@ -103,4 +107,8 @@ body {
 
 .rounded_card {
     border-radius: 30px 30px 0px 0px;
+}
+
+.no-margin {
+    margin: 0px;
 }

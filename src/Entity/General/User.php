@@ -88,6 +88,11 @@ class User implements UserInterface {
      * @ORM\Column(type="boolean", options={"default" : true})
      */
     private $receptionInformationGenerale = true;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\General\Conversation", mappedBy="user", orphanRemoval=true)
+     */
+    private $conversations;
     
     /**
      * 
@@ -95,6 +100,7 @@ class User implements UserInterface {
     public function __construct() {
         $this->obtentionNiveaux = new ArrayCollection();
         $this->reservationJeux = new ArrayCollection();
+        $this->conversations = new ArrayCollection();
     }
 
     /**
@@ -555,5 +561,36 @@ class User implements UserInterface {
             $this->username,
             $this->password
         ) = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    /**
+     * @return Collection|Conversation[]
+     */
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
+    }
+
+    public function addConversation(Conversation $conversation): self
+    {
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations[] = $conversation;
+            $conversation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversation(Conversation $conversation): self
+    {
+        if ($this->conversations->contains($conversation)) {
+            $this->conversations->removeElement($conversation);
+            // set the owning side to null (unless already changed)
+            if ($conversation->getUser() === $this) {
+                $conversation->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
