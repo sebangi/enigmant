@@ -1,0 +1,11 @@
+{% extends "general/baseGeneral.html.twig" %}
+
+{% block body %}
+    <div class="jumbotron mon-jumbotron text-center">
+        <h1>Nouvelle conversation</h1>
+    </div>
+    <div class="container mt-4">
+        {{ include('general/conversation/_form.html.twig', {button: 'Créer la conversation'}) }} 
+    </div>
+{% endblock body %}
+

@@ -169,6 +169,16 @@ class ReservationJeu
         $this->dateRendu = $dateRendu;
         return $this;
     }
+    
+    /**
+     * 
+     * @return string|null
+     */
+    public function getIntitule(): ?string
+    {
+        setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
+        return $this->jeu->getNom() . " réservé le " . strftime("%A %e %B %G", $this->dateDemande->getTimestamp() );
+    }
 
     /**
      * 

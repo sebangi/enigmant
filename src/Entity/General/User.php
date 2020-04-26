@@ -354,7 +354,7 @@ class User implements UserInterface {
     public function hasMessageNonVu(): bool {
         foreach ($this->conversations->toArray() as $conv) {
 
-            foreach ($conv->messages->toArray() as $mess) {
+            foreach ($conv->getMessages()->toArray() as $mess) {
                 if (!$mess->getVu())
                     return true;
             }

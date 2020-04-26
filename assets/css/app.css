@@ -112,3 +112,8 @@ body {
 .no-margin {
     margin: 0px;
 }
+
+.small-card-header {
+    padding-bottom: 4px;
+    padding-top: 4px;
+}

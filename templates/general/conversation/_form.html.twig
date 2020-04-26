@@ -1,0 +1,26 @@
+{{ form_start(form) }}
+
+{% if is_granted('ROLE_ADMIN') %}
+<div class="row">
+    <div class="col-md-3">{{ form_row(form.user) }}</div>    
+</div>
+{% endif %}
+
+<div class="row">
+    <div class="col-md-12">{{ form_row(form.sujet) }}</div>
+</div>
+
+<div class="mt-4 font-weight-bolder">
+    Si la conversation fait référence à l'un des éléments suivant, merci de l'indiquer
+</div>
+<div class="row mt-2">
+    <div class="col-md-6">{{ form_row(form.lienReservation) }}</div>
+    <div class="col-md-6">{{ form_row(form.lienJeuEnChene) }}</div>    
+</div>
+
+{{ form_widget(form) }}
+
+<button class="btn btn-primary">{{ button|default('Créer la conversation') }}</button>
+
+
+{{ form_end(form) }} 

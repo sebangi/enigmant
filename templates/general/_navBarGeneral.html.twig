@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav navbar-brand">
             <li class="nav-item">
-                <a class="nav-link {% if menuCourant is defined and menuCourant == 'Conversations' %}active{% endif %}" href="{{ path('conversation.index') }}">Mes Conversations<span class="sr-only">(current)</span></a>
+                <a class="nav-link {% if menuCourant is defined and menuCourant == 'Conversations' %}active{% endif %}" href="{{ path('general.conversation.index') }}">Mes Conversations<span class="sr-only">(current)</span></a>
             </li>
         </ul>  
         <ul class="navbar-nav navbar-brand">

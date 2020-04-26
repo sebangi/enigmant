@@ -1,0 +1,81 @@
+<div class="card border-dark" >
+    <div class="card-header">
+        <h3 class="d-inline">
+            {% if mode == "index" %}
+                <a href="{{ path("general.conversation.show", {id : conversation.id, slug : conversation.getSlug()} ) }}" class="btn btn-success d-inline float-none">Voir la conversation</a>
+            {% else %}
+                <span class="font-weight-bold"> Sujet :</span> 
+            {% endif %}
+            {{ conversation.sujet}}
+        </h3>
+        <div class="d-inline float-right">
+            <a href="{{ path("general.conversation.edit", {id : conversation.id} ) }}" class="btn btn-outline-secondary">
+                <span class="fas fa-pencil-alt" aria-hidden="true"></span>
+            </a>
+
+            <form method="post" action="{{ path("general.conversation.delete", {id: conversation.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer cette conversation ?')">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ conversation.id) }}">
+                <button class="btn btn-outline-danger"><span class="fas fa-trash-alt" aria-hidden="true"></span></button>
+            </form>
+        </div>
+    </div>
+
+    {% set nbMessagesNonLus = conversation.getNbMessagesNonLus()%}
+    {% set reference = ( conversation.lienJeuEnChene or conversation.lienReservation ) %}
+    {% set display_body = reference or mode == "index" %}
+
+    {% if display_body %}
+        <div class="card-body text-dark">  
+
+            {% if mode == "index" %}
+                <div class="row">
+                    <div class="col-12">
+                        {% if nbMessagesNonLus == 0 %}
+                            <h5><span class="fas fa-envelope" aria-hidden="true"></span> Tous les messages ont été lus</h5>
+                        {% elseif nbMessagesNonLus == 1 %}                    
+                            <h5 class="text-danger"><span class="fas fa-envelope-open-text text-danger" aria-hidden="true"></span> Un message non lu</h5>
+                        {% else %}                    
+                            <h5 class="text-danger"><span class="fas fa-envelope-open-text text-danger" aria-hidden="true"></span> {{ nbMessages }} messages non lus</h5>
+                        {% endif%}
+                    </div>                
+                </div>
+            {% endif %}
+
+            {% if reference and mode == "index" %}
+                <hr>
+            {% endif%}
+
+            {% if conversation.lienReservation %}              
+                <div class="row">
+                    <div class="col-12">
+                        <h5>
+                            La conversation porte sur
+                            <a href="{{ path("jeuEnChene.show", 
+                            {   id : conversation.lienReservation.getJeu().getId(), 
+                                slug : conversation.lienReservation.getJeu().getSlug()} ) }}" class="btn-link">
+                                {{ conversation.lienReservation.getIntitule() }}
+                            </a>
+                        </h5>  
+
+                    </div>
+                </div>
+            {% endif %}
+            {% if conversation.lienJeuEnChene %}              
+                <div class="row">
+                    <div class="col-12">
+                        <h5>
+                            La conversation porte sur le jeu
+                            <a href="{{ path("jeuEnChene.show", 
+                            {   id : conversation.lienJeuEnChene.getId(), 
+                                slug : conversation.lienJeuEnChene.getSlug()} ) }}" class="btn-link">
+                                {{ conversation.lienJeuEnChene.getNom() }}
+                            </a>
+                        </h5>  
+
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>

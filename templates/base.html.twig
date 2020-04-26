@@ -38,7 +38,7 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         {% if app.user %}
-                            <a href="{{ path("conversation.index") }}" class="btn">
+                            <a href="{{ path("general.conversation.index") }}" class="btn">
                                 {% if app.user.hasMessageNonVu() %}
                                     <span class="fas fa-envelope-open-text" aria-hidden="true"></span>
                                 {% else %}

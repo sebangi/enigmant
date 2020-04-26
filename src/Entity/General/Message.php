@@ -43,6 +43,11 @@ class Message
      */
     private $conversation;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $messageGourou = false;
+
     public function __construct()
     {
         $this->date = new \DateTime('now');
@@ -93,6 +98,16 @@ class Message
     public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
+    }
+    
+    /**
+     * 
+     * @return string|null
+     */
+    public function getDateString(): ?string
+    {
+        setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
+        return strftime("le %e %B %G à %Hh%M", $this->date->getTimestamp() );
     }
 
     /**
@@ -166,6 +181,18 @@ class Message
     public function setConversation(?Conversation $conversation): Message
     {
         $this->conversation = $conversation;
+
+        return $this;
+    }
+
+    public function getMessageGourou(): ?bool
+    {
+        return $this->messageGourou;
+    }
+
+    public function setMessageGourou(bool $messageGourou): self
+    {
+        $this->messageGourou = $messageGourou;
 
         return $this;
     }

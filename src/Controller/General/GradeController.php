@@ -24,7 +24,7 @@ class GradeController extends AbstractController
      * @var string
      */
     private $menuCourant = "Grades";
-       
+    
     
     /**
      * @var EntityManagerInterface
@@ -45,7 +45,7 @@ class GradeController extends AbstractController
             ObtentionNiveauRepository $optRepository, 
             NiveauRepository $niveauRepository,
             ThemeRepository $themeRepository,
-                    string $themeCourant): Response
+            string $themeCourant): Response
     {       
         if ( $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN') ||
              $this->get('security.authorization_checker')->isGranted('ROLE_USER') )

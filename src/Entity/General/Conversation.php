@@ -75,17 +75,17 @@ class Conversation
      */
     public function getSujet(): ?string
     {
-        return $this->Sujet;
+        return $this->sujet;
     }
 
     /**
      * 
-     * @param string $Sujet
+     * @param string $sujet
      * @return \App\Entity\General\Conversation
      */
-    public function setSujet(string $Sujet): Conversation
+    public function setSujet(string $sujet): Conversation
     {
-        $this->Sujet = $Sujet;
+        $this->sujet = $sujet;
 
         return $this;
     }
@@ -183,4 +183,23 @@ class Conversation
 
         return $this;
     }
+    
+    /**
+     * 
+     * @return int
+     */
+    public function getNbMessagesNonLus(): int {
+        if ($this->messages->isEmpty()) {
+            return 0;
+        } else {
+            $c = 0;
+            foreach ($this->messages->toArray() as $mess) {
+                if ( ! $mess->getVu() )
+                    $c = $c + 1;
+            }
+
+            return $c;
+        }
+    }
+    
 }

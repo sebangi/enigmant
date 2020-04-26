@@ -2,27 +2,67 @@
 
 {% block body %}
     <div class="jumbotron mon-jumbotron">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    {% if collectionChene.imageName %}
-                        <img src="{{ vich_uploader_asset(collectionChene, 'imageFile') }}" class="card-img-top" style="width:720px; height:auto;"> 
-                    {% else %}
-                        <img src="{{ '/images/collectionChene/vide.jpg' }}" class="card-img-top" style="width:100%; height:230px;"> 
-                    {% endif%}
-                </div>
-                <div class="col-md-4">
-                    <h1>{{ collectionChene.nom }}</h1>
-                    <div class="mt-4">
-                        <h3>{{ collectionChene.description | nl2br }}</h3>                    
-                    </div>     
-                    <div class="mt-4">
-                         Nombre de jeux de la collection : {{ collectionChene.getJeuEnChenes() | length }}</p>
-                    </div>     
+        <div class="container">    
+            <div>
+                <div class="col-md-10 offset-md-1">
+                    {% include 'general/conversation/_conversation.html.twig' with {'mode': 'show'} %}
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="container">
+        {% for message in messages  %}
+            <div class="row mt-4">
+                {% if message.messageGourou %}
+                    <div class="col-md-8">
+                        <div class="card border-dark" style="max-width:36rem; min-width: 24rem;">
+                            <div class="card-header bg-warning small-card-header">
+                                <div class="d-inline">
+                                    Grand Gourou 
+                                </div>
+                                <div class="d-inline float-right font-italic">
+                                    {{ message.getDateString }}
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                {{ message.texte }}
+                            </div>
+                        </div>  
+                    </div>   
+                {% endif%}
+            </div>
+            <div class="row mt-4">
+                {% if message.messageGourou %}
+                    <div class="col-md-8 offset-md-2">
+                        <div class="card border-dark" style="min-width: 24rem;">
+                            <div class="card-header bg-light small-card-header">
+                                <div class="d-inline">
+                                    {{ app.user.getUsername() }}  
+                                </div>
+                                <div class="d-inline float-right font-italic">
+                                    {{ message.getDateString }}
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                {{ message.texte }}
+                            </div>
+                        </div>  
+                    </div> 
+                {% endif%}
+            </div>
+        {% endfor %}
+
+        <div class="row mt-4">
+            <div class="col-md-8 offset-md-2">
+                <div class="card border-dark" style="min-width: 24rem;">
+                    <div class="card-body">
+                        texte
+                    </div>
+                </div>
+                <a href="{{ path("general.conversation.new" ) }}" class="btn btn-primary">Écrire</a>
+            </div>    
+        </div>
+    </div>
 {% endblock body %}
 

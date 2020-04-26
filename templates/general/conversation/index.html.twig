@@ -6,25 +6,22 @@
             <h1>Vous n'avez aucune conversation avec le grand Gourou</h1>
         {% else %}
             {% if conversations|length == 1 %}
-                <h1>Vous n'avez une conversation avec le grand Gourou</h1>
+                <h1>Vous avez une conversation avec le grand Gourou</h1>
             {% else %}
                 <h1>Vous avez {{ conversations|length }} conversations avec le grand Gourou</h1>
             {% endif%} 
         {% endif%}        
     </div>
     <div class="container mt-4">
-        <a href="{{ path("admin.home" ) }}" class="btn btn-primary">Créer une nouvelle conversation</a>
-        <div class="row mt-4">
-            <table class="table table-conversation">
-                <tbody>
-                    {% for conversation in conversations  %}
-                        <tr>
-                            <td style="width: 40%">{{ conversation.titre}} </td>
-                            <td style="width: 30%">{{ conversation.messages|length}}</td>                     
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+        <a href="{{ path("general.conversation.new" ) }}" class="btn btn-primary">Créer une nouvelle conversation</a>
+
+        {% for conversation in conversations  %}
+            <div class="mt-4">
+                <div class="col-md-10 offset-md-1">
+                    {%  include 'general/conversation/_conversation.html.twig' with {'mode': 'index'} %}
+                </div>
+            </div>
+        {% endfor %}
+
     </div>
 {% endblock body %}
