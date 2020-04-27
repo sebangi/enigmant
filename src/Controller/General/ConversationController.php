@@ -30,18 +30,15 @@ class ConversationController extends BaseController {
      * @var EntityManagerInterface
      */
     private $em;
-    
-    protected function getThemeCourant() : string
-    {
+
+    protected function getThemeCourant(): string {
         return "General";
     }
-    
-    protected function getMenuCourant() : string
-    {
+
+    protected function getMenuCourant(): string {
         return "Conversations";
     }
-    
-    
+
     public function __construct(ConversationRepository $repository, EntityManagerInterface $em) {
         $this->repository = $repository;
         $this->em = $em;
@@ -52,10 +49,10 @@ class ConversationController extends BaseController {
      * @var Request $Request
      * @return Response
      */
-    public function index(Request $Requete ): Response {
-        
-        $conversations = $this->repository->getByDate( $this->getUser()->getId() );            
-        
+    public function index(Request $Requete): Response {
+
+        $conversations = $this->repository->getByDate($this->getUser()->getId());
+
         return $this->monRender('/general/conversation/index.html.twig', [
                     'conversations' => $conversations,
         ]);
@@ -66,35 +63,36 @@ class ConversationController extends BaseController {
      * @param conversation $conversation
      * @return Response
      */
-    public function show(Request $requete, MessageRepository $m_repository, conversation $conversation, string $slug): Response {
+    public function show(Request $requete, MessageRepository $m_repository, conversation $conversation, string $slug, string $anchor = ""): Response {
         if ($conversation->getSlug() !== $slug)
             return $this->redirectToRoute('conversation.show', [
                         'id' => $conversation->getId(),
-                        'slug' => $conversation->getSlug()
-                            ], 301);
-        
-        $messages = $m_repository->findBy(array("conversation" => $conversation->getId()), array("date" => "ASC"));
+                        'slug' => $conversation->getSlug()], 301);
 
+        $messages = $m_repository->findBy(array("conversation" => $conversation->getId()), array("date" => "ASC"));
+                    
         // Formulaire pour un nouveau message
         $message = new Message();
         $message->setConversation($conversation);
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($requete);
         if ($form->isSubmitted() and $form->isValid()) {
-            $message->setDate( new \DateTime('now') );
+            $message->setDate(new \DateTime('now'));
             $admin = $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN');
             $message->setMessageGourou($admin);
-            $message->setVu(! $admin);
+            $message->setVu(!$admin);
             $message->setVuGourou($admin);
             dump($message);
-            $this->em->persist($message); 
+            $this->em->persist($message);
             $this->em->flush();
+            
+            
             return $this->redirectToRoute('general.conversation.show', [
-                    'id' => $conversation->getId(),
-                    'slug' => $conversation->getSlug()
-                ]);
-        }        
-        
+                        'id' => $conversation->getId(),
+                        'slug' => $conversation->getSlug()
+            ]);
+        }
+
         return $this->monRender('/general/conversation/show.html.twig', [
                     'form' => $form->createView(),
                     'conversation' => $conversation,
@@ -102,18 +100,17 @@ class ConversationController extends BaseController {
         ]);
     }
 
-    public function creerMessageInitial(Conversation $conversation) 
-    {
+    public function creerMessageInitial(Conversation $conversation) {
         $mess = new Message();
         $mess->setConversation($conversation);
-        $mess->setDate( new \DateTime('now') );
+        $mess->setDate(new \DateTime('now'));
         $mess->setMessageGourou(true);
         $mess->setTexte("Je vous écoute...");
         $mess->setVu(true);
         $mess->setVuGourou(false);
         $this->em->persist($mess);
     }
-    
+
     /**
      * @route("/new", name="new")  
      * @param Request $requete
@@ -121,26 +118,26 @@ class ConversationController extends BaseController {
      */
     public function new(Request $requete) {
         $conversation = new Conversation();
-        
-        if ( ! $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN') )
+
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
             $conversation->setUser($this->getUser());
-        
-        $form = $this->createForm(ConversationType::class, $conversation, 
-            [   'administration' => $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'), 
-                'user_id' => $this->getUser()->getId() ] );
-        
+
+        $form = $this->createForm(ConversationType::class, $conversation,
+                ['administration' => $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'),
+                    'user_id' => $this->getUser()->getId()]);
+
 
         $form->handleRequest($requete);
         if ($form->isSubmitted() and $form->isValid()) {
-            $this->em->persist($conversation); 
-            
-            $this->creerMessageInitial($conversation);            
-            
+            $this->em->persist($conversation);
+
+            $this->creerMessageInitial($conversation);
+
             $this->em->flush();
             return $this->redirectToRoute('general.conversation.show', [
-                    'id' => $conversation->getId(),
-                    'slug' => $conversation->getSlug()
-                ]);
+                        'id' => $conversation->getId(),
+                        'slug' => $conversation->getSlug()
+            ]);
         }
 
         return $this->monRender('general/conversation/new.html.twig', [
@@ -148,7 +145,7 @@ class ConversationController extends BaseController {
                     'form' => $form->createView(),
         ]);
     }
-        
+
     /**
      * @route("/{id}/edit", name="edit", methods="GET|POST")  
      * @param Conversation $conversation
@@ -156,10 +153,10 @@ class ConversationController extends BaseController {
      * @return Response
      */
     public function edit(Conversation $conversation, Request $requete): Response {
-        
-        $form = $this->createForm(ConversationType::class, $conversation, 
-            [   'administration' => $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'), 
-                'user_id' => $this->getUser()->getId() ]);
+
+        $form = $this->createForm(ConversationType::class, $conversation,
+                ['administration' => $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'),
+                    'user_id' => $this->getUser()->getId()]);
 
         $form->handleRequest($requete);
         if ($form->isSubmitted() and $form->isValid()) {
@@ -190,4 +187,5 @@ class ConversationController extends BaseController {
 
         return $this->redirectToRoute('general.conversation.index');
     }
+
 }

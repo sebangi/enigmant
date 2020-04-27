@@ -1,24 +1,29 @@
 <div class="card border-dark" >
     <div class="card-header">
-        <h3 class="d-inline">
-            {% if mode == "index" %}
-                <a href="{{ path("general.conversation.show", {id : conversation.id, slug : conversation.getSlug()} ) }}" class="btn btn-success d-inline float-none">Voir la conversation</a>
-            {% else %}
-                <span class="font-weight-bold"> Sujet :</span> 
-            {% endif %}
-            {{ conversation.sujet}}
-        </h3>
-        <div class="d-inline float-right">
-            <a href="{{ path("general.conversation.edit", {id : conversation.id} ) }}" class="btn btn-outline-secondary">
-                <span class="fas fa-pencil-alt" aria-hidden="true"></span>
-            </a>
+        <div class="row">
+            <div class="col-md-10">
+                <h3 class="mb-0">
+                    {% if mode != "index" %}
+                        <span class="font-weight-bold"> Sujet :</span> 
+                    {% endif %}
+                    {{ conversation.sujet}}
+                </h3>
+            </div>
+            <div class="col-md-2">
+                <div class="float-right">
+                    <a href="{{ path("general.conversation.edit", {id : conversation.id} ) }}" class="btn btn-outline-secondary">
+                        <span class="fas fa-pencil-alt" aria-hidden="true"></span>
+                    </a>
 
-            <form method="post" action="{{ path("general.conversation.delete", {id: conversation.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer cette conversation ?')">
-                <input type="hidden" name="_method" value="DELETE">
-                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ conversation.id) }}">
-                <button class="btn btn-outline-danger"><span class="fas fa-trash-alt" aria-hidden="true"></span></button>
-            </form>
-        </div>
+                    <form method="post" action="{{ path("general.conversation.delete", {id: conversation.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer cette conversation ?')">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ conversation.id) }}">
+                        <button class="btn btn-outline-danger"><span class="fas fa-trash-alt" aria-hidden="true"></span></button>
+                    </form>
+
+                </div>
+            </div>
+        </div>        
     </div>
 
     {% set nbMessagesNonLus = conversation.getNbMessagesNonLus()%}
@@ -30,13 +35,16 @@
 
             {% if mode == "index" %}
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-md-3">
+                        <a class="btn btn-success" href="{{ path("general.conversation.show", {id : conversation.id, slug : conversation.getSlug()} ) }}{{conversation.getAncreNonVu()}}">Voir la conversation</a>
+                    </div> 
+                    <div class="col-md-9 mt-2">                         
                         {% if nbMessagesNonLus == 0 %}
                             <h5><span class="fas fa-envelope" aria-hidden="true"></span> Tous les messages ont été lus</h5>
                         {% elseif nbMessagesNonLus == 1 %}                    
                             <h5 class="text-danger"><span class="fas fa-envelope-open-text text-danger" aria-hidden="true"></span> Un message non lu</h5>
                         {% else %}                    
-                            <h5 class="text-danger"><span class="fas fa-envelope-open-text text-danger" aria-hidden="true"></span> {{ nbMessages }} messages non lus</h5>
+                            <h5><span class="fas fa-envelope-open-text text-danger" aria-hidden="true"></span> {{ nbMessagesNonLus }} messages non lus</h5>
                         {% endif%}
                     </div>                
                 </div>

@@ -1,7 +1,7 @@
 {% extends "general/baseGeneral.html.twig" %}
 
 {% block body %}
-    <div class="jumbotron mon-jumbotron third-nav sticky-top ">
+    <div class="jumbotron mon-jumbotron third-nav sticky-top">
         <div class="container">    
             <div>
                 <div class="col-md-10 offset-md-1">
@@ -12,40 +12,18 @@
     </div>
 
     <div class="container">
+        {% if is_granted('ROLE_ADMIN') %}
+            {% set lecteur = "admin" %}
+        {% else %}
+            {% set lecteur = "user" %}
+        {% endif%}
+                
         {% for message in messages  %}
-            <div class="row mt-4">
+            <div class="row mt-4">                
                 {% if message.messageGourou %}
-                    <div class="col-md-8">
-                        <div class="card border-dark" style="max-width:36rem; min-width: 24rem;">
-                            <div class="card-header bg-warning small-card-header">
-                                <div class="d-inline">
-                                    Grand Gourou 
-                                </div>
-                                <div class="d-inline float-right font-italic">
-                                    {{ message.getDateString }}
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                {{ message.texte }}
-                            </div>
-                        </div>  
-                    </div>   
+                    {% include 'general/conversation/_message.html.twig' with {'exp': 'admin', 'lecteur': lecteur} %}
                 {% else %}
-                    <div class="col-md-8 offset-md-2">
-                        <div class="card border-dark" style="min-width: 24rem;">
-                            <div class="card-header bg-light small-card-header">
-                                <div class="d-inline">
-                                    {{ app.user.getUsername() }}  
-                                </div>
-                                <div class="d-inline float-right font-italic">
-                                    {{ message.getDateString }}
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                {{ message.texte }}
-                            </div>
-                        </div>  
-                    </div> 
+                    {% include 'general/conversation/_message.html.twig' with {'exp': 'user', 'lecteur': lecteur} %}
                 {% endif%}
             </div>
         {% endfor %}

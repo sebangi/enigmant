@@ -23,6 +23,7 @@ body {
     margin: 0px;
 }
 
+
 @media (min-width: 567px) {
     .abs-center-x {
         position: absolute;
@@ -116,4 +117,10 @@ body {
 .small-card-header {
     padding-bottom: 4px;
     padding-top: 4px;
+}
+
+.anchor a {
+  position: relative;
+  left: 0px;
+  top: -500px;
 }

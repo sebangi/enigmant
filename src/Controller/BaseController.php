@@ -31,7 +31,6 @@ abstract class BaseController extends AbstractController
         if ( ! array_key_exists('themeCourant', $parameters) )
             if( $this->getThemeCourant() ) 
                 $parameters['themeCourant'] = $this->getThemeCourant();
-        dump($this->getThemeCourant());
         
         return $this->render($view, $parameters, $response);
     }

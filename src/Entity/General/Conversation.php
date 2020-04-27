@@ -12,8 +12,8 @@ use Cocur\Slugify\Slugify;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\General\ConversationRepository")
  */
-class Conversation
-{
+class Conversation {
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -47,25 +47,23 @@ class Conversation
      */
     private $messages;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->messages = new ArrayCollection();
     }
 
-     /**
+    /**
      * 
      * @return string
      */
-    public function getSlug() : string {
-        return ( new Slugify() )->slugify($this->sujet); 
+    public function getSlug(): string {
+        return ( new Slugify())->slugify($this->sujet);
     }
-    
+
     /**
      * 
      * @return int|null
      */
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
@@ -73,8 +71,7 @@ class Conversation
      * 
      * @return string|null
      */
-    public function getSujet(): ?string
-    {
+    public function getSujet(): ?string {
         return $this->sujet;
     }
 
@@ -83,8 +80,7 @@ class Conversation
      * @param string $sujet
      * @return \App\Entity\General\Conversation
      */
-    public function setSujet(string $sujet): Conversation
-    {
+    public function setSujet(string $sujet): Conversation {
         $this->sujet = $sujet;
 
         return $this;
@@ -94,8 +90,7 @@ class Conversation
      * 
      * @return ReservationJeu|null
      */
-    public function getLienReservation(): ?ReservationJeu
-    {
+    public function getLienReservation(): ?ReservationJeu {
         return $this->lienReservation;
     }
 
@@ -104,8 +99,7 @@ class Conversation
      * @param ReservationJeu|null $lienReservation
      * @return \App\Entity\General\Conversation
      */
-    public function setLienReservation(?ReservationJeu $lienReservation): Conversation
-    {
+    public function setLienReservation(?ReservationJeu $lienReservation): Conversation {
         $this->lienReservation = $lienReservation;
 
         return $this;
@@ -115,8 +109,7 @@ class Conversation
      * 
      * @return JeuEnChene|null
      */
-    public function getLienJeuEnChene(): ?JeuEnChene
-    {
+    public function getLienJeuEnChene(): ?JeuEnChene {
         return $this->lienJeuEnChene;
     }
 
@@ -125,8 +118,7 @@ class Conversation
      * @param JeuEnChene|null $lienJeuEnChene
      * @return \App\Entity\General\Conversation
      */
-    public function setLienJeuEnChene(?JeuEnChene $lienJeuEnChene): Conversation
-    {
+    public function setLienJeuEnChene(?JeuEnChene $lienJeuEnChene): Conversation {
         $this->lienJeuEnChene = $lienJeuEnChene;
 
         return $this;
@@ -136,8 +128,7 @@ class Conversation
      * 
      * @return \App\Entity\General\User|null
      */
-    public function getUser(): ?User
-    {
+    public function getUser(): ?User {
         return $this->user;
     }
 
@@ -146,8 +137,7 @@ class Conversation
      * @param \App\Entity\General\User|null $user
      * @return \App\Entity\General\Conversation
      */
-    public function setUser(?User $user): Conversation
-    {
+    public function setUser(?User $user): Conversation {
         $this->user = $user;
 
         return $this;
@@ -156,13 +146,11 @@ class Conversation
     /**
      * @return Collection|Message[]
      */
-    public function getMessages(): Collection
-    {
+    public function getMessages(): Collection {
         return $this->messages;
     }
 
-    public function addMessage(Message $message): self
-    {
+    public function addMessage(Message $message): self {
         if (!$this->messages->contains($message)) {
             $this->messages[] = $message;
             $message->setConversation($this);
@@ -171,8 +159,7 @@ class Conversation
         return $this;
     }
 
-    public function removeMessage(Message $message): self
-    {
+    public function removeMessage(Message $message): self {
         if ($this->messages->contains($message)) {
             $this->messages->removeElement($message);
             // set the owning side to null (unless already changed)
@@ -183,7 +170,7 @@ class Conversation
 
         return $this;
     }
-    
+
     /**
      * 
      * @return int
@@ -194,12 +181,38 @@ class Conversation
         } else {
             $c = 0;
             foreach ($this->messages->toArray() as $mess) {
-                if ( ! $mess->getVu() )
+                if (!$mess->getVu())
                     $c = $c + 1;
             }
 
             return $c;
         }
     }
-    
+
+    /**
+     * 
+     * @return string
+     */
+    public function getAncreNonVu(): string {
+        if ($this->messages->isEmpty()) {
+            return "";
+        } 
+        else {
+            $iterator = $this->messages->getIterator();
+
+            $iterator->uasort(function ($a, $b) {
+                return $a->getDate() <=> $b->getDate();
+                });
+
+            $messagesTries = new ArrayCollection(iterator_to_array($iterator));
+            
+            foreach ($messagesTries->toArray() as $mess) {
+                if (! $mess->getVu())
+                    return "#message-" . $mess->getId();
+            }
+
+            return "";
+        }
+    }
+
 }
