@@ -28,7 +28,7 @@ abstract class BaseController extends AbstractController
         
         $parameters['menuCourant'] = $this->getMenuCourant();
         
-      //  if ( ! array_key_exists('themeCourant', $parameters) )
+        if ( ! array_key_exists('themeCourant', $parameters) )
             if( $this->getThemeCourant() ) 
                 $parameters['themeCourant'] = $this->getThemeCourant();
         dump($this->getThemeCourant());

@@ -38,7 +38,7 @@ class ConversationController extends BaseController {
     
     protected function getMenuCourant() : string
     {
-        return "Conversation";
+        return "Conversations";
     }
     
     
