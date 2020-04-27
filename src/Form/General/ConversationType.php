@@ -28,12 +28,8 @@ class ConversationType extends AbstractType
                             ->orderBy('u.username', 'ASC');
                     },                            
                 'required' => true
-            ]);
-        }
-        
-        $builder
-            ->add('sujet')
-            ->add('lienReservation', EntityType::class, [
+                ])
+                ->add('lienReservation', EntityType::class, [
                 'class' => ReservationJeu::class,
                 'placeholder' => 'Aucune référence',
                 'choice_label' => function ($reservation) {
@@ -47,7 +43,13 @@ class ConversationType extends AbstractType
                             ->orderBy('r.dateDemande', 'DESC');
                     },                            
                 'required' => false
-            ])
+                ])
+            ;
+        }
+        
+        $builder
+            ->add('sujet')
+            
             ->add('lienJeuEnChene', EntityType::class, [
                 'class' => JeuEnChene::class,
                 'placeholder' => 'Aucune référence',

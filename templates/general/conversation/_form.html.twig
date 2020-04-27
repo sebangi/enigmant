@@ -14,7 +14,9 @@
     Si la conversation fait référence à l'un des éléments suivant, merci de l'indiquer
 </div>
 <div class="row mt-2">
+{% if is_granted('ROLE_ADMIN') %}
     <div class="col-md-6">{{ form_row(form.lienReservation) }}</div>
+{% endif %}
     <div class="col-md-6">{{ form_row(form.lienJeuEnChene) }}</div>    
 </div>
 
