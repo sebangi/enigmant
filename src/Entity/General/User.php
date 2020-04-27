@@ -351,12 +351,21 @@ class User implements UserInterface {
      * 
      * @return bool
      */
-    public function hasMessageNonVu(): bool {
+    public function hasMessageNonVu( bool $est_admin ): bool {
         foreach ($this->conversations->toArray() as $conv) {
 
             foreach ($conv->getMessages()->toArray() as $mess) {
-                if (!$mess->getVu())
-                    return true;
+                if ( $est_admin )
+                {
+                    if ( ! $mess->getVuGourou() )
+                        return true;
+                }
+                else
+                {
+                    if ( ! $mess->getVu())
+                        return true;
+                }
+                
             }
         }
 

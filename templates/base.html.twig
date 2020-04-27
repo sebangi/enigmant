@@ -39,7 +39,7 @@
                     <li class="nav-item">
                         {% if app.user %}
                             <a href="{{ path("general.conversation.index") }}" class="btn">
-                                {% if app.user.hasMessageNonVu()  %}
+                                {% if app.user.hasMessageNonVu( is_granted('ROLE_ADMIN') )  %}
                                     <span class="fas fa-envelope-open-text" aria-hidden="true"></span>
                                 {% else %}
                                     <span class="fas fa-envelope" aria-hidden="true"></span>    

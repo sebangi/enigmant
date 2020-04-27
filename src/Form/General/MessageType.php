@@ -17,7 +17,8 @@ class MessageType extends AbstractType
                 'required' => false,
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Tapez votre nouveau message'
+                    'placeholder' => 'Tapez votre nouveau message',
+                    'class' => 'mon-area'
                 ]
             ])
         ;

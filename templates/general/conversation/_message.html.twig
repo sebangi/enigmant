@@ -17,7 +17,7 @@
         <div class="card-body">
            <div class="anchor">
                 <a id="message-{{ message.getId() }}"> </a>
-                {{ message.texte }}
+                {{ message.texte|nl2br()}} 
             </div>
         </div>  
     </div>  

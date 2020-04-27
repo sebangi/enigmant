@@ -1,4 +1,4 @@
-<div class="card border-dark" >
+<div class="card border-dark">
     <div class="card-header">
         <div class="row">
             <div class="col-md-10">
@@ -9,26 +9,29 @@
                     {{ conversation.sujet}}
                 </h3>
             </div>
-            <div class="col-md-2">
-                <div class="float-right">
-                    <a href="{{ path("general.conversation.edit", {id : conversation.id} ) }}" class="btn btn-outline-secondary">
-                        <span class="fas fa-pencil-alt" aria-hidden="true"></span>
-                    </a>
+            {% if not conversation.getCreeParGourou() or is_granted('ROLE_ADMIN') %}
+                <div class="col-md-2">
+                    <div class="float-right">
+                        <a href="{{ path("general.conversation.edit", {id : conversation.id} ) }}" class="btn btn-outline-secondary">
+                            <span class="fas fa-pencil-alt" aria-hidden="true"></span>
+                        </a>
 
-                    <form method="post" action="{{ path("general.conversation.delete", {id: conversation.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer cette conversation ?')">
-                        <input type="hidden" name="_method" value="DELETE">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ conversation.id) }}">
-                        <button class="btn btn-outline-danger"><span class="fas fa-trash-alt" aria-hidden="true"></span></button>
-                    </form>
+                        <form method="post" action="{{ path("general.conversation.delete", {id: conversation.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer cette conversation ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ conversation.id) }}">
+                            <button class="btn btn-outline-danger"><span class="fas fa-trash-alt" aria-hidden="true"></span></button>
+                        </form>
 
+                    </div>
                 </div>
-            </div>
+            {% endif%}
         </div>        
     </div>
 
-    {% set nbMessagesNonLus = conversation.getNbMessagesNonLus()%}
+    {% set nbMessagesNonLus = conversation.getNbMessagesNonLus( is_granted('ROLE_ADMIN') )%}
     {% set reference = ( conversation.lienJeuEnChene or conversation.lienReservation ) %}
     {% set display_body = reference or mode == "index" %}
+
 
     {% if display_body %}
         <div class="card-body text-dark">  
@@ -36,13 +39,13 @@
             {% if mode == "index" %}
                 <div class="row">
                     <div class="col-md-3">
-                        <a class="btn btn-success" href="{{ path("general.conversation.show", {id : conversation.id, slug : conversation.getSlug()} ) }}{{conversation.getAncreNonVu()}}">Voir la conversation</a>
+                        <a class="btn btn-success" href="{{ path("general.conversation.show", {id : conversation.id, slug : conversation.getSlug()} ) }}{{conversation.getAncreNonVu( is_granted('ROLE_ADMIN') )}}">Voir la conversation</a>
                     </div> 
                     <div class="col-md-9 mt-2">                         
                         {% if nbMessagesNonLus == 0 %}
                             <h5><span class="fas fa-envelope" aria-hidden="true"></span> Tous les messages ont été lus</h5>
                         {% elseif nbMessagesNonLus == 1 %}                    
-                            <h5 class="text-danger"><span class="fas fa-envelope-open-text text-danger" aria-hidden="true"></span> Un message non lu</h5>
+                            <h5><span class="fas fa-envelope-open-text text-danger" aria-hidden="true"></span> Un message non lu</h5>
                         {% else %}                    
                             <h5><span class="fas fa-envelope-open-text text-danger" aria-hidden="true"></span> {{ nbMessagesNonLus }} messages non lus</h5>
                         {% endif%}

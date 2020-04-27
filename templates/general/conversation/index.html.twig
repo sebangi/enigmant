@@ -2,21 +2,25 @@
 
 {% block body %}
     <div class="jumbotron mon-jumbotron text-center">
-        {% if conversations|length == 0 %}
-            <h1>Vous n'avez aucune conversation avec le grand Gourou</h1>
+        {% if is_granted('ROLE_ADMIN') %}
+            Ajouter une recherche par user
         {% else %}
-            {% if conversations|length == 1 %}
-                <h1>Vous avez une conversation avec le grand Gourou</h1>
+            {% if conversations|length == 0 %}
+                <h1>Vous n'avez aucune conversation avec le grand Gourou</h1>
             {% else %}
-                <h1>Vous avez {{ conversations|length }} conversations avec le grand Gourou</h1>
+                {% if conversations|length == 1 %}
+                    <h1>Vous avez une conversation avec le grand Gourou</h1>
+                {% else %}
+                    <h1>Vous avez {{ conversations|length }} conversations avec le grand Gourou</h1>
+                {% endif%} 
             {% endif%} 
-        {% endif%}        
+        {% endif%}         
     </div>
-    <div class="container mt-4">
+    <div class="container mt-4 mb-4">
         <div class="col-md-10 offset-md-1">
             <a href="{{ path("general.conversation.new" ) }}" class="btn btn-primary">Créer une nouvelle conversation</a>
         </div>
-        
+
         {% for conversation in conversations  %}
             <div class="mt-4">
                 <div class="col-md-10 offset-md-1">

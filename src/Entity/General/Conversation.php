@@ -47,6 +47,11 @@ class Conversation {
      */
     private $messages;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $creeParGourou = false;
+
     public function __construct() {
         $this->messages = new ArrayCollection();
     }
@@ -150,7 +155,12 @@ class Conversation {
         return $this->messages;
     }
 
-    public function addMessage(Message $message): self {
+    /**
+     * 
+     * @param \App\Entity\General\Message $message
+     * @return \App\Entity\General\Conversation
+     */
+    public function addMessage(Message $message): Conversation {
         if (!$this->messages->contains($message)) {
             $this->messages[] = $message;
             $message->setConversation($this);
@@ -159,7 +169,12 @@ class Conversation {
         return $this;
     }
 
-    public function removeMessage(Message $message): self {
+    /**
+     * 
+     * @param \App\Entity\General\Message $message
+     * @return \App\Entity\General\Conversation
+     */
+    public function removeMessage(Message $message): Conversation {
         if ($this->messages->contains($message)) {
             $this->messages->removeElement($message);
             // set the owning side to null (unless already changed)
@@ -175,14 +190,26 @@ class Conversation {
      * 
      * @return int
      */
-    public function getNbMessagesNonLus(): int {
+    public function getNbMessagesNonLus(bool $est_admin): int {
         if ($this->messages->isEmpty()) {
             return 0;
         } else {
             $c = 0;
             foreach ($this->messages->toArray() as $mess) {
-                if (!$mess->getVu())
-                    $c = $c + 1;
+                if ( $est_admin )
+                {
+                    if (! $mess->getVuGourou())
+                    {
+                        $c = $c + 1;
+                    }
+                }
+                else
+                {
+                    if (! $mess->getVu())
+                    {
+                        $c = $c + 1;
+                    }
+                }
             }
 
             return $c;
@@ -193,7 +220,7 @@ class Conversation {
      * 
      * @return string
      */
-    public function getAncreNonVu(): string {
+    public function getAncreNonVu(bool $est_admin): string {
         if ($this->messages->isEmpty()) {
             return "";
         } 
@@ -207,12 +234,46 @@ class Conversation {
             $messagesTries = new ArrayCollection(iterator_to_array($iterator));
             
             foreach ($messagesTries->toArray() as $mess) {
-                if (! $mess->getVu())
-                    return "#message-" . $mess->getId();
+                if ( $est_admin )
+                {
+                    if ( ! $mess->getVuGourou() )
+                    {
+                        return "#message-".$mess->getId();
+                    }
+                }
+                else 
+                {
+                    if ( ! $mess->getVu() )
+                    {
+                        return "#message-" . $mess->getId();
+                    }
+                }
             }
-
-            return "";
+            
+            // tous vu
+            return "#nouveau-message";
         }
+    }
+
+    /**
+     * 
+     * @return bool|null
+     */
+    public function getCreeParGourou(): ?bool
+    {
+        return $this->creeParGourou;
+    }
+
+    /**
+     * 
+     * @param bool $creeParGourou
+     * @return \App\Entity\General\Conversation
+     */
+    public function setCreeParGourou(bool $creeParGourou): Conversation
+    {
+        $this->creeParGourou = $creeParGourou;
+
+        return $this;
     }
 
 }

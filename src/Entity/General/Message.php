@@ -90,7 +90,7 @@ class Message
 
         return $this;
     }
-
+    
     /**
      * 
      * @return \DateTimeInterface|null

@@ -5,6 +5,8 @@ namespace App\Repository\General;
 use App\Entity\General\Conversation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Orm\QueryBuilder;
+use Doctrine\Orm\Query;
 
 /**
  * @method Conversation|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,20 +21,45 @@ class ConversationRepository extends ServiceEntityRepository
         parent::__construct($registry, Conversation::class);
     }
 
+    /**
+     * 
+     * @return QueryBuilder
+     */
+    public function getByDateQuery() : QueryBuilder
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c', 'mess', 'resa', 'jeu', 'j')
+            ->Join('c.user', 'user')
+            ->LeftJoin('c.messages', 'mess')
+            ->LeftJoin('c.lienReservation', 'resa')
+            ->LeftJoin('resa.jeu', 'j')
+            ->LeftJoin('c.lienJeuEnChene', 'jeu')
+        ;
+    }
     
     /**
       * @return Conversation[]
       */
     public function getByDate($user_id) : array
     {
-        return $this->createQueryBuilder('c')
-            ->select('c', 'mess')
-            ->Join('c.user', 'user')
-            ->LeftJoin('c.messages', 'mess')
-            ->Where('user.id = :id')
-            ->orderBy('mess.vu', 'ASC')
-            ->addOrderBy('mess.date', 'DESC')
-            ->setParameter('id', $user_id)
+        $query = $this->getByDateQuery();
+        
+        if ( $user_id )
+        {
+            $query = $query
+                ->Where('user.id = :id')
+                ->setParameter('id', $user_id)
+                ->addorderBy('mess.vu', 'ASC')
+                ->addOrderBy('mess.date', 'ASC');
+        }
+        else 
+        {
+            $query = $query
+                ->orderBy('mess.vuGourou', 'ASC')
+                ->addOrderBy('mess.date', 'ASC');
+        }
+        
+        return $query   
             ->getQuery()
             ->getResult()
         ;

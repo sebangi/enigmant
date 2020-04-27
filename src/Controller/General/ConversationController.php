@@ -51,7 +51,10 @@ class ConversationController extends BaseController {
      */
     public function index(Request $Requete): Response {
 
-        $conversations = $this->repository->getByDate($this->getUser()->getId());
+        if ( $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
+            $conversations = $this->repository->getByDate(null);
+        else
+            $conversations = $this->repository->getByDate($this->getUser()->getId());
 
         return $this->monRender('/general/conversation/index.html.twig', [
                     'conversations' => $conversations,
@@ -119,19 +122,25 @@ class ConversationController extends BaseController {
     public function new(Request $requete) {
         $conversation = new Conversation();
 
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
+        if ( $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
+        {
+            $conversation->setCreeParGourou(true);
+        }
+        else
+        {
             $conversation->setUser($this->getUser());
+        }
 
         $form = $this->createForm(ConversationType::class, $conversation,
                 ['administration' => $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'),
                     'user_id' => $this->getUser()->getId()]);
 
-
         $form->handleRequest($requete);
         if ($form->isSubmitted() and $form->isValid()) {
             $this->em->persist($conversation);
 
-            $this->creerMessageInitial($conversation);
+            if ( ! $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
+                $this->creerMessageInitial($conversation);
 
             $this->em->flush();
             return $this->redirectToRoute('general.conversation.show', [

@@ -124,3 +124,12 @@ body {
   left: 0px;
   top: -500px;
 }
+
+.mon-area {
+    min-height: 150px;
+}
+
+.pre {
+    overflow-x:auto;
+    /*display: inline;*/
+}
