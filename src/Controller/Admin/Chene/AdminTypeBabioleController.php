@@ -8,7 +8,7 @@ use App\Repository\Chene\TypeBabioleRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\BaseController;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
@@ -16,17 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  * @Route("/admin/chene/type-babiole")
  * @IsGranted("ROLE_ADMIN")
  */
-class AdminTypeBabioleController extends AbstractController {
-
-    /**
-     * @var string
-     */
-    private $menuCourant = "AdminTypeBabiole";
-
-    /**
-     * @var string
-     */
-    private $themeCourant = "Chêne";
+class AdminTypeBabioleController extends BaseController {
 
     /**
      * @var TypeBabioleRepository
@@ -37,6 +27,17 @@ class AdminTypeBabioleController extends AbstractController {
      * @var EntityManagerInterface
      */
     private $em;
+    
+    
+    protected function getThemeCourant() : string
+    {
+        return "Chêne";
+    }
+    
+    protected function getMenuCourant() : string
+    {
+        return "AdminTypeBabiole";
+    }
 
     public function __construct(TypeBabioleRepository $repository, EntityManagerInterface $em) {
         $this->repository = $repository;
@@ -50,10 +51,8 @@ class AdminTypeBabioleController extends AbstractController {
     public function index(): Response {
         $typeBabioles = $this->repository->findAllByNum();
 
-        return $this->render('admin/chene/typeBabiole/index.html.twig', [
-                    'typeBabioles' => $typeBabioles,
-                    'menuCourant' => $this->menuCourant,
-                    'themeCourant' => $this->themeCourant
+        return $this->monRender('admin/chene/typeBabiole/index.html.twig', [
+                    'typeBabioles' => $typeBabioles
         ]);
     }
 
@@ -74,11 +73,9 @@ class AdminTypeBabioleController extends AbstractController {
             return $this->redirectToRoute('admin.chene.typeBabiole.index');
         }
 
-        return $this->render('admin/chene/typeBabiole/new.html.twig', [
+        return $this->monRender('admin/chene/typeBabiole/new.html.twig', [
                     'typeBabiole' => $typeBabiole,
                     'form' => $form->createView(),
-                    'menuCourant' => $this->menuCourant,
-                    'themeCourant' => $this->themeCourant
         ]);
     }
 
@@ -98,11 +95,9 @@ class AdminTypeBabioleController extends AbstractController {
             return $this->redirectToRoute('admin.chene.typeBabiole.index');
         }
 
-        return $this->render('admin/chene/typeBabiole/edit.html.twig', [
+        return $this->monRender('admin/chene/typeBabiole/edit.html.twig', [
                     'typeBabiole' => $typeBabiole,
                     'form' => $form->createView(),
-                    'menuCourant' => $this->menuCourant,
-                    'themeCourant' => $this->themeCourant
         ]);
     }
 

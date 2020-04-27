@@ -2,24 +2,23 @@
 
 namespace App\Controller\Chene;
 
+use App\Controller\BaseController;
 use App\Entity\Chene\CollectionChene;
+use App\Entity\General\User;
+use App\Repository\General\UserRepository;
 use App\Repository\Chene\CollectionCheneRepository;
-use \App\Entity\Chene\CollectionCheneRecherche;
-use \App\Form\Chene\CollectionCheneRechercheType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Chene\CollectionCheneRecherche;
+use App\Form\Chene\CollectionCheneRechercheType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Component\Pager\PaginatorInterface;
-
-use \Liip\ImagineBundle\Imagine\Cache\CacheManager;
 
 /**
  * @Route("/chene/collection")
  */
-class CollectionCheneController extends AbstractController {
+class CollectionCheneController extends BaseController {
 
     /**
      * @var CollectionCheneRepository
@@ -30,23 +29,22 @@ class CollectionCheneController extends AbstractController {
      * @var EntityManagerInterface
      */
     private $em;
-    
-    /**
-     * @var string
-     */
-    private $menuCourant = "CollectionChene";
-    
-    /**
-     * @var string
-     */
-    private $themeCourant = "Chêne";
-
-    
+ 
     public function __construct(CollectionCheneRepository $repository, EntityManagerInterface $em) {
         $this->repository = $repository;
         $this->em = $em;
     }
-
+    
+    protected function getThemeCourant() : string
+    {
+        return "Chêne";
+    }
+    
+    protected function getMenuCourant() : string
+    {
+        return "CollectionChene";
+    }
+    
     /**
      * @route("/", name="collectionChene.index")  
      * @var Request $Request
@@ -55,9 +53,7 @@ class CollectionCheneController extends AbstractController {
     public function index(Request $Requete ): Response {
         $collectionChene = $this->repository->findAll();
         
-        return $this->render('chene/collectionChene/index.html.twig', [
-                    'menuCourant' => $this->menuCourant,
-                    'themeCourant' => $this->themeCourant,
+        return $this->monRender('chene/collectionChene/index.html.twig', [
                     'collections_chene' => $collectionChene,
         ]);
     }
@@ -74,9 +70,7 @@ class CollectionCheneController extends AbstractController {
                         'slug' => $collectionChene->getSlug()
                             ], 301);
 
-        return $this->render('chene/collectionChene/show.html.twig', [
-                    'menuCourant' => $this->menuCourant,
-                    'themeCourant' => $this->themeCourant,
+        return $this->monRender('chene/collectionChene/show.html.twig', [
                     'collectionChene' => $collectionChene
         ]);
     }

@@ -6,7 +6,7 @@ use App\Entity\General\User;
 use App\Form\General\UserType;
 use App\Form\General\UserPasswordType;
 use App\Repository\General\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,18 +21,8 @@ use App\Repository\General\NiveauRepository;
  * @Route("/admin/user", name="admin.user.")
  * @IsGranted("ROLE_ADMIN")
  */
-class AdminUserController extends AbstractController
+class AdminUserController extends BaseController
 {    
-    /**
-     * @var string
-     */
-    private $menuCourant = "AdminUser";
-    
-    /**
-     * @var string
-     */
-    private $themeCourant = "Général";
-    
     /**
      *
      * @var UserRepository 
@@ -45,6 +35,17 @@ class AdminUserController extends AbstractController
      */
     private $em;
 
+    
+    protected function getThemeCourant() : string
+    {
+        return "Général";
+    }
+    
+    protected function getMenuCourant() : string
+    {
+        return "AdminUser";
+    }
+    
     /**
      * 
      * @param UserRepository $repository
@@ -60,9 +61,7 @@ class AdminUserController extends AbstractController
      */
     public function home(UserRepository $userRepository): Response
     {
-        return $this->render('admin/general/user/index.html.twig', [
-            'menuCourant' => $this->menuCourant,
-            'themeCourant' => $this->themeCourant,
+        return $this->monRender('admin/general/user/index.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
     }
@@ -72,9 +71,7 @@ class AdminUserController extends AbstractController
      */
     public function index(UserRepository $userRepository): Response
     {
-        return $this->render('admin/general/user/index.html.twig', [
-            'menuCourant' => $this->menuCourant,
-            'themeCourant' => $this->themeCourant,
+        return $this->monRender('admin/general/user/index.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
     }
@@ -116,9 +113,7 @@ class AdminUserController extends AbstractController
             return $this->redirectToRoute('admin.user.index');
         }
 
-        return $this->render('admin/general/user/new.html.twig', [
-            'menuCourant' => $this->menuCourant,
-            'themeCourant' => $this->themeCourant,
+        return $this->monRender('admin/general/user/new.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);
@@ -140,9 +135,7 @@ class AdminUserController extends AbstractController
             return $this->redirectToRoute('admin.user.index');
         }
 
-        return $this->render('admin/general/user/edit.html.twig', [
-            'menuCourant' => $this->menuCourant,
-            'themeCourant' => $this->themeCourant,
+        return $this->monRender('admin/general/user/edit.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);
@@ -188,9 +181,7 @@ class AdminUserController extends AbstractController
             return $this->redirectToRoute('admin.user.index');
         }
 
-        return $this->render('admin/general/user/password.html.twig', [
-                    'menuCourant' => $this->menuCourant,
-                    'themeCourant' => $this->themeCourant,
+        return $this->monRender('admin/general/user/password.html.twig', [
                     'user' => $user,
                     'form' => $form->createView(),
         ]);
@@ -215,9 +206,7 @@ class AdminUserController extends AbstractController
             return $this->redirectToRoute('admin.user.index');
         }
 
-        return $this->render('admin/general/user/password.html.twig', [
-                    'menuCourant' => $this->menuCourant,
-                    'themeCourant' => $this->themeCourant,
+        return $this->monRender('admin/general/user/password.html.twig', [
                     'user' => $user,
                     'form' => $form->createView(),
         ]);

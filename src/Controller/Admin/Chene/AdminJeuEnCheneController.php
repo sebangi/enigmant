@@ -8,7 +8,7 @@ use App\Repository\Chene\JeuEnCheneRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\BaseController;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
@@ -16,17 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  * @Route("/admin/chene/jeu-en-chene")
  * @IsGranted("ROLE_ADMIN")
  */
-class AdminJeuEnCheneController extends AbstractController {
-
-    /**
-     * @var string
-     */
-    private $menuCourant = "AdminJeuEnChene";
-
-    /**
-     * @var string
-     */
-    private $themeCourant = "Chêne";
+class AdminJeuEnCheneController extends BaseController {
 
     /**
      * @var JeuEnCheneRepository
@@ -37,6 +27,17 @@ class AdminJeuEnCheneController extends AbstractController {
      * @var EntityManagerInterface
      */
     private $em;
+    
+    
+    protected function getThemeCourant() : string
+    {
+        return "Chêne";
+    }
+    
+    protected function getMenuCourant() : string
+    {
+        return "AdminJeuEnChene";
+    }
 
     public function __construct(JeuEnCheneRepository $repository, EntityManagerInterface $em) {
         $this->repository = $repository;
@@ -50,10 +51,8 @@ class AdminJeuEnCheneController extends AbstractController {
     public function index(): Response {
         $jeuxEnChene = $this->repository->findAllBOrderByCollection();
 
-        return $this->render('admin/chene/jeuEnChene/index.html.twig', [
-                    'jeuxEnChene' => $jeuxEnChene,
-                    'menuCourant' => $this->menuCourant,
-                    'themeCourant' => $this->themeCourant
+        return $this->monRender('admin/chene/jeuEnChene/index.html.twig', [
+                    'jeuxEnChene' => $jeuxEnChene
         ]);
     }
 
@@ -74,11 +73,9 @@ class AdminJeuEnCheneController extends AbstractController {
             return $this->redirectToRoute('admin.chene.jeuEnChene.index');
         }
 
-        return $this->render('admin/chene/jeuEnChene/new.html.twig', [
+        return $this->monRender('admin/chene/jeuEnChene/new.html.twig', [
                     'jeuEnChene' => $jeuEnChene,
-                    'form' => $form->createView(),
-                    'menuCourant' => $this->menuCourant,
-                    'themeCourant' => $this->themeCourant
+                    'form' => $form->createView()
         ]);
     }
 
@@ -98,11 +95,9 @@ class AdminJeuEnCheneController extends AbstractController {
             return $this->redirectToRoute('admin.chene.jeuEnChene.index');
         }
 
-        return $this->render('admin/chene/jeuEnChene/edit.html.twig', [
+        return $this->monRender('admin/chene/jeuEnChene/edit.html.twig', [
                     'jeuEnChene' => $jeuEnChene,
-                    'form' => $form->createView(),
-                    'menuCourant' => $this->menuCourant,
-                    'themeCourant' => $this->themeCourant
+                    'form' => $form->createView()
         ]);
     }
 

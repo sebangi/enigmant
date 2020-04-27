@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\BaseController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,13 +15,24 @@ use App\Entity\General\Niveau;
 use App\Entity\General\ObtentionNiveau;
 use App\Repository\General\NiveauRepository;
 
-class SecurityController extends AbstractController
+class SecurityController extends BaseController
 {
     /**
      * @var EntityManagerInterface
      */
     private $em;
 
+    
+    protected function getThemeCourant() : ?string
+    {
+        return null;
+    }
+    
+    protected function getMenuCourant() : ?string
+    {
+        return null;
+    }
+    
     public function __construct(EntityManagerInterface $em) {
         $this->em = $em;
     }        
@@ -38,7 +49,7 @@ class SecurityController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', [
+        return $this->monRender('security/login.html.twig', [
                     'last_username' => $lastUsername,
                     'error' => $error,
         ]);
@@ -88,7 +99,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('login');
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->monRender('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }

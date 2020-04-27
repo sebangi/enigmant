@@ -38,6 +38,7 @@ class JeuEnCheneRechercheType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => JeuEnCheneRecherche::class,
+            'translation_domain' => 'forms',
             'method' => 'get',
             'csrf_protection' => false
         ]);

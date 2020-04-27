@@ -5,7 +5,7 @@ namespace App\Controller\Admin\General;
 use App\Entity\General\ObtentionNiveau;
 use App\Form\General\ObtentionNiveauType;
 use App\Repository\General\ObtentionNiveauRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,25 +15,23 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  * @Route("/admin/grade")
  * @IsGranted("ROLE_ADMIN")
  */
-class AdminObtentionNiveauController extends AbstractController {
+class AdminObtentionNiveauController extends BaseController {
 
-    /**
-     * @var string
-     */
-    private $menuCourant = "AdminObtentionNiveau";
-
-    /**
-     * @var string
-     */
-    private $themeCourant = "Général";
+    protected function getThemeCourant() : string
+    {
+        return "Général";
+    }
+    
+    protected function getMenuCourant() : string
+    {
+        return "AdminObtentionNiveau";
+    }
 
     /**
      * @Route("/", name="admin.obtentionNiveau.index", methods={"GET"})
      */
     public function index(ObtentionNiveauRepository $obtentionNiveauRepository): Response {
-        return $this->render('admin/general/obtentionNiveau/index.html.twig', [
-                    'menuCourant' => $this->menuCourant,
-                    'themeCourant' => $this->themeCourant,
+        return $this->monRender('admin/general/obtentionNiveau/index.html.twig', [
                     'obtentionNiveaux' => $obtentionNiveauRepository->findAllAvecJointure(),
         ]);
     }
@@ -63,9 +61,7 @@ class AdminObtentionNiveauController extends AbstractController {
             return $this->redirectToRoute('admin.obtentionNiveau.index');
         }
 
-        return $this->render('admin/general/obtentionNiveau/new.html.twig', [
-                    'menuCourant' => $this->menuCourant,
-                    'themeCourant' => $this->themeCourant,
+        return $this->monRender('admin/general/obtentionNiveau/new.html.twig', [
                     'obtentionNiveau' => $obtentionNiveau,
                     'form' => $form->createView(),
         ]);
@@ -85,9 +81,7 @@ class AdminObtentionNiveauController extends AbstractController {
             return $this->redirectToRoute('admin.obtentionNiveau.index');
         }
 
-        return $this->render('admin/general/obtentionNiveau/edit.html.twig', [
-                    'menuCourant' => $this->menuCourant,
-                    'themeCourant' => $this->themeCourant,
+        return $this->monRender('admin/general/obtentionNiveau/edit.html.twig', [
                     'obtentionNiveau' => $obtentionNiveau,
                     'form' => $form->createView(),
         ]);

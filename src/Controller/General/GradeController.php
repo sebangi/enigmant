@@ -9,7 +9,7 @@ use App\Entity\General\Theme;
 use App\Repository\General\ThemeRepository;
 use App\Repository\General\UserRepository;
 use App\Repository\General\ObtentionNiveauRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,18 +18,22 @@ use Doctrine\ORM\EntityManagerInterface;
 /**
  * @Route("/general/grade")
  */
-class GradeController extends AbstractController
+class GradeController extends BaseController
 {    
-    /**
-     * @var string
-     */
-    private $menuCourant = "Grades";
-    
-    
     /**
      * @var EntityManagerInterface
      */
     private $em;
+    
+    protected function getThemeCourant() : string
+    {
+        return "General";
+    }
+    
+    protected function getMenuCourant() : string
+    {
+        return "Grades";
+    }
 
     public function __construct(EntityManagerInterface $em) {
         $this->em = $em;
@@ -80,8 +84,7 @@ class GradeController extends AbstractController
                 $this->em->flush();
             }
             
-            return $this->render('general/grade/index.html.twig', [
-                'menuCourant' => $this->menuCourant,
+            return $this->monRender('general/grade/index.html.twig', [
                 'themeCourant' => $themeCourant,
                 'themes' => $themes,
                 'grades' => $grades,

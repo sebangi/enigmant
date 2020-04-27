@@ -3,12 +3,12 @@ body {
 }
 
 .second-nav {
-     top: 40px;
+     top: 42px;
 /*     background-image: url("/images/chaine.png");  assuming img folder is one step back from css*/
 }
 
 .third-nav {
-     top: 96px;
+     top: 98px;
 }
 
 .admin-bar {

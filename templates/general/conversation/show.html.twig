@@ -1,7 +1,7 @@
 {% extends "general/baseGeneral.html.twig" %}
 
 {% block body %}
-    <div class="jumbotron mon-jumbotron">
+    <div class="jumbotron mon-jumbotron third-nav sticky-top ">
         <div class="container">    
             <div>
                 <div class="col-md-10 offset-md-1">
@@ -30,10 +30,7 @@
                             </div>
                         </div>  
                     </div>   
-                {% endif%}
-            </div>
-            <div class="row mt-4">
-                {% if message.messageGourou %}
+                {% else %}
                     <div class="col-md-8 offset-md-2">
                         <div class="card border-dark" style="min-width: 24rem;">
                             <div class="card-header bg-light small-card-header">
@@ -53,14 +50,9 @@
             </div>
         {% endfor %}
 
-        <div class="row mt-4">
+        <div class="row mt-4 mb-4">
             <div class="col-md-8 offset-md-2">
-                <div class="card border-dark" style="min-width: 24rem;">
-                    <div class="card-body">
-                        texte
-                    </div>
-                </div>
-                <a href="{{ path("general.conversation.new" ) }}" class="btn btn-primary">Écrire</a>
+               {% include 'general/conversation/_message_form.html.twig' %}
             </div>    
         </div>
     </div>

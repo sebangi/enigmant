@@ -2,7 +2,7 @@
 
 namespace App\Controller\Chasse;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
@@ -10,18 +10,17 @@ use Twig\Environment;
 /**
      * @route("/chasse") 
      */
-class ChasseController extends AbstractController
+class ChasseController extends BaseController
 {
+    protected function getThemeCourant() : string
+    {
+        return "Chasse";
+    }
     
-    /**
-     * @var string
-     */
-    private $menuCourant = "EnigmesEnChasse";
-    
-    /**
-     * @var string
-     */
-    private $themeCourant = "Chasse";
+    protected function getMenuCourant() : string
+    {
+        return "EnigmesEnChasse";
+    }
         
     /**
      * @route("/", name="chasse.home")  
@@ -29,10 +28,7 @@ class ChasseController extends AbstractController
      */
     public function home( ) : Response
     {
-        return $this->render('chasse/home.html.twig', [
-            'menuCourant' => $this->menuCourant,
-            'themeCourant' => $this->themeCourant
-        ]);
+        return $this->monRender('chasse/home.html.twig');
     }
     
 }

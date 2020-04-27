@@ -5,7 +5,7 @@ namespace App\Controller\Admin\Chene;
 use App\Entity\Chene\CollectionChene;
 use App\Form\Chene\CollectionCheneType;
 use App\Repository\Chene\CollectionCheneRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,19 +16,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  * @Route("/admin/chene/collection")
  * @IsGranted("ROLE_ADMIN")
  */
-class AdminCollectionCheneController extends AbstractController
+class AdminCollectionCheneController extends BaseController
 {
-    
-    /**
-     * @var string
-     */
-    private $menuCourant = "AdminCollectionEnChene";
-    
-    /**
-     * @var string
-     */
-    private $themeCourant = "Chêne";
-    
     /**
      * @var CollectionCheneRepository
      */
@@ -38,6 +27,16 @@ class AdminCollectionCheneController extends AbstractController
      * @var EntityManagerInterface
      */
     private $em;
+        
+    protected function getThemeCourant() : string
+    {
+        return "Chêne";
+    }
+    
+    protected function getMenuCourant() : string
+    {
+        return "AdminCollectionEnChene";
+    }
 
     public function __construct(CollectionCheneRepository $repository, EntityManagerInterface $em) {
         $this->repository = $repository;
@@ -49,10 +48,8 @@ class AdminCollectionCheneController extends AbstractController
      */
     public function index(CollectionCheneRepository $collectionCheneRepository): Response
     {
-        return $this->render('admin/chene/collectionChene/index.html.twig', [
-                    'collectionChenes' => $collectionCheneRepository->findBy(array(), array('num'=>'asc')),
-                    'menuCourant' => $this->menuCourant,
-                    'themeCourant' => $this->themeCourant
+        return $this->monRender('admin/chene/collectionChene/index.html.twig', [
+                    'collectionChenes' => $collectionCheneRepository->findBy(array(), array('num'=>'asc'))
             ]);
     }
 
@@ -73,11 +70,9 @@ class AdminCollectionCheneController extends AbstractController
             return $this->redirectToRoute('admin.chene.collectionChene.index');
         }
 
-        return $this->render('admin/chene/collectionChene/new.html.twig', [
+        return $this->monRender('admin/chene/collectionChene/new.html.twig', [
                     'collection_chene' => $collectionChene,
-                    'form' => $form->createView(),
-                    'menuCourant' => $this->menuCourant,
-                    'themeCourant' => $this->themeCourant
+                    'form' => $form->createView()
         ]);
     }
 
@@ -86,10 +81,8 @@ class AdminCollectionCheneController extends AbstractController
      */
     public function show(CollectionChene $collectionChene): Response
     {
-        return $this->render('admin/chene/collectionChene/show.html.twig', [
-                    'collection_chene' => $collectionChene,
-                    'menuCourant' => $this->menuCourant,
-                    'themeCourant' => $this->themeCourant
+        return $this->monRender('admin/chene/collectionChene/show.html.twig', [
+                    'collection_chene' => $collectionChene
         ]);
     }
 
@@ -108,11 +101,9 @@ class AdminCollectionCheneController extends AbstractController
             return $this->redirectToRoute('admin.chene.collectionChene.index');
         }
 
-        return $this->render('admin/chene/collectionChene/edit.html.twig', [
+        return $this->monRender('admin/chene/collectionChene/edit.html.twig', [
             'collection_chene' => $collectionChene,
-            'form' => $form->createView(),
-            'menuCourant' => $this->menuCourant,
-            'themeCourant' => $this->themeCourant
+            'form' => $form->createView()
         ]);
     }
 

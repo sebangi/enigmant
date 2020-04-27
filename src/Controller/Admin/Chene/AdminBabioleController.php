@@ -5,7 +5,7 @@ namespace App\Controller\Admin\Chene;
 use App\Entity\Chene\Babiole;
 use App\Form\Chene\BabioleType;
 use App\Repository\Chene\BabioleRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,26 +15,24 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  * @Route("/admin/chene/babiole")
  * @IsGranted("ROLE_ADMIN")
   */
-class AdminBabioleController extends AbstractController
+class AdminBabioleController extends BaseController
 {
-    /**
-     * @var string
-     */
-    private $menuCourant = "AdminBabiole";
+    protected function getThemeCourant() : string
+    {
+        return "Chêne";
+    }
     
-    /**
-     * @var string
-     */
-    private $themeCourant = "Chêne";
+    protected function getMenuCourant() : string
+    {
+        return "AdminBabiole";
+    }
     
     /**
      * @Route("/", name="admin.chene.babiole.index", methods={"GET"})
      */
     public function index(BabioleRepository $babioleRepository): Response
     {
-        return $this->render('admin/chene/babiole/index.html.twig', [
-            'menuCourant' => $this->menuCourant,
-            'themeCourant' => $this->themeCourant,
+        return $this->monRender('admin/chene/babiole/index.html.twig', [
             'babioles' => $babioleRepository->findAllByType(),
         ]);
     }
@@ -57,9 +55,7 @@ class AdminBabioleController extends AbstractController
             return $this->redirectToRoute('admin.chene.babiole.index');
         }
 
-        return $this->render('admin/chene/babiole/new.html.twig', [
-            'menuCourant' => $this->menuCourant,
-            'themeCourant' => $this->themeCourant,
+        return $this->monRender('admin/chene/babiole/new.html.twig', [
             'babiole' => $babiole,
             'form' => $form->createView(),
         ]);
@@ -80,9 +76,7 @@ class AdminBabioleController extends AbstractController
             return $this->redirectToRoute('admin.chene.babiole.index');
         }
 
-        return $this->render('admin/chene/babiole/edit.html.twig', [
-            'menuCourant' => $this->menuCourant,
-            'themeCourant' => $this->themeCourant,
+        return $this->monRender('admin/chene/babiole/edit.html.twig', [
             'babiole' => $babiole,
             'form' => $form->createView(),
         ]);

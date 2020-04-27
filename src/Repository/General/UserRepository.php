@@ -3,7 +3,6 @@
 namespace App\Repository\General;
 
 use App\Entity\General\User;
-use App\Entity\General\Niveau;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -37,6 +36,26 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }    
     
+    /**
+     * 
+     * @param type $id
+     */
+    public function recupererTout( $id ) 
+    {
+        return $this->createQueryBuilder('u')
+            ->select('u', 'o', 'n', 't', 'c', 'm', 'r')
+            ->LeftJoin('u.obtentionNiveaux', 'o')
+            ->Join('o.niveau', 'n')
+            ->Join('n.theme', 't')
+            ->LeftJoin('u.reservations', 'r')
+            ->LeftJoin('u.conversations', 'c')
+            ->LeftJoin('c.messages', 'm')
+            ->Where('u.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     
     // /**
     //  * @return User[] Returns an array of User objects

@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin\Chene;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
@@ -12,18 +12,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
     * @route("/admin/chene") 
     * @IsGranted("ROLE_ADMIN")
     */
-class AdminCheneController extends AbstractController
+class AdminCheneController extends BaseController
 {
+    protected function getThemeCourant() : string
+    {
+        return "Chêne";
+    }
     
-    /**
-     * @var string
-     */
-    private $menuCourant = "AdminChene";
-    
-    /**
-     * @var string
-     */
-    private $themeCourant = "Chêne";
+    protected function getMenuCourant() : string
+    {
+        return "AdminChene";
+    }
         
     /**
      * @route("/", name="admin.chene.home")  
@@ -31,10 +30,7 @@ class AdminCheneController extends AbstractController
      */
     public function home( ) : Response
     {
-        return $this->render('admin/chene/home.html.twig', [
-            'menuCourant' => $this->menuCourant,
-            'themeCourant' => $this->themeCourant
-        ]);
+        return $this->monRender('admin/chene/home.html.twig');
     }
     
 }

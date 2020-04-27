@@ -3,7 +3,7 @@
 namespace App\Controller\Chene;
 
 use App\Repository\Chene\JeuEnCheneRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
@@ -11,17 +11,17 @@ use Twig\Environment;
 /**
      * @route("/chene") 
      */
-class CheneController extends AbstractController
+class CheneController extends BaseController
 {    
-    /**
-     * @var string
-     */
-    private $menuCourant = "EnigmesEnChene";
+    protected function getThemeCourant() : string
+    {
+        return "Chêne";
+    }
     
-    /**
-     * @var string
-     */
-    private $themeCourant = "Chêne";
+    protected function getMenuCourant() : string
+    {
+        return "EnigmesEnChene";
+    }
         
     /**
      * @route("/", name="chene.home")  
@@ -31,9 +31,7 @@ class CheneController extends AbstractController
     {
         $jeuxEnChene = $repository->findDerniersDisponible();
         
-        return $this->render('chene/home.html.twig', [
-            'menuCourant' => $this->menuCourant,
-            'themeCourant' => $this->themeCourant,
+        return $this->monRender('chene/home.html.twig', [
             'jeux_en_chene' => $jeuxEnChene
         ]);
     }

@@ -5,7 +5,7 @@ namespace App\Controller\Admin\General;
 use App\Entity\General\Theme;
 use App\Form\General\ThemeType;
 use App\Repository\General\ThemeRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,27 +15,24 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  * @Route("/admin/theme")
  * @IsGranted("ROLE_ADMIN")
  */
-class AdminThemeController extends AbstractController
+class AdminThemeController extends BaseController
 {    
-    /**
-     * @var string
-     */
-    private $menuCourant = "AdminTheme";
+    protected function getThemeCourant() : string
+    {
+        return "Général";
+    }
     
-    /**
-     * @var string
-     */
-    private $themeCourant = "Général";
-    
+    protected function getMenuCourant() : string
+    {
+        return "AdminTheme";
+    }
     
     /**
      * @Route("/", name="admin.theme.index", methods={"GET"})
      */
     public function index(ThemeRepository $themeRepository): Response
     {
-        return $this->render('admin/general/theme/index.html.twig', [
-            'menuCourant' => $this->menuCourant,
-            'themeCourant' => $this->themeCourant,
+        return $this->monRender('admin/general/theme/index.html.twig', [
             'themes' => $themeRepository->findAll(),
         ]);
     }
@@ -58,9 +55,7 @@ class AdminThemeController extends AbstractController
             return $this->redirectToRoute('admin.theme.index');
         }
 
-        return $this->render('admin/general/theme/new.html.twig', [
-            'menuCourant' => $this->menuCourant,
-            'themeCourant' => $this->themeCourant,
+        return $this->monRender('admin/general/theme/new.html.twig', [
             'theme' => $theme,
             'form' => $form->createView(),
         ]);
@@ -81,9 +76,7 @@ class AdminThemeController extends AbstractController
             return $this->redirectToRoute('admin.theme.index');
         }
 
-        return $this->render('admin/general/theme/edit.html.twig', [
-            'menuCourant' => $this->menuCourant,
-            'themeCourant' => $this->themeCourant,
+        return $this->monRender('admin/general/theme/edit.html.twig', [
             'theme' => $theme,
             'form' => $form->createView(),
         ]);

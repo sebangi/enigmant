@@ -5,7 +5,7 @@ namespace App\Controller\Admin\General;
 use App\Entity\General\Niveau;
 use App\Form\General\NiveauType;
 use App\Repository\General\NiveauRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,27 +15,24 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  * @Route("/admin/niveau")
  * @IsGranted("ROLE_ADMIN")
  */
-class AdminNiveauController extends AbstractController
+class AdminNiveauController extends BaseController
 {    
-    /**
-     * @var string
-     */
-    private $menuCourant = "AdminNiveau";
+    protected function getThemeCourant() : string
+    {
+        return "Général";
+    }
     
-    /**
-     * @var string
-     */
-    private $niveauCourant = "Général";
-    
+    protected function getMenuCourant() : string
+    {
+        return "AdminNiveau";
+    }    
     
     /**
      * @Route("/", name="admin.niveau.index", methods={"GET"})
      */
     public function index(NiveauRepository $niveauRepository): Response
     {
-        return $this->render('admin/general/niveau/index.html.twig', [
-            'menuCourant' => $this->menuCourant,
-            'niveauCourant' => $this->niveauCourant,
+        return $this->monRender('admin/general/niveau/index.html.twig', [
             'niveaux' => $niveauRepository->findAllByTheme(),
         ]);
     }
@@ -58,9 +55,7 @@ class AdminNiveauController extends AbstractController
             return $this->redirectToRoute('admin.niveau.index');
         }
 
-        return $this->render('admin/general/niveau/new.html.twig', [
-            'menuCourant' => $this->menuCourant,
-            'niveauCourant' => $this->niveauCourant,
+        return $this->monRender('admin/general/niveau/new.html.twig', [
             'niveau' => $niveau,
             'form' => $form->createView(),
         ]);
@@ -81,7 +76,7 @@ class AdminNiveauController extends AbstractController
             return $this->redirectToRoute('admin.niveau.index');
         }
 
-        return $this->render('admin/general/niveau/edit.html.twig', [
+        return $this->monRender('admin/general/niveau/edit.html.twig', [
             'menuCourant' => $this->menuCourant,
             'niveauCourant' => $this->niveauCourant,
             'niveau' => $niveau,

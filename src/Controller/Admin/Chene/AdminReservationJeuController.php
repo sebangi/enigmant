@@ -5,7 +5,7 @@ namespace App\Controller\Admin\Chene;
 use App\Entity\Chene\ReservationJeu;
 use App\Form\Chene\ReservationJeuType;
 use App\Repository\Chene\ReservationJeuRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,26 +15,24 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  * @Route("/admin/chene/reservation")
  * @IsGranted("ROLE_ADMIN")
  */
-class AdminReservationJeuController extends AbstractController
+class AdminReservationJeuController extends BaseController
 {
-    /**
-     * @var string
-     */
-    private $menuCourant = "AdminReservation";
+    protected function getThemeCourant() : string
+    {
+        return "Chêne";
+    }
     
-    /**
-     * @var string
-     */
-    private $themeCourant = "Chêne";
+    protected function getMenuCourant() : string
+    {
+        return "AdminReservation";
+    }
     
     /**
      * @Route("/", name="admin.chene.reservation.index", methods={"GET"})
      */
     public function index(ReservationJeuRepository $reservationJeuRepository): Response
     {
-        return $this->render('admin/chene/reservation/index.html.twig', [
-            'menuCourant' => $this->menuCourant,
-            'themeCourant' => $this->themeCourant,
+        return $this->monRender('admin/chene/reservation/index.html.twig', [
             'reservations' => $reservationJeuRepository->findAll(),
         ]);
     }
@@ -58,9 +56,7 @@ class AdminReservationJeuController extends AbstractController
             return $this->redirectToRoute('admin.chene.reservation.index');
         }
 
-        return $this->render('admin/chene/reservation/new.html.twig', [
-            'menuCourant' => $this->menuCourant,
-            'themeCourant' => $this->themeCourant,
+        return $this->monRender('admin/chene/reservation/new.html.twig', [
             'reservation' => $reservation,
             'form' => $form->createView(),
         ]);
@@ -81,9 +77,7 @@ class AdminReservationJeuController extends AbstractController
             return $this->redirectToRoute('admin.chene.reservation.index');
         }
 
-        return $this->render('admin/chene/reservation/edit.html.twig', [
-            'menuCourant' => $this->menuCourant,
-            'themeCourant' => $this->themeCourant,
+        return $this->monRender('admin/chene/reservation/edit.html.twig', [
             'reservation' => $reservation,
             'form' => $form->createView(),
         ]);

@@ -6,7 +6,7 @@ use App\Entity\Chene\Babiole;
 use App\Repository\Chene\BabioleRepository;
 use \App\Entity\Chene\BabioleRecherche;
 use \App\Form\Chene\BabioleRechercheType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +19,7 @@ use \Liip\ImagineBundle\Imagine\Cache\CacheManager;
 /**
  * @Route("/chene/babiole")
  */
-class BabioleController extends AbstractController {
+class BabioleController extends BaseController {
 
     /**
      * @var BabioleRepository
@@ -31,15 +31,15 @@ class BabioleController extends AbstractController {
      */
     private $em;
     
-    /**
-     * @var string
-     */
-    private $menuCourant = "Babiole";
+    protected function getThemeCourant() : string
+    {
+        return "Chêne";
+    }
     
-    /**
-     * @var string
-     */
-    private $themeCourant = "Chêne";
+    protected function getMenuCourant() : string
+    {
+        return "Babiole";
+    }
     
 
     public function __construct(BabioleRepository $repository, EntityManagerInterface $em) {
@@ -54,7 +54,6 @@ class BabioleController extends AbstractController {
      * @return Response
      */
     public function index(PaginatorInterface $paginator, Request $Requete, CacheManager $imagineCacheManager ): Response {
-
         $recherche = new BabioleRecherche();
         $form = $this->createForm(BabioleRechercheType::class, $recherche);
         $form->handleRequest($Requete);
@@ -65,9 +64,7 @@ class BabioleController extends AbstractController {
                 6
         );
 
-        return $this->render('chene/babiole/index.html.twig', [
-                    'menuCourant' => 'Babiole',
-                    'themeCourant' => 'Chêne',
+        return $this->monRender('chene/babiole/index.html.twig', [
                     'babioles' => $babioles,
                     'form' => $form->createView()
         ]);
@@ -85,10 +82,8 @@ class BabioleController extends AbstractController {
                         'slug' => $babiole->getSlug()
                             ], 301);
 
-        return $this->render('chene/babiole/show.html.twig', [
-                    'babiole' => $babiole,
-                    'menuCourant' => 'Babiole',
-                    'themeCourant' => 'Chêne'
+        return $this->monRender('chene/babiole/show.html.twig', [
+                    'babiole' => $babiole
         ]);
     }
 

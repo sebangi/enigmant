@@ -7,7 +7,8 @@ use App\Entity\General\Message;
 use App\Repository\General\ConversationRepository;
 use App\Repository\General\MessageRepository;
 use App\Form\General\ConversationType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\General\MessageType;
+use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +19,7 @@ use Knp\Component\Pager\PaginatorInterface;
 /**
  * @Route("/general/conversation", name="general.conversation.")
  */
-class ConversationController extends AbstractController {
+class ConversationController extends BaseController {
 
     /**
      * @var ConversationRepository
@@ -30,15 +31,15 @@ class ConversationController extends AbstractController {
      */
     private $em;
     
-    /**
-     * @var string
-     */
-    private $menuCourant = "Conversation";
+    protected function getThemeCourant() : string
+    {
+        return "General";
+    }
     
-    /**
-     * @var string
-     */
-    private $themeCourant = "General";
+    protected function getMenuCourant() : string
+    {
+        return "Conversation";
+    }
     
     
     public function __construct(ConversationRepository $repository, EntityManagerInterface $em) {
@@ -55,9 +56,7 @@ class ConversationController extends AbstractController {
         
         $conversations = $this->repository->getByDate( $this->getUser()->getId() );            
         
-        return $this->render('/general/conversation/index.html.twig', [
-                    'menuCourant' => $this->menuCourant,
-                    'themeCourant' => $this->themeCourant,
+        return $this->monRender('/general/conversation/index.html.twig', [
                     'conversations' => $conversations,
         ]);
     }
@@ -67,18 +66,37 @@ class ConversationController extends AbstractController {
      * @param conversation $conversation
      * @return Response
      */
-    public function show(MessageRepository $m_repository, conversation $conversation, string $slug): Response {
+    public function show(Request $requete, MessageRepository $m_repository, conversation $conversation, string $slug): Response {
         if ($conversation->getSlug() !== $slug)
             return $this->redirectToRoute('conversation.show', [
                         'id' => $conversation->getId(),
                         'slug' => $conversation->getSlug()
                             ], 301);
         
-        $messages = $m_repository->findBy(array("conversation" => $conversation->getId()), array("date" => "DESC"));
+        $messages = $m_repository->findBy(array("conversation" => $conversation->getId()), array("date" => "ASC"));
 
-        return $this->render('/general/conversation/show.html.twig', [
-                    'menuCourant' => $this->menuCourant,
-                    'themeCourant' => $this->themeCourant,
+        // Formulaire pour un nouveau message
+        $message = new Message();
+        $message->setConversation($conversation);
+        $form = $this->createForm(MessageType::class, $message);
+        $form->handleRequest($requete);
+        if ($form->isSubmitted() and $form->isValid()) {
+            $message->setDate( new \DateTime('now') );
+            $admin = $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN');
+            $message->setMessageGourou($admin);
+            $message->setVu(! $admin);
+            $message->setVuGourou($admin);
+            dump($message);
+            $this->em->persist($message); 
+            $this->em->flush();
+            return $this->redirectToRoute('general.conversation.show', [
+                    'id' => $conversation->getId(),
+                    'slug' => $conversation->getSlug()
+                ]);
+        }        
+        
+        return $this->monRender('/general/conversation/show.html.twig', [
+                    'form' => $form->createView(),
                     'conversation' => $conversation,
                     'messages' => $messages
         ]);
@@ -88,7 +106,7 @@ class ConversationController extends AbstractController {
     {
         $mess = new Message();
         $mess->setConversation($conversation);
-        $mess->getDate( new \DateTime('now') );
+        $mess->setDate( new \DateTime('now') );
         $mess->setMessageGourou(true);
         $mess->setTexte("Je vous écoute...");
         $mess->setVu(true);
@@ -125,11 +143,9 @@ class ConversationController extends AbstractController {
                 ]);
         }
 
-        return $this->render('general/conversation/new.html.twig', [
+        return $this->monRender('general/conversation/new.html.twig', [
                     'conversation' => $conversation,
                     'form' => $form->createView(),
-                    'menuCourant' => $this->menuCourant,
-                    'themeCourant' => $this->themeCourant
         ]);
     }
         
@@ -152,11 +168,9 @@ class ConversationController extends AbstractController {
             return $this->redirectToRoute('general.conversation.index');
         }
 
-        return $this->render('general/conversation/edit.html.twig', [
+        return $this->monRender('general/conversation/edit.html.twig', [
                     'conversation' => $conversation,
                     'form' => $form->createView(),
-                    'menuCourant' => $this->menuCourant,
-                    'themeCourant' => $this->themeCourant
         ]);
     }
 

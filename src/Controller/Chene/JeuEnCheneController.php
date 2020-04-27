@@ -6,7 +6,7 @@ use App\Entity\Chene\JeuEnChene;
 use App\Repository\Chene\JeuEnCheneRepository;
 use \App\Entity\Chene\JeuEnCheneRecherche;
 use \App\Form\Chene\JeuEnCheneRechercheType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +19,7 @@ use \Liip\ImagineBundle\Imagine\Cache\CacheManager;
 /**
  * @Route("/chene/jeu-en-chene")
  */
-class JeuEnCheneController extends AbstractController {
+class JeuEnCheneController extends BaseController {
 
     /**
      * @var JeuEnCheneRepository
@@ -31,15 +31,15 @@ class JeuEnCheneController extends AbstractController {
      */
     private $em;
     
-    /**
-     * @var string
-     */
-    private $menuCourant = "JeuEnChene";
+    protected function getThemeCourant() : string
+    {
+        return "Chêne";
+    }
     
-    /**
-     * @var string
-     */
-    private $themeCourant = "Chêne";
+    protected function getMenuCourant() : string
+    {
+        return "JeuEnChene";
+    }
 
     
     public function __construct(JeuEnCheneRepository $repository, EntityManagerInterface $em) {
@@ -64,9 +64,7 @@ class JeuEnCheneController extends AbstractController {
                 6
         );
 
-        return $this->render('chene/jeuEnChene/index.html.twig', [
-                    'menuCourant' => $this->menuCourant,
-                    'themeCourant' => $this->themeCourant,
+        return $this->monRender('chene/jeuEnChene/index.html.twig', [
                     'jeux_en_chene' => $jeuxEnChene,
                     'form' => $form->createView()
         ]);
@@ -84,9 +82,7 @@ class JeuEnCheneController extends AbstractController {
                         'slug' => $jeuEnChene->getSlug()
                             ], 301);
 
-        return $this->render('chene/jeuEnChene/show.html.twig', [
-                    'menuCourant' => $this->menuCourant,
-                    'themeCourant' => $this->themeCourant,
+        return $this->monRender('chene/jeuEnChene/show.html.twig', [
                     'jeuEnChene' => $jeuEnChene
         ]);
     }

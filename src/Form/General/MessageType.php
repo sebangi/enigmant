@@ -1,25 +1,23 @@
 <?php
 
-namespace App\Form\Chene;
+namespace App\Form\General;
 
-use App\Entity\Chene\BabioleRecherche;
+use App\Entity\General\Message;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BabioleRechercheType extends AbstractType
+class MessageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('maxValeur', IntegerType::class, [
+            ->add('texte', TextareaType::class, [
                 'required' => false,
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Valeur maximale',
-                    'min' => 0
+                    'placeholder' => 'Tapez votre nouveau message'
                 ]
             ])
         ;
@@ -28,7 +26,7 @@ class BabioleRechercheType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => BabioleRecherche::class,
+            'data_class' => Message::class,
             'translation_domain' => 'forms',
             'method' => 'get',
             'csrf_protection' => false
