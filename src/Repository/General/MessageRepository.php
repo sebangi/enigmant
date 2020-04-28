@@ -18,6 +18,36 @@ class MessageRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Message::class);
     }
+    
+    /**
+     * 
+     * @param type $id
+     */
+    public function getNbMessagesNonLus( $user_id, $est_admin ) 
+    {
+        $QueryBuilder = $this->createQueryBuilder('m')
+            ->select('count(m)')
+            ->LeftJoin('m.conversation', 'c')
+            ->LeftJoin('c.user', 'u');
+        
+        if ( $est_admin )
+        {
+            $QueryBuilder
+                ->Where('m.vuGourou = false');
+        }
+        else
+        {
+            $QueryBuilder
+                ->Where('u.id = :id')
+                ->andWhere('m.vu = false')
+                ->setParameter('id', $user_id);
+        }
+    
+        return $QueryBuilder
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
 
     // /**
     //  * @return Message[] Returns an array of Message objects

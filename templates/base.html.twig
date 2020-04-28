@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css">  
         {% block stylesheets %}
-            <link rel="stylesheet" href="https://www.stfelixlasalle-btssn.fr/enigmant/public/build/app.css">
+            <link rel="stylesheet" href="/enigmant/public/build/app.css">
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
     </head>
@@ -19,7 +19,7 @@
                     ? 
                 
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path("admin.home" ) }}" class="btn btn-warning">Administration</a>
+                        <a href="{{ path("admin.home" ) }}" class="btn btn-warning ml-4">Administration</a>
                     {% endif %}
                 {% endif %}            
             </a>
@@ -39,17 +39,30 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         {% if app.user %}
-                            <a href="{{ path("general.conversation.index") }}" class="btn">
-                                {% if app.user.hasMessageNonVu( is_granted('ROLE_ADMIN') )  %}
+                            <a href="{{ path("general.conversation.index") }}" 
+                               class="btn" data-toggle="tooltip" data-placement="bottom"
+                               {% if nbMessageNonLus == 0 %}
+                                   title="Voir mes messages" 
+                               {% else %}
+                                   {% if nbMessageNonLus == 1 %}
+                                       title="{{ nbMessageNonLus }} message non lu"
+                                   {% else %}
+                                       title="{{ nbMessageNonLus }} messages non lus"    
+                                   {% endif%}    
+                               {% endif%}
+                               
+                               title="{{ nbMessageNonLus }} messages non lus" 
+                            >
+                                {% if nbMessageNonLus  %}
                                     <span class="fas fa-envelope-open-text" aria-hidden="true"></span>
                                 {% else %}
                                     <span class="fas fa-envelope" aria-hidden="true"></span>    
                                 {% endif%}
                             </a>    
-                            <a href="{{ path("login") }}" class="btn">
+                            <a href="{{ path("login") }}" class="btn" data-toggle="tooltip" data-placement="bottom" title="Mon profil">
                                 <span class="fas fa-user" aria-hidden="true"></span>
                             </a>
-                            <a href="{{ path('logout') }}" class="nav-link btn" style="display: inline-block" >
+                            <a href="{{ path('logout') }}" class="nav-link btn" style="display: inline-block" data-toggle="tooltip" data-placement="bottom" title="Se déconnecter">
                                 <span class="fas fa-sign-in-alt" aria-hidden="true"  alt="Se déconnecter"></span> 
                             </a>
                         {% else %}
@@ -74,9 +87,9 @@
             $('select').select2();
         </script>#}
         {% block javascripts %}
-            <script src="https://www.stfelixlasalle-btssn.fr/enigmant/public/build/app.js"></script>
-            <script src="https://www.stfelixlasalle-btssn.fr/enigmant/public/build/runtime.js"></script>
-            <script src="https://www.stfelixlasalle-btssn.fr/enigmant/public/build/vendors~app.js"></script>
+            <script src="/enigmant/public/build/app.js"></script>
+            <script src="/enigmant/public/build/runtime.js"></script>
+            <script src="/enigmant/public/build/vendors~app.js"></script>
         {{ encore_entry_script_tags('app') }}        
         {% endblock %}
     </body>
