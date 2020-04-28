@@ -3,7 +3,9 @@
         <div class="row">
             <div class="col-md-10">
                 <h3 class="mb-0">
-                    {% if mode != "index" %}
+                    {% if is_granted('ROLE_ADMIN')%}
+                        [{{ conversation.user.username }}] 
+                    {% elseif mode != "index" %}
                         <span class="font-weight-bold"> Sujet :</span> 
                     {% endif %}
                     {{ conversation.sujet}}

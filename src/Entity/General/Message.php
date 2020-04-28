@@ -48,6 +48,16 @@ class Message
      */
     private $messageGourou = false;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $enCoursLecture = false;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $enCoursLectureGourou = false;
+
     public function __construct()
     {
         $this->date = new \DateTime('now');
@@ -193,6 +203,30 @@ class Message
     public function setMessageGourou(bool $messageGourou): self
     {
         $this->messageGourou = $messageGourou;
+
+        return $this;
+    }
+
+    public function getEnCoursLecture(): ?bool
+    {
+        return $this->enCoursLecture;
+    }
+
+    public function setEnCoursLecture(bool $enCoursLecture): self
+    {
+        $this->enCoursLecture = $enCoursLecture;
+
+        return $this;
+    }
+
+    public function getEnCoursLectureGourou(): ?bool
+    {
+        return $this->enCoursLectureGourou;
+    }
+
+    public function setEnCoursLectureGourou(bool $enCoursLectureGourou): self
+    {
+        $this->enCoursLectureGourou = $enCoursLectureGourou;
 
         return $this;
     }

@@ -1,24 +1,40 @@
 {% if lecteur == "user" %}
-    {% set vu = message.getVu()  %}
+    {% set vu = not message.getEnCoursLecture()  %}
 {% else %}
-    {% set vu = message.getVuGourou()  %}    
+    {% set vu = not message.getEnCoursLectureGourou()  %}    
 {% endif%}
 
 <div class="col-md-8 {% if exp == "user" %}offset-md-4{% endif%}">
-    <div class="card {% if vu %}border-success{% else %}border-danger{% endif %}" style="min-width: 24rem;">
+    <div class="card {% if vu %}border-dark{% else %}border-danger{% endif %}" style="min-width: 24rem;">
         <div class="card-header small-card-header {% if exp == "user" %}bg-light{% else %}bg-warning{% endif%}">
             <div class="d-inline">
+                {% if lecteur == "admin" %}
+                    {% if message.getEnCoursLectureGourou()  %}
+                        <span class="fas fa-envelope-open-text text-danger mr-2"></span>
+                    {% endif %}
+                {% endif %}
+                
                 {% if exp == "user" %}{{ app.user.getUsername() }}{% else %}Grand Gourou{% endif%} 
             </div>
             <div class="d-inline float-right font-italic">
                 {{ message.getDateString }}
+
+                {% if lecteur == "admin" and exp == "admin" %}
+                    {% if message.getVu()  %}
+                        <span class="fas fa-eye text-success ml-2"></span>
+                    {% else %}
+                        <span class="fas fa-eye-slash text-danger ml-2"></span>
+                    {% endif %}
+                {% endif%}
             </div>
         </div>
         <div class="card-body">
-           <div class="anchor">
+            <div class="anchor">
                 <a id="message-{{ message.getId() }}"> </a>
                 {{ message.texte|nl2br()}} 
             </div>
         </div>  
     </div>  
 </div>
+
+

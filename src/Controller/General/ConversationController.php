@@ -4,8 +4,10 @@ namespace App\Controller\General;
 
 use App\Entity\General\Conversation;
 use App\Entity\General\Message;
+use App\Entity\General\User;
 use App\Repository\General\ConversationRepository;
 use App\Repository\General\MessageRepository;
+use App\Repository\General\UserRepository;
 use App\Form\General\ConversationType;
 use App\Form\General\MessageType;
 use App\Controller\BaseController;
@@ -43,6 +45,23 @@ class ConversationController extends BaseController {
         $this->repository = $repository;
         $this->em = $em;
     }
+    
+    //http://localhost:8080/general/conversation/une-nouvelle-conversation-16#nouveau-message
+    
+    public function test_non_appartenance($conversation)
+    {
+        if ( ! $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN') )
+        {
+            if ( $this->get('security.authorization_checker')->isGranted('ROLE_USER') )
+            {
+                return ($conversation->getUser()->getId() != $this->getUser()->getId());
+            }
+            else 
+                return true;
+        }            
+        else
+            return false;
+    }    
 
     /**
      * @route("/", name="index")  
@@ -61,19 +80,55 @@ class ConversationController extends BaseController {
         ]);
     }
 
+     public function marquer( $messages, $est_admin) {
+        foreach ($messages as $message)
+        {
+            if ( $est_admin )
+            {
+                if ( $message->getEnCoursLectureGourou() ) {
+                    $message->setEnCoursLectureGourou(false);
+                }
+                if ( ! $message->getVuGourou() ) {
+                    $message->setEnCoursLectureGourou(true);
+                    $message->setVuGourou(true);
+                }                
+            }
+            else 
+            {
+                if ( $message->getEnCoursLecture() ) {
+                    $message->setEnCoursLecture(false);
+                }
+                if ( ! $message->getVu() ) {
+                    $message->setEnCoursLecture(true);
+                    $message->setVu(true);
+                }
+            }
+            
+            $this->em->persist($message);
+        }
+        $this->em->flush();
+    }
+    
     /**
      * @route("/{slug}-{id}", name="show", requirements={"slug": "[a-z0-9\-]*"})  
      * @param conversation $conversation
      * @return Response
      */
     public function show(Request $requete, MessageRepository $m_repository, conversation $conversation, string $slug, string $anchor = ""): Response {
+        
         if ($conversation->getSlug() !== $slug)
             return $this->redirectToRoute('conversation.show', [
                         'id' => $conversation->getId(),
                         'slug' => $conversation->getSlug()], 301);
-
+        
+        if ( $this->test_non_appartenance($conversation) )
+            return $this->redirectToRoute('general.conversation.index');
+        
         $messages = $m_repository->findBy(array("conversation" => $conversation->getId()), array("date" => "ASC"));
-                    
+                   
+        $est_admin = $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN');
+        $this->marquer($messages, $est_admin);
+        
         // Formulaire pour un nouveau message
         $message = new Message();
         $message->setConversation($conversation);
@@ -81,14 +136,11 @@ class ConversationController extends BaseController {
         $form->handleRequest($requete);
         if ($form->isSubmitted() and $form->isValid()) {
             $message->setDate(new \DateTime('now'));
-            $admin = $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN');
-            $message->setMessageGourou($admin);
-            $message->setVu(!$admin);
-            $message->setVuGourou($admin);
-            dump($message);
+            $message->setMessageGourou($est_admin);
+            $message->setVu(!$est_admin);
+            $message->setVuGourou($est_admin);
             $this->em->persist($message);
             $this->em->flush();
-            
             
             return $this->redirectToRoute('general.conversation.show', [
                         'id' => $conversation->getId(),
