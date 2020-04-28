@@ -28,6 +28,11 @@ class User implements UserInterface {
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Regex( 
+     * pattern = "/^[a-z0-9]{4,20}$/i", 
+     * htmlPattern = "^[a-zA-Z0-9]{4,20}$", 
+     * message="Votre identifiant doit contenir seulement des lettres et des chiffres et doit contenir entre 4 et 20 caractères"
+     * )
      */
     private $username;
 
@@ -294,7 +299,7 @@ class User implements UserInterface {
             return null;
         }
     }
-    
+
     /**
      * 
      * @return bool
@@ -351,21 +356,17 @@ class User implements UserInterface {
      * 
      * @return bool
      */
-    public function hasMessageNonVu( bool $est_admin ): bool {
+    public function hasMessageNonVu(bool $est_admin): bool {
         foreach ($this->conversations->toArray() as $conv) {
 
             foreach ($conv->getMessages()->toArray() as $mess) {
-                if ( $est_admin )
-                {
-                    if ( ! $mess->getVuGourou() )
+                if ($est_admin) {
+                    if (!$mess->getVuGourou())
+                        return true;
+                } else {
+                    if (!$mess->getVu())
                         return true;
                 }
-                else
-                {
-                    if ( ! $mess->getVu())
-                        return true;
-                }
-                
             }
         }
 

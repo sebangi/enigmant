@@ -35,11 +35,9 @@ class ConversationType extends AbstractType
                 'choice_label' => function ($reservation) {
                                     return $reservation->getIntitule();
                                     },
-                'query_builder' => function (ReservationJeuRepository $er ) use ($options) {
+                'query_builder' => function (ReservationJeuRepository $er ) {
                         return $er->createQueryBuilder('r')
                             ->Join('r.user', 'user')
-                            ->Where('user.id = :id')
-                            ->setParameter('id', $options['user_id'] )
                             ->orderBy('r.dateDemande', 'DESC');
                     },                            
                 'required' => false
