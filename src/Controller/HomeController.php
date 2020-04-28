@@ -30,7 +30,7 @@ class HomeController extends BaseController
      */
     public function index(EntityManagerInterface $em, UserRepository $urep, JeuEnCheneRepository $repository, UserPasswordEncoderInterface $passwordEncoder ) : Response
     {
-        $jeuxEnChene = $repository->findDerniersDisponible();
+        $jeuxEnChene = $repository->findAllBOrderByCollection();
         
 //        
 //        $user = $urep->findOneBy(['username' => 'demo']);   
@@ -38,7 +38,10 @@ class HomeController extends BaseController
 //        $em->persist($user);
 //        $em->flush();
 //                
-        return $this->monRender('home.html.twig');
+        return $this->monRender('home.html.twig', 
+                [
+                        'jeux_en_chene' => $jeuxEnChene
+            ]);
     }
     
 }
