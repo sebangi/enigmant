@@ -1,13 +1,5 @@
-{% extends "base.html.twig" %}
+{% extends "general/baseGeneral.html.twig" %}
 
 {% block title  %}
     Énigmant administration
 {% endblock title  %}
-
-{% block theme %}
-    
-    {% if is_granted('ROLE_ADMIN') %}
-        {{ include('admin/general/_adminNavBarGeneral.html.twig') }}
-    {% endif %}
-
-{% endblock theme %}
