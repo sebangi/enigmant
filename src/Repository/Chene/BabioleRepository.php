@@ -28,7 +28,10 @@ class BabioleRepository extends ServiceEntityRepository
     public function findAllQuery( BabioleRecherche $recherche ) : Query
     {
         $query = $this->createQueryBuilder('b');
-        
+        $query = $query
+            ->select('b', 'j')
+            ->leftJoin('b.jeuEnChenes', 'j');
+                
         if ( $recherche->getMaxValeur() )
         {
             $query = $query

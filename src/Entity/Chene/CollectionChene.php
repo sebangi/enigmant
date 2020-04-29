@@ -63,6 +63,12 @@ class CollectionChene
      */
     private $description;
     
+     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Chene\JeuEnChene", mappedBy="collectionChene")
+     * @var ArrayCollection<JeuEnChene> 
+     */
+    private $jeuEnChenes;
+
     
     /**
      * 
@@ -85,12 +91,7 @@ class CollectionChene
         return $this;
     }
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Chene\JeuEnChene", mappedBy="collectionChene")
-     * @var ArrayCollection<JeuEnChene> 
-     */
-    private $jeuEnChenes;
-
+   
     public function __construct()
     {
         $this->jeuEnChenes = new ArrayCollection();

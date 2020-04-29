@@ -38,6 +38,29 @@ class ObtentionNiveauRepository extends ServiceEntityRepository
     }
     
     /**
+     * 
+     * @param type $id_user
+     * @param type $id_theme
+     * @return ObtentionNiveau|null
+     */
+    public function getPlusHautGradesTheme( $id_user, $id_theme ) : array//?ObtentionNiveau
+    {
+        return $this->createQueryBuilder('o')
+            ->select('o', 'niv', 'the')
+            ->Join('o.niveau', 'niv')
+            ->Join('niv.theme', 'the')
+            ->Join('o.user', 'user')
+            ->Where('user.id = :id_u')
+            ->AndWhere('the.id = :id_t')
+            ->orderBy('niv.num', 'DESC')
+            ->setParameter('id_u', $id_user)
+            ->setParameter('id_t', $id_theme)
+            ->getQuery()
+            ->getResult()
+        ;
+    }    
+    
+    /**
       * @return ObtentionNiveau[]
       */
     public function getNouveauxGradesTheme( $id_user, $nom_theme ) : array
@@ -58,6 +81,9 @@ class ObtentionNiveauRepository extends ServiceEntityRepository
         ;
     }    
     
+    
+    
+    
      /**
       * @return ObtentionNiveau[]
       */
@@ -76,6 +102,8 @@ class ObtentionNiveauRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+    
+    
     
     // /**
     //  * @return ObtentionNiveau[] Returns an array of ObtentionNiveau objects

@@ -77,8 +77,6 @@ class AdminNiveauController extends BaseController
         }
 
         return $this->monRender('admin/general/niveau/edit.html.twig', [
-            'menuCourant' => $this->menuCourant,
-            'niveauCourant' => $this->niveauCourant,
             'niveau' => $niveau,
             'form' => $form->createView(),
         ]);

@@ -19,9 +19,9 @@
         <p class="card-text">{{ jeuEnChene.description|nl2br(false) }}</p>    
                 
         <p class="card-text">
-            Babioles utilsées : 
+            Babioles utilisées : 
             {% for babiole in jeuEnChene.babioles  %}
-                {{ babiole.nom }} -
+                {{ babiole.nom }} - 
             {% endfor %}
         </p> 
         <div class="text-primary" style="font-size:2rem; font-weight:bold;">

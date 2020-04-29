@@ -56,14 +56,14 @@ class GradeController extends BaseController
         {           
             $themes = $themeRepository->findAll();
             
-            if( $themeCourant == "Actuel" )
+            if( $themeCourant == "General" )
             {
-                $grades;
+                $grades = [];
                 foreach ($themes as $t)
                 {
-                    $obt = $this->getUser()->getGrade($t->getNom());
-                    if ( $obt )
-                        $grades[] = $obt;
+                    $obts = $optRepository->getPlusHautGradesTheme($this->getUser()->getId(), $t->getId());
+                    if ( $obts )
+                        $grades[] = $obts[0];
                 }
                 $nouveaux_grades = $optRepository->getNouveauxGrades($this->getUser()->getId());
             }

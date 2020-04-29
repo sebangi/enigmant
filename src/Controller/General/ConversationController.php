@@ -46,8 +46,6 @@ class ConversationController extends BaseController {
         $this->em = $em;
     }
     
-    //http://localhost:8080/general/conversation/une-nouvelle-conversation-16#nouveau-message
-    
     public function test_non_appartenance($conversation)
     {
         if ( ! $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN') )
@@ -214,7 +212,9 @@ class ConversationController extends BaseController {
      * @return Response
      */
     public function edit(Conversation $conversation, Request $requete): Response {
-
+        if ( $this->test_non_appartenance($conversation) )
+            return $this->redirectToRoute('general.conversation.index');
+        
         $form = $this->createForm(ConversationType::class, $conversation,
                 ['administration' => $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'),
                     'user_id' => $this->getUser()->getId()]);

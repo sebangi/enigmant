@@ -19,6 +19,20 @@ class CollectionCheneRepository extends ServiceEntityRepository
         parent::__construct($registry, CollectionChene::class);
     }
 
+    /**
+      * @return 
+      */
+    public function findAllAvecJeu() : array
+    {
+        return $this->createQueryBuilder('col')
+            ->select('col', 'j')
+            ->LeftJoin('col.jeuEnChenes', 'j')
+            ->orderBy('col.num', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
     // /**
     //  * @return CollectionChene[] Returns an array of CollectionChene objects
     //  */

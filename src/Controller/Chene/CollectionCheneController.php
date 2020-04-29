@@ -51,7 +51,7 @@ class CollectionCheneController extends BaseController {
      * @return Response
      */
     public function index(Request $Requete ): Response {
-        $collectionChene = $this->repository->findAll();
+        $collectionChene = $this->repository->findAllAvecJeu();
         
         return $this->monRender('chene/collectionChene/index.html.twig', [
                     'collections_chene' => $collectionChene,

@@ -25,7 +25,7 @@ class SecurityController extends BaseController
     
     protected function getThemeCourant() : ?string
     {
-        return null;
+        return "General";
     }
     
     protected function getMenuCourant() : ?string
