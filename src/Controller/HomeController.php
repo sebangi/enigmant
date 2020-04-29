@@ -10,6 +10,7 @@ use App\Repository\Chene\JeuEnCheneRepository;
 use App\Repository\General\UserRepository;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 class HomeController extends BaseController
 {    
@@ -28,9 +29,9 @@ class HomeController extends BaseController
      * @route("/", name="home.index")  
      * @return Response
      */
-    public function index(EntityManagerInterface $em, UserRepository $urep, JeuEnCheneRepository $repository, UserPasswordEncoderInterface $passwordEncoder ) : Response
+    public function index(KernelInterface $kernel, EntityManagerInterface $em, UserRepository $urep, JeuEnCheneRepository $repository, UserPasswordEncoderInterface $passwordEncoder ) : Response
     {
-        
+       dump( $kernel->getProjectDir() );
 //        
 //        $user = $urep->findOneBy(['username' => 'demo']);   
 //        $user->setPassword( $passwordEncoder->encodePassword($user, "demo")  );

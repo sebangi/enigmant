@@ -1,9 +1,9 @@
-{% cache 'jeuEnChene' ~ jeuEnChene.id  jeuEnChene.majDate.timestamp|default(2019) %}
+{#{% cache 'jeuEnChene' ~ jeuEnChene.id  jeuEnChene.majDate.timestamp|default(2019) %}#}
 <div class="card mb-4 rounded_card">
     {% if jeuEnChene.imageName %}
         <img class="card-img-top rounded_card" src="{{ vich_uploader_asset(jeuEnChene, 'imageFile') | imagine_filter("my_thumb") }}" > 
     {% else %}
-        <img class="card-img-top rounded_card" src="{{ '/images/jeuEnChene/vide.jpg' | imagine_filter("my_thumb") }}" > 
+        <img class="card-img-top rounded_card" src="{{ asset('images/jeuEnChene/vide.jpg') | imagine_filter("my_thumb") }}" > 
     {% endif%}
     
     <div class="card-body">
@@ -29,4 +29,4 @@
         </div>
     </div>
 </div>
-{% endcache %}
+{#{% endcache %}#}
