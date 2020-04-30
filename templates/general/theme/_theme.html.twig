@@ -1,0 +1,8 @@
+<div class="card h-100 border-dark theme-card {% if not theme.disponible %}text-muted{% endif %}">
+    <img src="{{ asset('images/theme/' ~ theme.route ~ '.jpg') }}" class="card-img-left theme-image">
+    <div class="card-body text-center ">
+        <h5 class="card-title">
+            <a {% if theme.disponible %}href="{{ path( theme.route ~ ".home") }}" class="stretched-link"{% endif %}>Énigmant {{ theme.nom }}</a></h5>
+        <p class="card-text">{{ theme.description|nl2br(false) }}</p>
+    </div>
+</div>

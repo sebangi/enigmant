@@ -40,6 +40,16 @@ class Theme
      */
     private $niveaux;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $route;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" : true})
+     */
+    private $disponible = true;
+
     public function __construct()
     {
         $this->niveaux = new ArrayCollection();
@@ -121,7 +131,12 @@ class Theme
         return $this->niveaux;
     }
 
-    public function addNiveau(Niveau $niveau): self
+    /**
+     * 
+     * @param \App\Entity\General\Niveau $niveau
+     * @return \App\Entity\General\Theme
+     */
+    public function addNiveau(Niveau $niveau): Theme
     {
         if (!$this->niveaux->contains($niveau)) {
             $this->niveaux[] = $niveau;
@@ -131,7 +146,12 @@ class Theme
         return $this;
     }
 
-    public function removeNiveau(Niveau $niveau): self
+    /**
+     * 
+     * @param \App\Entity\General\Niveau $niveau
+     * @return \App\Entity\General\Theme
+     */
+    public function removeNiveau(Niveau $niveau): Theme
     {
         if ($this->niveaux->contains($niveau)) {
             $this->niveaux->removeElement($niveau);
@@ -140,6 +160,48 @@ class Theme
                 $niveau->setTheme(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @return string|null
+     */
+    public function getRoute(): ?string
+    {
+        return $this->route;
+    }
+
+    /**
+     * 
+     * @param string $route
+     * @return \App\Entity\General\Theme
+     */
+    public function setRoute(string $route): Theme
+    {
+        $this->route = $route;
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @return bool|null
+     */
+    public function getDisponible(): ?bool
+    {
+        return $this->disponible;
+    }
+
+    /**
+     * 
+     * @param bool $disponible
+     * @return \App\Entity\General\Theme
+     */
+    public function setDisponible(bool $disponible): Theme
+    {
+        $this->disponible = $disponible;
 
         return $this;
     }

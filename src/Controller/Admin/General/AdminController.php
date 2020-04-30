@@ -16,7 +16,7 @@ class AdminController extends BaseController
 {    
     protected function getThemeCourant() : string
     {
-        return "Général";
+        return "General";
     }
     
     protected function getMenuCourant() : string

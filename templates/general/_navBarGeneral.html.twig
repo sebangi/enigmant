@@ -1,12 +1,20 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top second-nav ma-nav">
-
     <ul class="navbar-nav navbar-brand">
         <li class="nav-item">
-            <a class="nav-link {% if menuCourant is defined and menuCourant == 'Profil' %}active{% endif %}" href="{{ path('home.index') }}">Mon profil<span class="sr-only">(current)</span></a>
+            <a class="nav-link {% if menuCourant is defined and menuCourant == 'Home' %}active{% endif %}" href="{{ path('home') }}"> <span  class="fas fa-home"></span></a>
         </li>
     </ul>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+        
+    <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+        <ul class="navbar-nav navbar-brand">
+            <li class="nav-item">
+                <a class="nav-link {% if menuCourant is defined and menuCourant == 'Profil' %}active{% endif %}" href="{{ path('home') }}">Mon profil<span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
         <ul class="navbar-nav navbar-brand">
             <li class="nav-item">
                 <a class="nav-link {% if menuCourant is defined and menuCourant == 'Conversations' %}active{% endif %}" href="{{ path('general.conversation.index') }}">Mes Conversations<span class="sr-only">(current)</span></a>
@@ -18,4 +26,6 @@
             </li>
         </ul>               
     </div>
+
+
 </nav>

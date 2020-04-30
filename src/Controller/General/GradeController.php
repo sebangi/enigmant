@@ -92,6 +92,6 @@ class GradeController extends BaseController
             ]);
         }
         else
-            $this->redirectToRoute('home.index');
+            $this->redirectToRoute('home');
     }
 }

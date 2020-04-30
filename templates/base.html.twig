@@ -13,15 +13,14 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-sm navbar-light bg-light sticky-top ma-nav">
-            <a class="navbar-brand ma-navbar-brand" href="{{ path('home.index') }}">
+            <a class="navbar-brand ma-navbar-brand" href="{{ path('home') }}">
                 Énigmant...
-                {% if not themeCourant is defined %}
+                {% if themeCourant == "General" %}
                     ? 
-
                     {% if is_granted('ROLE_ADMIN') %}
                         <a href="{{ path("admin.home" ) }}" class="btn btn-warning ml-4">Administration</a>
-                    {% endif %}
-                {% endif %}            
+                    {% endif %}           
+                {% endif %}           
             </a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +64,7 @@
                                 <span class="fas fa-user" aria-hidden="true"></span>
                             </a>
                             <a href="{{ path('logout') }}" class="nav-link btn" style="display: inline-block" data-toggle="tooltip" data-placement="bottom" title="Se déconnecter">
-                                <span class="fas fa-sign-in-alt" aria-hidden="true"  alt="Se déconnecter"></span> 
+                                <span class="fas fa-sign-in-alt" aria-hidden="true" alt="Se déconnecter"></span> 
                             </a>
                         {% else %}
                             <a href="{{ path('login') }}" class="nav-link">

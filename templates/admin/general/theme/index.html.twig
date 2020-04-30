@@ -19,6 +19,8 @@
                 <tr>
                     <th>Num.</th>
                     <th>Nom</th>
+                    <th>Route</th>
+                    <th>Dispo.</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -27,6 +29,8 @@
                     <tr>
                         <td>{{ theme.num }}</td>
                         <td>{{ theme.nom }}</td>
+                        <td>{{ theme.route }}</td>
+                        <td>{{ include('outils/_booleen.html.twig', {bvaleur : theme.disponible}) }}</td>
                         <td>
                             <a href="{{ path("admin.theme.edit", {id : theme.id} ) }}" class="btn btn-secondary">Éditer</a>
                             <form method="post" action="{{ path("admin.theme.delete", {id: theme.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
