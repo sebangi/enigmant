@@ -143,6 +143,32 @@ body {
     border-radius: 0px 30px 0px 30px;
 }
 
+.theme-card-disponible {
+    border-width: 0px 0px 0px 0px;
+}
+
+.theme-card-non-disponible {
+    border-width: 0px 0px 0px 1px;
+    border-style: solid;
+    border-color: black;
+}
+
 .theme-image {
     border-radius: 0px 30px 0px 0px;
 }
+
+.theme-body-disponible {
+    border-radius: 0px 0px 0px 30px;
+    border-width: 0px 0px 0px 1px;
+    border-style: solid;
+    border-color: black;
+}
+
+.theme-card-disponible:hover {
+    background-color: gold;
+}
+
+.theme-body-disponible:hover {
+    background-color: seashell;
+}
+
