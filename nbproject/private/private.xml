@@ -3,24 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/sebastien/public_html/enigmant/templates/chene/collectionChene/show.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/config/packages/webpack_encore.yaml</file>
-            <file>file:/home/sebastien/public_html/enigmant/public/build/entrypoints.json</file>
-            <file>file:/home/sebastien/public_html/enigmant/config/packages/assets.yaml</file>
-            <file>file:/home/sebastien/public_html/enigmant/composer.json</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/show.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/assets/css/global.scss</file>
-            <file>file:/home/sebastien/public_html/enigmant/assets/js/app.js</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Controller/HomeController.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/public/build/app.js</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Kernel.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/config/packages/vich_uploader.yaml</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/base.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/general/theme/_theme.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/home.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/assets/css/app.css</file>
-            <file>file:/home/sebastien/public_html/enigmant/.env</file>
-            <file>file:/home/sebastien/public_html/enigmant/public/build/manifest.json</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Entity/General/Theme.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/collectionChene/index.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/niveau/_form.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/niveau/index.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Form/General/ThemeType.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/theme/_form.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Form/General/NiveauType.php</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/_jeuEnChene.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/config/packages/prod/webpack_encore.yaml</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/theme/index.html.twig</file>
         </group>
     </open-files>
 </project-private>

@@ -4,5 +4,8 @@
         <h5 class="card-title">
             <a {% if theme.disponible  %} href="{{ path( theme.route ~ ".home") }}" class="stretched-link"{% endif %}>Énigmant {{ theme.nom }}</a></h5>
         <p class="card-text">{{ theme.description|nl2br(false) }}</p>
+        {% if not theme.disponible  %}
+            <p class="card-text font-italic">En préparation </p>
+        {%  endif %}
     </div>
 </div>

@@ -11,11 +11,27 @@
     </div>
 
     <div class="container mt-4">
-        <div class="row row-cols-1 row-cols-md-3">
+        <div class="row row-cols-1 row-cols-md-3 justify-content-center">
             {% for theme in themes %}
-                <div class="col mb-4">
-                    {{ include('general/theme/_theme.html.twig') }}
-                </div>
+                {% if theme.disponible %}
+                    <div class="col mb-4">
+                        {{ include('general/theme/_theme.html.twig') }}
+                    </div>
+                {% endif%}
+
+            {% endfor %}
+        </div>
+
+        <hr>
+        
+        <div class="row row-cols-1 row-cols-md-3 justify-content-center">
+            {% for theme in themes %}
+                {% if not theme.disponible %}
+                    <div class="col mb-4">
+                        {{ include('general/theme/_theme.html.twig') }}
+                    </div>
+                {% endif%}
+
             {% endfor %}
         </div>
 
