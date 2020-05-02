@@ -59,7 +59,7 @@ class JeuEnCheneController extends BaseController {
         $form->handleRequest($Requete);
 
         $jeuxEnChene = $paginator->paginate(
-                $this->repository->findAllDisponibleQuery($recherche),
+                $this->repository->findAllConstruitQuery($recherche),
                 $Requete->query->getInt('page', 1),
                 6
         );

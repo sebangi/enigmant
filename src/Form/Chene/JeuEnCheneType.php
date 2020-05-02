@@ -37,7 +37,7 @@ class JeuEnCheneType extends AbstractType
                 ]
             ])
             ->add('disponible')
-            ->add('enCoursConstruction')
+            ->add('construit')
             ->add('difficulteObservation', IntegerType::class, [
                'attr' => [
                    'min' => 0,

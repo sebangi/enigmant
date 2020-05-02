@@ -113,12 +113,7 @@ class JeuEnChene
      * @ORM\Column(type="integer", options={"default" : 1})
      */
     private $num = 1;
-
-    /**
-     * @ORM\Column(type="boolean", options={"default" : false})
-     */
-    private $enCoursConstruction = false;
-
+    
     /**
      * @ORM\Column(type="integer", nullable=true, options={"default" : 1})
      */
@@ -139,6 +134,11 @@ class JeuEnChene
      * @ORM\OneToMany(targetEntity="App\Entity\General\Conversation", mappedBy="lienJeuEnChene")
      */
     private $conversations;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" : 0})
+     */
+    private $construit = false;
 
     public function __construct()
     {
@@ -469,27 +469,6 @@ class JeuEnChene
 
     /**
      * 
-     * @return bool|null
-     */
-    public function getEnCoursConstruction(): ?bool
-    {
-        return $this->enCoursConstruction;
-    }
-
-    /**
-     * 
-     * @param bool $enCoursConstruction
-     * @return \App\Entity\Chene\JeuEnChene
-     */
-    public function setEnCoursConstruction(bool $enCoursConstruction): JeuEnChene
-    {
-        $this->enCoursConstruction = $enCoursConstruction;
-
-        return $this;
-    }
-
-    /**
-     * 
      * @return int|null
      */
     public function getNombreEtapes(): ?int
@@ -623,7 +602,12 @@ class JeuEnChene
         return $this->conversations;
     }
 
-    public function addConversation(Conversation $conversation): self
+    /**
+     * 
+     * @param Conversation $conversation
+     * @return \App\Entity\Chene\JeuEnChene
+     */
+    public function addConversation(Conversation $conversation): JeuEnChene
     {
         if (!$this->conversations->contains($conversation)) {
             $this->conversations[] = $conversation;
@@ -633,7 +617,12 @@ class JeuEnChene
         return $this;
     }
 
-    public function removeConversation(Conversation $conversation): self
+    /**
+     * 
+     * @param Conversation $conversation
+     * @return \App\Entity\Chene\JeuEnChene
+     */
+    public function removeConversation(Conversation $conversation): JeuEnChene
     {
         if ($this->conversations->contains($conversation)) {
             $this->conversations->removeElement($conversation);
@@ -642,6 +631,27 @@ class JeuEnChene
                 $conversation->setLienJeuEnChene(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @return bool|null
+     */
+    public function getConstruit(): ?bool
+    {
+        return $this->construit;
+    }
+
+    /**
+     * 
+     * @param bool $construit
+     * @return \App\Entity\Chene\JeuEnChene
+     */
+    public function setConstruit(bool $construit): JeuEnChene
+    {
+        $this->construit = $construit;
 
         return $this;
     }

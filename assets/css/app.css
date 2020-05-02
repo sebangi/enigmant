@@ -1,5 +1,6 @@
 body {
-    background-color: whitesmoke;
+    background-color: white; 
+    /*whitesmoke;*/
 }
 
 .second-nav {
@@ -169,6 +170,23 @@ body {
 }
 
 .theme-body-disponible:hover {
-    background-color: seashell;
+    background-color: honeydew;
 }
 
+.font-caracteristique {
+    font-size: 0.8rem;    
+}
+
+.img-over {
+   position:absolute;
+   top:0px;
+   left:0px;
+}
+
+.jeu-card-disponible:hover {
+    background-color: honeydew;
+}
+
+.jeu-card-non-disponible:hover {
+    background-color: #fedddd;
+}

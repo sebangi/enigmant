@@ -25,9 +25,9 @@ class JeuEnCheneRepository extends ServiceEntityRepository
     /**
       * @return Query
       */
-    public function findAllDisponibleQuery( JeuEnCheneRecherche $recherche ) : Query
+    public function findAllConstruitQuery( JeuEnCheneRecherche $recherche ) : Query
     {
-        $query = $this->findDisponibleQuery();
+        $query = $this->findConstruitQuery();
         
         if ( $recherche->getMaxPrix() )
         {
@@ -67,7 +67,8 @@ class JeuEnCheneRepository extends ServiceEntityRepository
       */
     public function findDerniersDisponible() : array
     {
-        return $this->findDisponibleQuery()
+        return $this->findConstruitQuery()
+            ->andWhere('j.disponible = true')
             ->setMaxResults(4)    
             ->getQuery()
             ->getResult();
@@ -76,12 +77,15 @@ class JeuEnCheneRepository extends ServiceEntityRepository
     /**
       * @return QueryBuilder
       */
-    private function findDisponibleQuery() : QueryBuilder
+    private function findConstruitQuery() : QueryBuilder
     {
         return $this->createQueryBuilder('j')
             ->select('j', 'babs')
             ->leftJoin('j.babioles', 'babs')
-            ->andWhere('j.disponible = true');
+            ->andWhere('j.construit = true')
+            ->leftJoin('j.collectionChene', 'col')
+            ->orderBy('col.num', 'ASC')
+            ->addOrderBy('j.num', 'ASC');
     }
     
     // /**
