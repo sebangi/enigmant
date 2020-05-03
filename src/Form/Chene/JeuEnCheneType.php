@@ -26,7 +26,7 @@ class JeuEnCheneType extends AbstractType
                 'choice_label' => 'nom',
                 'query_builder' => function (CollectionCheneRepository $er) {
                         return $er->createQueryBuilder('b')
-                            ->orderBy('b.nom', 'ASC');
+                            ->orderBy('b.num', 'ASC');
                     },                            
                 'required' => false
             ])
