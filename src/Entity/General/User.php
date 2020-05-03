@@ -3,6 +3,7 @@
 namespace App\Entity\General;
 
 use App\Entity\Chene\ReservationJeu;
+use App\Entity\Chene\JeuEnChene;
 use App\Entity\General\ObtentionNiveau;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -409,6 +410,21 @@ class User implements UserInterface {
         }
 
         return $this;
+    }
+
+    /**
+     * 
+     * @param \App\Entity\Chene\JeuEnChene $jeu
+     * @return bool
+     */
+    public function aReussiJeu(JeuEnChene $jeu): bool {
+        foreach ($this->reservations->toArray() as $res) {
+            if ( $res->getJeu() == $jeu && 
+                 $res->getReussi() )
+                return true;
+        }
+
+        return false;
     }
 
     /**

@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row position-relative">
             {% if not pair %}
-                <div class="col-md-8 no-padding">    
+                <div class="col-md-7 no-padding">    
                     {% if collectionChene.imageName %}
                         <img style="width:100%" class="img-responsive {{class}}" src="{{ vich_uploader_asset(collectionChene, 'imageFile') | imagine_filter("my_thumb_collection") }}" > 
                     {% else %}
@@ -19,24 +19,20 @@
                 </div>
             {% endif%}        
 
-            <div class="col-md-4 position-static text-center align-self-center mx-auto">
+            <div class="col-md-5 position-static text-center align-self-center mx-auto">
                 <h2 class="mb-4">
                     <a class="stretched-link" href="{{ path("collectionChene.show", { slug: collectionChene.slug, id: collectionChene.id }) }}">
                         {{ collectionChene.nom }}
                     </a>
                 </h2>
 
-                <h5 class="">
-                    Nombre de jeux : {{ collectionChene.getJeuEnChenes().count() }}
-                </h5>
-
-                <h4 class="font-italic">
+                <h6 class="font-italic">
                     {{ collectionChene.description|nl2br(false) }}
-                </h4>         
+                </h6>         
             </div>
 
             {% if pair%}
-                <div class="col-md-8  no-padding">    
+                <div class="col-md-7  no-padding">    
                     {% if collectionChene.imageName %}
                         <img style="width:100%" class="img-responsive {{class}}" src="{{ vich_uploader_asset(collectionChene, 'imageFile') | imagine_filter("my_thumb_collection") }}" > 
                     {% else %}

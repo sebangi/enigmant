@@ -19,6 +19,18 @@ class ThemeRepository extends ServiceEntityRepository
         parent::__construct($registry, Theme::class);
     }
 
+    /**
+      * @return Theme[]
+      */
+    public function getThemeAvecNiveau() : array
+    {
+        return $this->createQueryBuilder('t')
+            ->Join('t.niveaux', 'n')                
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
     // /**
     //  * @return Theme[] Returns an array of Theme objects
     //  */

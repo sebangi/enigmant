@@ -7,6 +7,7 @@ use App\Entity\Chene\CollectionChene;
 use App\Entity\General\User;
 use App\Repository\General\UserRepository;
 use App\Repository\Chene\CollectionCheneRepository;
+use App\Repository\Chene\JeuEnCheneRepository;
 use App\Entity\Chene\CollectionCheneRecherche;
 use App\Form\Chene\CollectionCheneRechercheType;
 use Symfony\Component\HttpFoundation\Response;
@@ -63,15 +64,19 @@ class CollectionCheneController extends BaseController {
      * @param CollectionChene $je()uEnChene
      * @return Response
      */
-    public function show(CollectionChene $collectionChene, string $slug): Response {
+    public function show(JeuEnCheneRepository $j_repository, CollectionChene $collectionChene, string $slug): Response {
         if ($collectionChene->getSlug() !== $slug)
             return $this->redirectToRoute('CollectionChene.show', [
                         'id' => $collectionChene->getId(),
                         'slug' => $collectionChene->getSlug()
                             ], 301);
 
+        $jeuxEnChene = $j_repository->findBy(array("collectionChene" => $collectionChene->getId()), array("num" => "ASC"));
+        
+        
         return $this->monRender('chene/collectionChene/show.html.twig', [
-                    'collectionChene' => $collectionChene
+                    'collectionChene' => $collectionChene,
+                    'jeux_en_chene' => $jeuxEnChene
         ]);
     }
 

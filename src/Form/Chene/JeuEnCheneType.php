@@ -42,18 +42,21 @@ class JeuEnCheneType extends AbstractType
                'attr' => [
                    'min' => 0,
                    'max' => 10
-                ]
+                ],                            
+                'required' => false
             ])
             ->add('difficulteRaisonnement', IntegerType::class, [
                'attr' => [
                    'min' => 0,
                    'max' => 10
-                ]
+                ],                            
+                'required' => false
             ])
             ->add('nombreEtapes', IntegerType::class, [
                'attr' => [
                    'min' => 1
-                ]
+                ],                            
+                'required' => false
             ])
             ->add('tempsLocation', ChoiceType::class, [
                 'choices' => $this->getChoixLocation()

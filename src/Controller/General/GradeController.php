@@ -54,7 +54,7 @@ class GradeController extends BaseController
         if ( $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN') ||
              $this->get('security.authorization_checker')->isGranted('ROLE_USER') )
         {           
-            $themes = $themeRepository->findAll();
+            $themes = $themeRepository->getThemeAvecNiveau();
             
             if( $themeCourant == "General" )
             {
@@ -73,11 +73,17 @@ class GradeController extends BaseController
                 $nouveaux_grades = $optRepository->getNouveauxGradesTheme($this->getUser()->getId(), $themeCourant);
             }
             
-            
             foreach ($nouveaux_grades as $nouveau_grade) {
-                $this->get('session')->getFlashBag()->add('nouveaux_grades', array('type' => 'success',
-                        "message" => 'Vous êtes maintenant ' . $nouveau_grade->getNiveau()->getGrade(), 
+                if ( $nouveau_grade->getNiveau()->getNum() != 1 ||
+                     $nouveau_grade->getNiveau()->getTheme()->getNum() == 1 )                 
+                    $this->get('session')->getFlashBag()->add('nouveaux_grades', array('type' => 'success',
+                        "message" => 'Vous êtes maintenant ' . $nouveau_grade->getNiveau()->getGrade(),
                         "title" => $nouveau_grade->getNiveau()->getRaison() ) );
+                else 
+                    $this->get('session')->getFlashBag()->add('nouveaux_grades', array('type' => 'success',
+                        "message" => 'Vous êtes maintenant ' . $nouveau_grade->getNiveau()->getGrade(),
+                        "title" => "" ) );
+                
                 
                 $nouveau_grade->setVu(true);
                 $this->em->persist( $nouveau_grade );

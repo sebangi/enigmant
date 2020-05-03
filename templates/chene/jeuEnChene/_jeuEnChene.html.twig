@@ -11,12 +11,17 @@
     {% else %}            
         <img class="img-over" src="{{ asset('images/base/non_disponible.png') }}" > 
     {% endif %}
-
+    
     <div class="card-body pt-2 pb-0 d-flex flex-column">
-        <h4 class="text-center">
-            <a class="stretched-link" href="{{ path("jeuEnChene.show", { slug: jeuEnChene.slug, id: jeuEnChene.id }) }}">
+        <h4 class="">
+            <a class="stretched-link d-inline" href="{{ path("jeuEnChene.show", { slug: jeuEnChene.slug, id: jeuEnChene.id }) }}">
                 {{ jeuEnChene.nom }}
-            </a>
+            </a>  
+            {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
+                {% if app.user.aReussiJeu( jeuEnChene ) %}
+                    <div class="d-inline float-right font-weight-bold"><span class="fas fa-check text-success" aria-hidden="true"></span></div>                
+                {% endif %}
+            {% endif %}            
         </h4>
         
         <div class="font-italic">{{ jeuEnChene.description|nl2br(false) }}</div>   
@@ -47,7 +52,7 @@
                     Difficulté de réflexion :
                 </div>
                 <div class="d-inline">
-                    {{ jeuEnChene.difficulteRaisonnement }} / 10
+                    {% if jeuEnChene.difficulteRaisonnement %}{{ jeuEnChene.difficulteRaisonnement }}{% else %}?{% endif %} / 10
                 </div>
             </div> 
 
@@ -56,7 +61,7 @@
                     Difficulté d'observation :
                 </div>
                 <div class="d-inline">
-                    {{ jeuEnChene.difficulteObservation }} / 10
+                    {% if jeuEnChene.difficulteObservation %}{{ jeuEnChene.difficulteObservation }}{% else %}?{% endif %} / 10
                 </div>
             </div> 
 
@@ -65,12 +70,12 @@
                     Nombre d'étapes :
                 </div>
                 <div class="d-inline">
-                    {{ jeuEnChene.nombreEtapes }}
+                    {% if jeuEnChene.nombreEtapes %}{{ jeuEnChene.nombreEtapes }}{% else %}?{% endif %}
                 </div>
             </div>
         </div>
     </div>        
-    <h4 class="card-footer text-center mt-2 mb-0">
+    <h4 class="{% if jeuEnChene.disponible %}footer-disponible{% else %}footer-non-disponible{% endif %} bg-gris  text-center mt-2 mb-0">
         Prix conseillé : {{ jeuEnChene.prixFormate }}
     </h4>
 

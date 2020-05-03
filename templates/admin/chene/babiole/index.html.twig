@@ -28,6 +28,7 @@
                         <td>{% if babiole.typeBabiole %}{{ babiole.typeBabiole.nom }}{% endif %}</td>
                         <td>{% if babiole.categorieBabiole %}{{ babiole.categorieBabiole.nom }}{% endif %}</td>
                         <td>
+                            <a href="{{ path("babiole.show", {id : babiole.id, slug : babiole.getSlug} ) }}" class="btn btn-primary">Voir</a>
                             <a href="{{ path("admin.chene.babiole.edit", {id : babiole.id} ) }}" class="btn btn-secondary">Éditer</a>
                             <form method="post" action="{{ path("admin.chene.babiole.delete", {id: babiole.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
                                 <input type="hidden" name="_method" value="DELETE">

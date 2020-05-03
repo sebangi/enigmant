@@ -10,12 +10,14 @@
 
         {% for msg in app.session.flashbag.get('nouveaux_grades') %}
             <div class="alert alert-success">
-                <div>
-                    {{ msg.title }}
-                </div>            
+                {% if not msg.title == "" %}
+                    <div>
+                        {{ msg.title }}
+                    </div>   
+                {% endif%}
                 <div>
                     {{ msg.message }} <span class="fas fa-medal" aria-hidden="true"></span>                    
-                </div>
+                </div> 
             </div>
         {% endfor %}
 
