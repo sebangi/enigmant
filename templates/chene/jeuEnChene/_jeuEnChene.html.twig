@@ -3,7 +3,7 @@
     {% if jeuEnChene.imageName %}
         <img class="card-img-top rounded_card" src="{{ vich_uploader_asset(jeuEnChene, 'imageFile') | imagine_filter("my_thumb") }}" > 
     {% else %}
-        <img class="card-img-top rounded_card" src="{{ asset('images/jeuEnChene/vide.jpg') | imagine_filter("my_thumb") }}" > 
+        <img class="card-img-top rounded_card" src="{{ 'images/jeuEnChene/vide.jpg' | imagine_filter("my_thumb") }}" > 
     {% endif%}
 
     {% if jeuEnChene.disponible %}
