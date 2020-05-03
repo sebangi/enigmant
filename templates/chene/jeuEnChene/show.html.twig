@@ -4,54 +4,123 @@
     <div class="jumbotron mon-jumbotron">
         <div class="container">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-5 pl-0">
                     {% if jeuEnChene.imageName %}
-                      <img src="{{ asset( vich_uploader_asset(jeuEnChene, 'imageFile') ) }}" class="card-img-top" style="width:100%; height:500px;">                   
+                        <img src="{{ asset( vich_uploader_asset(jeuEnChene, 'imageFile') ) }}" style="width:100%; height:auto;">                   
                     {% else %}
-                        <img src="{{ asset('images/jeuEnChene/vide.jpg') }}" class="card-img-top" style="width:100%; height:230px;"> 
+                        <img src="{{ asset('images/jeuEnChene/vide.jpg') }}" class="card-img-top" style="width:100%;"> 
                     {% endif%}
+                    {% if jeuEnChene.disponible %}
+                        <img class="img-over" src="{{ asset('images/base/disponible.png') }}" > 
+                    {% else %}            
+                        <img class="img-over" src="{{ asset('images/base/non_disponible.png') }}" > 
+                    {% endif %}
                 </div>
-                <div class="col-md-4">
-                    <h1>{{ jeuEnChene.nom }}</h1>
-                    <p>{{ jeuEnChene.description | nl2br }}</p>
 
-                    <h2>Temps de location : {{ jeuEnChene.getTempsLocationString() }}</h2>
-                    <div class="text-primary" style="font-weight:bold; font-size:2rem;">
-                        {{ jeuEnChene.getPrixFormate() }}
+                <div class="col-md-7 d-flex flex-column pr-0">
+                    <h3 class="font-italic">
+                        Collection 
+                        <a href="{{ path("collectionChene.show", { slug: jeuEnChene.collectionChene.getSlug(), id: jeuEnChene.collectionChene.id }) }}">
+                            {{ jeuEnChene.collectionChene.nom }}
+                        </a>
+                    </h3>
+
+                    <h1 class="">{{ jeuEnChene.nom }}</h1>
+                    <div class="mt-4">{{ jeuEnChene.description | nl2br }}</div>
+
+                    <div style="margin-top: auto;">
+                        <div style="font-size:1.5rem;">
+                            <h5 class="d-inline font-weight-bold">
+                                Durée de location conseillé : 
+                            </h5>
+                            <div class="d-inline" >
+                                {{ jeuEnChene.getTempsLocationString() }}
+                            </div>
+                        </div>
+
+                        <div style="font-size:1.5rem;">
+                            <h5 class="d-inline font-weight-bold">
+                                Prix conseillé : 
+                            </h5>
+                            <div class="d-inline text-primary" >
+                                {{ jeuEnChene.getPrixFormate() }}
+                            </div>
+                        </div>
+                           <a href="#" class="btn btn-primary mt-2">Réserver maintenant</a>
+                        <a class="btn btn-warning mt-2">Comment ça marche ?</a>
+                        <a class="btn btn-secondary mt-2">Je n'ai pas de babiole !</a>
                     </div>
-                    <a href="#" class="btn btn-primary">Réserver</a>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="container">
 
-    <div class="container mt-2">
-        
-        <div class="row">
-            <div class="col-md-7">
-                <table class="table table-striped">
-                    <tr>
-                        <td>Difficulté d'observation</td>
-                        <td>{{ jeuEnChene.difficulteObservation }} / 10</td>
-                    </tr>
-                    <tr>
-                        <td>Difficulté de raisonnement</td>
-                        <td>{{ jeuEnChene.difficulteRaisonnement }} / 10</td>
-                    </tr>
-                    <tr>
-                        <td>Nombre d'étapes</td>
-                        <td>{{ jeuEnChene.nombreEtapes }}</td>
-                    </tr>
-                </table>
+        {% if jeuEnChene.getCommentairesGourou %}
+            <div class="row bg-info p-4">
+                <div class="col-md-5">
+                    <h4 class="text-right">Commentaire du grand gourou :</h4>
+                </div>
+                <div class="col-md-5 font-italic">
+                    « {{ jeuEnChene.getCommentairesGourou() }} »
+                </div>
             </div>
-            <div class="col-md-5">
-                <h4>Babioles utilisées pour sa construction</h4>
-                <ul class="list-group">
-                    {% for babiole in jeuEnChene.babioles  %}
-                        <li class="list-group-item">{{ babiole.nom }}</li>  
-                    {% endfor %}
-                </ul>
+
+        {% endif%}
+
+        <div class="row ml-4 mr-4 mt-4">
+            <div class="col-md-5 pt-2">
+                <div class="">
+                    <h4 class="d-inline">Caractéristiques de difficulté :</h4>
+                    <a class="d-inline mr-0 mt-1 float-right">
+                        <span class="fas fa-search text-primary" aria-hidden="true"></span></a>
+                </div>
+
+                <div class="pl-4 pt-2">
+                    <table class="table table-striped">
+                        <tr>
+                            <td  width="40%" class="font-weight-bold text-right">Difficulté d'observation :</td>
+                            <td  width="20%" class="pl-0">{% if jeuEnChene.difficulteObservation %}{{ jeuEnChene.difficulteObservation }}{% else %}?{% endif %} / 10</td>
+                        </tr>
+                        <tr>
+                            <td  width="40%" class="font-weight-bold text-right">Nombre d'étapes :</td>
+                            <td  width="20%" class="pl-0">{% if jeuEnChene.nombreEtapes %}{{ jeuEnChene.nombreEtapes }}{% else %}?{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold text-right">Difficulté de raisonnement :</td>
+                            <td class="pl-0">{% if jeuEnChene.difficulteRaisonnement %}{{ jeuEnChene.difficulteRaisonnement }}{% else %}?{% endif %} / 10</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold text-right">Temps moyen :</td>
+                            <td class="pl-0">A définir</td>
+                        </tr>
+                    </table>  
+                </div>                
+            </div>
+            <div class="col-md-1"> 
+            </div>
+            <div class="col-md-5  pt-2">
+                <h4>Babioles utilisées : </h4>
+                <div class="pl-4 pt-2">
+                    <table class="table ml-4 table-striped">
+                        {% for babiole in jeuEnChene.babioles  %}
+                            <tr><td>{{ babiole.nom }}</td></tr>
+                        {% endfor %}
+                        <tr><td class="font-weight-bold">et quelques autres à découvrir...</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <hr>        
+
+        <div class="row  ml-4 mr-4">
+            <div class="col-md-12">
+                <h4>Avis des joueurs :</h4>
+                <table class="table table-striped">
+
+                </table>
             </div>
         </div>
     {% endblock body %}

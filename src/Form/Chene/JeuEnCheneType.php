@@ -31,6 +31,7 @@ class JeuEnCheneType extends AbstractType
                 'required' => false
             ])
             ->add('description')
+            ->add('commentairesGourou')
             ->add('num', IntegerType::class, [
                'attr' => [
                    'min' => 1

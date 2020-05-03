@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg admin-bar navbar-light sticky-top third-nav ma-nav">
-    <ul class="navbar-nav navbar-brand">
+    <ul class="navbar-nav navbar-brand pt-0 pb-0">
         <li>
             <a class="nav-link {% if menuCourant is defined and menuCourant == 'AdminHome' %}active{% endif %}" href="{{ path('admin.home') }}">Général<span class="sr-only">(current)</span></a>
         </li>  
@@ -11,32 +11,32 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent2">
 
-        <ul class="navbar-nav navbar-brand">                
+        <ul class="navbar-nav navbar-brand pt-0 pb-0">                
             <li class="nav-item">
                 <a class="nav-link {% if menuCourant is defined and menuCourant == 'AdminUser' %}active{% endif %}" href="{{ path('admin.user.index') }}">Utilisateurs<span class="sr-only">(current)</span></a>
             </li>                
         </ul>     
-        <ul class="navbar-nav navbar-brand">
+        <ul class="navbar-nav navbar-brand pt-0 pb-0">
             <li class="nav-item navbar-light">
                 <a class="nav-link {% if menuCourant is defined and menuCourant == 'AdminChene' %}active{% endif %}" href="{{ path('admin.chene.home') }}">Chêne<span class="sr-only">(current)</span></a>
             </li>
         </ul> 
-        <ul class="navbar-nav navbar-brand">
+        <ul class="navbar-nav navbar-brand pt-0 pb-0">
             <li class="nav-item navbar-light">
                 <a class="nav-link {% if menuCourant is defined and menuCourant == 'AdminChasse' %}active{% endif %}" href="{{ path('admin.chasse.home') }}">Chasse<span class="sr-only">(current)</span></a>
             </li>
         </ul> 
-        <ul class="navbar-nav navbar-brand">                
+        <ul class="navbar-nav navbar-brand pt-0 pb-0">                
             <li class="nav-item">
                 <a class="nav-link {% if menuCourant is defined and menuCourant == 'AdminTheme' %}active{% endif %}" href="{{ path('admin.theme.index') }}">Thèmes<span class="sr-only">(current)</span></a>
             </li>                
         </ul>  
-        <ul class="navbar-nav navbar-brand">                
+        <ul class="navbar-nav navbar-brand pt-0 pb-0">                
             <li class="nav-item">
                 <a class="nav-link {% if menuCourant is defined and menuCourant == 'AdminNiveau' %}active{% endif %}" href="{{ path('admin.niveau.index') }}">Niveaux<span class="sr-only">(current)</span></a>
             </li>                
         </ul>      
-        <ul class="navbar-nav navbar-brand">                
+        <ul class="navbar-nav navbar-brand pt-0 pb-0">                
             <li class="nav-item">
                 <a class="nav-link {% if menuCourant is defined and menuCourant == 'AdminObtentionNiveau' %}active{% endif %}" href="{{ path('admin.obtentionNiveau.index') }}">Grades<span class="sr-only">(current)</span></a>
             </li>                

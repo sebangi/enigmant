@@ -140,6 +140,11 @@ class JeuEnChene
      */
     private $construit = false;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $commentairesGourou;
+
     public function __construct()
     {
         $this->babioles = new ArrayCollection();
@@ -652,6 +657,27 @@ class JeuEnChene
     public function setConstruit(bool $construit): JeuEnChene
     {
         $this->construit = $construit;
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @return string|null
+     */
+    public function getCommentairesGourou(): ?string
+    {
+        return $this->commentairesGourou;
+    }
+
+    /**
+     * 
+     * @param string|null $commentairesGourou
+     * @return \App\Entity\Chene\JeuEnChene
+     */
+    public function setCommentairesGourou(?string $commentairesGourou): JeuEnChene
+    {
+        $this->commentairesGourou = $commentairesGourou;
 
         return $this;
     }

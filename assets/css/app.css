@@ -1,15 +1,18 @@
+html {
+  overflow-y: scroll;
+}
+
 body {
     background-color: white; 
     /*whitesmoke;*/
 }
 
 .second-nav {
-    top: 42px;
-    /*     background-image: url("/images/chaine.png");  assuming img folder is one step back from css*/
+    top: 39px;
 }
 
 .third-nav {
-    top: 98px;
+    top: 85px;
 }
 
 .admin-bar {

@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top second-nav ma-nav">
-    <ul class="navbar-nav navbar-brand">
+    <ul class="navbar-nav navbar-brand pt-0 pb-0">
         <li class="nav-item">
             <a class="nav-link {% if menuCourant is defined and menuCourant == 'Home' %}active{% endif %}" href="{{ path('home') }}"> <span  class="fas fa-home"></span></a>
         </li>
@@ -11,25 +11,25 @@
         
     <div class="collapse navbar-collapse" id="navbarSupportedContent1">
 
-        <ul class="navbar-nav navbar-brand">
+        <ul class="navbar-nav navbar-brand pt-0 pb-0">
             <li class="nav-item">
                 <a class="nav-link {% if menuCourant is defined and menuCourant == 'EnigmesEnChene' %}active{% endif %}" href="{{ path('chene.home') }}">Énigmant chêne<span class="sr-only">(current)</span></a>
             </li>
         </ul>
 
-        <ul class="navbar-nav navbar-brand">
+        <ul class="navbar-nav navbar-brand pt-0 pb-0">
             <li class="nav-item">
                 <a class="nav-link {% if menuCourant is defined and menuCourant == 'CollectionChene' %}active{% endif %}" href="{{ path('collectionChene.index') }}">Les collections<span class="sr-only">(current)</span></a>
             </li>
         </ul>  
 
-        <ul class="navbar-nav navbar-brand">
+        <ul class="navbar-nav navbar-brand pt-0 pb-0">
             <li class="nav-item">
                 <a class="nav-link {% if menuCourant is defined and menuCourant == 'JeuEnChene' %}active{% endif %}" href="{{ path('jeuEnChene.index') }}">Les jeux<span class="sr-only">(current)</span></a>
             </li>
         </ul>  
 
-        <ul class="navbar-nav navbar-brand">
+        <ul class="navbar-nav navbar-brand pt-0 pb-0">
             <li class="nav-item">
                 <a class="nav-link {% if menuCourant is defined and menuCourant == 'Babiole' %}active{% endif %}" href="{{ path('babiole.index') }}">Les babioles<span class="sr-only">(current)</span></a>
             </li>

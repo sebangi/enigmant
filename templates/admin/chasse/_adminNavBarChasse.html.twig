@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg admin-bar navbar-light sticky-top third-nav ma-nav">
-    <ul class="navbar-nav navbar-brand">
+    <ul class="navbar-nav navbar-brand pt-0 pb-0">
         <li>
             <a class="nav-link {% if menuCourant is defined and menuCourant == 'AdminHome' %}active{% endif %}" href="{{ path('admin.home') }}">Général<span class="sr-only">(current)</span></a>
         </li>  
@@ -10,7 +10,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent2">
-        <ul class="navbar-nav navbar-brand">                
+        <ul class="navbar-nav navbar-brand pt-0 pb-0">                
             <li class="nav-item">
                 <a class="nav-link {% if menuCourant is defined and menuCourant == 'AdminChasse' %}active{% endif %}" href="{{ path('admin.chasse.home') }}">Chasse<span class="sr-only">(current)</span></a>
             </li>                
