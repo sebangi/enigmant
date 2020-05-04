@@ -1,0 +1,14 @@
+{% if themeCourant is defined %}
+    <a href="{{ path("grade.index", {themeCourant: themeCourant}) }}" class="btn btn-outline-success ma-nav">
+{% else %}
+    <a href="{{ path("grade.index", {themeCourant: "Actuel"}) }}" class="btn btn-outline-success ma-nav">
+{% endif %}
+
+    {% if themeCourant is defined %}
+        {{ app.user.getGradeString( themeCourant ) ~ " " }}    
+    {% endif %}
+    <span class="font-weight-bold">
+        {{ app.user.getUsername() }}
+    </span>
+    <span class="fas fa-medal {% if app.user.hasGradeNonVu() %}clignotement{% endif%}" aria-hidden="true"></span>
+</a>
