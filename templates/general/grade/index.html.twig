@@ -5,9 +5,11 @@
 {% endblock title  %}
 
 {% block body %}
+    <div class="jumbotron mon-jumbotron third-nav sticky-top">
+        <h1 class="text-center">Mes grades</h1>
+    </div>
+    
     <div class="container mt-4">
-        <h1>Mes grades</h1>
-
         {% for msg in app.session.flashbag.get('nouveaux_grades') %}
             <div class="alert alert-success">
                 {% if not msg.title == "" %}

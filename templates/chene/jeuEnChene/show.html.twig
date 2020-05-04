@@ -46,9 +46,9 @@
                                 {{ jeuEnChene.getPrixFormate() }}
                             </div>
                         </div>
-                           <a href="#" class="btn btn-primary mt-2">Réserver maintenant</a>
-                        <a class="btn btn-warning mt-2">Comment ça marche ?</a>
-                        <a class="btn btn-secondary mt-2">Je n'ai pas de babiole !</a>
+                        <a href="#" class="btn btn-primary mt-2">Louer maintenant</a>
+                        <a href="{{ path("chene.home") }}#CommentCaMarche" class="btn btn-warning mt-2">Comment ça marche ?</a>
+                        <a href="{{ path("chene.home") }}#JeNAiPasDeBabioles" class="btn btn-secondary mt-2">Je n'ai pas de babiole !</a>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,11 @@
         {% if jeuEnChene.getCommentairesGourou %}
             <div class="row bg-info p-4">
                 <div class="col-md-5">
-                    <h4 class="text-right">Commentaire du grand gourou :</h4>
+                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                        <h4 class="text-right">Commentaire du Grand Gourou :</h4>
+                    {% else %}
+                        <h4 class="text-right">Commentaire de l'inventeur :</h4>
+                    {% endif %}
                 </div>
                 <div class="col-md-5 font-italic">
                     « {{ jeuEnChene.getCommentairesGourou() }} »
@@ -123,5 +127,6 @@
                 </table>
             </div>
         </div>
-    {% endblock body %}
+    </div>
+{% endblock body %}
 

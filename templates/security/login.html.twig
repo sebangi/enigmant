@@ -5,14 +5,12 @@
 {% endblock title %}
 
 {% block body %}
-    <div class="jumbotron mon-jumbotron text-center">
-        <h4 class="text-center">Bienvenue sur Énigmant</h4>
-    </div>
+    {{ include('_titre_accueil.html.twig') }}
 
     <div class="container mt-4">
         <div class="row mt-6 mb-6">
             <div class="col-md-6 colonne-centree">
-                <p class="text-center">Veuillez vous identifier pour accéder à tous les services</p>
+                <h5 class="text-center mb-4">Veuillez vous identifier pour accéder à tous les services</h5>
 
                 {% if error  %}
                     <div class="alert alert-danger">
@@ -24,11 +22,11 @@
                 <form action="{{ path('login') }}" method="post">
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                     <div class="form-group">
-                        <label for="username">Identifiant</label>
+                        <label for="username">Identifiant :</label>
                         <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}">
                     </div>
                     <div class="form-group">
-                        <label for="password">Mot de passe</label>
+                        <label for="password">Mot de passe :</label>
                         <input type="password" id="password" name="_password" class="form-control">
                     </div>
 
@@ -44,14 +42,19 @@
                         <a href="{{ path("login") }}">Mot de passe oublié ? NON FAIT</a>
                     </div>
                 </form>
+
             </div>
         </div>                
-        <div class="row mt-6 mb-4">
+
+        <div class="row mb-4">
             <div class="col-md-6 colonne-centree">
                 <hr>
-                <div class="col-mt-4 colonne-centree text-center font-weight-bold">
-                    Première fois sur Énigmant ? <a href="{{ path("registration") }}">Inscrivez-vous !</a>   
-                </div>  
+
+                <div class="bg-warning pt-4 pb-4">
+                    <div class="col-mt-4 colonne-centree text-center font-weight-bold">
+                        Première fois sur Énigmant ? <a href="{{ path("registration") }}" class="text-primary">Inscrivez-vous !</a>   
+                    </div>  
+                </div>
             </div>
         </div>
     </div>

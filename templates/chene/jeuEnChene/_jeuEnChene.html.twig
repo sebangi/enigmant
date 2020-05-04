@@ -13,8 +13,8 @@
     {% endif %}
     
     <div class="card-body pt-2 pb-0 d-flex flex-column">
-        <h4 class="">
-            <a class="stretched-link d-inline" href="{{ path("jeuEnChene.show", { slug: jeuEnChene.slug, id: jeuEnChene.id }) }}">
+        <h3 class="">
+            <a class="stretched-link d-inline text-dark" href="{{ path("jeuEnChene.show", { slug: jeuEnChene.slug, id: jeuEnChene.id }) }}">
                 {{ jeuEnChene.nom }}
             </a>  
             {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
@@ -22,7 +22,7 @@
                     <div class="d-inline float-right font-weight-bold"><span class="fas fa-check text-success" aria-hidden="true"></span></div>                
                 {% endif %}
             {% endif %}            
-        </h4>
+        </h3>
         
         <div class="font-italic">{{ jeuEnChene.description|nl2br(false) }}</div>   
         

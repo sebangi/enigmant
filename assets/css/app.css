@@ -8,7 +8,7 @@ body {
 }
 
 .second-nav {
-    top: 39px;
+    top: 40px;
 }
 
 .third-nav {
@@ -19,12 +19,23 @@ body {
     background-color: orange;
 }
 
+
 .mon-jumbotron {
     padding-top: 16px; 
     padding-left: 0px;
     padding-right: 0px; 
     padding-bottom: 16px;
     margin: 0px;
+    border-radius: 0;
+    border-width: 0px 0px 1px 0px;
+    border-style: solid;
+    border-color: black;
+}
+
+.nav-bar-haut {
+    border-width: 0px 0px 1px 0px;
+    border-style: solid;
+    border-color: black;
 }
 
 
@@ -101,6 +112,10 @@ body {
     border-bottom-right-radius: 14px;
 }
 
+.table-grade th {
+    border: 0;
+}
+
 .clignotement {
     color:red; 
     animation: colorblink 2s infinite;
@@ -173,7 +188,7 @@ body {
 }
 
 .theme-body-disponible:hover {
-    background-color: honeydew;
+    background-color: #17A2B8
 }
 
 .font-caracteristique {
@@ -187,7 +202,7 @@ body {
 }
 
 .jeu-card-disponible:hover {
-    background-color: honeydew;
+    background-color: #17A2B8;
 }
 
 .jeu-card-non-disponible:hover {
@@ -199,7 +214,7 @@ body {
 }
 
 .collection-card:hover {
-    background-color: honeydew;
+    background-color: #17A2B8;
 }
 
 .collection-impaire {

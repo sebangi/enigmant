@@ -1,8 +1,9 @@
 <div class="card h-100 theme-card {% if not theme.disponible %}text-muted theme-card-non-disponible{%else%}theme-card-disponible{% endif %}">
     <img src="{{ asset('images/theme/' ~ theme.route ~ '.png') }}" class="card-img-left theme-image">
     <div class="card-body text-center {% if theme.disponible %}theme-body-disponible{% endif %}">
-        <h5 class="card-title">
-            <a {% if theme.disponible  %} href="{{ path( theme.route ~ ".home") }}" class="stretched-link"{% endif %}>Énigmant {{ theme.nom }}</a></h5>
+        <h4 class="card-title">
+            <a {% if theme.disponible  %} href="{{ path( theme.route ~ ".home") }}" class=" text-dark stretched-link"{% endif %}>Énigmant {{ theme.nom }}</a>
+        </h4>
         <p class="card-text">{{ theme.description|nl2br(false) }}</p>
         {% if not theme.disponible  %}
             <p class="card-text font-italic">En préparation </p>
