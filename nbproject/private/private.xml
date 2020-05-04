@@ -3,18 +3,27 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/sebastien/public_html/enigmant/templates/general/_navBarGeneral.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/_carouselJeuxEnChene.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/outils/_cercle.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/show.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/ReservationJeu.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Entity/General/User.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chasse/adminBaseChasse.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chasse/_adminNavBarChasse.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/collectionChene/index.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/base.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/_jeuEnChene.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/jeuEnChene/_form.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/chene/collectionChene/show.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/chene/_navBarChene.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/jeuEnChene/index.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/babiole/index.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/outils/_cercle.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/JeuEnChene.php</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/chene/baseChene.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/_grade.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/admin/general/_adminNavBarGeneral.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/general/grade/index.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/ReservationJeu.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Entity/General/User.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/collectionChene/index.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/assets/css/app.css</file>
             <file>file:/home/sebastien/public_html/enigmant/config/packages/liip_imagine.yaml</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/chene/collectionChene/index.html.twig</file>
@@ -22,8 +31,9 @@
             <file>file:/home/sebastien/public_html/enigmant/templates/security/login.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/JeuEnCheneType.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/Chene/CollectionCheneController.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/_jeuEnChene.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/_adminNavBarChene.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/General/GradeController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chasse/_navBarChasse.html.twig</file>
         </group>
     </open-files>
 </project-private>
