@@ -13,6 +13,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ConversationType extends AbstractType
 {
@@ -59,7 +60,14 @@ class ConversationType extends AbstractType
                             ->orderBy('j.nom', 'ASC');
                     },                            
                 'required' => false
-            ])
+                ])
+            ->add('cancel', SubmitType::class, array(
+                    'label' => 'Annuler',
+                    'attr' => array(
+                     'class' => "btn-danger",
+                    'formnovalidate'=>'formnovalidate'
+                    ))
+                )
         ;
     }
 

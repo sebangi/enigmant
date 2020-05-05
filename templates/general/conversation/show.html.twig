@@ -11,13 +11,15 @@
         </div>
     </div>
 
+    {{ include('outils/_flash.html.twig') }}   
+
     <div class="container">
         {% if is_granted('ROLE_ADMIN') %}
             {% set lecteur = "admin" %}
         {% else %}
             {% set lecteur = "user" %}
         {% endif%}
-                
+
         {% for message in messages  %}
             <div class="row mt-4">                
                 {% if message.messageGourou %}
@@ -30,7 +32,7 @@
 
         <div class="row mt-4 mb-4">
             <div class="col-md-8 {% if lecteur == "user" %}offset-md-4{% endif %}">
-               {% include 'general/conversation/_message_form.html.twig' %}
+                {% include 'general/conversation/_message_form.html.twig' %}
             </div>    
         </div>
     </div>

@@ -20,10 +20,9 @@
     <div class="col-md-6">{{ form_row(form.lienJeuEnChene) }}</div>    
 </div>
 
+<button class="btn btn-success mr-2">{{ button|default('Créer la conversation') }}</button>
+{{ form_widget(form.cancel) }}
+
 {{ form_widget(form) }}
-
-<button class="btn btn-primary">{{ button|default('Créer la conversation') }}</button>
-  
-
 
 {{ form_end(form) }} 

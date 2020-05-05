@@ -16,6 +16,9 @@
             {% endif%} 
         {% endif%}         
     </div>
+    
+    {{ include('outils/_flash.html.twig') }}   
+    
     <div class="container mt-4 mb-4">
         <div class="col-md-10 offset-md-1">
             <a href="{{ path("general.conversation.new" ) }}" class="btn btn-primary">Créer une nouvelle conversation</a>

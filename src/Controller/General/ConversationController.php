@@ -45,21 +45,16 @@ class ConversationController extends BaseController {
         $this->repository = $repository;
         $this->em = $em;
     }
-    
-    public function test_non_appartenance($conversation)
-    {
-        if ( ! $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN') )
-        {
-            if ( $this->get('security.authorization_checker')->isGranted('ROLE_USER') )
-            {
+
+    public function test_non_appartenance($conversation) {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
                 return ($conversation->getUser()->getId() != $this->getUser()->getId());
-            }
-            else 
+            } else
                 return true;
-        }            
-        else
+        } else
             return false;
-    }    
+    }
 
     /**
      * @route("/", name="index")  
@@ -68,7 +63,7 @@ class ConversationController extends BaseController {
      */
     public function index(Request $Requete): Response {
 
-        if ( $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
             $conversations = $this->repository->getByDate(null);
         else
             $conversations = $this->repository->getByDate($this->getUser()->getId());
@@ -78,55 +73,51 @@ class ConversationController extends BaseController {
         ]);
     }
 
-     public function marquer( $messages, $est_admin) {
-        foreach ($messages as $message)
-        {
-            if ( $est_admin )
-            {
-                if ( $message->getEnCoursLectureGourou() ) {
+    public function marquer($messages, $est_admin) {
+        foreach ($messages as $message) {
+            if ($est_admin) {
+                if ($message->getEnCoursLectureGourou()) {
                     $message->setEnCoursLectureGourou(false);
                 }
-                if ( ! $message->getVuGourou() ) {
+                if (!$message->getVuGourou()) {
                     $message->setEnCoursLectureGourou(true);
                     $message->setVuGourou(true);
-                }                
-            }
-            else 
-            {
-                if ( $message->getEnCoursLecture() ) {
+                }
+            } else {
+                if ($message->getEnCoursLecture()) {
                     $message->setEnCoursLecture(false);
                 }
-                if ( ! $message->getVu() ) {
+                if (!$message->getVu()) {
                     $message->setEnCoursLecture(true);
                     $message->setVu(true);
                 }
             }
-            
+
             $this->em->persist($message);
         }
         $this->em->flush();
     }
-    
+
     /**
      * @route("/{slug}-{id}", name="show", requirements={"slug": "[a-z0-9\-]*"})  
      * @param conversation $conversation
      * @return Response
      */
     public function show(Request $requete, MessageRepository $m_repository, conversation $conversation, string $slug, string $anchor = ""): Response {
-        
+
         if ($conversation->getSlug() !== $slug)
             return $this->redirectToRoute('conversation.show', [
                         'id' => $conversation->getId(),
                         'slug' => $conversation->getSlug()], 301);
-        
-        if ( $this->test_non_appartenance($conversation) )
+
+        if ($this->test_non_appartenance($conversation))
             return $this->redirectToRoute('general.conversation.index');
-        
+
         $messages = $m_repository->findBy(array("conversation" => $conversation->getId()), array("date" => "ASC"));
-                   
+
         $est_admin = $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN');
         $this->marquer($messages, $est_admin);
-        
+
         // Formulaire pour un nouveau message
         $message = new Message();
         $message->setConversation($conversation);
@@ -139,7 +130,7 @@ class ConversationController extends BaseController {
             $message->setVuGourou($est_admin);
             $this->em->persist($message);
             $this->em->flush();
-            
+
             return $this->redirectToRoute('general.conversation.show', [
                         'id' => $conversation->getId(),
                         'slug' => $conversation->getSlug()
@@ -172,12 +163,9 @@ class ConversationController extends BaseController {
     public function new(Request $requete) {
         $conversation = new Conversation();
 
-        if ( $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
-        {
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             $conversation->setCreeParGourou(true);
-        }
-        else
-        {
+        } else {
             $conversation->setUser($this->getUser());
         }
 
@@ -187,16 +175,21 @@ class ConversationController extends BaseController {
 
         $form->handleRequest($requete);
         if ($form->isSubmitted() and $form->isValid()) {
-            $this->em->persist($conversation);
+            if (!$form->get('cancel')->isClicked()) {
+                $this->em->persist($conversation);
 
-            if ( ! $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
-                $this->creerMessageInitial($conversation);
+                if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
+                    $this->creerMessageInitial($conversation);
 
-            $this->em->flush();
-            return $this->redirectToRoute('general.conversation.show', [
+                $this->em->flush();
+            
+                return $this->redirectToRoute('general.conversation.show', [
                         'id' => $conversation->getId(),
                         'slug' => $conversation->getSlug()
-            ]);
+                ]);
+            }
+            else
+               return $this->redirectToRoute('general.conversation.index'); 
         }
 
         return $this->monRender('general/conversation/new.html.twig', [
@@ -212,17 +205,19 @@ class ConversationController extends BaseController {
      * @return Response
      */
     public function edit(Conversation $conversation, Request $requete): Response {
-        if ( $this->test_non_appartenance($conversation) )
+        if ($this->test_non_appartenance($conversation))
             return $this->redirectToRoute('general.conversation.index');
-        
+
         $form = $this->createForm(ConversationType::class, $conversation,
                 ['administration' => $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'),
                     'user_id' => $this->getUser()->getId()]);
 
         $form->handleRequest($requete);
         if ($form->isSubmitted() and $form->isValid()) {
-            $this->em->flush();
-            $this->addFlash('success', 'Conversation modifiée avec succès.');
+            if (!$form->get('cancel')->isClicked()) {
+                $this->em->flush();
+                $this->addFlash('success', 'Conversation modifiée avec succès.');
+            }
             return $this->redirectToRoute('general.conversation.index');
         }
 
