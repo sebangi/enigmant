@@ -23,11 +23,25 @@ class JeuEnCheneRepository extends ServiceEntityRepository
     }
        
     /**
-      * @return Query
+      * @return JeuEnChene[]
       */
-    public function findAllConstruitQuery( JeuEnCheneRecherche $recherche ) : Query
+    public function findAllConstruit( JeuEnCheneRecherche $recherche ) : array
     {
         $query = $this->findConstruitQuery();
+        
+        if ( $recherche->getDisponible() )
+        {
+            $query = $query
+                ->andwhere( 'j.disponible = :disponible' )
+                ->setParameter( 'disponible', $recherche->getDisponible() );
+        }
+        
+        if ( $recherche->getCollection() )
+        {
+            $query = $query
+                ->andwhere( 'col.id = :collection' )
+                ->setParameter( 'collection', $recherche->getCollection()->getId() );
+        }
         
         if ( $recherche->getMaxPrix() )
         {
@@ -36,14 +50,44 @@ class JeuEnCheneRepository extends ServiceEntityRepository
                 ->setParameter( 'maxPrix', $recherche->getMaxPrix() );
         }
         
+        if ( $recherche->getMinPrix() )
+        {
+            $query = $query
+                ->andwhere( 'j.prix >= :maxPrix' )
+                ->setParameter( 'maxPrix', $recherche->getMinPrix() );
+        }
+        
         if ( $recherche->getMinDifficulteRaisonnement() )
         {
             $query = $query
                 ->andwhere( 'j.difficulteRaisonnement >= :minDifficulteRaisonnement' )
                 ->setParameter( 'minDifficulteRaisonnement', $recherche->getMinDifficulteRaisonnement() );
         }
+        
+        if ( $recherche->getMaxDifficulteRaisonnement() )
+        {
+            $query = $query
+                ->andwhere( 'j.difficulteRaisonnement <= :maxDifficulteRaisonnement' )
+                ->setParameter( 'maxDifficulteRaisonnement', $recherche->getMaxDifficulteRaisonnement() );
+        }
+        
+        
+        if ( $recherche->getMinDifficulteObservation() )
+        {
+            $query = $query
+                ->andwhere( 'j.difficulteObservation >= :minDifficulteObservation' )
+                ->setParameter( 'minDifficulteObservation', $recherche->getMinDifficulteObservation() );
+        }
+        
+        if ( $recherche->getMaxDifficulteObservation() )
+        {
+            $query = $query
+                ->andwhere( 'j.difficulteObservation <= :maxDifficulteObservation' )
+                ->setParameter( 'maxDifficulteObservation', $recherche->getMaxDifficulteObservation() );
+        }
             
-        return $query->getQuery();
+        return $query->getQuery()
+            ->getResult();
     }
     
     /**

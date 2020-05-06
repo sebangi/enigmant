@@ -13,7 +13,12 @@
                         <span class="fas fa-envelope-open-text text-danger mr-2"></span>
                     {% endif %}
                 {% endif %}
-                
+
+                {% if lecteur == "admin" and exp == "admin" %}
+                    <a href="{{ path("general.conversation.editMessage", { "id":message.getId() }) }}" class="text-dark no-margin no-padding mr-2">
+                        <span class="fas fa-pen" aria-hidden="true"></span>
+                    </a>
+                {% endif%} 
                 {% if exp == "user" %}{{ app.user.getUsername() }}{% else %}Grand Gourou{% endif%} 
             </div>
             <div class="d-inline float-right font-italic">

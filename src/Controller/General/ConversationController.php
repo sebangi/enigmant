@@ -182,14 +182,13 @@ class ConversationController extends BaseController {
                     $this->creerMessageInitial($conversation);
 
                 $this->em->flush();
-            
+
                 return $this->redirectToRoute('general.conversation.show', [
-                        'id' => $conversation->getId(),
-                        'slug' => $conversation->getSlug()
+                            'id' => $conversation->getId(),
+                            'slug' => $conversation->getSlug()
                 ]);
-            }
-            else
-               return $this->redirectToRoute('general.conversation.index'); 
+            } else
+                return $this->redirectToRoute('general.conversation.index');
         }
 
         return $this->monRender('general/conversation/new.html.twig', [
@@ -223,6 +222,36 @@ class ConversationController extends BaseController {
 
         return $this->monRender('general/conversation/edit.html.twig', [
                     'conversation' => $conversation,
+                    'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @route("/{id}/editMessage", name="editMessage", methods="GET|POST")  
+     * @param Conversation $conversation
+     * @param Request $requete
+     * @return Response
+     */
+    public function editMessage(Message $message, Request $requete): Response {
+        if ($this->test_non_appartenance($message->getConversation()))
+            return $this->redirectToRoute('general.conversation.index');
+
+        $form = $this->createForm(MessageType::class, $message);
+
+        $form->handleRequest($requete);
+        if ($form->isSubmitted() and $form->isValid()) {
+            $this->em->flush();
+            $this->addFlash('success', 'Message modifié avec succès.');
+
+            return $this->redirectToRoute('general.conversation.show', [
+                        'id' => $message->getConversation()->getId(),
+                        'slug' => $message->getConversation()->getSlug(),
+                        '_fragment' => 'message-' . $message->getId() 
+            ]);
+        }
+
+        return $this->monRender('general/conversation/messageEdit.html.twig', [
+                    'message' => $message,
                     'form' => $form->createView(),
         ]);
     }

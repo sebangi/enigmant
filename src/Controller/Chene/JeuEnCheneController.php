@@ -57,17 +57,26 @@ class JeuEnCheneController extends BaseController {
         $recherche = new JeuEnCheneRecherche();
         $form = $this->createForm(JeuEnCheneRechercheType::class, $recherche);
         $form->handleRequest($Requete);
-
+        
+        $filtre = false;
+        if ($form->get('recherche')->isClicked())
+            $filtre = true;
+        
         $nbJeuxEnChene = $this->repository->count(['construit' => 'true']);
         
+        $tous = $this->repository->findAllConstruit($recherche);
+        
         $jeuxEnChene = $paginator->paginate(
-                $this->repository->findAllConstruitQuery($recherche),
+                $tous,
                 $Requete->query->getInt('page', 1),
                 6
         );
-
+        
         return $this->monRender('chene/jeuEnChene/index.html.twig', [
-                    'nb_jeux_en_chene' => $nbJeuxEnChene,
+                    'option_recherche' => true,
+                    'pagination' => $paginator,
+                    'filtre' => $filtre,
+                    'nb_jeux_en_chene' => count($tous),
                     'jeux_en_chene' => $jeuxEnChene,
                     'form' => $form->createView()
         ]);
