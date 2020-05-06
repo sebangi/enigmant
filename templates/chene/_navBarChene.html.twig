@@ -23,7 +23,7 @@
                 <a class="nav-link {% if menuCourant is defined and menuCourant == 'JeuEnChene' %}active{% endif %}" href="{{ path('jeuEnChene.index') }}">Jeux en Chêne<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item mr-2">
-                <a class="nav-link {% if menuCourant is defined and menuCourant == 'Babiole' %}active{% endif %}" href="{{ path('babiole.index') }}">Babioles<span class="sr-only">(current)</span></a>
+                <a class="nav-link {% if menuCourant is defined and menuCourant == 'Babiole' %}active{% endif %}" href="{{ path('babiole.index', { 'numTypeBabiole':"1" }) }}">Babioles<span class="sr-only">(current)</span></a>
             </li>
         </ul>
 

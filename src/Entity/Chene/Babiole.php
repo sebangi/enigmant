@@ -9,9 +9,13 @@ use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use \App\Entity\Chene\TypeBabiole;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Chene\BabioleRepository")
+ * @Vich\Uploadable
  */
 class Babiole
 {
@@ -62,12 +66,93 @@ class Babiole
      * @ORM\ManyToOne(targetEntity="App\Entity\General\User", inversedBy="babioles")
      */
     private $user;
+    
+    /**
+     * @Vich\UploadableField(mapping="jeu_en_chene_image", fileNameProperty="imageName")     
+     * @assert\Image(mimeTypes="image/jpeg") 
+     * @var File|null
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
+     */
+    private $imageName;
+    
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @param \DateTimeInterface
+     */
+    private $majDate;
 
     public function __construct()
     {
         $this->jeuEnChenes = new ArrayCollection();
     }
 
+    
+    /**
+     * 
+     * @return \DateTimeInterface|null
+     */
+    public function getMajDate(): ?\DateTimeInterface {
+        return $this->majDate;
+    }
+
+    /**
+     * 
+     * @param \DateTimeInterface $majDate
+     * @return \App\Entity\Chene\Babiole
+     */
+    public function setMajDate(\DateTimeInterface $majDate): Babiole {
+        $this->majDate = $majDate;
+
+        return $this;
+    }
+
+    
+    
+    /**
+     * 
+     * @return null|File
+     */
+    public function getImageFile(): ?File {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param null|File $imageFile
+     * @return Babiole
+     */
+    public function setImageFile(?File $imageFile): Babiole {
+        $this->imageFile = $imageFile;
+
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->majDate = new \DateTime('now');
+        }
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @return null|string
+     */
+    public function getImageName(): ?string {
+        return $this->imageName;
+    }
+
+    /**
+     * 
+     * @param null|string $imageName
+     * @return Babiole
+     */
+    public function setImageName(?string $imageName): Babiole {
+        $this->imageName = $imageName;
+        return $this;
+    }
+    
     /**
      * 
      * @return int|null
@@ -130,10 +215,10 @@ class Babiole
 
     /**
      * 
-     * @param string $commentaireGourou
+     * @param string|null $commentaireGourou
      * @return \App\Entity\Chene\Babiole
      */
-    public function setCommentaireGourou(string $commentaireGourou): Babiole
+    public function setCommentaireGourou(?string $commentaireGourou): Babiole
     {
         $this->commentaireGourou = $commentaireGourou;
 

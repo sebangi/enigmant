@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="jumbotron mon-jumbotron text-center">
-        <h1>Des énigmes en chêne qui s'enchainent</h1>
+        <h1>Des énigmes en chêne qui s'enchaînent</h1>
         <h3><i>Louez un jeu en bois composé d'énigmes en tout genre</i></h3>
         <h3><i>et trouvez le médaillon caché à l'intérieur !</i></h3>
     </div>
@@ -11,7 +11,7 @@
         <div class="row pt-0 mb-4">
             <div class="col-md-8 pt-4">
                 <div class="mb-2">
-                    <h3 class="text-info mb-0">Qu'est-ce qu'un Jeu en Chêne ?</h3>
+                    <h3 class="text-success mb-0">Qu'est-ce qu'un Jeu en Chêne ?</h3>
                     <hr class="mt-0  mb-2">
                     <div class="ml-4 text-justify">
                         <p>
@@ -26,38 +26,34 @@
                             La résolution de ces énigmes permettra d'activer les mécanismes d'ouverture afin de récupérer le médaillon.
                         </p>
                         <p>
-                            Cela ressemble donc plus à un escape Game où toutes les énigmes seraient concentrées sur un objet en bois. 
+                            Cela ressemble donc plus à un Escape Game dans lequel toutes les énigmes seraient concentrées sur un objet en bois. 
                             Sans réelle contrainte de temps, vous laissant ainsi le temps de cogiter...
                         </p>                        
                         <p>
                             La résolution des différents Jeux en Chêne, <b>répartis en trois Collections</b>, 
-                            vous fera monter grade : de simple <b>Visiteur en Chêne</b> à <b>Grand Manitou en Chêne</b> ! Alors, Lancez-vous, louez un jeu...
+                            vous fera monter en grade, de simple <b>Visiteur en Chêne</b> à <b>Grand Manitou en Chêne</b> ! Alors, lancez-vous, louez un jeu...
                         </p>
                         <div class="text-center mb-2">
-                            <a class="btn btn-outline-info" href="{{ path('collectionChene.index') }}">Voir les Collections<span class="sr-only">(current)</span></a>
-                            <a class="btn btn-outline-info" href="{{ path('jeuEnChene.index') }}">Voir les Jeux En Chêne<span class="sr-only">(current)</span></a>
+                            <a class="btn btn-outline-success" href="{{ path('collectionChene.index') }}">Voir les Collections<span class="sr-only">(current)</span></a>
+                            <a class="btn btn-outline-success" href="{{ path('jeuEnChene.index') }}">Voir les Jeux En Chêne<span class="sr-only">(current)</span></a>
                         </div>                       
                     </div>
                 </div>
 
                 <div class="mb-2 mt-4">
-                    <h3 class="text-info mb-0">Comment louer un Jeu en Chêne ?</h3>
+                    <h3 class="text-success mb-0">Comment louer un Jeu en Chêne ?</h3>
                     <hr class="mt-0  mb-2">
                     <div class="ml-4 text-justify">
-                        <b>Il y a trois conditions pour louer un Jeu en Chêne : </b>
-                        <ol class="pt-0">
-                            <li>Les Jeux en Chêne sont à retirer à Saint Philbert de Grand Lieu (Loire-Atlantique). 
-                                Il ne faut donc ne pas habiter trop loin. 
-                                Il est aussi possible de fixer un rendez-vous d'échange si vous habitez dans nos zones de déplacement (Nantes - Sud Loire).</li>
-                            <li>Il faut créer un compte sur ce site. Cela nous permet d'avoir vos coordonnées afin de procéder à la location.</li>
-                            <li>Le Jeu en Chêne doit être disponible.</li>
-                        </ol>
-                        Si ces trois conditions sont réunies, il vous suffit sur la page du jeu souhaité de <b>cliquer sur Louer maintenant</b> sur les pages de descrition des jeux, et de suivre les instructions.
+                        <div>
+                            Les Jeux en Chêne sont à retirer à Saint Philbert de Grand Lieu (Loire-Atlantique). 
+                            Mieux vaut ne pas habiter trop loin ! Ou alors venez en vacances dans la région, c'est très joli...
+                        </div> 
+                       Pour louer, <b>cliquez sur Louer maintenant</b> sur la page de description du jeu désiré.
                     </div>
                 </div>
 
                 <div class="mb-2">
-                    <h3 class="text-info mt-4 mb-0">Combien coûte une location ?</h3>
+                    <h3 class="text-success mt-4 mb-0">Combien coûte une location ?</h3>
                     <hr class="mt-0 mb-2">
                     <div class="ml-4 text-justify">
                         <p>
@@ -68,25 +64,25 @@
                         <div class="ml-4 text-justify">
                             <p>
                                 <b>Une Babiole est tout simplement un élément permettant de construire un nouveau Jeu en Chêne.</b>  
-                                Cela peut être un morceau de bois même petit (putôt noble : chêne, hêtre, ...), un objet métallique, un cadenas, un bouton joli,
+                                Cela peut être un morceau de bois même petit (putôt noble : chêne, hêtre, ...), un objet métallique, un cadenas, un joli bouton,
                                 une serrure, une charnière... Cela peut aussi être un outil à travailler le bois qui ne vous sert pas, tel un ciseau à bois... 
                             </p>
 
                             IMAGES EXEMPLES
                             <p>
-                                Cherchez dans le fonds de vos tiroirs, dans votre grenier, dans votre carton destiné à la recyclerie !
+                                Cherchez dans le fond de vos tiroirs, dans votre grenier, dans votre carton destiné à la recyclerie !
                             </p>
                         </div>
                         <div class="text-center mt-2 mb-2">
-                            <a class="btn btn-outline-info" href="{{ path('babiole.index') }}">Voir les Babioles<span class="sr-only">(current)</span></a>
+                            <a class="btn btn-outline-success" href="{{ path('babiole.index', { 'numTypeBabiole':"1"}) }}">Voir les Babioles<span class="sr-only">(current)</span></a>
                         </div>
                         <div>
                             <u>Quelques précisions :</u>
                             <ul class="pt-0">
                                 <li>Les Babioles ont une valeur. La plupart valent 1 unité; d'autres inestimables valent bien plus chères ! Cela se négocie.</li>
                                 <li>Les Babioles sont à donner au moment de la réception du Jeu en Chêne.</li>
-                                <li>Les prix en Babioles sont seulement à titre indicatif. Vous pouvez donner plus ou moins.</li>
-                                <li>Les dons de Babioles sont acceptés. Prendre contact dans la messagerie (la création d'un compte est nécessaire).</li>
+                                <li>Les prix en Babioles sont données seulement à titre indicatif. Vous pouvez donner plus ou moins.</li>
+                                <li>Les dons de Babioles sont acceptés.</li>
                                 <li>La réservation d'un Jeu en Chêne créé avec l'une de vos Babioles est gratuite !</li>
                             </ul>
                         </div>
@@ -103,14 +99,14 @@
                 </div>
 
                 <div class="mb-2 mt-4" id="CommentCaMarche">
-                    <h3 class="text-info mb-0">Comment se passe une location ?</h3>
+                    <h3 class="text-success mb-0">Comment se passe une location ?</h3>
                     <hr class="mt-0  mb-2">
                     <div class="ml-4 text-justify">
                         <b>Voici comment se réalise une location : </b>
                         <ol class="pt-0">
                             <li>Vous cliquez sur <b>Louer maintenant</b> et suivez les différentes étapes jusqu'à validation. 
                             <li>Nous établissons via une conversation sur ce site un rendez-vous pour le retrait.</li>
-                            <li>Vous récupérer le Jeu En Chêne en échange de votre ou vos Babioles.</li>
+                            <li>Vous récupérez le Jeu En Chêne en échange de votre ou vos Babioles.</li>
                             <li><b>Vous jouez et possiblement vous vous arrachez les cheveux !</b></li>
                             <li>Nous établissons via une conversation sur ce site un rendez-vous pour le retour.</li>
                             <li>Vous rendez le Jeu En Chêne et <b>GARDEZ le médaillon (si vous l'avez) !</b></li>                            
@@ -124,7 +120,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4 bg-info pt-4">
+            <div class="col-md-4 bg-warning pt-4">
                 <h3 class="mb-0 text-center">ACTUALITÉS</h3>
                 <hr class="no-margin">
 

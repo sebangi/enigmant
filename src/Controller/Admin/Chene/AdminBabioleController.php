@@ -33,7 +33,7 @@ class AdminBabioleController extends BaseController
     public function index(BabioleRepository $babioleRepository): Response
     {
         return $this->monRender('admin/chene/babiole/index.html.twig', [
-            'babioles' => $babioleRepository->findAllByType(),
+            'babioles' => $babioleRepository->findAllOrderTypeCategory(),
         ]);
     }
 

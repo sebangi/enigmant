@@ -41,17 +41,39 @@ class BabioleRepository extends ServiceEntityRepository
             
         return $query->getQuery();
     }
-   
     
     /**
       * @return Babiole[]
       */
-    public function findAllByType() : array
+    public function findAllByType( $numType ) : array
     {
         return $this->createQueryBuilder('b')
-            ->select('b', 'typ')
+            ->select('b', 'typ', 'user', 'j')
             ->leftJoin('b.typeBabiole', 'typ')
+            ->leftJoin('b.categorieBabiole', 'cat')
+            ->leftJoin('b.jeuEnChenes', 'j')
+            ->leftJoin('b.user', 'user')
+            ->where( 'typ.num = :numType' )
+            ->setParameter( 'numType', $numType )
+            ->orderBy('cat.num', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
+    /**
+      * @return Babiole[]
+      */
+    public function findAllOrderTypeCategory( ) : array
+    {
+        return $this->createQueryBuilder('b')
+            ->select('b', 'typ', 'user')
+            ->leftJoin('b.typeBabiole', 'typ')
+            ->leftJoin('b.categorieBabiole', 'cat')
+            ->leftJoin('b.user', 'user')
             ->orderBy('typ.num', 'ASC')
+            ->addOrderBy('cat.num', 'ASC')
+            ->addOrderBy('b.nom', 'ASC')
             ->getQuery()
             ->getResult()
         ;

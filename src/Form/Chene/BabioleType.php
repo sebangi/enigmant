@@ -15,6 +15,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class BabioleType extends AbstractType
 {
@@ -29,25 +31,29 @@ class BabioleType extends AbstractType
             ])
             ->add('typeBabiole', EntityType::class, [
                 'class' => TypeBabiole::class,
+                'placeholder' => 'Non défini',
                 'choice_label' => 'nom',
                 'query_builder' => function (TypeBabioleRepository $er) {
                         return $er->createQueryBuilder('b')
                             ->orderBy('b.nom', 'ASC');
-                    },                            
-                'required' => false
+                    }
             ])
+            ->add('imageFile', FileType::class, [
+                'required' => false
+            ] )                
             ->add('categorieBabiole', EntityType::class, [
                 'class' => CategorieBabiole::class,
+                'placeholder' => 'Non défini',
                 'choice_label' => 'nom',
                 'query_builder' => function (CategorieBabioleRepository $er) {
                         return $er->createQueryBuilder('b')
                             ->orderBy('b.nom', 'ASC');
-                    },                            
-                'required' => false
+                    }
             ])
             ->add('user', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'username',
+                'placeholder' => 'Aucun',
                 'label' => "Joueur l'ayant offert",
                 'query_builder' => function (UserRepository $er) {
                         return $er->createQueryBuilder('b')
@@ -55,7 +61,10 @@ class BabioleType extends AbstractType
                     },                            
                 'required' => false
             ])
-            ->add('commentaireGourou')
+            ->add('commentaireGourou', TextareaType::class, [
+                'required' => false
+                ]
+            )
             ->add('description')
         ;
     }

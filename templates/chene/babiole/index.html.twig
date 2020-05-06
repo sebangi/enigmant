@@ -1,36 +1,95 @@
 {% extends "chene/baseChene.html.twig" %}
 
 {% block body %}
-    <div class="jumbotron mon-jumbotron">
-        <div class="container">
-            {{ form_start(form) }}
-            <div class="form-row align-items-end">
-                <div class="col form-group no-margin">
-                    {{ form_widget(form.maxValeur) }}
+    <div class="container mt-2">
+        <h2 class="text-success">Qu'est ce qu'une Babiole ?</h2>
+        <p class="ml-4 text-justify font-weight-bold">
+            Les Babioles sont la monnaie permettant de louer un Jeu En Chêne. 
+        </p>
+        <p class="ml-4 text-justify"><b>Il s'agit tout simplement d'un élément permettant de construire un nouveau Jeu en Chêne</b> : 
+            un joli bouton, un morceau de bois même petit, un objet métallique, un cadenas, un joli bouton, une serrure, une charnière...
+            Cela peut aussi être un outil à travailler le bois qui ne vous sert pas, tel un vieux ciseau à bois... 
+        </p>
+        <h5 class="text-success text-justify">
+            <b>Les Babioles sont réparties en quatre catégories :</b>
+        </h5>
+
+        <div class=" ml-4">
+            <nav class="navbar navbar-expand-lg navbar-light no-margin no-padding">
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarBabioles" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarBabioles">
+                    {% for type in types %}
+                        <ul class="navbar-nav navbar-brand">
+                            <li class="nav-item">
+                                <h4 class="mt-0">
+                                    {% if typeCourant.num == type.getNum() %}<u class="text-success"> {% endif %}
+                                        <a class="nav-link {% if typeCourant.num == type.getNum() %}active{% endif %}" href="{{ path('babiole.index', {"numTypeBabiole": type.num}  ) }}">{{ type.nom }}<span class="sr-only">(current)</span></a>
+                                        {% if typeCourant.num == type.getNum() %}</u>{% endif %}
+                                </h4>    
+                            </li>
+                        </ul>           
+                    {% endfor %}
                 </div>
-                <div class="col">
-                    <div class="form-group no-margin">
-                        <button class="btn btn-primary">Rechercher</button>
-                    </div>
-                </div>
+            </nav>
+                
+            <h5 class="ml-4 mb-4 text-justify">
+                {{ typeCourant.description }}
+            </h5>
+
+            <div class="row">
+                <table class="table table-babiole table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width:100px"></th>
+                            <th style="width:15%">Babiole</th> 
+                            <th style="width:5%">Valeur</th>                       
+                            <th style="width:30%">Description</th>
+                            <th style="width:30%">Commentaires</th>
+                            <th style="width:15%">Utilisé dans...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for babiole in babioles %}
+                            <tr>
+                                <td style="width:100px" class="pt-0 pb-0 pl-0 pr-0">
+                                    {% if babiole.imageName %}
+                                        <img class="" src="{{ vich_uploader_asset(babiole, 'imageFile') | imagine_filter("my_thumb_babiole") }}" > 
+                                    {% endif%}
+                                </td>
+                                <td style="vertical-align:middle;" class="pt-0 pb-0 font-weight-bold">{{ babiole.nom }}</td>
+                                <td style="vertical-align:middle;" class="pt-0 pb-0 text-center font-weight-bold"><h4><span class="badge badge-pill badge-warning">1</span></h4></span></td>
+                                <td style="vertical-align:middle;" class="pt-0 pb-0">{{ babiole.description}}</td>                            
+                                <td style="vertical-align:middle;" class="pt-0 pb-0">{{ babiole.commentaireGourou}}</td> 
+                                <td style="vertical-align:middle;" class="pt-0 pb-0">
+                                    {% if   babiole.jeuEnChenes|length == 2 %}
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Dropdown button
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                {% for jeu in babiole.jeuEnChenes %}
+                                                    <a class="dropdown-item" href="">{{ jeu.nom }}</a>
+                                                {% endfor %}
+                                            </div>
+                                            </button>
+                                        </div>
+                                    {% endif%}
+
+
+
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
-            {{ form_end(form) }}
-        </div>
-    </div>
-    <div class="container mt-4">
-        <h1>Voir toutes les babioles</h1>
-
-        <div class="row">
-            {% for babiole in babioles  %}
-                <div class="d-flex align-items-stretch col-md-4">
-                    {%  include 'chene/babiole/_babiole.html.twig' %}
-                </div>
-            {% endfor %}
         </div>
 
-        {# display navigation #}
-        <div class="pagination">
-            {{ knp_pagination_render(babioles) }}
-        </div>
+
     </div>
 {% endblock body %}

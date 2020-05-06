@@ -116,6 +116,35 @@ body {
     border: 0;
 }
 
+.table-babiole {
+    font-size: .8em;
+    background-color: white;        
+    border-collapse: separate;
+    border-spacing: 0px;
+    border-radius: 14px;
+}
+
+.table-babiole > tr:first-child > td:first-child {
+    border-top-left-radius: 14px;
+}
+
+.table-babiole > tr:first-child > td:last-child {
+    border-top-right-radius: 14px;
+}
+
+.table-babiole > tr:last-child td:first-child {
+    border-bottom-left-radius: 14px;
+}
+
+.table-babiole > tr:last-child td:last-child {
+    border-bottom-right-radius: 14px;
+}
+
+.table-babiole th {
+    border: 0;
+    background-color: YellowGreen;   
+}
+
 .clignotement {
     color:red; 
     animation: colorblink 2s infinite;
@@ -188,7 +217,7 @@ body {
 }
 
 .theme-body-disponible:hover {
-    background-color: #17A2B8
+    background-color: yellowgreen
 }
 
 .font-caracteristique {
@@ -202,11 +231,11 @@ body {
 }
 
 .jeu-card-disponible:hover {
-    background-color: #17A2B8;
+    background-color: YellowGreen;
 }
 
 .jeu-card-non-disponible:hover {
-    background-color: #fedddd;
+    background-color: LavenderBlush;
 }
 
 .collection-card {
@@ -214,7 +243,7 @@ body {
 }
 
 .collection-card:hover {
-    background-color: #17A2B8;
+    background-color: YellowGreen;
 }
 
 .collection-impaire {
@@ -261,3 +290,6 @@ body {
     height: 37px !important;
 }
 
+.colonne-image-babiole {
+    max-width: 100px;
+}

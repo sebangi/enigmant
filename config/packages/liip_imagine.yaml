@@ -45,3 +45,11 @@ liip_imagine:
                 thumbnail:
                     size: [100, 100]
                     mode : outbound
+                    
+        my_thumb_babiole:
+            # adjust the image quality to 75%
+            quality: 75
+            filters:
+                thumbnail:
+                    size: [100, 62]
+                    mode : outbound

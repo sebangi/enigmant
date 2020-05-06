@@ -1,4 +1,9 @@
 <div class="card mb-4">
+    {% if babiole.imageName %}
+        <img class="" src="{{ vich_uploader_asset(babiole, 'imageFile') | imagine_filter("my_thumb_babiole") }}" > 
+    {% else %}
+        <img class="" src="{{ 'images/jeuEnChene/vide.jpg' | imagine_filter("my_thumb_babiole") }}" > 
+    {% endif%}
     <div class="card-body">
         <h5 class="card-title">
             <a href="{{ path("babiole.show", { slug: babiole.slug, id: babiole.id }) }}">

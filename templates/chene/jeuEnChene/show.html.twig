@@ -18,14 +18,14 @@
                 </div>
 
                 <div class="col-md-7 d-flex flex-column pr-0">
-                    <h3 class="font-italic">
+                    <h3>
                         Collection 
-                        <a href="{{ path("collectionChene.show", { slug: jeuEnChene.collectionChene.getSlug(), id: jeuEnChene.collectionChene.id }) }}">
+                        <a class="font-italic text-dark" href="{{ path("collectionChene.show", { slug: jeuEnChene.collectionChene.getSlug(), id: jeuEnChene.collectionChene.id }) }}">
                             {{ jeuEnChene.collectionChene.nom }}
                         </a>
                     </h3>
 
-                    <h1 class="">{{ jeuEnChene.nom }}</h1>
+                    <h1 class="text-success">{{ jeuEnChene.nom }}</h1>
                     <div class="mt-4">{{ jeuEnChene.description | nl2br }}</div>
 
                     <div style="margin-top: auto;">
@@ -42,13 +42,13 @@
                             <h5 class="d-inline font-weight-bold">
                                 Prix conseillé : 
                             </h5>
-                            <div class="d-inline text-primary" >
+                            <div class="d-inline text-success" >
                                 {{ jeuEnChene.getPrixFormate() }}
                             </div>
                         </div>
-                        <a href="#" class="btn btn-primary mt-2">Louer maintenant</a>
-                        <a href="{{ path("chene.home") }}#CommentCaMarche" class="btn btn-warning mt-2">Comment ça marche ?</a>
-                        <a href="{{ path("chene.home") }}#JeNAiPasDeBabioles" class="btn btn-secondary mt-2">Je n'ai pas de babiole !</a>
+                        <a href="#" class="btn btn-success mt-2">Louer maintenant</a>
+                        <a href="{{ path("chene.home") }}#CommentCaMarche" class="btn btn-secondary mt-2 float-right">Comment on loue ?</a>
+                        <a href="{{ path("chene.home") }}#JeNAiPasDeBabioles" class="btn btn-secondary mt-2 mr-2  float-right">Je n'ai pas de babiole !</a>
                     </div>
                 </div>
             </div>
@@ -58,7 +58,7 @@
     <div class="container">
 
         {% if jeuEnChene.getCommentairesGourou %}
-            <div class="row bg-info p-4">
+            <div class="row bg-warning p-4">
                 <div class="col-md-5">
                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                         <h4 class="text-right">Commentaire du Grand Gourou :</h4>
@@ -88,15 +88,15 @@
                             <td  width="20%" class="pl-0">{% if jeuEnChene.difficulteObservation %}{{ jeuEnChene.difficulteObservation }}{% else %}?{% endif %} / 10</td>
                         </tr>
                         <tr>
-                            <td  width="40%" class="font-weight-bold text-right">Nombre d'étapes :</td>
-                            <td  width="20%" class="pl-0">{% if jeuEnChene.nombreEtapes %}{{ jeuEnChene.nombreEtapes }}{% else %}?{% endif %}</td>
-                        </tr>
-                        <tr>
                             <td class="font-weight-bold text-right">Difficulté de raisonnement :</td>
                             <td class="pl-0">{% if jeuEnChene.difficulteRaisonnement %}{{ jeuEnChene.difficulteRaisonnement }}{% else %}?{% endif %} / 10</td>
                         </tr>
                         <tr>
-                            <td class="font-weight-bold text-right">Temps moyen :</td>
+                            <td  width="40%" class="font-weight-bold text-right">Nombre d'étapes :</td>
+                            <td  width="20%" class="pl-0">{% if jeuEnChene.nombreEtapes %}{{ jeuEnChene.nombreEtapes }}{% else %}?{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold text-right">Temps de jeu (en moyenne) :</td>
                             <td class="pl-0">A définir</td>
                         </tr>
                     </table>  

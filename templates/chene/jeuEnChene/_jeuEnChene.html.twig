@@ -78,7 +78,7 @@
 
     {% if is_granted('ROLE_USER') %}
         {% if jeuEnChene.estGratuit( app.user.id ) %}
-            <div class="{% if jeuEnChene.disponible %}footer-disponible{% else %}footer-non-disponible{% endif %} bg-success  text-center mt-2 mb-0"">
+            <div class="{% if jeuEnChene.disponible %}footer-disponible{% else %}footer-non-disponible{% endif %} bg-warning  text-center mt-2 mb-0"">
                 <div>
                     Créé avec une de vos babioles 
                 </div>

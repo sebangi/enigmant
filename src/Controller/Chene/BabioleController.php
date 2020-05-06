@@ -4,6 +4,7 @@ namespace App\Controller\Chene;
 
 use App\Entity\Chene\Babiole;
 use App\Repository\Chene\BabioleRepository;
+use App\Repository\Chene\TypeBabioleRepository;
 use \App\Entity\Chene\BabioleRecherche;
 use \App\Form\Chene\BabioleRechercheType;
 use App\Controller\BaseController;
@@ -48,25 +49,20 @@ class BabioleController extends BaseController {
     }
 
     /**
-     * @route("/", name="babiole.index")  
+     * @route("/toute/{numTypeBabiole}", name="babiole.index")  
      * @var PaginatorInterface $paginator
      * @var Request $Request
      * @return Response
      */
-    public function index(PaginatorInterface $paginator, Request $Requete, CacheManager $imagineCacheManager ): Response {
-        $recherche = new BabioleRecherche();
-        $form = $this->createForm(BabioleRechercheType::class, $recherche);
-        $form->handleRequest($Requete);
-
-        $babioles = $paginator->paginate(
-                $this->repository->findAllQuery($recherche),
-                $Requete->query->getInt('page', 1),
-                6
-        );
+    public function index(TypeBabioleRepository $t_repository, string $numTypeBabiole): Response {
+        $babioles = $this->repository->findAllByType($numTypeBabiole);
+        $types = $t_repository->findBy([],["num"=>"ASC"]);
+        $type = $t_repository->findBy( ["num"=>$numTypeBabiole] );
 
         return $this->monRender('chene/babiole/index.html.twig', [
                     'babioles' => $babioles,
-                    'form' => $form->createView()
+                    'types' => $types,
+                    'typeCourant' => $type[0]
         ]);
     }
 
