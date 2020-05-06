@@ -18,15 +18,14 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @UniqueEntity("nom")
  * @Vich\Uploadable
  */
-class JeuEnChene
-{
-    const codeLocation = 
-    [
-        0 => 'une semaine',
-        1 => 'deux semaines',
-        2 => 'un mois'
-    ];    
-    
+class JeuEnChene {
+
+    const codeLocation = [
+                0 => 'une semaine',
+                1 => 'deux semaines',
+                2 => 'un mois'
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -76,7 +75,7 @@ class JeuEnChene
      * @var ArrayCollection<Babiole> 
      */
     private $babioles;
-    
+
     /**
      * @Vich\UploadableField(mapping="badge_image", fileNameProperty="badgeImageName")     
      * @assert\Image(mimeTypes="image/jpeg") 
@@ -89,7 +88,7 @@ class JeuEnChene
      * @var string|null
      */
     private $badgeImageName;
-    
+
     /**
      * @Vich\UploadableField(mapping="jeu_en_chene_image", fileNameProperty="imageName")     
      * @assert\Image(mimeTypes="image/jpeg") 
@@ -113,7 +112,7 @@ class JeuEnChene
      * @ORM\Column(type="integer", options={"default" : 1})
      */
     private $num = 1;
-    
+
     /**
      * @ORM\Column(type="integer", nullable=true, options={"default" : 1})
      */
@@ -145,19 +144,17 @@ class JeuEnChene
      */
     private $commentairesGourou;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->babioles = new ArrayCollection();
         $this->reservations = new ArrayCollection();
         $this->conversations = new ArrayCollection();
     }
-    
+
     /**
      * 
      * @return null|File
      */
-    public function getBadgeImageFile(): ?File 
-    {
+    public function getBadgeImageFile(): ?File {
         return $this->badgeImageFile;
     }
 
@@ -165,43 +162,39 @@ class JeuEnChene
      * @param null|File $badgeImageFile
      * @return JeuEnChene
      */
-    public function setBadgeImageFile(?File $badgeImageFile) : JeuEnChene 
-    {
+    public function setBadgeImageFile(?File $badgeImageFile): JeuEnChene {
         $this->badgeImageFile = $badgeImageFile;
-        
+
         if ($this->badgeImageFile instanceof UploadedFile) {
             $this->majDate = new \DateTime('now');
         }
-        
+
         return $this;
     }
-    
-     /**
+
+    /**
      * 
      * @return null|string
      */
-    public function getBadgeImageName() : ?string 
-    {
+    public function getBadgeImageName(): ?string {
         return $this->badgeImageName;
     }
-    
+
     /**
      * 
      * @param null|string $badgeImageName
      * @return JeuEnChene
      */
-    public function setBadgeImageName(?string $badgeImageName) : JeuEnChene
-    {
+    public function setBadgeImageName(?string $badgeImageName): JeuEnChene {
         $this->badgeImageName = $badgeImageName;
         return $this;
     }
-            
+
     /**
      * 
      * @return int|null
      */
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
@@ -209,34 +202,28 @@ class JeuEnChene
      * 
      * @return string|null
      */
-    public function getNom(): ?string
-    {
+    public function getNom(): ?string {
         return $this->nom;
     }
-    
+
     /**
      * 
      * @return string|null
      */
-    public function getNomEtCollection(): ?string
-    {
-        if ( $this->collectionChene ) {
+    public function getNomEtCollection(): ?string {
+        if ($this->collectionChene) {
             return $this->nom . " [" . $this->collectionChene->getNom() . "]";
-        }    
-        else
-        {
+        } else {
             return $this->nom;
         }
     }
-    
-    
+
     /**
      * 
      * @param string $nom
      * @return \App\Entity\Chene\JeuEnChene
      */
-    public function setNom(string $nom): JeuEnChene 
-    {
+    public function setNom(string $nom): JeuEnChene {
         $this->nom = $nom;
 
         return $this;
@@ -246,16 +233,15 @@ class JeuEnChene
      * 
      * @return string
      */
-    public function getSlug() : string {
-        return ( new Slugify() )->slugify($this->nom); 
+    public function getSlug(): string {
+        return ( new Slugify())->slugify($this->nom);
     }
 
     /**
      * 
      * @return string|null
      */
-    public function getDescription(): ?string
-    {
+    public function getDescription(): ?string {
         return $this->description;
     }
 
@@ -264,8 +250,7 @@ class JeuEnChene
      * @param string|null $description
      * @return \App\Entity\Chene\JeuEnChene 
      */
-    public function setDescription(?string $description): JeuEnChene
-    {
+    public function setDescription(?string $description): JeuEnChene {
         $this->description = $description;
 
         return $this;
@@ -275,8 +260,7 @@ class JeuEnChene
      * 
      * @return bool|null
      */
-    public function getDisponible(): ?bool
-    {
+    public function getDisponible(): ?bool {
         return $this->disponible;
     }
 
@@ -285,8 +269,7 @@ class JeuEnChene
      * @param bool $disponible
      * @return JeuEnChene
      */
-    public function setDisponible(bool $disponible): JeuEnChene
-    {
+    public function setDisponible(bool $disponible): JeuEnChene {
         $this->disponible = $disponible;
 
         return $this;
@@ -296,8 +279,7 @@ class JeuEnChene
      * 
      * @return int|null
      */
-    public function getDifficulteObservation(): ?int
-    {
+    public function getDifficulteObservation(): ?int {
         return $this->difficulteObservation;
     }
 
@@ -306,8 +288,7 @@ class JeuEnChene
      * @param int|null $difficulteObservation
      * @return JeuEnChene
      */
-    public function setDifficulteObservation(?int $difficulteObservation): JeuEnChene
-    {
+    public function setDifficulteObservation(?int $difficulteObservation): JeuEnChene {
         $this->difficulteObservation = $difficulteObservation;
 
         return $this;
@@ -317,8 +298,7 @@ class JeuEnChene
      * 
      * @return int|null 
      */
-    public function getDifficulteRaisonnement(): ?int
-    {
+    public function getDifficulteRaisonnement(): ?int {
         return $this->difficulteRaisonnement;
     }
 
@@ -327,8 +307,7 @@ class JeuEnChene
      * @param int|null $difficulteRaisonnement
      * @return JeuEnChene
      */
-    public function setDifficulteRaisonnement(?int $difficulteRaisonnement): JeuEnChene
-    {
+    public function setDifficulteRaisonnement(?int $difficulteRaisonnement): JeuEnChene {
         $this->difficulteRaisonnement = $difficulteRaisonnement;
 
         return $this;
@@ -338,16 +317,15 @@ class JeuEnChene
      * 
      * @return int|null
      */
-    public function getTempsLocation(): ?int
-    {
+    public function getTempsLocation(): ?int {
         return $this->tempsLocation;
     }
-    
+
     /**
      * @return string
      */
-    public function getTempsLocationString() : string {
-        return self::codeLocation[ $this->tempsLocation];
+    public function getTempsLocationString(): string {
+        return self::codeLocation[$this->tempsLocation];
     }
 
     /**
@@ -355,8 +333,7 @@ class JeuEnChene
      * @param int $tempsLocation
      * @return \App\Entity\Chene\JeuEnChene
      */
-    public function setTempsLocation(int $tempsLocation): JeuEnChene
-    {
+    public function setTempsLocation(int $tempsLocation): JeuEnChene {
         $this->tempsLocation = $tempsLocation;
 
         return $this;
@@ -366,8 +343,7 @@ class JeuEnChene
      * 
      * @return int|null
      */
-    public function getPrix(): ?int
-    {
+    public function getPrix(): ?int {
         return $this->prix;
     }
 
@@ -375,8 +351,8 @@ class JeuEnChene
      * 
      * @return string
      */
-    public function getPrixFormate() : string {
-        if ( $this->prix > 1 )
+    public function getPrixFormate(): string {
+        if ($this->prix > 1)
             return $this->prix . " babioles";
         else
             return $this->prix . " babiole";
@@ -387,8 +363,7 @@ class JeuEnChene
      * @param int $prix
      * @return \App\Entity\Chene\JeuEnChene
      */
-    public function setPrix(int $prix): JeuEnChene
-    {
+    public function setPrix(int $prix): JeuEnChene {
         $this->prix = $prix;
 
         return $this;
@@ -397,8 +372,7 @@ class JeuEnChene
     /**
      * @return Babiole[]
      */
-    public function getBabioles(): Collection
-    {
+    public function getBabioles(): Collection {
         return $this->babioles;
     }
 
@@ -407,8 +381,7 @@ class JeuEnChene
      * @param Babiole $babiole
      * @return \App\Entity\Chene\JeuEnChene
      */
-    public function addBabiole(Babiole $babiole): JeuEnChene
-    {
+    public function addBabiole(Babiole $babiole): JeuEnChene {
         if (!$this->babioles->contains($babiole)) {
             $this->babioles[] = $babiole;
         }
@@ -421,8 +394,7 @@ class JeuEnChene
      * @param Babiole $babiole
      * @return \App\Entity\Chene\JeuEnChene
      */
-    public function removeBabiole(Babiole $babiole): JeuEnChene
-    {
+    public function removeBabiole(Babiole $babiole): JeuEnChene {
         if ($this->babioles->contains($babiole)) {
             $this->babioles->removeElement($babiole);
         }
@@ -434,8 +406,7 @@ class JeuEnChene
      * 
      * @return \DateTimeInterface|null
      */
-    public function getMajDate(): ?\DateTimeInterface
-    {
+    public function getMajDate(): ?\DateTimeInterface {
         return $this->majDate;
     }
 
@@ -444,8 +415,7 @@ class JeuEnChene
      * @param \DateTimeInterface $majDate
      * @return \App\Entity\Chene\JeuEnChene
      */
-    public function setMajDate(\DateTimeInterface $majDate): JeuEnChene
-    {
+    public function setMajDate(\DateTimeInterface $majDate): JeuEnChene {
         $this->majDate = $majDate;
 
         return $this;
@@ -455,8 +425,7 @@ class JeuEnChene
      * 
      * @return int|null
      */
-    public function getNum(): ?int
-    {
+    public function getNum(): ?int {
         return $this->num;
     }
 
@@ -465,8 +434,7 @@ class JeuEnChene
      * @param int $num
      * @return \self
      */
-    public function setNum(int $num): self
-    {
+    public function setNum(int $num): self {
         $this->num = $num;
 
         return $this;
@@ -476,8 +444,7 @@ class JeuEnChene
      * 
      * @return int|null
      */
-    public function getNombreEtapes(): ?int
-    {
+    public function getNombreEtapes(): ?int {
         return $this->nombreEtapes;
     }
 
@@ -486,8 +453,7 @@ class JeuEnChene
      * @param int|null $nombreEtapes
      * @return \App\Entity\Chene\JeuEnChene
      */
-    public function setNombreEtapes(?int $nombreEtapes): JeuEnChene
-    {
+    public function setNombreEtapes(?int $nombreEtapes): JeuEnChene {
         $this->nombreEtapes = $nombreEtapes;
 
         return $this;
@@ -497,29 +463,26 @@ class JeuEnChene
      * 
      * @return \App\Entity\Chene\CollectionChene|null
      */
-    public function getCollectionChene(): ?CollectionChene
-    {
+    public function getCollectionChene(): ?CollectionChene {
         return $this->collectionChene;
     }
-    
+
     /**
      * 
      * @param \App\Entity\Chene\CollectionChene|null $collectionChene
      * @return \App\Entity\Chene\JeuEnChene
      */
-    public function setCollectionChene(?CollectionChene $collectionChene): JeuEnChene
-    {
+    public function setCollectionChene(?CollectionChene $collectionChene): JeuEnChene {
         $this->collectionChene = $collectionChene;
 
         return $this;
     }
-    
-     /**
+
+    /**
      * 
      * @return null|File
      */
-    public function getImageFile(): ?File 
-    {
+    public function getImageFile(): ?File {
         return $this->imageFile;
     }
 
@@ -527,33 +490,30 @@ class JeuEnChene
      * @param null|File $imageFile
      * @return JeuEnChene
      */
-    public function setImageFile(?File $imageFile) : JeuEnChene 
-    {
+    public function setImageFile(?File $imageFile): JeuEnChene {
         $this->imageFile = $imageFile;
-        
+
         if ($this->imageFile instanceof UploadedFile) {
             $this->majDate = new \DateTime('now');
         }
-        
+
         return $this;
     }
-    
-     /**
+
+    /**
      * 
      * @return null|string
      */
-    public function getImageName() : ?string 
-    {
+    public function getImageName(): ?string {
         return $this->imageName;
     }
-    
+
     /**
      * 
      * @param null|string $imageName
      * @return JeuEnChene
      */
-    public function setImageName(?string $imageName) : JeuEnChene
-    {
+    public function setImageName(?string $imageName): JeuEnChene {
         $this->imageName = $imageName;
         return $this;
     }
@@ -561,8 +521,7 @@ class JeuEnChene
     /**
      * @return Collection|ReservationJeu[]
      */
-    public function getReservations(): Collection
-    {
+    public function getReservations(): Collection {
         return $this->reservations;
     }
 
@@ -571,8 +530,7 @@ class JeuEnChene
      * @param \App\Entity\Chene\ReservationJeu $reservation
      * @return \App\Entity\Chene\JeuEnChene
      */
-    public function addReservation(ReservationJeu $reservation): JeuEnChene
-    {
+    public function addReservation(ReservationJeu $reservation): JeuEnChene {
         if (!$this->reservations->contains($reservation)) {
             $this->reservations[] = $reservation;
             $reservation->setJeu($this);
@@ -586,8 +544,7 @@ class JeuEnChene
      * @param \App\Entity\Chene\ReservationJeu $reservation
      * @return \App\Entity\Chene\JeuEnChene
      */
-    public function removeReservation(ReservationJeu $reservation): JeuEnChene
-    {
+    public function removeReservation(ReservationJeu $reservation): JeuEnChene {
         if ($this->reservations->contains($reservation)) {
             $this->reservations->removeElement($reservation);
             // set the owning side to null (unless already changed)
@@ -602,8 +559,7 @@ class JeuEnChene
     /**
      * @return Collection|Conversation[]
      */
-    public function getConversations(): Collection
-    {
+    public function getConversations(): Collection {
         return $this->conversations;
     }
 
@@ -612,8 +568,7 @@ class JeuEnChene
      * @param Conversation $conversation
      * @return \App\Entity\Chene\JeuEnChene
      */
-    public function addConversation(Conversation $conversation): JeuEnChene
-    {
+    public function addConversation(Conversation $conversation): JeuEnChene {
         if (!$this->conversations->contains($conversation)) {
             $this->conversations[] = $conversation;
             $conversation->setLienJeuEnChene($this);
@@ -627,8 +582,7 @@ class JeuEnChene
      * @param Conversation $conversation
      * @return \App\Entity\Chene\JeuEnChene
      */
-    public function removeConversation(Conversation $conversation): JeuEnChene
-    {
+    public function removeConversation(Conversation $conversation): JeuEnChene {
         if ($this->conversations->contains($conversation)) {
             $this->conversations->removeElement($conversation);
             // set the owning side to null (unless already changed)
@@ -644,8 +598,7 @@ class JeuEnChene
      * 
      * @return bool|null
      */
-    public function getConstruit(): ?bool
-    {
+    public function getConstruit(): ?bool {
         return $this->construit;
     }
 
@@ -654,8 +607,7 @@ class JeuEnChene
      * @param bool $construit
      * @return \App\Entity\Chene\JeuEnChene
      */
-    public function setConstruit(bool $construit): JeuEnChene
-    {
+    public function setConstruit(bool $construit): JeuEnChene {
         $this->construit = $construit;
 
         return $this;
@@ -665,8 +617,7 @@ class JeuEnChene
      * 
      * @return string|null
      */
-    public function getCommentairesGourou(): ?string
-    {
+    public function getCommentairesGourou(): ?string {
         return $this->commentairesGourou;
     }
 
@@ -675,10 +626,27 @@ class JeuEnChene
      * @param string|null $commentairesGourou
      * @return \App\Entity\Chene\JeuEnChene
      */
-    public function setCommentairesGourou(?string $commentairesGourou): JeuEnChene
-    {
+    public function setCommentairesGourou(?string $commentairesGourou): JeuEnChene {
         $this->commentairesGourou = $commentairesGourou;
 
         return $this;
     }
+
+    /**
+     * 
+     * @param type $id_user
+     * @return bool
+     */
+    public function estGratuit($id_user): bool {
+        foreach ($this->babioles->toArray() as $bab) {
+            if ($bab->getUser()) {
+                if ($bab->getUser()->getId() == $id_user) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
 }

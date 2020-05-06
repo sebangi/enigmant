@@ -2,6 +2,7 @@
 
 namespace App\Entity\General;
 
+use App\Entity\Chene\Babiole;
 use App\Entity\Chene\ReservationJeu;
 use App\Entity\Chene\JeuEnChene;
 use App\Entity\General\ObtentionNiveau;
@@ -101,12 +102,18 @@ class User implements UserInterface {
     private $conversations;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Chene\Babiole", mappedBy="user")
+     */
+    private $babioles;
+
+    /**
      * 
      */
     public function __construct() {
         $this->obtentionNiveaux = new ArrayCollection();
         $this->reservationJeux = new ArrayCollection();
         $this->conversations = new ArrayCollection();
+        $this->babioles = new ArrayCollection();
     }
 
     /**
@@ -598,6 +605,37 @@ class User implements UserInterface {
             // set the owning side to null (unless already changed)
             if ($conversation->getUser() === $this) {
                 $conversation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Babiole[]
+     */
+    public function getBabioles(): Collection
+    {
+        return $this->babioles;
+    }
+
+    public function addBabiole(Babiole $babiole): self
+    {
+        if (!$this->babioles->contains($babiole)) {
+            $this->babioles[] = $babiole;
+            $babiole->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBabiole(Babiole $babiole): self
+    {
+        if ($this->babioles->contains($babiole)) {
+            $this->babioles->removeElement($babiole);
+            // set the owning side to null (unless already changed)
+            if ($babiole->getUser() === $this) {
+                $babiole->setUser(null);
             }
         }
 

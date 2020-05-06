@@ -5,6 +5,8 @@ namespace App\Form\Chene;
 use App\Entity\Chene\Babiole;
 use App\Entity\Chene\CategorieBabiole;
 use App\Repository\Chene\CategorieBabioleRepository;
+use App\Entity\General\User;
+use App\Repository\General\UserRepository;
 use App\Entity\Chene\TypeBabiole;
 use App\Repository\Chene\TypeBabioleRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -40,6 +42,16 @@ class BabioleType extends AbstractType
                 'query_builder' => function (CategorieBabioleRepository $er) {
                         return $er->createQueryBuilder('b')
                             ->orderBy('b.nom', 'ASC');
+                    },                            
+                'required' => false
+            ])
+            ->add('user', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'username',
+                'label' => "Joueur l'ayant offert",
+                'query_builder' => function (UserRepository $er) {
+                        return $er->createQueryBuilder('b')
+                            ->orderBy('b.username', 'ASC');
                     },                            
                 'required' => false
             ])

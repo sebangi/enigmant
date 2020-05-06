@@ -124,8 +124,9 @@ class JeuEnCheneRepository extends ServiceEntityRepository
     private function findConstruitQuery() : QueryBuilder
     {
         return $this->createQueryBuilder('j')
-            ->select('j', 'babs')
-            ->leftJoin('j.babioles', 'babs')
+            ->select('j', 'col', 'bab')
+            ->leftJoin('j.babioles', 'bab')
+            ->leftJoin('bab.user', 'user')
             ->andWhere('j.construit = true')
             ->leftJoin('j.collectionChene', 'col')
             ->orderBy('col.num', 'ASC')

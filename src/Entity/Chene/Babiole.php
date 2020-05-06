@@ -2,6 +2,7 @@
 
 namespace App\Entity\Chene;
 
+use App\Entity\General\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Cocur\Slugify\Slugify;
@@ -56,6 +57,11 @@ class Babiole
      * @ORM\ManyToOne(targetEntity="\App\Entity\Chene\CategorieBabiole", inversedBy="babioles")
      */
     private $categorieBabiole;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\General\User", inversedBy="babioles")
+     */
+    private $user;
 
     public function __construct()
     {
@@ -239,6 +245,27 @@ class Babiole
     public function setCategorieBabiole(?CategorieBabiole $categorieBabiole): Babiole
     {
         $this->categorieBabiole = $categorieBabiole;
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @return User|null
+     */
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    /**
+     * 
+     * @param User|null $user
+     * @return \App\Entity\Chene\Babiole
+     */
+    public function setUser(?User $user): Babiole
+    {
+        $this->user = $user;
 
         return $this;
     }
