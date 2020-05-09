@@ -2,13 +2,13 @@
 
 {% block body %}
     <div class="container mt-2">
-        <h2 class="text-success">Qu'est ce qu'une Babiole ?</h2>
+        <h2 class="text-success">Que sont les Babioles ?</h2>
         <p class="ml-4 text-justify font-weight-bold">
             Les Babioles sont la monnaie permettant de louer un Jeu En Chêne. 
         </p>
         <p class="ml-4 text-justify"><b>Il s'agit tout simplement d'un élément permettant de construire un nouveau Jeu en Chêne</b> : 
             un joli bouton, un morceau de bois même petit, un objet métallique, un cadenas, un joli bouton, une serrure, une charnière...
-            Cela peut aussi être un outil à travailler le bois qui ne vous sert pas, tel un vieux ciseau à bois... 
+            Cela peut aussi être un outil à travailler le bois qui ne vous sert pas, tel un vieux ciseau à bois, un papier de verre... 
         </p>
         <h5 class="text-success text-justify">
             <b>Les Babioles sont réparties en quatre catégories :</b>
@@ -61,14 +61,14 @@
                                     {% endif%}
                                 </td>
                                 <td style="vertical-align:middle;" class="pt-0 pb-0 font-weight-bold">{{ babiole.nom }}</td>
-                                <td style="vertical-align:middle;" class="pt-0 pb-0 text-center font-weight-bold"><h4><span class="badge badge-pill badge-warning">1</span></h4></span></td>
+                                <td style="vertical-align:middle;" class="pt-0 pb-0 text-center font-weight-bold"><h4>{{ include('outils/_piece.html.twig', {valeur : babiole.valeur}) }}</h4></td>
                                 <td style="vertical-align:middle;" class="pt-0 pb-0">{{ babiole.description}}</td>                            
                                 <td style="vertical-align:middle;" class="pt-0 pb-0">{{ babiole.commentaireGourou}}</td> 
                                 <td style="vertical-align:middle;" class="pt-0 pb-0">
                                     {% if   babiole.jeuEnChenes|length == 2 %}
                                         <div class="dropdown">
                                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Dropdown button
+                                                Voir les Jeux
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 {% for jeu in babiole.jeuEnChenes %}

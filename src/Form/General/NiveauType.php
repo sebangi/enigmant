@@ -24,6 +24,7 @@ class NiveauType extends AbstractType
                 ]
             ])
             ->add('disponible')
+            ->add('nomCache')
             ->add('conditionTexte')
             ->add('raison')
             ->add('couleur', ColorType::class)

@@ -60,6 +60,11 @@ class Niveau
      */
     private $obtentionNiveaux;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $nomCache = false;
+
     public function __construct()
     {
         $this->obtentionNiveaux = new ArrayCollection();
@@ -266,6 +271,18 @@ class Niveau
                 $obtentionNiveau->setNiveau(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNomCache(): ?bool
+    {
+        return $this->nomCache;
+    }
+
+    public function setNomCache(bool $nomCache): self
+    {
+        $this->nomCache = $nomCache;
 
         return $this;
     }

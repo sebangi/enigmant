@@ -91,7 +91,12 @@
             <script src="/enigmant/public/build/app.js"></script>
             <script src="/enigmant/public/build/runtime.js"></script>
             <script src="/enigmant/public/build/vendors~app.js"></script>
-            {{ encore_entry_script_tags('app') }}        
+
+            <script src="public/build/app.js"></script>
+            <script src="public/build/runtime.js"></script>
+            <script src="public/build/vendors~app.js"></script>
+        
+{#          {{ encore_entry_script_tags('app') }}       #}
         {% endblock %}
     </body>
 </html>

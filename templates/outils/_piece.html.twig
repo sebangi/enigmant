@@ -1,0 +1,11 @@
+{% if valeur is defined %}
+    {% if valeur == 0%}
+        <span class="badge badge-pill border border-dark" style="bg-background-color:white;">{{ valeur }}</span>
+    {% elseif valeur == 1 %}
+        <span class="badge badge-pill border border-dark" style="background-color:tan;">{{ valeur }}</span>
+    {% elseif valeur == 2%}
+        <span class="badge badge-pill border border-dark" style="background-color:silver;">{{ valeur }}</span>
+    {% else %}
+        <span class="badge badge-pill border border-dark" style="background-color:gold;">{{ valeur }}</span>
+    {% endif%}
+{% endif%}

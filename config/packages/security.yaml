@@ -23,6 +23,10 @@ security:
             form_login:
                 login_path: login
                 check_path: login
+                csrf_token_generator: security.csrf.token_manager
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthentificatorAuthenticator
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

@@ -17,13 +17,14 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Nom</th>
-                    <th>Thème</th>
-                    <th>Num.</th>
-                    <th>Dispo.</th>
-                    <th>Condition</th>
-                    <th>Couleur</th>
-                    <th>Actions</th>
+                    <th width="15%">Nom</th>
+                    <th width="5%">Thème</th>
+                    <th width="5%">Num.</th>
+                    <th width="5%">Dispo.</th>
+                    <th width="5%">Caché</th>
+                    <th width="35%">Condition</th>
+                    <th width="5%">Couleur</th>
+                    <th width="25%">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,6 +34,7 @@
                         <td>{% if niveau.theme %}{{ niveau.theme.nom }}{% endif %}</td>
                         <td>{{ niveau.num }}</td>                        
                         <td>{{ include('outils/_booleen.html.twig', {bvaleur : niveau.disponible}) }}</td>
+                        <td>{{ include('outils/_booleen.html.twig', {bvaleur : niveau.nomCache}) }}</td>
                         <td>{{ niveau.conditionTexte }}</td>
                         <td>{{ include('outils/_cercle.html.twig', {couleur : niveau.couleur}) }}</td>
                         <td>

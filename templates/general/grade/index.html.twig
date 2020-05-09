@@ -62,7 +62,13 @@
                                 <td>
                                     <span class="fas fa-medal text-success" aria-hidden="true"></span>
                                 </td>
-                                <td class="font-weight-bold">{{ grade.niveau.nom }} en {{ grade.niveau.theme.nom }}</td>
+                                <td class="font-weight-bold">
+                                    {% if grade.niveau.nomCache and obt is null %}
+                                        À deviner
+                                    {% else %}
+                                        {{ grade.niveau.nom }} en {{ grade.niveau.theme.nom }}
+                                    {% endif%}
+                                </td>
                                 <td>{{ grade.date | date("d/m/Y") }}</td>                            
                                 <td>{{ grade.niveau.raison }}</td>                            
                             </tr>
@@ -76,7 +82,13 @@
                                         <span class="fas fa-lock" aria-hidden="true"></span>
                                     {% endif %}
                                 </td>
-                                <td {% if not obt is null %}class="font-weight-bold"{% else %}class="font-italic"{% endif %}>{{ grade.niveau_nom }} en {{ grade.theme_nom }}</td>
+                                <td {% if not obt is null %}class="font-weight-bold"{% else %}class="font-italic"{% endif %}>
+                                    {% if grade.niveau_nomCache and obt is null %}
+                                        À deviner
+                                    {% else %}
+                                        {{ grade.niveau_nom }} en {{ grade.theme_nom }}
+                                    {% endif%}
+                                </td>
                                 {% if obt is null %}                                                               
                                     <td></td>                            
                                     <td class="font-italic">{{ grade.niveau_conditionTexte }}</td>

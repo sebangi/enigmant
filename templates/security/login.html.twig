@@ -19,19 +19,19 @@
                 {% endif %}
 
 
-                <form action="{{ path('login') }}" method="post">
+                <form action="{{ path('login') }}"  method="post">
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                     <div class="form-group">
-                        <label for="username">Identifiant :</label>
-                        <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}">
+                        <label for="inputUsername">Identifiant :</label>
+                        <input type="text" id="inputUsername" name="username" class="form-control" required autofocus value="{{ last_username }}">
                     </div>
                     <div class="form-group">
-                        <label for="password">Mot de passe :</label>
-                        <input type="password" id="password" name="_password" class="form-control">
+                        <label for="inputPassword">Mot de passe :</label>
+                        <input type="password" id="inputPassword" name="password" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <input type="checkbox" id="remember_me" name="_remember_me" checked/>
+                        <input type="checkbox" id="remember_me" name="_remember_me"/>
                         <label for="remember_me">Se souvenir de moi</label>                        
                     </div>
 
