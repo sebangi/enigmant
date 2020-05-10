@@ -17,6 +17,7 @@
                     <th>Valeur</th>
                     <th>Type</th>
                     <th>Catégorie</th>
+                    <th>Joueur</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -27,6 +28,7 @@
                         <td>{{ babiole.valeur }}</td>
                         <td>{% if babiole.typeBabiole %}{{ babiole.typeBabiole.nom }}{% endif %}</td>
                         <td>{% if babiole.categorieBabiole %}{{ babiole.categorieBabiole.nom }}{% endif %}</td>
+                        <td>{% if babiole.user %}{{ babiole.user.username }}{% endif %}</td>
                         <td>
                             <a href="{{ path("babiole.show", {id : babiole.id, slug : babiole.getSlug} ) }}" class="btn btn-primary">Voir</a>
                             <a href="{{ path("admin.chene.babiole.edit", {id : babiole.id} ) }}" class="btn btn-secondary">Éditer</a>

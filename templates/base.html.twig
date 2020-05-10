@@ -14,13 +14,19 @@
     <body>
         <nav class="navbar navbar-expand-sm navbar-light bg-light sticky-top ma-nav pb-1 nav-bar-haut">
             <a class="navbar-brand ma-navbar-brand pb-0" href="{{ path('home') }}">
-                Énigmant...
-                {% if themeCourant == "General" %}
-                    ? 
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path("admin.home" ) }}" class="btn btn-warning ml-4">Administration</a>
-                    {% endif %}           
-                {% endif %}           
+
+                <div class='font-weight-bold'>
+                    <u>
+                        <span style="color:blue;">É</span><span style="color:SteelBlue;">n</span><span style="color:purple;">i</span><span style="color:black;">g</span><span style="color:red;">m</span><span style="color:SandyBrown;">a</span><span style="color:yellow;">n</span><span style="color:green;">t</span>
+                    </u>
+                    {% if themeCourant == "General" %}
+                        ? 
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path("admin.home" ) }}" class="btn btn-warning ml-4">Administration</a>
+                        {% endif %}           
+                    {% endif %}  
+
+                </div>
             </a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

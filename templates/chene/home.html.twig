@@ -79,7 +79,7 @@
                         <div>
                             <u>Quelques précisions :</u>
                             <ul class="pt-0">
-                                <li>Les Babioles ont une valeur. La plupart valent 1 unité; d'autres inestimables valent bien plus chères ! Cela se négocie.</li>
+                                <li>Les Babioles ont une valeur : {{ include('outils/_piece.html.twig', {valeur : 1}) }}, {{ include('outils/_piece.html.twig', {valeur : 2}) }}, {{ include('outils/_piece.html.twig', {valeur : 3}) }}... La plupart valent {{ include('outils/_piece.html.twig', {valeur : 1}) }} unité; d'autres inestimables valent bien plus chères ({{ include('outils/_piece.html.twig', {valeur : 10}) }}) ! Cela se négocie.</li>
                                 <li>Les Babioles sont à donner au moment de la réception du Jeu en Chêne.</li>
                                 <li>Les prix en Babioles sont données seulement à titre indicatif. Vous pouvez donner plus ou moins.</li>
                                 <li>Les dons de Babioles sont acceptés.</li>
