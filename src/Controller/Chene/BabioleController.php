@@ -5,6 +5,7 @@ namespace App\Controller\Chene;
 use App\Entity\Chene\Babiole;
 use App\Repository\Chene\BabioleRepository;
 use App\Repository\Chene\TypeBabioleRepository;
+use App\Repository\Chene\CategorieBabioleRepository;
 use \App\Entity\Chene\BabioleRecherche;
 use \App\Form\Chene\BabioleRechercheType;
 use App\Controller\BaseController;
@@ -54,12 +55,15 @@ class BabioleController extends BaseController {
      * @var Request $Request
      * @return Response
      */
-    public function index(TypeBabioleRepository $t_repository, string $numTypeBabiole): Response {
+    public function index(CategorieBabioleRepository $c_repository, TypeBabioleRepository $t_repository, string $numTypeBabiole): Response {
         $babioles = $this->repository->findAllByType($numTypeBabiole);
+        $categories = $c_repository->findAllWithBabioleDeType($numTypeBabiole);
+        
         $types = $t_repository->findBy([],["num"=>"ASC"]);
         $type = $t_repository->findBy( ["num"=>$numTypeBabiole] );
 
         return $this->monRender('chene/babiole/index.html.twig', [
+                    'categories' => $categories,
                     'babioles' => $babioles,
                     'types' => $types,
                     'typeCourant' => $type[0]

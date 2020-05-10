@@ -32,13 +32,21 @@
             <div class="collapse navbar-collapse" id="navbarGrade">
                 <ul class="navbar-nav navbar-brand">
                     <li class="nav-item">
-                        <a class="nav-link {% if themeCourant is defined and themeCourant == "General"%}active{% endif %}" href="{{ path('grade.index', {themeCourant: "General"} ) }}">Grades actuels<span class="sr-only">(current)</span></a>
+                        <h4 class="mt-0">
+                            {% if themeCourant is defined and themeCourant == "General" %}<u class="text-vert"> {% endif %}
+                                <a class="nav-link {% if themeCourant is defined and themeCourant == "General"%}active{% endif %}" href="{{ path('grade.index', {themeCourant: "General"} ) }}">Grades actuels<span class="sr-only">(current)</span></a>
+                                {% if themeCourant is defined and themeCourant == "General" %}</u> {% endif %}
+                        </h4>
                     </li>
                 </ul>
                 {% for theme in themes %}
                     <ul class="navbar-nav navbar-brand">
                         <li class="nav-item">
-                            <a class="nav-link {% if themeCourant is defined and themeCourant == theme.getNom() %}active{% endif %}" href="{{ path('grade.index', {themeCourant: theme.nom}  ) }}">Historique en {{ theme.nom }}<span class="sr-only">(current)</span></a>
+                        <h4 class="mt-0">
+                            {% if themeCourant is defined and themeCourant == theme.getNom() %}<u class="text-vert"> {% endif %}
+                                <a class="nav-link {% if themeCourant is defined and themeCourant == theme.getNom() %}active{% endif %}" href="{{ path('grade.index', {themeCourant: theme.nom}  ) }}">Historique en {{ theme.nom }}<span class="sr-only">(current)</span></a>
+                            {% if themeCourant is defined and themeCourant == theme.getNom() %}</u> {% endif %}
+                        </h4>
                         </li>
                     </ul>           
                 {% endfor %}

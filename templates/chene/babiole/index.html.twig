@@ -26,7 +26,7 @@
                         <ul class="navbar-nav navbar-brand">
                             <li class="nav-item">
                                 <h4 class="mt-0">
-                                    {% if typeCourant.num == type.getNum() %}<u class="text-success"> {% endif %}
+                                    {% if typeCourant.num == type.getNum() %}<u class="text-vert"> {% endif %}
                                         <a class="nav-link {% if typeCourant.num == type.getNum() %}active{% endif %}" href="{{ path('babiole.index', {"numTypeBabiole": type.num}  ) }}">{{ type.nom }}<span class="sr-only">(current)</span></a>
                                         {% if typeCourant.num == type.getNum() %}</u>{% endif %}
                                 </h4>    
@@ -35,13 +35,14 @@
                     {% endfor %}
                 </div>
             </nav>
-                
+
             <h5 class="ml-4 mb-4 text-justify">
                 {{ typeCourant.description }}
             </h5>
 
             <div class="row">
-                <table class="table table-babiole table-striped table-bordered">
+                <table class="table table-babiole table-bordered table-striped"> 
+{#                    table-striped#}
                     <thead>
                         <tr>
                             <th style="width:100px"></th>
@@ -53,37 +54,46 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for babiole in babioles %}
+                        {% for categorie in categories %}
                             <tr>
-                                <td style="width:100px" class="pt-0 pb-0 pl-0 pr-0">
-                                    {% if babiole.imageName %}
-                                        <img class="" src="{{ vich_uploader_asset(babiole, 'imageFile') | imagine_filter("my_thumb_babiole") }}" > 
-                                    {% endif%}
-                                </td>
-                                <td style="vertical-align:middle;" class="pt-0 pb-0 font-weight-bold">{{ babiole.nom }}</td>
-                                <td style="vertical-align:middle;" class="pt-0 pb-0 text-center font-weight-bold"><h4>{{ include('outils/_piece.html.twig', {valeur : babiole.valeur}) }}</h4></td>
-                                <td style="vertical-align:middle;" class="pt-0 pb-0">{{ babiole.description}}</td>                            
-                                <td style="vertical-align:middle;" class="pt-0 pb-0">{{ babiole.commentaireGourou}}</td> 
-                                <td style="vertical-align:middle;" class="pt-0 pb-0">
-                                    {% if   babiole.jeuEnChenes|length == 2 %}
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Voir les Jeux
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                {% for jeu in babiole.jeuEnChenes %}
-                                                    <a class="dropdown-item" href="">{{ jeu.nom }}</a>
-                                                {% endfor %}
-                                            </div>
-                                            </button>
-                                        </div>
-                                    {% endif%}
-
-
-
-
-                                </td>
+                                <td style="vertical-align:middle;" class="table-success pt-0 pb-0" colspan="3"><h4 class=" mb-0">{{ categorie.nom }}</h4></td> 
+                                <td style="vertical-align:middle;" class="table-success pt-0 pb-0 font-weight-bold font-italic"  colspan="3"></h5>{{ categorie.description }}</h5></td> 
                             </tr>
+
+                            {% for babiole in babioles %}
+                                {% if babiole.categorieBabiole.id == categorie.id %}
+                                <tr>
+                                    <td style="width:100px" class="pt-0 pb-0 pl-0 pr-0">
+                                        {% if babiole.imageName %}
+                                            <img class="" src="{{ vich_uploader_asset(babiole, 'imageFile') | imagine_filter("my_thumb_babiole") }}" > 
+                                        {% endif%}
+                                    </td>
+                                    <td style="vertical-align:middle;" class="pt-0 pb-0 font-weight-bold">{{ babiole.nom }}</td>
+                                    <td style="vertical-align:middle;" class="pt-0 pb-0 text-center font-weight-bold"><h4>{{ include('outils/_piece.html.twig', {valeur : babiole.valeur}) }}</h4></td>
+                                    <td style="vertical-align:middle;" class="pt-0 pb-0">{{ babiole.description}}</td>                            
+                                    <td style="vertical-align:middle;" class="pt-0 pb-0">{{ babiole.commentaireGourou}}</td> 
+                                    <td style="vertical-align:middle;" class="pt-0 pb-0">
+                                        {% if   babiole.jeuEnChenes|length == 2 %}
+                                            <div class="dropdown">
+                                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Voir les Jeux
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    {% for jeu in babiole.jeuEnChenes %}
+                                                        <a class="dropdown-item" href="">{{ jeu.nom }}</a>
+                                                    {% endfor %}
+                                                </div>
+                                                </button>
+                                            </div>
+                                        {% endif%}
+
+
+
+
+                                    </td>
+                                </tr>
+                                {% endif%}
+                            {% endfor %}                        
                         {% endfor %}
                     </tbody>
                 </table>

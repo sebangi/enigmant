@@ -41,7 +41,7 @@
             {% if mode == "index" %}
                 <div class="row">
                     <div class="col-md-3">
-                        <a class="btn btn-success" href="{{ path("general.conversation.show", {id : conversation.id, slug : conversation.getSlug()} ) }}{{conversation.getAncreNonVu( is_granted('ROLE_ADMIN') )}}">Voir la conversation</a>
+                        <a class="btn mon-btn" href="{{ path("general.conversation.show", {id : conversation.id, slug : conversation.getSlug()} ) }}{{conversation.getAncreNonVu( is_granted('ROLE_ADMIN') )}}">Voir la conversation</a>
                     </div> 
                     <div class="col-md-9 mt-2">                         
                         {% if nbMessagesNonLus == 0 %}

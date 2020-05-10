@@ -144,6 +144,7 @@ class JeuEnChene {
      */
     private $commentairesGourou;
 
+
     public function __construct() {
         $this->babioles = new ArrayCollection();
         $this->reservations = new ArrayCollection();
@@ -648,5 +649,6 @@ class JeuEnChene {
 
         return false;
     }
+
 
 }

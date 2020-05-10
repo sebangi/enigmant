@@ -7,6 +7,55 @@ body {
     /*whitesmoke;*/
 }
 
+.text-vert {
+    color: yellowgreen;
+}
+
+.text-jaune { 
+    color: gold;
+}
+
+.navbar-dark .navbar-nav .nav-link.active {
+    color: gold;
+}
+
+.mon-btn-outline {
+    background-color: white;
+    color: black;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #28A745;    
+}
+
+.mon-btn-outline:hover {
+    background-color: yellowgreen;
+    color: black;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #28A745;    
+}
+
+.mon-btn {
+    background-color: gold;
+    color: black;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #28A745;    
+}
+
+.mon-btn:hover {
+    background-color: yellowgreen;
+    color: black;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #28A745;    
+}
+
+.btn-grade {
+    background-color: gold;   
+}
+
+
 .second-nav {
     top: 40px;
 }
@@ -21,6 +70,7 @@ body {
 
 
 .mon-jumbotron {
+    background-image: linear-gradient(gold, yellowgreen);
     padding-top: 16px; 
     padding-left: 0px;
     padding-right: 0px; 
@@ -39,6 +89,7 @@ body {
 }
 
 
+
 @media (min-width: 567px) {
     .abs-center-x {
         position: absolute;
@@ -52,6 +103,7 @@ body {
     padding-top: 0px;
     padding-bottom: 0px;
 }
+
 
 .ma-navbar-brand {
     margin-right: 0px;
@@ -90,7 +142,7 @@ body {
 
 .table-grade {
     font-size: .8em;
-    background-color: #D22828;        
+    background-color: yellowgreen;        
     border-collapse: separate;
     border-spacing: 0px;
     border-radius: 14px;
@@ -121,29 +173,18 @@ body {
     background-color: white;        
     border-collapse: separate;
     border-spacing: 0px;
-    border-radius: 14px;
-}
-
-.table-babiole > tr:first-child > td:first-child {
-    border-top-left-radius: 14px;
-}
-
-.table-babiole > tr:first-child > td:last-child {
-    border-top-right-radius: 14px;
-}
-
-.table-babiole > tr:last-child td:first-child {
-    border-bottom-left-radius: 14px;
-}
-
-.table-babiole > tr:last-child td:last-child {
-    border-bottom-right-radius: 14px;
 }
 
 .table-babiole th {
     border: 0;
     background-color: YellowGreen;   
 }
+
+.categorie-babiole {
+    background-color: #9de012;   
+}
+
+
 
 .clignotement {
     color:red; 
@@ -292,4 +333,28 @@ body {
 
 .colonne-image-babiole {
     max-width: 100px;
+}
+
+.actualites {
+    background-color: gold;
+}
+
+.actualite {
+    background-color: white;
+}
+
+/*Set the row height to the viewport*/
+.row-height{
+  /*height: 200vh;*/
+}
+
+/*Set up the columns with a 100% height, body color and overflow scroll*/
+
+.left{
+  /*height: 100%;*/
+}
+
+.mid{
+  /*height: 100%;*/
+  overflow-y: scroll;
 }

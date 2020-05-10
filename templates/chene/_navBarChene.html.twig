@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top second-nav ma-nav">
     <ul class="navbar-nav navbar-brand pt-0 pb-0">
         <li class="nav-item">
-            <a class="nav-link {% if menuCourant is defined and menuCourant == 'Home' %}active{% endif %}" href="{{ path('home') }}"> <span  class="fas fa-home"></span></a>
+            <a class="nav-link {% if menuCourant is defined and menuCourant == 'Home' %}active text-jaune{% endif %}" href="{{ path('home') }}"> <span  class="fas fa-home"></span></a>
         </li>
     </ul>
 
@@ -13,27 +13,27 @@
 
         <ul class="navbar-nav navbar-brand pt-0 pb-0">
             <li class="nav-item mr-2">
-                <a class="nav-link {% if menuCourant is defined and menuCourant == 'EnigmesEnChene' %}active{% endif %}" href="{{ path('chene.home') }}">Énigmant Chêne<span class="sr-only">(current)</span></a>
+                <a class="nav-link {% if menuCourant is defined and menuCourant == 'EnigmesEnChene' %}active text-jaune{% endif %}" href="{{ path('chene.home') }}">Énigmant Chêne<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item mr-2">
-                <a class="nav-link {% if menuCourant is defined and menuCourant == 'CollectionChene' %}active{% endif %}" href="{{ path('collectionChene.index') }}">Collections<span class="sr-only">(current)</span></a>
+                <a class="nav-link {% if menuCourant is defined and menuCourant == 'CollectionChene' %}active text-jaune{% endif %}" href="{{ path('collectionChene.index') }}">Collections<span class="sr-only">(current)</span></a>
             </li>
 
             <li class="nav-item mr-2">
-                <a class="nav-link {% if menuCourant is defined and menuCourant == 'JeuEnChene' %}active{% endif %}" href="{{ path('jeuEnChene.index') }}">Jeux en Chêne<span class="sr-only">(current)</span></a>
+                <a class="nav-link {% if menuCourant is defined and menuCourant == 'JeuEnChene' %}active text-jaune{% endif %}" href="{{ path('jeuEnChene.index') }}">Jeux en Chêne<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item mr-2">
-                <a class="nav-link {% if menuCourant is defined and menuCourant == 'Babiole' %}active{% endif %}" href="{{ path('babiole.index', { 'numTypeBabiole':"1" }) }}">Babioles<span class="sr-only">(current)</span></a>
+                <a class="nav-link {% if menuCourant is defined and menuCourant == 'Babiole' %}active text-jaune{% endif %}" href="{{ path('babiole.index', { 'numTypeBabiole':"1" }) }}">Babioles<span class="sr-only">(current)</span></a>
             </li>
         </ul>
 
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
             <ul class="navbar-nav navbar-brand pt-0 pb-0 ml-auto">
                 <li class="nav-item">
-                    <a class="mr-2 nav-link {% if menuCourant is defined and menuCourant == 'Progression' %}active{% endif %}" href="{{ path('collectionChene.index') }}">Ma progression<span class="sr-only">(current)</span></a>
+                    <a class="mr-2 nav-link {% if menuCourant is defined and menuCourant == 'Progression' %}active text-jaune{% endif %}" href="{{ path('collectionChene.index') }}">Ma progression<span class="sr-only">(current)</span></a>
                 </li>
                 <li>
-                    <a class="nav-link {% if menuCourant is defined and menuCourant == 'Reservation' %}active{% endif %}" href="{{ path('collectionChene.index') }}">Mes locations<span class="sr-only">(current)</span></a>
+                    <a class="nav-link {% if menuCourant is defined and menuCourant == 'Reservation' %}active text-jaune{% endif %}" href="{{ path('collectionChene.index') }}">Mes locations<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
         {% endif %}

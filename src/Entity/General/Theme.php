@@ -50,9 +50,15 @@ class Theme
      */
     private $disponible = true;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Actualite::class, mappedBy="theme")
+     */
+    private $actualites;
+
     public function __construct()
     {
         $this->niveaux = new ArrayCollection();
+        $this->actualites = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -202,6 +208,47 @@ class Theme
     public function setDisponible(bool $disponible): Theme
     {
         $this->disponible = $disponible;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Actualite[]
+     */
+    public function getActualites(): Collection
+    {
+        return $this->actualites;
+    }
+
+    /**
+     * 
+     * @param \App\Entity\General\Actualite $actualite
+     * @return \App\Entity\General\Theme
+     */
+    public function addActualite(Actualite $actualite): Theme
+    {
+        if (!$this->actualites->contains($actualite)) {
+            $this->actualites[] = $actualite;
+            $actualite->setTheme($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @param \App\Entity\General\Actualite $actualite
+     * @return \App\Entity\General\Theme
+     */
+    public function removeActualite(Actualite $actualite): Theme
+    {
+        if ($this->actualites->contains($actualite)) {
+            $this->actualites->removeElement($actualite);
+            // set the owning side to null (unless already changed)
+            if ($actualite->getTheme() === $this) {
+                $actualite->setTheme(null);
+            }
+        }
 
         return $this;
     }

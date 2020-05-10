@@ -5,6 +5,59 @@
         <h1>Des énigmes en chasses au trésor</h1>
         <h3><i>Sortez vos pelles pour déterrer le coffre !</i></h3>
     </div>
-    <p>ACTUALITE ; LIENS</p>
+    <div class="container">
+        <div class="row pt-0 mb-4 row-eq-height">
+            <div class="col-md-8 pt-4 pb-4">
+                <div>explications</div>                
+                <div>explications</div>                
+                <div>explications</div>
+                <div>explications</div>                
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>
+                <div>explications</div>  
+            </div>
+
+            <div class="col-md-4 actualites pt-4">
+                <h3 class="mb-0 text-center">ACTUALITÉS</h3>
+                <hr class="no-margin">
+                {% for actualite in actualites  %}
+
+                    <div class="mt-2 actualite" >
+                        {{ actualite.titre }}
+                    </div>
+                {% endfor %}
+                {# display navigation #}
+                <div class="pagination">
+                    {{ knp_pagination_render(actualites) }}
+                </div>
+                
+            </div>
+        </div>
+    </div>
 {% endblock body %}
 

@@ -8,8 +8,8 @@
     </div>
 
     <div class="container">
-        <div class="row pt-0 mb-4">
-            <div class="col-md-8 pt-4">
+        <div class="row pt-0 mb-4 row-eq-height">
+            <div class="col-md-8 pt-4 pb-4">
                 <div class="mb-2">
                     <h3 class="text-success mb-0">Qu'est-ce qu'un Jeu en Chêne ?</h3>
                     <hr class="mt-0  mb-2">
@@ -34,8 +34,8 @@
                             vous fera monter en grade, de simple <b>Visiteur en Chêne</b> à <b>Grand Manitou en Chêne</b> ! Alors, lancez-vous, louez un jeu...
                         </p>
                         <div class="text-center mb-2">
-                            <a class="btn btn-outline-success" href="{{ path('collectionChene.index') }}">Voir les Collections<span class="sr-only">(current)</span></a>
-                            <a class="btn btn-outline-success" href="{{ path('jeuEnChene.index') }}">Voir les Jeux En Chêne<span class="sr-only">(current)</span></a>
+                            <a class="btn mon-btn-outline" href="{{ path('collectionChene.index') }}">Voir les Collections<span class="sr-only">(current)</span></a>
+                            <a class="btn mon-btn-outline" href="{{ path('jeuEnChene.index') }}">Voir les Jeux En Chêne<span class="sr-only">(current)</span></a>
                         </div>                       
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                             Les Jeux en Chêne sont à retirer à Saint Philbert de Grand Lieu (Loire-Atlantique). 
                             Mieux vaut ne pas habiter trop loin ! Ou alors venez en vacances dans la région, c'est très joli...
                         </div> 
-                       Pour louer, <b>cliquez sur Louer maintenant</b> sur la page de description du jeu désiré.
+                        Pour louer, <b>cliquez sur Louer maintenant</b> sur la page de description du jeu désiré.
                     </div>
                 </div>
 
@@ -74,7 +74,7 @@
                             </p>
                         </div>
                         <div class="text-center mt-2 mb-2">
-                            <a class="btn btn-outline-success" href="{{ path('babiole.index', { 'numTypeBabiole':"1"}) }}">Voir les Babioles<span class="sr-only">(current)</span></a>
+                            <a class="btn mon-btn-outline" href="{{ path('babiole.index', { 'numTypeBabiole':"1"}) }}">Voir les Babioles<span class="sr-only">(current)</span></a>
                         </div>
                         <div>
                             <u>Quelques précisions :</u>
@@ -111,7 +111,7 @@
                             <li>Nous établissons via une conversation sur ce site un rendez-vous pour le retour.</li>
                             <li>Vous rendez le Jeu En Chêne et <b>GARDEZ le médaillon (si vous l'avez) !</b></li>                            
                         </ol>   
-                        
+
                         <p>
                             Les durées de locations présentées pour chaque jeu sont données à titre indicatif ! 
                             Il est toutefois vivement souhaité de ne pas dépasser le double du temps indiqué.
@@ -120,14 +120,20 @@
                 </div>
             </div>
 
-            <div class="col-md-4 bg-warning pt-4">
+            <div class="col-md-4 actualites pt-4">
                 <h3 class="mb-0 text-center">ACTUALITÉS</h3>
                 <hr class="no-margin">
+                {% for actualite in actualites  %}
 
-                <div class="mt-2">
-                    actualité 1
+                    <div class="mt-2 actualite" >
+                        {{ actualite.titre }}
+                    </div>
+                {% endfor %}
+                {# display navigation #}
+                <div class="pagination">
+                    {{ knp_pagination_render(actualites) }}
                 </div>
-
+                
             </div>
         </div>
     </div>

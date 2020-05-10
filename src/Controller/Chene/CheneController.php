@@ -2,40 +2,46 @@
 
 namespace App\Controller\Chene;
 
-use App\Repository\Chene\JeuEnCheneRepository;
+use App\Repository\General\ActualiteRepository;
 use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
-     * @route("/chene") 
-     */
-class CheneController extends BaseController
-{    
-    protected function getThemeCourant() : string
-    {
+ * @route("/chene") 
+ */
+class CheneController extends BaseController {
+
+    protected function getThemeCourant(): string {
         return "Chêne";
     }
-    
-    protected function getMenuCourant() : string
-    {
+
+    protected function getMenuCourant(): string {
         return "EnigmesEnChene";
     }
-        
+
     /**
+     * 
      * @route("/", name="chene.home")  
+     * @param PaginatorInterface $paginator
+     * @param Request $Requete
+     * @param JeuEnCheneRepository $repository
      * @return Response
      */
-    public function home( JeuEnCheneRepository $repository ) : Response
-    {
-        $jeuxEnChene = $repository->findDerniersDisponible();
-        
+    public function home(PaginatorInterface $paginator, Request $Requete, ActualiteRepository $repository): Response {
+        $actualites = $paginator->paginate(
+                $repository->findDernieresActialites($this->getThemeCourant()),
+                $Requete->query->getInt('page', 1),
+                6
+        );
+
         return $this->monRender('chene/home.html.twig', [
-            'jeux_en_chene' => $jeuxEnChene
+                    'pagination' => $paginator,
+                    'actualites' => $actualites
         ]);
     }
-    
+
 }
-
-

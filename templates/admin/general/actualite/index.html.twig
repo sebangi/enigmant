@@ -1,0 +1,55 @@
+{% extends "admin/general/adminGeneral.html.twig" %}
+
+{% block title %}
+    Gérer les actualités
+{% endblock title %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Gérer les actualités</h1>
+
+        {{ include('outils/_flash.html.twig') }}             
+        
+        <div class="text-right mb-4">
+            <a href="{{ path("admin.actualite.new") }}" class="btn btn-primary">Créer une nouvelle actualité</a>
+        </div>
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th width="5%">Date</th>
+                    <th width="15%">Titre</th>                    
+                    <th width="5%">Prio.</th>
+                    <th width="10%">Thème</th>
+                    <th width="45%">Texte</th>
+                    <th width="20%">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for actualite in actualites %}
+                    <tr>
+                        <td style="vertical-align:middle;" >{{ actualite.date | date("d/m/Y")}}</td>
+                        <td style="vertical-align:middle;" >{{ actualite.titre }}</td>
+                        <td style="vertical-align:middle;" >{{ include('outils/_booleen.html.twig', {bvaleur : actualite.prioritaire}) }}</td>
+                        <td style="vertical-align:middle;" >{% if actualite.theme %}
+                                <a href="{{ path( actualite.theme.route ~ ".home") }}">{{ actualite.theme.nom }}</a>
+                            {% endif%}
+                        </td>                        
+                        <td style="vertical-align:middle;" >{{ actualite.texte }}</td>
+                        <td style="vertical-align:middle;" >
+                            <a href="{{ path("admin.actualite.edit", {id : actualite.id} ) }}" class="btn btn-secondary">Éditer</a>
+                            <form method="post" action="{{ path("admin.actualite.delete", {id: actualite.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ actualite.id) }}">
+                                <button class="btn btn-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock body %}
+
+

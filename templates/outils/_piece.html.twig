@@ -5,7 +5,9 @@
         <span class="badge badge-pill border border-dark" style="background-color:tan;">{{ valeur }}</span>
     {% elseif valeur == 2%}
         <span class="badge badge-pill border border-dark" style="background-color:silver;">{{ valeur }}</span>
-    {% else %}
+    {% elseif valeur == 3%}
         <span class="badge badge-pill border border-dark" style="background-color:gold;">{{ valeur }}</span>
+    {% else %}
+        <span class="badge badge-pill border border-dark" style="background-color:fuchsia;">{{ valeur }}</span>
     {% endif%}
 {% endif%}

@@ -30,7 +30,23 @@ class CategorieBabioleRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-
+    
+    /**
+      * @return CategorieBabiole[]
+      */
+    public function findAllWithBabioleDeType( $numType ) : array
+    {
+        return $this->createQueryBuilder('c')
+            ->Join('c.babioles', 'bab')
+            ->Join('bab.typeBabiole', 'typ')
+            ->where( 'typ.num = :numType' )
+            ->setParameter( 'numType', $numType )
+            ->orderBy('c.num', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+        
     // /**
     //  * @return CategorieBabiole[] Returns an array of CategorieBabiole objects
     //  */

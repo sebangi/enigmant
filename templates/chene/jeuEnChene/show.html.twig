@@ -25,7 +25,7 @@
                         </a>
                     </h3>
 
-                    <h1 class="text-success">{{ jeuEnChene.nom }}</h1>
+                    <h1 class="text-primary">{{ jeuEnChene.nom }}</h1>
                     <div class="mt-4">{{ jeuEnChene.description | nl2br }}</div>
 
                     <div style="margin-top: auto;">
@@ -42,11 +42,11 @@
                             <h5 class="d-inline font-weight-bold">
                                 Prix conseillé : 
                             </h5>
-                            <div class="d-inline text-success" >
-                                {{ jeuEnChene.getPrixFormate() }}
+                            <div class="d-inline" >
+                                {{ include('outils/_piece.html.twig', {valeur : jeuEnChene.prix}) }}
                             </div>
                         </div>
-                        <a href="#" class="btn btn-success mt-2">Louer maintenant</a>
+                        <a href="#" class="btn btn-primary mt-2">Louer maintenant</a>
                         <a href="{{ path("chene.home") }}#CommentCaMarche" class="btn btn-secondary mt-2 float-right">Comment on loue ?</a>
                         <a href="{{ path("chene.home") }}#JeNAiPasDeBabioles" class="btn btn-secondary mt-2 mr-2  float-right">Je n'ai pas de babiole !</a>
                     </div>

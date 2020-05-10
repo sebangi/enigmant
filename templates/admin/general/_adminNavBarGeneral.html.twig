@@ -28,6 +28,11 @@
         </ul> 
         <ul class="navbar-nav navbar-brand pt-0 pb-0">                
             <li class="nav-item">
+                <a class="nav-link {% if menuCourant is defined and menuCourant == 'AdminActualite' %}active{% endif %}" href="{{ path('admin.actualite.index') }}">Actualités<span class="sr-only">(current)</span></a>
+            </li>                
+        </ul>  
+        <ul class="navbar-nav navbar-brand pt-0 pb-0">                
+            <li class="nav-item">
                 <a class="nav-link {% if menuCourant is defined and menuCourant == 'AdminTheme' %}active{% endif %}" href="{{ path('admin.theme.index') }}">Thèmes<span class="sr-only">(current)</span></a>
             </li>                
         </ul>  
