@@ -35,7 +35,7 @@ class CheneController extends BaseController {
         $actualites = $paginator->paginate(
                 $repository->findDernieresActialites($this->getThemeCourant()),
                 $Requete->query->getInt('page', 1),
-                6
+                4
         );
 
         return $this->monRender('chene/home.html.twig', [

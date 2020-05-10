@@ -47,8 +47,8 @@
                 <hr class="no-margin">
                 {% for actualite in actualites  %}
 
-                    <div class="mt-2 actualite" >
-                        {{ actualite.titre }}
+                    <div class="mt-2" >
+                        {%  include 'general/actualite/_actualite.html.twig' %}
                     </div>
                 {% endfor %}
                 {# display navigation #}

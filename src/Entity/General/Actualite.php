@@ -160,6 +160,17 @@ class Actualite
     {
         return $this->date;
     }
+    
+    /**
+     * 
+     * @return string|null
+     */
+    public function getDateString(): ?string
+    {
+        setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
+        return strftime("le %e %B %G", $this->date->getTimestamp() );
+    }
+
 
     /**
      * 
