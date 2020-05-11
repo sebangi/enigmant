@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="container mt-2">
-        <h2 class="text-success">Que sont les Babioles ?</h2>
+        <h2 class="text-color-2">Que sont les Babioles ?</h2>
         <p class="ml-4 text-justify font-weight-bold">
             Les Babioles sont la monnaie permettant de louer un Jeu En Chêne. 
         </p>
@@ -10,7 +10,7 @@
             un joli bouton, un morceau de bois même petit, un objet métallique, un cadenas, un joli bouton, une serrure, une charnière...
             Cela peut aussi être un outil à travailler le bois qui ne vous sert pas, tel un vieux ciseau à bois, un papier de verre... 
         </p>
-        <h5 class="text-success text-justify">
+        <h5 class="text-color-2 text-justify">
             <b>Les Babioles sont réparties en quatre catégories :</b>
         </h5>
 
@@ -26,7 +26,7 @@
                         <ul class="navbar-nav navbar-brand">
                             <li class="nav-item">
                                 <h4 class="mt-0">
-                                    {% if typeCourant.num == type.getNum() %}<u class="text-vert"> {% endif %}
+                                    {% if typeCourant.num == type.getNum() %}<u class="text-color-2"> {% endif %}
                                         <a class="nav-link {% if typeCourant.num == type.getNum() %}active{% endif %}" href="{{ path('babiole.index', {"numTypeBabiole": type.num}  ) }}">{{ type.nom }}<span class="sr-only">(current)</span></a>
                                         {% if typeCourant.num == type.getNum() %}</u>{% endif %}
                                 </h4>    
@@ -56,8 +56,8 @@
                     <tbody>
                         {% for categorie in categories %}
                             <tr>
-                                <td style="vertical-align:middle;" class="table-success pt-0 pb-0" colspan="3"><h4 class=" mb-0">{{ categorie.nom }}</h4></td> 
-                                <td style="vertical-align:middle;" class="table-success pt-0 pb-0 font-weight-bold font-italic"  colspan="3"></h5>{{ categorie.description }}</h5></td> 
+                                <td style="vertical-align:middle;" class="bg-color-2 pt-0 pb-0" colspan="3"><h4 class=" mb-0">{{ categorie.nom }}</h4></td> 
+                                <td style="vertical-align:middle;" class="bg-color-2 pt-0 pb-0 font-weight-bold font-italic"  colspan="3"></h5>{{ categorie.description }}</h5></td> 
                             </tr>
 
                             {% for babiole in babioles %}

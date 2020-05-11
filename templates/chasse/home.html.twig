@@ -42,21 +42,7 @@
                 <div>explications</div>  
             </div>
 
-            <div class="col-md-4 actualites pt-4">
-                <h3 class="mb-0 text-center">ACTUALITÉS</h3>
-                <hr class="no-margin">
-                {% for actualite in actualites  %}
-
-                    <div class="mt-2" >
-                        {%  include 'general/actualite/_actualite.html.twig' %}
-                    </div>
-                {% endfor %}
-                {# display navigation #}
-                <div class="pagination">
-                    {{ knp_pagination_render(actualites) }}
-                </div>
-                
-            </div>
+            {%  include 'general/actualite/_actualites.html.twig' %}
         </div>
     </div>
 {% endblock body %}
