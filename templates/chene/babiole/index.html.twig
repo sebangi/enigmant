@@ -1,19 +1,23 @@
 {% extends "chene/baseChene.html.twig" %}
 
 {% block body %}
-    <div class="container mt-2">
-        <h2 class="text-color-2">Que sont les Babioles ?</h2>
-        <p class="ml-4 text-justify font-weight-bold">
-            Les Babioles sont la monnaie permettant de louer un Jeu En Chêne. 
-        </p>
-        <p class="ml-4 text-justify"><b>Il s'agit tout simplement d'un élément permettant de construire un nouveau Jeu en Chêne</b> : 
-            un joli bouton, un morceau de bois même petit, un objet métallique, un cadenas, un joli bouton, une serrure, une charnière...
-            Cela peut aussi être un outil à travailler le bois qui ne vous sert pas, tel un vieux ciseau à bois, un papier de verre... 
-        </p>
-        <h5 class="text-color-2 text-justify">
-            <b>Les Babioles sont réparties en quatre catégories :</b>
-        </h5>
+    <div class="jumbotron mon-jumbotron">
+        <div class="container">
+            <h2 class="text-color-2">Que sont les Babioles ?</h2>
+            <p class="ml-4 text-justify font-weight-bold">
+                Les Babioles sont la monnaie permettant de louer un Jeu En Chêne. 
+            </p>
+            <p class="ml-4 text-justify mb-0"><b>Il s'agit tout simplement d'un élément permettant de construire un nouveau Jeu en Chêne</b> : 
+                un joli bouton, un morceau de bois même petit, un objet métallique, un cadenas, un joli bouton, une serrure, une charnière...
+                Cela peut aussi être un outil à travailler le bois qui ne vous sert pas, tel un vieux ciseau à bois, un papier de verre... 
+            </p>
+        </div>
+    </div>
 
+
+
+
+    <div class="container mt-2">
         <div class=" ml-4">
             <nav class="navbar navbar-expand-lg navbar-light no-margin no-padding">
 
@@ -42,7 +46,7 @@
 
             <div class="row">
                 <table class="table table-babiole table-bordered table-striped"> 
-{#                    table-striped#}
+                    {#                    table-striped#}
                     <thead>
                         <tr>
                             <th style="width:100px"></th>
@@ -62,32 +66,35 @@
 
                             {% for babiole in babioles %}
                                 {% if babiole.categorieBabiole.id == categorie.id %}
-                                <tr>
-                                    <td style="width:100px" class="pt-0 pb-0 pl-0 pr-0">
-                                        {% if babiole.imageName %}
-                                            <img class="" src="{{ vich_uploader_asset(babiole, 'imageFile') | imagine_filter("my_thumb_babiole") }}" > 
-                                        {% endif%}
-                                    </td>
-                                    <td style="vertical-align:middle;" class="pt-0 pb-0 font-weight-bold">{{ babiole.nom }}</td>
-                                    <td style="vertical-align:middle;" class="pt-0 pb-0 text-center font-weight-bold"><h4>{{ include('outils/_piece.html.twig', {valeur : babiole.valeur}) }}</h4></td>
-                                    <td style="vertical-align:middle;" class="pt-0 pb-0">{{ babiole.description}}</td>                            
-                                    <td style="vertical-align:middle;" class="pt-0 pb-0">{{ babiole.commentaireGourou}}</td> 
-                                    <td style="vertical-align:middle;" class="pt-0 pb-0">
-                                        {% if   babiole.jeuEnChenes|length == 2 %}
-                                            <div class="dropdown">
-                                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Utilisé dans
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    {% for jeu in babiole.jeuEnChenes %}
-                                                        <a class="dropdown-item" href="">{{ jeu.nom }}</a>
-                                                    {% endfor %}
+                                    <tr>
+                                        <td style="width:100px" class="pt-0 pb-0 pl-0 pr-0">
+                                            {% if babiole.imageName %}
+                                                <img class="" src="{{ vich_uploader_asset(babiole, 'imageFile') | imagine_filter("my_thumb_babiole") }}" > 
+                                            {% endif%}
+                                        </td>
+                                        <td style="vertical-align:middle;" class="pt-0 pb-0 font-weight-bold">{{ babiole.nom }}</td>
+                                        <td style="vertical-align:middle;" class="pt-0 pb-0 text-center font-weight-bold"><h4>{{ include('outils/_piece.html.twig', {valeur : babiole.valeur}) }}</h4></td>
+                                        <td style="vertical-align:middle;" class="pt-0 pb-0">{{ babiole.description}}</td>                            
+                                        <td style="vertical-align:middle;" class="pt-0 pb-0">{{ babiole.commentaireGourou}}</td> 
+                                        <td style="vertical-align:middle;" class="pt-0 pb-0">
+                                            {% if   babiole.jeuEnChenes|length == 2 %}
+                                                <div class="dropdown">
+                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Utilisé dans
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        {% for jeu in babiole.jeuEnChenes %}
+                                                            <p class="text-right ml-1">
+                                                                <span class="float-left" >{{ jeu.nom }}</span>
+                                                                <a class="d-inline dropdown-item pt-0 pr-1 pb-0 pl-0" href="{{ path("jeuEnChene.show", { slug: jeu.slug, id: jeu.id }) }}"><span class="fas fa-search text-color-2" aria-hidden="true"></span></a>
+                                                            </p>                                                                                                                    
+                                                        {% endfor %}
+                                                    </div>
+
                                                 </div>
-                                                </button>
-                                            </div>
-                                        {% endif%}
-                                    </td>
-                                </tr>
+                                            {% endif%}
+                                        </td>
+                                    </tr>
                                 {% endif%}
                             {% endfor %}                        
                         {% endfor %}

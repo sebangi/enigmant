@@ -94,8 +94,17 @@ class JeuEnCheneController extends BaseController {
                         'slug' => $jeuEnChene->getSlug()
                             ], 301);
 
+        $jeuPrecedent = $this->repository->findOneBy(
+                [ "num" => $jeuEnChene->getNum()-1, 
+                  "collectionChene" => $jeuEnChene->getCollectionChene()]);
+        $jeuSuivant = $this->repository->findOneBy(
+                [ "num" => $jeuEnChene->getNum()+1, 
+                  "collectionChene" => $jeuEnChene->getCollectionChene()]);
+        
         return $this->monRender('chene/jeuEnChene/show.html.twig', [
-                    'jeuEnChene' => $jeuEnChene
+                    'jeuEnChene' => $jeuEnChene,
+                    'jeuPrecedent' => $jeuPrecedent,
+                    'jeuSuivant' => $jeuSuivant
         ]);
     }
 

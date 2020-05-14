@@ -1,0 +1,39 @@
+{% extends "chene/baseChasse.html.twig" %}
+
+{% block title  %}
+    Grades en {{ themeCourant }}
+{% endblock title  %}
+
+{% block body %}
+    <div class="jumbotron mon-jumbotron third-nav sticky-top">
+        <h1 class="text-center">Grades en {{ themeCourant }}</h1>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row mb-4">
+            <table class="table table-grade">
+                <thead>
+                    <tr>
+                        <th style="width: 25%">Grade</th>                       
+                        <th style="width: 75%">Condition d'obtention</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for grade in grades %}
+                        <tr bgcolor="{{ grade.niveau_couleur }}">
+                            <td class="font-weight-bold">
+                                {% if grade.niveau_nomCache %}
+                                    À deviner
+                                {% else %}
+                                    {{ grade.niveau_nom }} en {{ grade.theme_nom }}
+                                {% endif%}
+                            </td>
+                            <td>{{ grade.niveau_conditionTexte }}</td>
+                        </tr>    
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+{% endblock body %}

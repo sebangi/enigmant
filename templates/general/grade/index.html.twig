@@ -44,7 +44,7 @@
                         <li class="nav-item">
                         <h4 class="mt-0">
                             {% if themeCourant is defined and themeCourant == theme.getNom() %}<u class="text-color-2"> {% endif %}
-                                <a class="nav-link {% if themeCourant is defined and themeCourant == theme.getNom() %}active{% endif %}" href="{{ path('grade.index', {themeCourant: theme.nom}  ) }}">Historique en {{ theme.nom }}<span class="sr-only">(current)</span></a>
+                                <a class="nav-link {% if themeCourant is defined and themeCourant == theme.getNom() %}active{% endif %}" href="{{ path('grade.index', {themeCourant: theme.nom}  ) }}">Progression en {{ theme.nom }}<span class="sr-only">(current)</span></a>
                             {% if themeCourant is defined and themeCourant == theme.getNom() %}</u> {% endif %}
                         </h4>
                         </li>

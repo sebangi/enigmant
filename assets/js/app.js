@@ -14,8 +14,10 @@ import '../css/app.css';
 const $ = require('jquery');
 
 // or you can include specific pieces
-require('bootstrap/js/dist/tooltip');
-require('bootstrap/js/dist/popover');
+//require('bootstrap/js/dist/tooltip');
+//require('bootstrap/js/dist/popover');
+
+//require('bootstrap/dist/js/bootstrap.bundle');
 
 // 
 // this "modifies" the jquery module: adding behavior to it
@@ -32,17 +34,28 @@ require('bootstrap-star-rating');
 require('bootstrap-star-rating/css/star-rating.css');
 require('bootstrap-star-rating/themes/krajee-svg/theme.css');
 
-
 require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
 
-
-
-$(document).ready(function() {
+$(document).ready(function () {
+    $('[data-toggle="tooltip-enigmant"]').tooltip({
+        animation : true,
+        delay: {
+            show: 1000,
+            hide: 0
+        }
+    });
+    
+    $('[data-toggle="tooltip-navbar"]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip();
     $('[data-toggle="popover"]').popover();
+
+    $('[data-toggle="popover"]').on('click', function (e) {
+        $('[data-toggle="popover"]').not(this).popover('hide');
+    });
+
 });
 // FIN TEST BOOSTRAP
-
 
 import 'select2';
 $('select').select2();

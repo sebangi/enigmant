@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\General\ActualiteRepository;
+use App\Repository\General\NiveauRepository;
 
 /**
      * @route("/chasse") 
@@ -42,6 +43,21 @@ class ChasseController extends BaseController
         
         return $this->monRender('chasse/home.html.twig', [
             'actualites' => $actualites
+        ]);
+    }
+    
+    
+    /**
+     * @Route("/grade", name="gradeChasse")
+     * @param NiveauRepository $niveauRepository
+     * @return Response
+     */
+    public function index(NiveauRepository $niveauRepository): Response {
+        $grades = $niveauRepository->getGradesDunTheme($this->getThemeCourant());
+        
+        return $this->monRender('chene/grade.html.twig', [
+                'menuCourant' => 'Grade',
+                'grades' => $grades
         ]);
     }
     

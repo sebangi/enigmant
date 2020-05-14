@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css">  
         {% block stylesheets %}
-            <link rel="stylesheet" href="/enigmant/public/build/app.css">
+{#            <link rel="stylesheet" href="/enigmant/public/build/app.css">#}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
     </head>
@@ -17,7 +17,7 @@
 
                 <div>
                     {% if themeCourant == "Chêne" %}
-                        <u class='font-weight-bold'>
+                        <u class='font-weight-bold' data-toggle="tooltip-enigmant" data-placement="bottom" title="Étrange ces couleurs...">
                             <span style="color:blue;">É</span><span style="color:SteelBlue;">n</span><span style="color:purple;">i</span><span style="color:black;">g</span><span style="color:red;">m</span><span style="color:SandyBrown;">a</span><span style="color:yellow;">n</span><span style="color:green;">t</span>
                         </u>
                     {% else %}   
@@ -49,7 +49,7 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         {% if app.user %}
-                            <a class="btn pt-2 pb-0 " data-toggle="tooltip" data-placement="bottom"
+                            <a class="btn pt-2 pb-0 tooltip-navbar" data-toggle="tooltip" data-placement="bottom"
                                {% if nbMessageNonLus == 0 %}
                                    title="Voir mes messages" 
                                    href="{{ path("general.conversation.index") }}" 
@@ -71,10 +71,10 @@
                                     <span class="fas fa-envelope" aria-hidden="true"></span>    
                                 {% endif%}
                             </a>    
-                            <a href="{{ path("app_login") }}" class="pb-0 btn" data-toggle="tooltip" data-placement="bottom" title="Mon profil">
+                            <a href="{{ path("app_login") }}" class="pb-0 btn" data-toggle="tooltip-navbar" data-placement="bottom" title="Mon profil">
                                 <span class="fas fa-user" aria-hidden="true"></span>
                             </a>
-                            <a href="{{ path('logout') }}" class="pb-0 nav-link btn" style="display: inline-block" data-toggle="tooltip" data-placement="bottom" title="Se déconnecter">
+                            <a href="{{ path('logout') }}" class="pb-0 nav-link btn" style="display: inline-block" data-toggle="tooltip-navbar" data-placement="bottom" title="Se déconnecter">
                                 <span class="fas fa-sign-in-alt" aria-hidden="true" alt="Se déconnecter"></span> 
                             </a>
                         {% else %}
@@ -104,19 +104,18 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script> 
 
-        {#<script>
-            $('select').select2();
-        </script>#}
+        {#<script src="/enigmant/public/build/app.js"></script>
+        <script src="/enigmant/public/build/runtime.js"></script>
+        <script src="/enigmant/public/build/vendors~app.js"></script>
+
+        <script src="public/build/app.js"></script>
+        <script src="public/build/runtime.js"></script>
+        <script src="public/build/vendors~app.js"></script>#}
+        
+        
         {% block javascripts %}
-            <script src="/enigmant/public/build/app.js"></script>
-            <script src="/enigmant/public/build/runtime.js"></script>
-            <script src="/enigmant/public/build/vendors~app.js"></script>
-
-            <script src="public/build/app.js"></script>
-            <script src="public/build/runtime.js"></script>
-            <script src="public/build/vendors~app.js"></script>
-
-            {#          {{ encore_entry_script_tags('app') }}       #}
+            {{ encore_entry_script_tags('app') }}    
+            <script src="{{ asset('build/app.js') }}"></script>
         {% endblock %}
     </body>
 </html>

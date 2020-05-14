@@ -4,6 +4,7 @@ namespace App\Controller\Chene;
 
 use App\Repository\General\ActualiteRepository;
 use App\Controller\BaseController;
+use App\Repository\General\NiveauRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -41,6 +42,20 @@ class CheneController extends BaseController {
         return $this->monRender('chene/home.html.twig', [
                     'pagination' => $paginator,
                     'actualites' => $actualites
+        ]);
+    }
+
+    /**
+     * @Route("/grade", name="gradeChene")
+     * @param NiveauRepository $niveauRepository
+     * @return Response
+     */
+    public function index(NiveauRepository $niveauRepository): Response {
+        $grades = $niveauRepository->getGradesDunTheme($this->getThemeCourant());
+        
+        return $this->monRender('chene/grade.html.twig', [
+                'menuCourant' => 'Grade',
+                'grades' => $grades
         ]);
     }
 

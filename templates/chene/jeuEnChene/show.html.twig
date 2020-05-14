@@ -25,7 +25,24 @@
                         </a>
                     </h3>
 
-                    <h1 class="text-primary">{{ jeuEnChene.nom }}</h1>
+                    <h1 class="text-right">
+                        <span class="float-left text-primary" >{{ jeuEnChene.nom }}</span>
+                        
+                        <a class="d-inline text-primary pt-0 pr-1 pb-0 pl-0" 
+                            {% if jeuPrecedent %}
+                               href="{{ path("jeuEnChene.show", { slug: jeuPrecedent.slug, id: jeuPrecedent.id }) }}"
+                            {% endif %}
+                            >
+                            <span class="mr-2 fas fa-angle-left {% if jeuPrecedent %}text-dark{% else %}invisible{% endif %}" aria-hidden="false"></span></a>{{ jeuEnChene.num }}
+                        <a class="d-inline text-primary pt-0 pr-1 pb-0 pl-0" 
+                           {% if jeuSuivant %}
+                           href="{{ path("jeuEnChene.show", { slug: jeuSuivant.getSlug(), id: jeuSuivant.id }) }}"
+                           {% endif %}
+                           >
+                            <span class="fas fa-angle-right {% if jeuSuivant %}text-dark{% else %}invisible{% endif %}" aria-hidden="true"></span>
+                        </a>
+                    </h1>  
+
                     <div class="mt-4 text-justify">{{ jeuEnChene.description | nl2br(false) }}</div>
 
                     <div style="margin-top: auto;">
@@ -46,7 +63,11 @@
                                 {{ include('outils/_piece.html.twig', {valeur : jeuEnChene.prix}) }}
                             </div>
                         </div>
-                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                        {% if not jeuEnChene.disponible %}
+                            <a class="btn text-warning btn-secondary mt-2" data-toggle="popover" title="Location impossible" data-placement="left" data-content="Ce Jeu en Chêne est en location actuellement. Veuillez patienter un peu...">
+                                Louer maintenant</span>
+                            </a>
+                        {% elseif is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                             <a href="#" class="btn btn-primary mt-2">Louer maintenant</a>
                         {% else %}
                             <a href="{{ path('app_login') }}" class="btn btn-primary mt-2">Se connecter pour réserver</a>
@@ -81,27 +102,41 @@
             <div class="col-md-5 pt-2">
                 <div class="">
                     <h4 class="d-inline">Caractéristiques de difficulté :</h4>
-                    <a class="d-inline mr-0 mt-1 float-right">
-                        <span class="fas fa-search text-primary" aria-hidden="true"></span></a>
                 </div>
 
                 <div class="pl-4 pt-2">
                     <table class="table table-striped">
                         <tr>
-                            <td  width="40%" class="font-weight-bold text-right">Difficulté d'observation :</td>
-                            <td  width="20%" class="pl-0">{% if jeuEnChene.difficulteObservation %}{{ jeuEnChene.difficulteObservation }}{% else %}?{% endif %} / 10</td>
+                            <td class="font-weight-bold text-right">Difficulté de raisonnement :</td>
+                            <td class="pl-0">{% if jeuEnChene.difficulteRaisonnement %}{{ jeuEnChene.difficulteRaisonnement }}{% else %}?{% endif %} / 10
+                                <a class="d-inline float-right" data-toggle="popover" title="Difficulté de raisonnement" data-content="Cela correspond à la complexité des énigmes à décrypter. Les Jeux en Chêne sont composés d'énigmes successives. Le niveau de difficulté indiqué correspond à la difficulté de l'énigme la plus coriace du Jeu.">
+                                    <span class="fas fa-search text-color-2" aria-hidden="true"></span>
+                                </a>
+                            </td>
                         </tr>
                         <tr>
-                            <td class="font-weight-bold text-right">Difficulté de raisonnement :</td>
-                            <td class="pl-0">{% if jeuEnChene.difficulteRaisonnement %}{{ jeuEnChene.difficulteRaisonnement }}{% else %}?{% endif %} / 10</td>
+                            <td  width="40%" class="font-weight-bold text-right">Difficulté d'observation :</td>
+                            <td  width="20%" class="pl-0">{% if jeuEnChene.difficulteObservation %}{{ jeuEnChene.difficulteObservation }}{% else %}?{% endif %} / 10
+                                <a class="d-inline float-right" data-toggle="popover" title="Difficulté d'observation" data-content="Cela correspond à la difficulté à récupérer tous les éléments visuels éparpillés sur le Jeu en Chêne. Pour un niveau facile, tous est bien visible. Mais si un élément est bien caché (par exemple, sous le Jeu en Chêne, des pointes forment une flêche), cela augmentera ce niveau de difficulté.">
+                                    <span class="fas fa-search text-color-2" aria-hidden="true"></span>
+                                </a>                
+                            </td>
                         </tr>
                         <tr>
                             <td  width="40%" class="font-weight-bold text-right">Nombre d'étapes :</td>
-                            <td  width="20%" class="pl-0">{% if jeuEnChene.nombreEtapes %}{{ jeuEnChene.nombreEtapes }}{% else %}?{% endif %}</td>
+                            <td  width="20%" class="pl-0">{% if jeuEnChene.nombreEtapes %}{{ jeuEnChene.nombreEtapes }}{% else %}?{% endif %}
+                                <a class="d-inline float-right" data-toggle="popover" title="Nombre d'étapes" data-content="Le nombre d'étapes correspond à peu près au nombre d'énigmes à résoudre pour retrouver le médaillon. Ce nombre est important. Il influence grandement la durée et la difficulté réelle du Jeu en Chêne. Plus il y a d'étapes, plus vous jouerez longtemps ; mais plus vous risquez de buter sur une énigme...">
+                                    <span class="fas fa-search text-color-2" aria-hidden="true"></span>
+                                </a>
+                            </td>
                         </tr>
                         <tr>
-                            <td class="font-weight-bold text-right">Temps de jeu (en moyenne) :</td>
-                            <td class="pl-0">A définir</td>
+                            <td class="font-weight-bold text-right">Temps de jeu moyen :</td>
+                            <td class="pl-0">Non défini
+                                <a class="d-inline float-right" data-toggle="popover" title="Temps de jeu" data-content="Le temps de jeu exprimé en heures est la moyenne des temps de jeu indiqués par ceux ayant déjà réservé le Jeu en Chêne.">
+                                    <span class="fas fa-search text-color-2" aria-hidden="true"></span>
+                                </a>
+                            </td>
                         </tr>
                     </table>  
                 </div>                
@@ -115,7 +150,7 @@
                         {% for babiole in jeuEnChene.babioles  %}
                             <tr><td>{{ babiole.nom }}</td></tr>
                         {% endfor %}
-                        <tr><td class="font-weight-bold">et quelques autres à découvrir...</td></tr>
+                        <tr><td class="font-weight-bold">et quelques autres à découvrir (surprise)...</td></tr>
                     </table>
                 </div>
             </div>

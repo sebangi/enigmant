@@ -25,6 +25,11 @@
             <li class="nav-item mr-2">
                 <a class="nav-link {% if menuCourant is defined and menuCourant == 'Babiole' %}active text-jaune{% endif %}" href="{{ path('babiole.index', { 'numTypeBabiole':"1" }) }}">Babioles<span class="sr-only">(current)</span></a>
             </li>
+            {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <li class="nav-item mr-2">
+                <a class="nav-link {% if menuCourant is defined and menuCourant == 'Grade' %}active text-jaune{% endif %}" href="{{ path('gradeChene') }}">Grades<span class="sr-only">(current)</span></a>
+            </li>
+            {% endif %}
         </ul>
 
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
