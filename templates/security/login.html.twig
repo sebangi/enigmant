@@ -19,7 +19,7 @@
                 {% endif %}
 
 
-                <form action="{{ path('login') }}"  method="post">
+                <form action="{{ path('app_login') }}"  method="post">
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                     <div class="form-group">
                         <label for="inputUsername">Identifiant :</label>
@@ -39,7 +39,7 @@
                         <button type="submit" class="btn btn-primary"  display:inline>Se connecter</button>
                     </div>
                     <div style="position: relative; float: right;">
-                        <a href="{{ path("login") }}">Mot de passe oublié ? NON FAIT</a>
+                        <a href="{{ path("app_login") }}">Mot de passe oublié ? NON FAIT</a>
                     </div>
                 </form>
 

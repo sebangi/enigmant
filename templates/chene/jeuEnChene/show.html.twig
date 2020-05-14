@@ -46,7 +46,11 @@
                                 {{ include('outils/_piece.html.twig', {valeur : jeuEnChene.prix}) }}
                             </div>
                         </div>
-                        <a href="#" class="btn btn-primary mt-2">Louer maintenant</a>
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            <a href="#" class="btn btn-primary mt-2">Louer maintenant</a>
+                        {% else %}
+                            <a href="{{ path('app_login') }}" class="btn btn-primary mt-2">Se connecter pour réserver</a>
+                        {% endif %}
                         <a href="{{ path("chene.home") }}#CommentCaMarche" class="btn btn-secondary mt-2 float-right">Comment on loue ?</a>
                         <a href="{{ path("chene.home") }}#JeNAiPasDeBabioles" class="btn btn-secondary mt-2 mr-2  float-right">Je n'ai pas de babiole !</a>
                     </div>

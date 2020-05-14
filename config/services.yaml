@@ -33,4 +33,7 @@ services:
     Twig\CacheExtension\Extension:
         tags:
         - { name: twig.extension }
-        
+    
+    App\RequestSubscriber\RequestSubscriber:
+        tags:
+            - { name: kernel.request_subscriber, event: kernel.request }    

@@ -33,7 +33,7 @@ class AdminActualiteController extends BaseController
     public function index(ActualiteRepository $actualiteRepository): Response
     {
         return $this->monRender('admin/general/actualite/index.html.twig', [
-            'actualites' => $actualiteRepository->findAll([],["date"=>'DESC']),
+            'actualites' => $actualiteRepository->findBy([],["prioritaire"=>"DESC","date"=>"DESC"])
         ]);
     }
 

@@ -39,13 +39,12 @@ class SecurityController extends BaseController
     }        
     
     /**
-     * @Route("/login", name="login", methods={"GET", "POST"})
+     * @Route("/login", name="app_login", methods={"GET", "POST"})
      * @return Response
      */
-    public function login(AuthenticationUtils $authenticationUtils) : Response {
-        
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_USER'))
-            return $this->redirectToRoute('home');
+    public function login(Request $request, AuthenticationUtils $authenticationUtils) : Response {
+        //if ($this->get('security.authorization_checker')->isGranted('ROLE_USER'))
+        //    return $this->redirectToRoute('home');
         
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();

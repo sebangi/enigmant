@@ -24,7 +24,7 @@ class LoginFormAuthentificatorAuthenticator extends AbstractFormLoginAuthenticat
 {
     use TargetPathTrait;
 
-    public const LOGIN_ROUTE = 'login';
+    public const LOGIN_ROUTE = 'app_login';
 
     private $entityManager;
     private $urlGenerator;
@@ -93,11 +93,14 @@ class LoginFormAuthentificatorAuthenticator extends AbstractFormLoginAuthenticat
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         $targetPath = $this->getTargetPath($request->getSession(), $providerKey);
+        dump($request->getSession());
+        dump($providerKey);
+        dump($targetPath);
+
         if ($targetPath) {
             return new RedirectResponse($targetPath);
         }
-        dump($targetPath);
-
+        
         return new RedirectResponse($this->urlGenerator->generate('home'));
     }
 

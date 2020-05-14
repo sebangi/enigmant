@@ -12,16 +12,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent1">
         <ul class="navbar-nav navbar-brand  pt-0 pb-0">
             <li class="nav-item mr-2">
-                <a class="nav-link {% if menuCourant is defined and menuCourant == 'Profil' %}active{% endif %}" href="{{ path('home') }}">Mon profil<span class="sr-only">(current)</span></a>
+                <a class="nav-link {% if menuCourant is defined and menuCourant == 'Profil' %}active{% endif %}" href="{{ path('home') }}">Mon Profil<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item mr-2">
                 <a class="nav-link {% if menuCourant is defined and menuCourant == 'Conversations' %}active{% endif %}" href="{{ path('general.conversation.index') }}">Mes Conversations<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item mr-2">
-                <a class="nav-link {% if menuCourant is defined and menuCourant == 'Grades' %}active{% endif %}" href="{{ path('grade.index', {themeCourant: "General"}) }}">Mes grades<span class="sr-only">(current)</span></a>
+                <a class="nav-link {% if menuCourant is defined and menuCourant == 'Grades' %}active{% endif %}" href="{{ path('grade.index', {themeCourant: "General"}) }}">Mes Grades<span class="sr-only">(current)</span></a>
             </li>
         </ul>               
     </div>
-
-
 </nav>
