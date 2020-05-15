@@ -18,7 +18,7 @@
                 <div>
                     {% if themeCourant == "Chêne" %}
                         <u class='font-weight-bold' data-toggle="tooltip-enigmant" data-placement="bottom" title="Étrange ces couleurs...">
-                            <span style="color:blue;">É</span><span style="color:SteelBlue;">n</span><span style="color:purple;">i</span><span style="color:black;">g</span><span style="color:red;">m</span><span style="color:SandyBrown;">a</span><span style="color:yellow;">n</span><span style="color:green;">t</span>
+                            <span style="color:blue;">É</span><span style="color:lightskyblue;">n</span><span style="color:magenta;">i</span><span style="color:black;">g</span><span style="color:red;">m</span><span style="color:SandyBrown;">a</span><span style="color:yellow;">n</span><span style="color:green;">t</span>
                         </u>
                     {% else %}   
                         Énigmant
@@ -78,7 +78,7 @@
                                 <span class="fas fa-sign-in-alt" aria-hidden="true" alt="Se déconnecter"></span> 
                             </a>
                         {% else %}
-                            <a href="{{ path('app_login') }}" class="pb-0 nav-link">
+                            <a href="{{ path('app_login') }}" class="pb-0 nav-link text-dark font-weight-dark">
                                 Se connecter
                             </a>
                         {% endif%}
@@ -108,21 +108,18 @@
         </nav>#}
 
 
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+{#        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>#}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script> 
 
         
         {% block javascripts %}
-            {#            {{ encore_entry_script_tags('app') }}    #}
-            <script src="/enigmant/public/build/app.js"></script>
+           {# <script src="/enigmant/public/build/app.js"></script>
             <script src="/enigmant/public/build/runtime.js"></script>
-            <script src="/enigmant/public/build/vendors~app.js"></script>
+            <script src="/enigmant/public/build/vendors~app.js"></script>#}
 
-            <script src="public/build/app.js"></script>
-            <script src="public/build/runtime.js"></script>
-            <script src="public/build/vendors~app.js"></script>
+            {{ encore_entry_script_tags('app') }}    
         {% endblock %}
     </body>
 </html>

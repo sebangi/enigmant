@@ -101,8 +101,8 @@
                                     <td></td>                            
                                     <td class="font-italic">{{ grade.niveau_conditionTexte }}</td>
                                 {% else %} 
-                                    <td>{{ obt.date | date("d/m/Y") }}</td>                            
-                                    <td>{{ grade.niveau_raison }}</td>                            
+                                    <td class="font-weight-bold">{{ obt.date | date("d/m/Y") }}</td>                            
+                                    <td class="font-weight-bold">{{ grade.niveau_raison }}</td>                            
                                 {% endif%}
                             </tr>    
                         {% endif%}

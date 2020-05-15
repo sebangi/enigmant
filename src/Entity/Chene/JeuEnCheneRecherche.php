@@ -35,6 +35,20 @@ class JeuEnCheneRecherche {
     /**
      *
      * @var int|null 
+     * @assert\Range(min=0)
+     */
+    private $maxEtape;
+    
+    /**
+     *
+     * @var int|null 
+     * @assert\Range(min=0)
+     */
+    private $minEtape;
+    
+    /**
+     *
+     * @var int|null 
      * @assert\Range(min=0, max=10)
      */
     private $minDifficulteRaisonnement;    
@@ -67,6 +81,24 @@ class JeuEnCheneRecherche {
         
     }
 
+    public function getMaxEtape() {
+        return $this->maxEtape;
+    }
+
+    public function getMinEtape() {
+        return $this->minEtape;
+    }
+
+    public function setMaxEtape($maxEtape) {
+        $this->maxEtape = $maxEtape;
+        return $this;
+    }
+
+    public function setMinEtape($minEtape) {
+        $this->minEtape = $minEtape;
+        return $this;
+    }
+        
     /**
      * @return int|null
      */

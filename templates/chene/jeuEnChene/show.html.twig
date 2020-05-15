@@ -18,59 +18,57 @@
                 </div>
 
                 <div class="col-md-7 d-flex flex-column pr-0 mb-2 mt-2">
-                    <h3>
-                        Collection 
-                        <a class="font-italic text-dark" href="{{ path("collectionChene.show", { slug: jeuEnChene.collectionChene.getSlug(), id: jeuEnChene.collectionChene.id }) }}">
-                            {{ jeuEnChene.collectionChene.nom }}
-                        </a>
-                    </h3>
 
-                    <h1 class="text-right">
-                        <span class="float-left text-primary" >{{ jeuEnChene.nom }}</span>
-                        
-                        <a class="d-inline text-primary pt-0 pr-1 pb-0 pl-0" 
-                            {% if jeuPrecedent %}
+                    <h3  class="text-right">
+                        <span class="float-left text-dark" 
+                              href="{{ path("collectionChene.show", { slug: jeuEnChene.collectionChene.getSlug(), id: jeuEnChene.collectionChene.id }) }}"> 
+                            Collection <i>{{ jeuEnChene.collectionChene.nom }}</i>
+                        </span> 
+
+                        <a class="d-inline text-primary no-padding" 
+                           {% if jeuPrecedent %}
                                href="{{ path("jeuEnChene.show", { slug: jeuPrecedent.slug, id: jeuPrecedent.id }) }}"
-                            {% endif %}
-                            >
-                            <span class="mr-2 fas fa-angle-left {% if jeuPrecedent %}text-dark{% else %}invisible{% endif %}" aria-hidden="false"></span></a>{{ jeuEnChene.num }}
+                           {% endif %}
+                           >
+                            <span class="mr-2 fas fa-angle-left {% if jeuPrecedent %}text-dark{% else %}invisible{% endif %}" aria-hidden="false"></span></a>{{ jeuEnChene.num }} / {{ jeuEnChene.collectionChene.jeuEnChenes.count( ) }}
                         <a class="d-inline text-primary pt-0 pr-1 pb-0 pl-0" 
                            {% if jeuSuivant %}
-                           href="{{ path("jeuEnChene.show", { slug: jeuSuivant.getSlug(), id: jeuSuivant.id }) }}"
+                               href="{{ path("jeuEnChene.show", { slug: jeuSuivant.getSlug(), id: jeuSuivant.id }) }}"
                            {% endif %}
                            >
                             <span class="fas fa-angle-right {% if jeuSuivant %}text-dark{% else %}invisible{% endif %}" aria-hidden="true"></span>
                         </a>
+                    </h3>
+
+                    <h1 class="text-color-2 font-weight-bold">
+                        {{ jeuEnChene.nom }}
                     </h1>  
 
                     <div class="mt-4 text-justify">{{ jeuEnChene.description | nl2br(false) }}</div>
 
                     <div style="margin-top: auto;">
-                        <div style="font-size:1.5rem;">
-                            <h5 class="d-inline font-weight-bold">
-                                Durée de location conseillé : 
-                            </h5>
-                            <div class="d-inline" >
-                                {{ jeuEnChene.getTempsLocationString() }}
-                            </div>
-                        </div>
+                        <h5 class="mb-0">
+                            <u class="font-weight-bold">Location :</u>
+                            <ul class="mb-0">
+                                <li class="mt-1">
+                                    <b>Durée conseillée :</b> 
+                                    {{ jeuEnChene.getTempsLocationString() }}
+                                </li>
+                                <li class="mt-1">
+                                    <b>Prix conseillé :</b> 
+                                    {{ include('outils/_piece.html.twig', {valeur : jeuEnChene.prix}) }}
+                                </li>
+                            </ul>
+                        </h5>
 
-                        <div style="font-size:1.5rem;">
-                            <h5 class="d-inline font-weight-bold">
-                                Prix conseillé : 
-                            </h5>
-                            <div class="d-inline" >
-                                {{ include('outils/_piece.html.twig', {valeur : jeuEnChene.prix}) }}
-                            </div>
-                        </div>
                         {% if not jeuEnChene.disponible %}
                             <a class="btn text-warning btn-secondary mt-2" data-toggle="popover" title="Location impossible" data-placement="left" data-content="Ce Jeu en Chêne est en location actuellement. Veuillez patienter un peu...">
                                 Louer maintenant</span>
                             </a>
                         {% elseif is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                            <a href="#" class="btn btn-primary mt-2">Louer maintenant</a>
+                            <a href="{{ path('chene.location', { slug: jeuEnChene.slug, id: jeuEnChene.id }) }}" class="btn btn-success mt-2">Louer maintenant</a>
                         {% else %}
-                            <a href="{{ path('app_login') }}" class="btn btn-primary mt-2">Se connecter pour réserver</a>
+                            <a href="app_login" class="btn btn-success mt-2">Se connecter pour réserver</a>
                         {% endif %}
                         <a href="{{ path("chene.home") }}#CommentCaMarche" class="btn btn-secondary mt-2 float-right">Comment on loue ?</a>
                         <a href="{{ path("chene.home") }}#JeNAiPasDeBabioles" class="btn btn-secondary mt-2 mr-2  float-right">Je n'ai pas de babiole !</a>
@@ -80,19 +78,20 @@
         </div>
     </div>
 
-    <div class="container">
+    {{ include('outils/_flash.html.twig') }}   
 
+    <div class="container">
         {% if jeuEnChene.getCommentairesGourou %}
             <div class="row bg-color-2-light p-4">
                 <div class="col-md-5">
                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                         <h4 class="text-right">Commentaire du Grand Gourou :</h4>
                     {% else %}
-                        <h4 class="text-right">Commentaire de l'inventeur :</h4>
+                        <h4 class="text-right">Commentaire du constructeur :</h4>
                     {% endif %}
                 </div>
-                <div class="col-md-5 font-italic">
-                    « {{ jeuEnChene.getCommentairesGourou() }} »
+                <div class="col-md-5 font-italic text-justify">
+                    « {{ jeuEnChene.getCommentairesGourou() | nl2br(false) }} »
                 </div>
             </div>
 

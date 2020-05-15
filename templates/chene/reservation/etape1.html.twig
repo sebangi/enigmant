@@ -1,0 +1,26 @@
+{% extends "chene/baseChene.html.twig" %}
+
+{% block body %}
+    <div class="jumbotron mon-jumbotron">
+        <div class="container">
+            <h1 class="text-center">Location de {{ jeu.nom }}</h1>
+
+            {#        {{ include('admin/chene/reservation/_form.html.twig', {button: 'Éditer'}) }}       #}
+
+        </div>
+    </div>
+
+    {{ include('outils/_flash.html.twig') }}   
+
+    <div class="container mt-4">
+        <ul class="progressbar">
+            <li class="active">Vérification des conditions</li>
+            <li>Choix de la date de retrait</li>
+            <li>Validation</li>
+            <li>Confirmation</li>
+        </ul>
+
+    </div>
+
+
+{% endblock %}

@@ -54,9 +54,20 @@ body {
 }
 
 .bg-chene {
-    background-image: url("../../public/images/badges/fond.png");
+    background-image: url("../../public/images/fond/chene.png");
 }
 
+.bg-chasse {
+    background-image: url("../../public/images/fond/chasse.png");
+}
+
+.bg-theme-chene:hover {
+    background-image: url("../../public/images/fond/chene.png");
+}
+
+.bg-theme-chasse:hover {
+    background-image: url("../../public/images/fond/chasse.png");
+}
 
 .navbar-dark .navbar-nav .nav-link.active {
     color: gold;
@@ -79,7 +90,7 @@ body {
 }
 
 .mon-btn {
-    background-image: url("../../public/images/badges/fond.png");
+    background-color: var(--bg-color-2);
     color: black;
     border-width: 1px;
     border-style: solid;
@@ -90,6 +101,28 @@ body {
     background-image: none;
     background-color: var(--bg-color-1);
 }
+
+.mon-btn.chene {
+    background-image: url("../../public/images/fond/chene.png");
+}
+.mon-btn.chene:hover {
+    background-image: none;
+    background-color: var(--bg-color-1);
+}
+
+
+.mon-btn.chasse {
+    background-image: url("../../public/images/fond/chasse.png");
+}
+.mon-btn.chasse:hover {
+    background-image: none;
+    background-color: var(--bg-color-1);
+}
+
+.dropdown-item:hover {
+    background-color: var(--bg-color-1-light);
+}
+
 
 .second-nav {
     top: 40px;
@@ -221,12 +254,12 @@ hr {
 
 .table-babiole th {
     border: 0;
-    background-image: url("../../public/images/badges/fond.png");
+    background-image: url("../../public/images/fond/chene.png");
 }
 
 .categorie-babiole {
     /*background-color: var(--bg-color-2-dark);*/
-    background-image: url("../../public/images/badges/fond.png");
+    background-image: url("../../public/images/fond/chene.png");
 }
 
 
@@ -302,9 +335,6 @@ hr {
     background-color: gold;
 }
 
-.theme-body-disponible:hover {
-    background-color: var(--bg-color-2)
-}
 
 .font-caracteristique {
     font-size: 0.8rem;    
@@ -316,27 +346,18 @@ hr {
     left:0px;
 }
 
-.jeu-card-disponible {
-    background-image: url("../../public/images/badges/fond.png");
+.jeu-card {
+    background-image: url("../../public/images/fond/chene.png");
 }
 
-.jeu-card-non-disponible {
-    background-image: url("../../public/images/badges/fond.png");
-}
-
-.jeu-card-disponible:hover {
-    /*background-color: var(--bg-color-2);*/
+.jeu-card:hover {
     background-color: var(--bg-color-1);
     background-image: none;
 }
 
-.jeu-card-non-disponible:hover {
-    background-color: LavenderBlush;
-    background-image: none;
-}
 
 .collection-card {
-    background-image: url("../../public/images/badges/fond.png");
+    background-image: url("../../public/images/fond/chene.png");
 }
 
 .collection-card:hover {
@@ -510,7 +531,7 @@ hr {
     border-style: solid;
     color: #ab5200;
     font-size: 2.5rem;   
-    background-image: url("../../public/images/badges/fond.png");
+    background-image: url("../../public/images/fond/chene.png");
 }
 
 .card-progression {

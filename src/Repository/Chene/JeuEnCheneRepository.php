@@ -57,6 +57,20 @@ class JeuEnCheneRepository extends ServiceEntityRepository
                 ->setParameter( 'maxPrix', $recherche->getMinPrix() );
         }
         
+        if ( $recherche->getMaxEtape() )
+        {
+            $query = $query
+                ->andwhere( 'j.nombreEtapes <= :maxEtape' )
+                ->setParameter( 'maxEtape', $recherche->getMaxEtape() );
+        }
+        
+        if ( $recherche->getMinEtape() )
+        {
+            $query = $query
+                ->andwhere( 'j.nombreEtapes >= :maxEtape' )
+                ->setParameter( 'maxEtape', $recherche->getMinEtape() );
+        }
+        
         if ( $recherche->getMinDifficulteRaisonnement() )
         {
             $query = $query

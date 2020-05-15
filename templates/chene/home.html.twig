@@ -34,8 +34,8 @@
                             Leur résolution vous fera monter en grade, de simple <b>Visiteur en Chêne</b> à <b>Manitou Suprême en Chêne</b> ! Alors, lancez-vous, louez un jeu...
                         </p>
                         <div class="text-center mb-2">
-                            <a class="btn mon-btn" href="{{ path('collectionChene.index') }}">Voir les Collections<span class="sr-only">(current)</span></a>
-                            <a class="btn mon-btn" href="{{ path('jeuEnChene.index') }}">Voir les Jeux En Chêne<span class="sr-only">(current)</span></a>
+                            <a class="btn mon-btn chene mr-2" href="{{ path('collectionChene.index') }}">Voir les Collections<span class="sr-only">(current)</span></a>
+                            <a class="btn mon-btn chene ml-2" href="{{ path('jeuEnChene.index') }}">Voir les Jeux En Chêne<span class="sr-only">(current)</span></a>
                         </div>                       
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                             </p>
                         </div>
                         <div class="text-center mt-2 mb-2">
-                            <a class="btn mon-btn" href="{{ path('babiole.index', { 'numTypeBabiole':"1"}) }}">Plein d'idées de Babioles<span class="sr-only">(current)</span></a>
+                            <a class="btn mon-btn chene" href="{{ path('babiole.index', { 'numTypeBabiole':"1"}) }}">Plein d'idées de Babioles<span class="sr-only">(current)</span></a>
                         </div>
                         <div>
                             <u>Quelques précisions :</u>
@@ -120,7 +120,7 @@
                 </div>
             </div>
                                 
-            {{  include('general/actualite/_actualites.html.twig', {bgclass : "bg-chene"}) }}    
+            {{  include('general/actualite/_actualites.html.twig', {theme : "chene"}) }}    
         </div>
     </div>
 

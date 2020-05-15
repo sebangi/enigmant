@@ -12,6 +12,7 @@ use App\Entity\General\User;
 use App\Repository\General\UserRepository;
 use App\Entity\Chene\JeuEnChene;
 use App\Repository\Chene\JeuEnCheneRepository;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ReservationJeuType extends AbstractType
 {
@@ -22,9 +23,15 @@ class ReservationJeuType extends AbstractType
             ->add('dateRetrait', DateType::class)
             ->add('dateFinPrevue', DateType::class)
             ->add('dateRendu', DateType::class)
-            ->add('avisPublic')
-            ->add('avisPriveDifficulte')
-            ->add('avisPriveTechnique')
+            ->add('avisPublic', TextareaType::class, [
+                'required' => false
+                ])
+            ->add('avisPriveDifficulte', TextareaType::class, [
+                'required' => false
+                ])
+            ->add('avisPriveTechnique', TextareaType::class, [
+                'required' => false
+                ])
             ->add('reussi')
             ->add('tempsJeuEstime')
             ->add('user', EntityType::class, [

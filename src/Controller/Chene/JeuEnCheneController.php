@@ -84,7 +84,7 @@ class JeuEnCheneController extends BaseController {
 
     /**
      * @route("/{slug}-{id}", name="jeuEnChene.show", requirements={"slug": "[a-z0-9\-]*"})  
-     * @param JeuEnChene $je()uEnChene
+     * @param JeuEnChene $jeuEnChene
      * @return Response
      */
     public function show(JeuEnChene $jeuEnChene, string $slug): Response {

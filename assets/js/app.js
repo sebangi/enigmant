@@ -10,7 +10,6 @@
 import '../css/app.css';
 
 // TEST BOOSTRAP
-const $ = require('jquery');
 
 // or you can include specific pieces
 //require('bootstrap/js/dist/tooltip');
@@ -35,6 +34,9 @@ require('bootstrap-star-rating/themes/krajee-svg/theme.css');
 
 require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
+
+const $ = require('jquery');
+
 
 $(document).ready(function () {
     $('[data-toggle="tooltip-enigmant"]').tooltip({

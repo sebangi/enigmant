@@ -15,6 +15,7 @@
     </div>
 
     <div class="container mt-2">
+
         <div class=" ml-4">
             <nav class="navbar navbar-expand-lg navbar-light no-margin no-padding">
 
@@ -36,7 +37,7 @@
                     {% endfor %}
                 </div>
             </nav>
-
+                
             <h5 class="ml-4 mb-4 text-justify">
                 {{ typeCourant.description }}
             </h5>
@@ -80,10 +81,9 @@
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                         {% for jeu in babiole.jeuEnChenes %}
-                                                            <p class="text-right ml-1 mt-0 mb-0">
-                                                                <span class="float-left" >{{ jeu.nom }}</span>
-                                                                <a class="d-inline dropdown-item pt-0 pr-1 pb-0 pl-0" href="{{ path("jeuEnChene.show", { slug: jeu.slug, id: jeu.id }) }}"><span class="fas fa-search text-color-2" aria-hidden="true"></span></a>
-                                                            </p>                                                                                                                    
+{#                                                            <p class="ml-2 mt-1 mb-1">#}
+                                                                <a class="dropdown-item pl-2 pt-0 pr-1 pl-0" href="{{ path("jeuEnChene.show", { slug: jeu.slug, id: jeu.id }) }}">{{ jeu.nom }}</a>
+{#                                                            </p>                                                                                                                    #}
                                                         {% endfor %}
                                                     </div>
 

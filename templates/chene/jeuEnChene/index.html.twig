@@ -18,20 +18,20 @@
             </h1>
             {% if not filtre %}
                 <p class="text-right no-margin">
-                    <a class="btn btn-primary align-right no-marging" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Options de recherche</a>
+                    <a class="btn btn-secondary align-right no-marging" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Options de recherche</a>
                 </p>
             {% endif %}
             <div class="collapse {% if filtre %}show{% endif %}" id="multiCollapseExample1">
-                <hr class="mb-2">
+                <hr class="mb-2 mt-2">
                 {{ form_start(form) }}
                 <div class="form-row">
-                    <div class="col-md-3 no-margin">
+                    <div class="col-md-3 no-margin pt-2">
                         <div class="input-group mb-1">
                             {{ form_widget(form.disponible) }}
                         </div>
                     </div> 
 
-                    <div class="col-md-6 no-margin">
+                    <div class="col-md-4 no-margin">
                         <div class="input-group mb-1">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">Difficulté de raisonnement</span>
@@ -50,18 +50,17 @@
                             {{ form_widget(form.maxPrix) }}
                         </div>
                     </div>
+                    <div class="col-md-2 no-margin">
+                    </div>
                 </div>
                 <div class="form-row">
                     <div class="col-md-3 no-margin">
                         <div class="input-group">
-                            {#<div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Collection</span>
-                            </div>#}
                             {{ form_widget(form.collection) }}
                         </div>
                     </div>    
 
-                    <div class="col-md-6 no-margin">
+                    <div class="col-md-4 no-margin">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">Difficulté d'observation</span>
@@ -71,7 +70,17 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3 text-right">
+                    <div class="col-md-3 no-margin">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Nb. d'étapes</span>
+                            </div>
+                            {{ form_widget(form.minEtape) }}
+                            {{ form_widget(form.maxEtape) }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 text-right">
                         <div class="no-margin">
                             {{ form_widget(form.recherche) }}
                         </div>

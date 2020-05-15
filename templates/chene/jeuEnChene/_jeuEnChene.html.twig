@@ -1,5 +1,5 @@
 {#{% cache 'jeuEnChene' ~ jeuEnChene.id  jeuEnChene.majDate.timestamp|default(2019) %}#}
-<div class="card mb-4 border-dark rounded_card {% if jeuEnChene.disponible %}jeu-card-disponible{% else %}jeu-card-non-disponible{% endif %}">
+<div class="card mb-4 border-dark rounded_card jeu-card">
     {% if jeuEnChene.imageName %}
         <img class="card-img-top rounded_card" src="{{ vich_uploader_asset(jeuEnChene, 'imageFile') | imagine_filter("my_thumb") }}" > 
     {% else %}
