@@ -9,7 +9,7 @@
         <h1 class="text-center">Progression en {{ themeCourant }}</h1>
     </div>
 
-    <div class="container mt-4 mb-4 text-center">
+    <div class="container mt-4 mb-2 text-center">
         {% for collection in collections %}
             {% if collection.num % 2 == 0 %}
                 {% set class = "collection-paire" %}
@@ -19,9 +19,9 @@
                 {% set pair = false %}
             {% endif%}
 
-            <div class="card mb-4 border-dark ">
+            <div class="card mb-2 border-dark ">
                 <div class="container">
-                    <div class="row position-relative bg-color-2">
+                    <div class="row position-relative bg-chene">
                         {% if not pair %}
                             <div class="col-md-7 no-padding">    
                                 {% if collection.imageName %}
@@ -54,9 +54,9 @@
                             <h2 class="mb-0">
                                 {% for jeu in jeuxEnChene %}
                                     {% if jeu.collectionChene == collection %}
-                                        <a class="btn rounded-circle badge-progression mt-2 mb-2" 
+                                        <a class="btn rounded-circle badge-progression mt-2 mb-2 " 
                                            {% if app.user.aReussiJeu( jeu ) %}
-                                                style="border-color:{{jeu.couleur}};"
+                                               style="border-color:{{jeu.couleur}};"
                                            {% else %}
                                                style="border-color:#ab5200;"
                                            {% endif %}
@@ -64,9 +64,9 @@
                                            href="{{ path("jeuEnChene.show", { slug: jeu.slug, id: jeu.id }) }}">
                                             {#                                <span class="fas fa-times align-middle" aria-hidden="true"></span>#}
                                             {% if app.user.aReussiJeu( jeu ) %}
-                                                    <span class="font-weight-bold fas fa-check align-middle text-success" aria-hidden="true"></span>
+                                                <span class="font-weight-bold">{{ jeu.num }}</span>
                                             {% else %}
-                                                    {{ jeu.num }}
+                                                <span class="fas fa-times align-middle" aria-hidden="true"></span>
                                             {% endif %}
                                         </a>
                                     {% endif %}

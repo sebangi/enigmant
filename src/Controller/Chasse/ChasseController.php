@@ -55,7 +55,7 @@ class ChasseController extends BaseController
     public function index(NiveauRepository $niveauRepository): Response {
         $grades = $niveauRepository->getGradesDunTheme($this->getThemeCourant());
         
-        return $this->monRender('chene/grade.html.twig', [
+        return $this->monRender('chasse/grade.html.twig', [
                 'menuCourant' => 'Grade',
                 'grades' => $grades
         ]);

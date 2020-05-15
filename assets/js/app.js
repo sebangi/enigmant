@@ -9,7 +9,6 @@
 //import '../css/app.css';import $ from 'jquery';
 import '../css/app.css';
 
-
 // TEST BOOSTRAP
 const $ = require('jquery');
 

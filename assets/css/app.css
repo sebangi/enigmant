@@ -53,6 +53,10 @@ body {
     background-color: var(--bg-color-2-dark);
 }
 
+.bg-chene {
+    background-image: url("../../public/images/badges/fond.png");
+}
+
 
 .navbar-dark .navbar-nav .nav-link.active {
     color: gold;
@@ -75,7 +79,7 @@ body {
 }
 
 .mon-btn {
-    background-color: var(--bg-color-2);
+    background-image: url("../../public/images/badges/fond.png");
     color: black;
     border-width: 1px;
     border-style: solid;
@@ -83,6 +87,7 @@ body {
 }
 
 .mon-btn:hover {
+    background-image: none;
     background-color: var(--bg-color-1);
 }
 
@@ -98,13 +103,18 @@ body {
     background-color: orange;
 }
 
+hr {
+    color: black;
+    background-color: black;
+} 
+
 
 .mon-jumbotron {
     background-image: linear-gradient(var(--bg-color-1), var(--bg-color-2));
-    padding-top: 16px; 
+    padding-top: 4px; 
     padding-left: 0px;
     padding-right: 0px; 
-    padding-bottom: 16px;
+    padding-bottom: 4px;
     margin: 0px;
     border-radius: 0;
     border-width: 0px 0px 1px 0px;
@@ -211,11 +221,12 @@ body {
 
 .table-babiole th {
     border: 0;
-    background-color: var(--bg-color-2-dark);   
+    background-image: url("../../public/images/badges/fond.png");
 }
 
 .categorie-babiole {
-    background-color: var(--bg-color-2-dark);
+    /*background-color: var(--bg-color-2-dark);*/
+    background-image: url("../../public/images/badges/fond.png");
 }
 
 
@@ -305,20 +316,32 @@ body {
     left:0px;
 }
 
+.jeu-card-disponible {
+    background-image: url("../../public/images/badges/fond.png");
+}
+
+.jeu-card-non-disponible {
+    background-image: url("../../public/images/badges/fond.png");
+}
+
 .jeu-card-disponible:hover {
-    background-color: var(--bg-color-2);
+    /*background-color: var(--bg-color-2);*/
+    background-color: var(--bg-color-1);
+    background-image: none;
 }
 
 .jeu-card-non-disponible:hover {
     background-color: LavenderBlush;
+    background-image: none;
 }
 
 .collection-card {
-    /*border-radius: 30px 30px 30px 30px;*/
+    background-image: url("../../public/images/badges/fond.png");
 }
 
 .collection-card:hover {
-    background-color: var(--bg-color-2);
+    background-color: var(--bg-color-1);
+    background-image: none;
 }
 
 .collection-impaire {
@@ -367,14 +390,9 @@ body {
     max-width: 100px;
 }
 
-.actualites {
-    background-color: var(--bg-color-1-light);
-}
-
 .actualite-card {
     border-radius: 30px 30px 30px 30px;
 }
-
 
 .tooltip-inner {
     max-width: 200px;
@@ -490,7 +508,6 @@ body {
     height: 80px;
     border-width: 3px;
     border-style: solid;
-    /*border-color: #ab5200;*/
     color: #ab5200;
     font-size: 2.5rem;   
     background-image: url("../../public/images/badges/fond.png");
@@ -499,3 +516,4 @@ body {
 .card-progression {
     bg-color: #ab5200;
 }
+

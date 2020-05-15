@@ -1,7 +1,7 @@
 {% extends "chene/baseChene.html.twig" %}
 
 {% block body %}
-    <div class="jumbotron mon-jumbotron">
+    <div class="jumbotron mon-jumbotron pt-0 pb-0">
         <div class="container">
             <div class="row">
                 <div class="col-md-5 pl-0">
@@ -17,7 +17,7 @@
                     {% endif %}
                 </div>
 
-                <div class="col-md-7 d-flex flex-column pr-0">
+                <div class="col-md-7 d-flex flex-column pr-0 mb-2 mt-2">
                     <h3>
                         Collection 
                         <a class="font-italic text-dark" href="{{ path("collectionChene.show", { slug: jeuEnChene.collectionChene.getSlug(), id: jeuEnChene.collectionChene.id }) }}">
