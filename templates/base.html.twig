@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css">  
         {% block stylesheets %}
-{#            <link rel="stylesheet" href="/enigmant/public/build/app.css">#}
+            {#            <link rel="stylesheet" href="/enigmant/public/build/app.css">#}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
     </head>
@@ -89,14 +89,23 @@
         {% block theme %}{% endblock theme %}
 
         {% block body %}{% endblock %}
-        <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-bottom  pt-0 pb-0">
+        {#<div class="container">
+            <ul class="progressbar">
+                <li class="active">login</li>
+                <li>choose interest</li>
+                <li>add friends</li>
+                <li>View map</li>
+            </ul>
+        </div>#}   
+
+        {#<nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-bottom  pt-0 pb-0">
 
             <ul class="navbar-nav navbar-brand  pt-0 pb-0">
                 <li class="nav-item mr-2">
                     Version 0.1
                 </li>
             </ul>
-        </nav>
+        </nav>#}
 
 
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -111,8 +120,8 @@
         <script src="public/build/app.js"></script>
         <script src="public/build/runtime.js"></script>
         <script src="public/build/vendors~app.js"></script>#}
-        
-        
+
+
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}    
             <script src="{{ asset('build/app.js') }}"></script>

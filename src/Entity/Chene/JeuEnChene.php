@@ -77,19 +77,6 @@ class JeuEnChene {
     private $babioles;
 
     /**
-     * @Vich\UploadableField(mapping="badge_image", fileNameProperty="badgeImageName")     
-     * @assert\Image(mimeTypes="image/jpeg") 
-     * @var File|null
-     */
-    private $badgeImageFile;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @var string|null
-     */
-    private $badgeImageName;
-
-    /**
      * @Vich\UploadableField(mapping="jeu_en_chene_image", fileNameProperty="imageName")     
      * @assert\Image(mimeTypes="image/jpeg") 
      * @var File|null
@@ -138,7 +125,12 @@ class JeuEnChene {
      * @ORM\Column(type="boolean", options={"default" : 0})
      */
     private $construit = false;
-
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $couleur;
+    
     /**
      * @ORM\Column(type="text", nullable=true)
      */
@@ -153,50 +145,32 @@ class JeuEnChene {
 
     /**
      * 
-     * @return null|File
-     */
-    public function getBadgeImageFile(): ?File {
-        return $this->badgeImageFile;
-    }
-
-    /**
-     * @param null|File $badgeImageFile
-     * @return JeuEnChene
-     */
-    public function setBadgeImageFile(?File $badgeImageFile): JeuEnChene {
-        $this->badgeImageFile = $badgeImageFile;
-
-        if ($this->badgeImageFile instanceof UploadedFile) {
-            $this->majDate = new \DateTime('now');
-        }
-
-        return $this;
-    }
-
-    /**
-     * 
-     * @return null|string
-     */
-    public function getBadgeImageName(): ?string {
-        return $this->badgeImageName;
-    }
-
-    /**
-     * 
-     * @param null|string $badgeImageName
-     * @return JeuEnChene
-     */
-    public function setBadgeImageName(?string $badgeImageName): JeuEnChene {
-        $this->badgeImageName = $badgeImageName;
-        return $this;
-    }
-
-    /**
-     * 
      * @return int|null
      */
     public function getId(): ?int {
         return $this->id;
+    }
+    
+    
+    /**
+     * 
+     * @return string|null
+     */
+    public function getCouleur(): ?string
+    {
+        return $this->couleur;
+    }
+
+    /**
+     * 
+     * @param string|null $couleur
+     * @return \App\Entity\Chene\JeuEnChene
+     */
+    public function setCouleur(?string $couleur): JeuEnChene
+    {
+        $this->couleur = $couleur;
+
+        return $this;
     }
 
     /**

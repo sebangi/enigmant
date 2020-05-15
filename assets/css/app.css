@@ -1,19 +1,19 @@
 :root{    
-  --bg-color-1: gold;
-  --bg-color-1-light: PaleGoldenRod;
-  --bg-color-1-dark: GoldenRod;
-  --bg-color-2: BurlyWood;
-  --bg-color-2-light: Bisque;
-  --bg-color-2-dark: Sienna;
-  --color-1: gold;
-  --color-1-dark: GoldenRod;
-  --color-2: sienna;
+    --bg-color-1: gold;
+    --bg-color-1-light: PaleGoldenRod;
+    --bg-color-1-dark: GoldenRod;
+    --bg-color-2: BurlyWood;
+    --bg-color-2-light: Bisque;
+    --bg-color-2-dark: Sienna;
+    --color-1: gold;
+    --color-1-dark: GoldenRod;
+    --color-2: sienna;
 }
 
 /*var(--bg-color-2)*/
 
 html {
-  overflow-y: scroll;
+    overflow-y: scroll;
 }
 
 body {
@@ -376,28 +376,6 @@ body {
 }
 
 
-/**[data-toggle="tooltip"][data-color="warning"] + .tooltip .tooltip-inner
-{
-  background-color: orange;
-  color: white;
-}
-*[data-toggle="tooltip-navbar"][data-color="warning"] + .tooltip.top .arrow
-{
-  border-top-color: orange;
-}
-*[data-toggle="tooltip-navbar"][data-color="warning"] + .tooltip.bottom .arrow
-{
-  border-bottom-color: orange;
-}
-*[data-toggle="tooltip-navbar"][data-color="warning"] + .tooltip.left .arrow
-{
-  border-left-color: orange;
-}
-*[data-toggle="tooltip-navbar"][data-color="warning"] + .tooltip.right .arrow
-{
-  border-right-color: orange;
-}*/
-
 .tooltip-inner {
     max-width: 200px;
     padding: 3px 8px;
@@ -416,68 +394,108 @@ body {
 }
 
 
-/*.tooltip-navbar > .tooltip-inner {
-  background-color: #73AD21;
-  color: #FFFFFF;
-  border: 1px solid green;
-  padding: 15px;
-  font-size: 20px;
-}
-
-.tooltip-navbar.top > .tooltip-arrow {
-  border-top: 5px solid green;
-}
-
-.tooltip-navbar.bottom > .tooltip-arrow {
-  border-bottom: 5px solid blue;
-}
-
-.tooltip-navbar.left > .tooltip-arrow {
-  border-left: 5px solid red;
-}
-
-.tooltip-navbar.right > .tooltip-arrow {
-  border-right: 5px solid red;
-}*/
-
-
 /* Popover */
 .popover {
-  border: 2px dotted var(--bg-color-2-dark);
+    border: 2px dotted var(--bg-color-2-dark);
 }
 
 /* Popover Header */
 .popover-header {
-  background-color: var(--bg-color-2-light);
-  color: black;
-  /*font-size: 1.2rem;*/
-  text-align:center;
+    background-color: var(--bg-color-2-light);
+    color: black;
+    /*font-size: 1.2rem;*/
+    text-align:center;
 }
 
 /* Popover Body */
 .popover-body {
-  /*background-color: var(--bg-color-2-light);*/
-  color: black;
-  padding: 5px;
-  text-align:justify;
+    /*background-color: var(--bg-color-2-light);*/
+    color: black;
+    padding: 5px;
+    text-align:justify;
 }
 
 /* Popover Arrow */
 .bs-popover-right>.arrow:after {
-  border-right-color: var(--bg-color-2-dark) !important;
+    border-right-color: var(--bg-color-2-dark) !important;
 }
 
 /* Popover Arrow */
 .bs-popover-left>.arrow:after {
-  border-left-color: var(--bg-color-2-dark) !important;
+    border-left-color: var(--bg-color-2-dark) !important;
 }
 
 /* Popover Arrow */
 .bs-popover-top>.arrow:after {
-  border-top-color: var(--bg-color-2-dark) !important;
+    border-top-color: var(--bg-color-2-dark) !important;
 }
 
 /* Popover Arrow */
 .bs-popover-bottom>.arrow:after {
-  border-bottom-color: var(--bg-color-2-dark) !important;
+    border-bottom-color: var(--bg-color-2-dark) !important;
+}
+
+
+.progressbar {
+    counter-reset: step;
+}
+.progressbar li {
+    list-style-type: none;
+    width: 25%;
+    float: left;
+    font-size: 12px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    color: #7d7d7d;
+}
+.progressbar li:before {
+    width: 30px;
+    height: 30px;
+    content: counter(step);
+    counter-increment: step;
+    line-height: 30px;
+    border: 2px solid #7d7d7d;
+    display: block;
+    text-align: center;
+    margin: 0 auto 10px auto;
+    border-radius: 50%;
+    background-color: white;
+}
+.progressbar li:after {
+    width: 100%;
+    height: 2px;
+    content: '';
+    position: absolute;
+    background-color: #7d7d7d;
+    top: 15px;
+    left: -50%;
+    z-index: -1;
+}
+.progressbar li:first-child:after {
+    content: none;
+}
+.progressbar li.active {
+    color: green;
+}
+.progressbar li.active:before {
+    border-color: #55b776;
+}
+.progressbar li.active + li:after {
+    background-color: #55b776;
+}
+
+.badge-progression {
+    width: 80px;
+    height: 80px;
+    border-width: 3px;
+    border-style: solid;
+    /*border-color: #ab5200;*/
+    color: #ab5200;
+    font-size: 2.5rem;   
+    background-image: url("../../public/images/badges/fond.png");
+}
+
+.card-progression {
+    bg-color: #ab5200;
 }

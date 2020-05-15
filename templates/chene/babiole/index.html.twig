@@ -84,7 +84,7 @@
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                         {% for jeu in babiole.jeuEnChenes %}
-                                                            <p class="text-right ml-1">
+                                                            <p class="text-right ml-1 mt-0 mb-0">
                                                                 <span class="float-left" >{{ jeu.nom }}</span>
                                                                 <a class="d-inline dropdown-item pt-0 pr-1 pb-0 pl-0" href="{{ path("jeuEnChene.show", { slug: jeu.slug, id: jeu.id }) }}"><span class="fas fa-search text-color-2" aria-hidden="true"></span></a>
                                                             </p>                                                                                                                    

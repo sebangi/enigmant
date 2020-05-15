@@ -133,6 +133,21 @@ class JeuEnCheneRepository extends ServiceEntityRepository
             ->addOrderBy('j.num', 'ASC');
     }
     
+    /**
+      * @return JeuEnChene[]
+      */
+    public function findAllByCollection() : array
+    {
+        return $this->createQueryBuilder('j')
+            ->select('j', 'col')
+            ->leftJoin('j.collectionChene', 'col')
+            ->orderBy('col.num', 'ASC')
+            ->addOrderBy('j.num', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+    
+    
     // /**
     //  * @return JeuEnChene[] Returns an array of JeuEnChene objects
     //  */

@@ -11,6 +11,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -59,6 +60,7 @@ class JeuEnCheneType extends AbstractType
                 ],                            
                 'required' => false
             ])
+            ->add('couleur', ColorType::class)
             ->add('tempsLocation', ChoiceType::class, [
                 'choices' => $this->getChoixLocation()
             ])
@@ -72,9 +74,6 @@ class JeuEnCheneType extends AbstractType
                 'multiple' => true,                            
                 'required' => false
             ])  
-            ->add('badgeImageFile', FileType::class, [
-                'required' => false
-            ] )                
             ->add('imageFile', FileType::class, [
                 'required' => false
             ] )                

@@ -342,7 +342,7 @@ class User implements UserInterface {
             return false;
         }
     }
-
+    
     /**
      * 
      * @return ObtentionNiveaux|null

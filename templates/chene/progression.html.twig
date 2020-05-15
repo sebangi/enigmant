@@ -1,0 +1,81 @@
+{% extends "chene/baseChene.html.twig" %}
+
+{% block title  %}
+    Progression en {{ themeCourant }}
+{% endblock title  %}
+
+{% block body %}
+    <div class="jumbotron mon-jumbotron third-nav sticky-top">
+        <h1 class="text-center">Progression en {{ themeCourant }}</h1>
+    </div>
+
+    <div class="container mt-4 mb-4 text-center">
+        {% for collection in collections %}
+            {% if collection.num % 2 == 0 %}
+                {% set class = "collection-paire" %}
+                {% set pair = true %}
+            {% else %}
+                {% set class = "collection-impaire" %}    
+                {% set pair = false %}
+            {% endif%}
+
+            <div class="card mb-4 border-dark ">
+                <div class="container">
+                    <div class="row position-relative bg-color-2">
+                        {% if not pair %}
+                            <div class="col-md-7 no-padding">    
+                                {% if collection.imageName %}
+                                    <img style="width:100%" class="img-responsive {{class}}" src="{{ vich_uploader_asset(collection, 'imageFile') | imagine_filter("my_thumb_collection") }}" > 
+                                {% else %}
+                                    <img style="width:100%" class="img-responsive {{class}}" src="{{ '/images/collectionChene/vide.jpg' | imagine_filter("my_thumb_collection") }}" > 
+                                {% endif%}
+                            </div>
+                        {% endif %}
+                        <div class="col-md-5 position-static text-center align-self-center mx-auto no-padding">
+                            <h2 class='mb-0'>
+                                <a class="text-dark" href="{{ path("collectionChene.show", { slug: collection.slug, id: collection.id }) }}">
+                                    {{ collection.nom }}
+                                </a>
+                            </h2>
+                        </div>
+                        {% if pair %}
+                            <div class="col-md-7 no-padding">    
+                                {% if collection.imageName %}
+                                    <img style="width:100%" class="img-responsive {{class}}" src="{{ vich_uploader_asset(collection, 'imageFile') | imagine_filter("my_thumb_collection") }}" > 
+                                {% else %}
+                                    <img style="width:100%" class="img-responsive {{class}}" src="{{ '/images/collectionChene/vide.jpg' | imagine_filter("my_thumb_collection") }}" > 
+                                {% endif%}
+                            </div>
+                        {% endif %}
+                    </div>  
+
+                    <div class="card-body no-padding">            
+                        <div class="text-center">
+                            <h2 class="mb-0">
+                                {% for jeu in jeuxEnChene %}
+                                    {% if jeu.collectionChene == collection %}
+                                        <a class="btn rounded-circle badge-progression mt-2 mb-2" 
+                                           {% if app.user.aReussiJeu( jeu ) %}
+                                                style="border-color:{{jeu.couleur}};"
+                                           {% else %}
+                                               style="border-color:#ab5200;"
+                                           {% endif %}
+                                           data-toggle="tooltip" data-placement="bottom" title="{{ jeu.nom}}" 
+                                           href="{{ path("jeuEnChene.show", { slug: jeu.slug, id: jeu.id }) }}">
+                                            {#                                <span class="fas fa-times align-middle" aria-hidden="true"></span>#}
+                                            {% if app.user.aReussiJeu( jeu ) %}
+                                                    <span class="font-weight-bold fas fa-check align-middle text-success" aria-hidden="true"></span>
+                                            {% else %}
+                                                    {{ jeu.num }}
+                                            {% endif %}
+                                        </a>
+                                    {% endif %}
+                                {% endfor %} 
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock body %}

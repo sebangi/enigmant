@@ -14,9 +14,10 @@
             <thead>
                 <tr>
                     <th  style="width: 5%"></th>
-                    <th  style="width: 55%">Nom</th>
+                    <th  style="width: 5%">Nom</th>
                     <th  style="width: 5%">Dispo.</th>  
-                    <th  style="width: 5%">Construit</th>                       
+                    <th  style="width: 5%">Construit</th>  
+                    <th  style="width: 5%">Couleur</th>                      
                     <th  style="width: 30%">Actions</th>
                 </tr>
             </thead>
@@ -27,6 +28,7 @@
                         <td>{{ jeuEnChene.nom }}</td>
                         <td>{{ include('outils/_booleen.html.twig', {bvaleur : jeuEnChene.disponible}) }}</td>
                         <td>{{ include('outils/_booleen.html.twig', {bvaleur : jeuEnChene.construit}) }}</td>
+                        <td>{{ include('outils/_cercle.html.twig', {couleur : jeuEnChene.couleur}) }}</td>
                         <td>
                             <a href="{{ path("jeuEnChene.show", {id : jeuEnChene.id, slug : jeuEnChene.getSlug} ) }}" class="btn btn-primary">Voir</a>
                             <a href="{{ path("admin.chene.jeuEnChene.edit", {id : jeuEnChene.id} ) }}" class="btn btn-secondary">Éditer</a>
