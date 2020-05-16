@@ -477,10 +477,11 @@ hr {
 
 .progressbar {
     counter-reset: step;
+    height: 80px;
 }
 .progressbar li {
     list-style-type: none;
-    width: 25%;
+    width: 20%;
     float: left;
     font-size: 12px;
     position: relative;
@@ -538,3 +539,27 @@ hr {
     bg-color: #ab5200;
 }
 
+.custom-control-lg .custom-control-label::before,
+.custom-control-lg .custom-control-label::after {
+    top: 0.1rem !important;
+    left: -2rem !important;
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+}
+
+.custom-control-lg .custom-control-label {
+    margin-left: 0.5rem !important;
+    font-size: 1rem !important;
+}
+
+.custom-control-label:before{
+  background-color:white;
+}
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before{
+  background-color:white;
+  border-color:green; 
+}
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label::after{
+  background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='green' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E");
+}

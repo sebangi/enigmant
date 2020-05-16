@@ -37,16 +37,15 @@ require('@fortawesome/fontawesome-free/js/all.js');
 
 const $ = require('jquery');
 
-
 $(document).ready(function () {
     $('[data-toggle="tooltip-enigmant"]').tooltip({
-        animation : true,
+        animation: true,
         delay: {
             show: 1000,
             hide: 0
         }
     });
-    
+
     $('[data-toggle="tooltip-navbar"]').tooltip();
     $('[data-toggle="tooltip"]').tooltip();
     $('[data-toggle="popover"]').popover();
@@ -55,7 +54,17 @@ $(document).ready(function () {
         $('[data-toggle="popover"]').not(this).popover('hide');
     });
 
+    $(":checkbox").click(function () {
+        var n = $("input:checked").length;
+        if (n < 2) {
+            $('[name="next2"]').attr("disabled", "disabled");
+        } else {
+            $('[name="next2"]').removeAttr("disabled");
+        }
+    });
 });
+
+
 // FIN TEST BOOSTRAP
 
 import 'select2';

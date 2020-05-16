@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class JeuEnCheneType extends AbstractType
 {
@@ -38,8 +39,14 @@ class JeuEnCheneType extends AbstractType
                    'min' => 1
                 ]
             ])
-            ->add('disponible')
-            ->add('construit')
+            ->add('disponible', CheckboxType::class, [
+                    'attr' => [ 'class' => "custom-control-input" ],
+                    'label_attr' => ['class' => 'custom-control-label']
+                ])
+            ->add('construit', CheckboxType::class, [
+                    'attr' => [ 'class' => "custom-control-input" ],
+                    'label_attr' => ['class' => 'custom-control-label']
+                ])
             ->add('difficulteObservation', IntegerType::class, [
                'attr' => [
                    'min' => 0,

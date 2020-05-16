@@ -25,8 +25,8 @@
                 <hr class="mb-2 mt-2">
                 {{ form_start(form) }}
                 <div class="form-row">
-                    <div class="col-md-3 no-margin pt-2">
-                        <div class="input-group mb-1">
+                    <div class="col-md-3 no-margin pt-2 custom-control-lg custom-control custom-checkbox">
+                        <div class="input-group mb-1 ml-1">
                             {{ form_widget(form.disponible) }}
                         </div>
                     </div> 
@@ -96,7 +96,6 @@
     {{ include('outils/_flash.html.twig') }}   
 
     <div class="container mt-4 ">
-
         <div class="row mt-4">
             {% for jeuEnChene in jeux_en_chene  %}
                 <div class="d-flex align-items-stretch col-md-4">

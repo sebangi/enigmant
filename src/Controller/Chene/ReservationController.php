@@ -24,26 +24,29 @@ class ReservationController extends BaseController {
 
     /**
      * 
-     * @route("/{slug}-{id}", name="chene.location", requirements={"slug": "[a-z0-9\-]*"})  
+     * @route("/{slug}-{id}-{etape}", name="chene.location", requirements={"slug": "[a-z0-9\-]*"})  
      * @param JeuEnChene $jeuEnChene
      * @param string $slug
      * @return Response
      */
-    public function reserver(JeuEnChene $jeuEnChene, string $slug): Response {
+    public function reserver(JeuEnChene $jeuEnChene, string $slug, $etape): Response {
         if ($jeuEnChene->getSlug() !== $slug)
             return $this->redirectToRoute('JeuEnChene.show', [
                         'id' => $jeuEnChene->getId(),
                         'slug' => $jeuEnChene->getSlug()
                             ], 301);
+        dump($etape);
+        if (!$jeuEnChene->getDisponible()) {
+            $this->addFlash('danger', "Désolé, le Jeu en Chêne n'est plus disponible.");
 
-        if ( ! $jeuEnChene->getDisponible() )
             return $this->redirectToRoute('JeuEnChene.show', [
                         'id' => $jeuEnChene->getId(),
                         'slug' => $jeuEnChene->getSlug()
             ]);
+        }
 
-        return $this->monRender('chene/reservation/etape1.html.twig', [
-            "jeu" => $jeuEnChene
+        return $this->monRender('chene/reservation/etape' . $etape . '.html.twig', [
+                    "jeu" => $jeuEnChene
         ]);
     }
 

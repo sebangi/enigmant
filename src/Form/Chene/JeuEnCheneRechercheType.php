@@ -7,8 +7,6 @@ use Symfony\Component\Form\AbstractType;
 use App\Entity\Chene\CollectionChene;
 use App\Repository\Chene\CollectionCheneRepository;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-;
-
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,7 +19,8 @@ class JeuEnCheneRechercheType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('disponible', CheckboxType::class, [
-                    'attr' => ['placeholder' => 'Toutes'],
+                    'attr' => [ 'class' => "custom-control-input" ],
+                    'label_attr' => ['class' => 'custom-control-label'],
                     'label' => "Seulement les disponibles",
                     'required' => false
                 ])
