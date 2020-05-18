@@ -30,5 +30,17 @@ class CreateReservationFlow extends FormFlow {
             ]
         ];
     }
+//
+//    public function getFormOptions($step, array $options = []) {
+//        $options = parent::getFormOptions($step, $options);
+//
+//        $formData = $this->getFormData();
+//
+//        if ($step === 2) {
+//            $options['retraitDomicile'] = $formData->getRetraitDomicile();
+//        }
+//
+//        return $options;
+//    }
 
 }

@@ -20,7 +20,7 @@ class DateTimeTransformer implements DataTransformerInterface {
 
         date_default_timezone_set('Europe/Paris');
         setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
-        return strftime("%A %d %B %Y %H:%M", $datetime->getTimestamp());
+        return strftime("%d %m %Y %H:%M", $datetime->getTimestamp());
     }
 
     /**
@@ -34,8 +34,8 @@ class DateTimeTransformer implements DataTransformerInterface {
         if (!$datetime) {
             return;
         }
-
-        return date_create_from_format('A d B Y H:M', $datetime, new \DateTimeZone('Europe/Madrid'));
+        
+        return date_create_from_format('d/m/Y H:i', $datetime, new \DateTimeZone('Europe/Madrid'));
     }
 
 }

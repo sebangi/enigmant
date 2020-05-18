@@ -41,28 +41,14 @@ class CreateReservationForm extends AbstractType {
                 ;
                 break;
             case 2:
-
-//                $builder
-//                        ->add('dateRetrait', DateTimeType::class,
-//                                [
-//                                    'attr' => array(
-//                                        'class' => 'form-control input-inline datetimepicker',
-//                                        'data-provide' => 'datepicker',
-//                                        'data-format' => 'dd-mm-yyyy HH:ii',
-//                                    ),
-//                        ])
-//                ;
-//         
-//                       // This form type is not defined in the example.
                 $builder
                         ->add('dateRetrait', TextType::class, array(
                             'required' => true,
-                            'label' => 'form.label.datetime',
+                            'label' => false,
                             'translation_domain' => 'AppBundle',
                             'attr' => array(
-                                'class' => 'form-control input-inline datepicker',
-                                'data-provide' => 'datepicker',
-                                'data-format' => 'dd-mm-yyyy HH:MM',
+                                'class' => 'datetimepicker-input',
+                                'data-target' => "#dateRetrait"
                             ),
                         ))
                 ;

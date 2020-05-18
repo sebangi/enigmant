@@ -43,6 +43,17 @@ class ReservationController extends BaseController {
         $this->em = $em;
     }
 
+    public function test_non_appartenance($conversation) {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+                return ($conversation->getUser()->getId() != $this->getUser()->getId());
+            } else
+                return true;
+        } else
+            return false;
+    }
+    
+    
     /**
      * 
      * @route("/{slug}-{id}", name="chene.location", methods={"GET","POST"})  
@@ -51,7 +62,6 @@ class ReservationController extends BaseController {
     public function reserver(CreateReservationFlow $flow, JeuEnChene $jeuEnChene, string $slug) {
         $reservation = new ReservationJeu();
         $reservation->setDateDemande(new \DateTime('now'));
-        $reservation->setDateRetrait(new \DateTime('now'));
         $reservation->setJeu($jeuEnChene);
         $reservation->setUser($this->getUser());
 
@@ -62,6 +72,15 @@ class ReservationController extends BaseController {
         if ($flow->isValid($form)) {
             $flow->saveCurrentStepData($form);
 
+            if ( $this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+                if ( $reservation->getUser()->getId() != $this->getUser()->getId())
+                {
+                    return $this->redirect($this->generateUrl('home')); 
+                }
+            }
+            else
+                return $this->redirect($this->generateUrl('home')); 
+                
             if ($flow->nextStep()) {
                 $form = $flow->createForm();
             } else {

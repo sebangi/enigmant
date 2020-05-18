@@ -1,46 +1,17 @@
-{#<input type="text" 
-       id="createReservation_dateRetrait" 
-       name="createReservation[dateRetrait]" 
-       required="required" 
-       class="form-control input-inline datetimepicker form-control" 
-       data-provide="datepicker" 
-       data-format="dd-mm-yyyy HH:ii" 
-       value="lundi 18 mai 2020 00">#}
-
-<div class="row">
-    <div class='col-md-12'>
-        <div class="form-group">
-            {#            id='datetimepicker3' #}
-            <div class='input-group date datepicker' data-provide="datepicker">
-                <input type='text' class="form-control" />
-                <span class="input-group-addon">
-                    <span class="fas fa-calendar-alt"></span>
-                </span>
-            </div>
-        </div>
+<div class="row">  
+    <div class="col-md-6 mb-0">
+        <h5 class="text-right mt-2">
+            Veuillez proposer une date et une heure de retrait :
+        </h5>
     </div>
-</div>
-
-<div class="row">   
-
-    <div class="col-md-4 text-center mb-0">
-        <div class="input-group">
-            <div class="input-group-prepend">
+    <div class="col-md-6 mb-0">
+        <div class="input-group picker-datetime-location" id="dateRetrait" data-target-input="nearest">
+            <div class="input-group-prepend"  data-target="#dateRetrait" data-toggle="datetimepicker">
                 <div class="input-group-text">
-                    <span class=" fas fa-calendar-alt"></span>
+                    <i class=" fas fa-calendar-alt"></i>
                 </div>                
             </div>
-            <div>{{ form_widget(form.dateRetrait) }}</div>
+            {{ form_widget(form.dateRetrait) }}
         </div>
-    </div>
-    <div class="col-md-8 mb-0">
-        <h5 class="">
-            Date de retrait
-        </h5>
-        <ul class="mb-0">
-            <li>Retrait garanti</li>
-            <li>Retrait en libre service : possibilité tous les jours, à toute heure de la journée</li>
-            <li>L'adresse de retrait vous sera fournie après validation</li>
-        </ul>
-    </div>
+    </div>   
 </div>
