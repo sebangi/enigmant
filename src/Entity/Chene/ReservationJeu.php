@@ -19,7 +19,7 @@ class ReservationJeu
     private $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $dateDemande;
 
@@ -27,7 +27,7 @@ class ReservationJeu
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateRetrait;
-
+    
     /**
      * @ORM\Column(type="date", nullable=true)
      */
@@ -79,6 +79,21 @@ class ReservationJeu
      * @ORM\OneToOne(targetEntity="App\Entity\General\Conversation", mappedBy="lienReservation", cascade={"persist", "remove"})
      */
     private $conversation;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $retraitRDV = false;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $retraitDomicile = false;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $lieuRDV;
 
     /**
      * 
@@ -341,6 +356,60 @@ class ReservationJeu
         if ($conversation->getLienReservation() !== $newLienReservation) {
             $conversation->setLienReservation($newLienReservation);
         }
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @return bool|null
+     */
+    public function getRetraitRDV(): ?bool
+    {
+        return $this->retraitRDV;
+    }
+
+    /**
+     * 
+     * @param bool $retraitRDV
+     * @return \App\Entity\Chene\ReservationJeu
+     */
+    public function setRetraitRDV(bool $retraitRDV): ReservationJeu
+    {
+        $this->retraitRDV = $retraitRDV;
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @return bool|null
+     */
+    public function getRetraitDomicile(): ?bool
+    {
+        return $this->retraitDomicile;
+    }
+
+    /**
+     * 
+     * @param bool $retraitDomicile
+     * @return \App\Entity\Chene\ReservationJeu
+     */
+    public function setRetraitDomicile(bool $retraitDomicile): ReservationJeu
+    {
+        $this->retraitDomicile = $retraitDomicile;
+
+        return $this;
+    }
+
+    public function getLieuRDV(): ?string
+    {
+        return $this->lieuRDV;
+    }
+
+    public function setLieuRDV(?string $lieuRDV): self
+    {
+        $this->lieuRDV = $lieuRDV;
 
         return $this;
     }

@@ -29,7 +29,7 @@
                         <td>{{ reservation.user.username }}</td>
                         <td>{{ reservation.jeu.nom }}</td>
                         <td>{{ include('outils/_booleen.html.twig', {bvaleur : reservation.reussi}) }}</td>
-                        <td>{{ reservation.dateDemande | date("d/m/Y")}}</td>
+                        <td>{{ reservation.dateDemande | format_datetime('short', 'short', locale='fr')}}</td>
                         <td>{{ reservation.dateRetrait | format_datetime('short', 'short', locale='fr')}}</td>
                         <td>{{ reservation.dateFinPrevue | date("d/m/Y")}}</td>
                         <td>{{ reservation.dateRendu | date("d/m/Y")}}</td>

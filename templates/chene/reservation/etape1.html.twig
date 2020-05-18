@@ -1,67 +1,37 @@
-{% extends "chene/baseChene.html.twig" %}
-
-{% block body %}
-    <div class="jumbotron mon-jumbotron">
-        <div class="container">
-            <h1 class="text-center">Location du Jeu en Chêne {{ jeu.nom }}</h1>
-        </div>
+<div class="row">
+    <div class="col-md-1 text-center mb-0">
+        <div class="custom-control-lg custom-control custom-checkbox">{{ form_widget(form.retraitDomicile) }}</div> 
     </div>
-
-    {{ include('outils/_flash.html.twig') }}  
-
-    {{ include('chene/reservation/_progressBar.html.twig', { etape : "1" }) }}
-
-    <div class="container mt-4">
-        <h5 class="font-weight-bold text-center mb-3">
-            Avant de procéder à la location, veuillez confirmer les conditions suivantes : 
+    <div class="col-md-11 mb-0">
+        <h5 class="font-weight-bold">
+            Retrait à Saint Philbert de Grand Lieu
         </h5>
+        <ul class="mb-0">
+            <li>Retrait garanti</li>
+            <li>Retrait en libre service : possibilité tous les jours, à toute heure de la journée</li>
+            <li>Le lieu de retrait et les modalités vous seront fournies après validation</li>
+        </ul>
+    </div>
+</div>   
 
-        <div class="card mb-4 border-dark">
-            <div class="card-header bg-dark text-white">
-                <h5 class="mb-0 mt-0">Lieu de retrait</h5>
-            </div>
-            <div class="card-body  p-3">
-                <div class="container">
-                    <div class="row">
-                        <h6 class="col-md-9 text-justify mb-0 border-right border-dark">
-                            <ul class="mb-0">
-                                <li class="mb-2">
-                                    Le Jeu en Chêne est à retirer à <b>Saint Philbert de Grand Lieu</b> (Loire-Atlantique).
-                                </li>
-                                <li>
-                                    Il est également possible de retirer le Jeu sur rendez-vous <b>dans la région Nantes sud-Loire</b>.
-                                </li>
-                            </ul>
-                        </h6>
+<hr>
 
-                        <div class="col-md-3  justify-content-center align-self-center">    
-                            <div class="custom-control-lg custom-control custom-checkbox">
-                                <input class="custom-control-input" id="checkbox-large1" type="checkbox" name='checkboxValidation'/>
-                                <label class="custom-control-label" for="checkbox-large1">
-                                    <h5>Cela me convient</h5>
-                                </label>
-                            </div>
-                        </div> 
-
-                    </div>                    
-                </div>
-            </div>
-        </div>
+<div class="row">
+    <div class="col-md-1 text-center mb-0">
+        <div class="custom-control-lg custom-control custom-checkbox">{{ form_widget(form.retraitRDV) }}</div> 
+    </div>
+    <div class="col-md-11 mb-0">
+        <h5 class="font-weight-bold">
+            Retrait sur rendez-vous dans la région Nantes Sud Loire
+        </h5>                            
+        <ul>
+            <li>Retrait non garanti</li>
+            <li>Nous répondrons au mieux à votre demande suivant nos disponilités</li>
+        </ul>
+        <div class="si_case_a_cocher" id="si_case_a_cocher" name="si_case_a_cocher" >
+            <b>Veuillez proposer un lieu :</b>
+            {{ form_widget(form.lieuRDV) }}
+        </div> 
         
     </div>
-
-    <div class="text-center">
-          <button id="enable-on-two" disabled name='next2' 
-                  onclick="location.href='{{ path('chene.location', { slug: jeu.slug, id: jeu.id, etape:"2" }) }}'" 
-                  class="text-center btn btn-success mt-2" type="button">
-              Louer le Jeu en Chêne {{ jeu.nom }}
-          </button>
-          
-          
-      
-    </div> 
-
 </div>
-
-
-{% endblock %}

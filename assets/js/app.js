@@ -14,7 +14,6 @@ import '../css/app.css';
 // or you can include specific pieces
 //require('bootstrap/js/dist/tooltip');
 //require('bootstrap/js/dist/popover');
-
 //require('bootstrap/dist/js/bootstrap.bundle');
 
 // 
@@ -26,18 +25,44 @@ require('bootstrap');
 //require('bootstrap/js/dist/tooltip');
 //require('bootstrap/js/dist/popover');
 
-// require the JavaScript
-require('bootstrap-star-rating');
-// require 2 CSS files needed
-require('bootstrap-star-rating/css/star-rating.css');
-require('bootstrap-star-rating/themes/krajee-svg/theme.css');
+// require the JavaScript   
+//require('bootstrap-star-rating');
+//require('bootstrap-star-rating/css/star-rating.css');
+//require('bootstrap-star-rating/themes/krajee-svg/theme.css');
 
 require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
 
 const $ = require('jquery');
 
-$(document).ready(function () {
+// ACTIVER NEXT1 SEULEMENT SI UN SEUL CHEXBOX EST VALIDE
+function textNext1() {
+    var n = $("input:checked").length;
+    if (n != 1) {
+        $('.next1').attr("disabled", "disabled");
+    } else {
+        $('.next1').removeAttr("disabled");
+    }
+}
+
+// CACHER LIEU DE RESERVATION
+function cacher()
+{
+    var text = document.getElementById("si_case_a_cocher");
+    var checkBox = document.getElementById("createReservation_retraitRDV");
+
+    if (checkBox && text)
+    {
+        if (checkBox.checked == true) {
+            text.style.display = "block";
+        } else {
+            text.style.display = "none";
+        }
+    }
+}
+
+$(document).ready(function ()
+{
     $('[data-toggle="tooltip-enigmant"]').tooltip({
         animation: true,
         delay: {
@@ -49,27 +74,28 @@ $(document).ready(function () {
     $('[data-toggle="tooltip-navbar"]').tooltip();
     $('[data-toggle="tooltip"]').tooltip();
     $('[data-toggle="popover"]').popover();
-
     $('[data-toggle="popover"]').on('click', function (e) {
         $('[data-toggle="popover"]').not(this).popover('hide');
     });
 
-    $(":checkbox").click(function () {
-        var n = $("input:checked").length;
-        if (n < 2) {
-            $('[name="next2"]').attr("disabled", "disabled");
-        } else {
-            $('[name="next2"]').removeAttr("disabled");
-        }
+    $('input.only-one').click(function () {
+        $('input.only-one').not(this).prop('checked', false);
     });
+
+    textNext1();
+    $(":checkbox").click(function () {
+        textNext1();
+    });
+
+    cacher();
+    $(':checkbox').click(function () {
+        cacher();
+    });
+
 });
-
-
-// FIN TEST BOOSTRAP
 
 import 'select2';
 $('select').select2();
-
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 // import $ from 'jquery';
 

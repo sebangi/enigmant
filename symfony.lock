@@ -11,6 +11,9 @@
     "cocur/slugify": {
         "version": "v4.0.0"
     },
+    "craue/formflow-bundle": {
+        "version": "3.3.2"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {

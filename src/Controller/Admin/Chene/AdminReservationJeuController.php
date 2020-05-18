@@ -44,7 +44,8 @@ class AdminReservationJeuController extends BaseController
     {
         $reservation = new ReservationJeu();        
         $reservation->setDateDemande( new \DateTime('now') );
-        $form = $this->createForm(ReservationJeuType::class, $reservation);
+        $form = $this->createForm(ReservationJeuType::class, $reservation, 
+                ['administration' => true ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -67,7 +68,8 @@ class AdminReservationJeuController extends BaseController
      */
     public function edit(Request $request, ReservationJeu $reservation): Response
     {
-        $form = $this->createForm(ReservationJeuType::class, $reservation);
+        $form = $this->createForm(ReservationJeuType::class, $reservation, 
+                ['administration' => true ] );
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

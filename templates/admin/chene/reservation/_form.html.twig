@@ -1,15 +1,20 @@
 {{ form_start(form) }}
 <div class="row">
-    <div class="col-md-2">{{ form_row(form.reussi) }}</div>
+    <div class="col-md-2 custom-control-lg custom-control custom-checkbox">{{ form_row(form.reussi) }}</div>
+    <div class="col-md-3">{{ form_row(form.dateDemande) }}</div> 
+    
 </div>
 
 <div class="row">
-    <div class="col-md-3">{{ form_row(form.dateDemande) }}</div> 
     <div class="col-md-3">{{ form_row(form.dateRetrait) }}</div>
+    <div class="col-md-3 custom-control-lg custom-control custom-checkbox">{{ form_row(form.retraitDomicile) }}</div> 
+    <div class="col-md-3 custom-control-lg custom-control custom-checkbox">{{ form_row(form.retraitRDV) }}</div> 
+</div>
+
+<div class="row">
     <div class="col-md-3">{{ form_row(form.dateFinPrevue) }}</div> 
     <div class="col-md-3">{{ form_row(form.dateRendu) }}</div> 
 </div>
-
 
 <div class="row text-danger">
     <div class="col-md-10">{{ form_row(form.avisPublic) }}</div>

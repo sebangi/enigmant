@@ -37,3 +37,13 @@ services:
     App\RequestSubscriber\RequestSubscriber:
         tags:
             - { name: kernel.request_subscriber, event: kernel.request }    
+            
+    App\Form\Flow\CreateReservation:
+        class: App\Form\Chene\CreateReservationFlow
+        autoconfigure: true
+
+    App\Form\Chene\reservation_edit:
+        class: App\Form\Chene\CreateReservationForm
+        arguments: [App\Entity\Chene\ReservationJeu]
+        tags:
+            - { name: form.type, alias: reservation_edit }
