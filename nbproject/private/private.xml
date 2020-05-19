@@ -3,10 +3,39 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/Chene/AdminJeuEnCheneController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/outils/_flash.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/reservation/etape4.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/assets/js/datepicker.js</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/JeuEnCheneRecherche.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/SecurityController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/CreateReservationFlow.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Form/General/UserType.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/ReservationJeu.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Entity/General/User.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Form/General/RegistrationFormType.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/base.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/CreateReservationForm.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/reservation/index.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/outils/exemple_datetime.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/ReservationJeuType.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/reservation/reservation.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/reservation/etape3.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Form/DateTimeTransformer.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/chene/reservation/etape2.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/JeuEnChene.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/Chene/ReservationController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Chene/JeuEnCheneController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/general/grade/index.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Security/LoginFormAuthentificatorAuthenticator.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/registration/register.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/index.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/EventSubscriber/RequestSubscriber.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/reservation/_progressBar.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/collectionChene/index.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/collectionChene/_collectionChene.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/security/login.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/translations/forms.fr_FR.yml</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/reservation/etape2.html.twig</file>
         </group>
     </open-files>
 </project-private>

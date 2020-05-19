@@ -101,6 +101,12 @@ class ReservationJeu
      */
     private $contactOk = false; 
     
+    
+    
+    public function __construct() {
+        $this->dateRetrait = null;
+    }
+    
     /**
      * 
      * @return int|null

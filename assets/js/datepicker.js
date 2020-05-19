@@ -9,15 +9,19 @@ require('tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css')
 
 
 var debut_location = new Date();
-debut_location.setDate(debut_location.getDate() - 1);
+debut_location.setDate(debut_location.getDate() + 1);
+debut_location.setHours(00, 00, 01);
 var fin_location = new Date();
 fin_location.setDate(fin_location.getDate() + 7);
+fin_location.setHours(23, 59, 59);
 var proposition = new Date();
 proposition.setDate(proposition.getDate() + 3);
 proposition.setHours(17, 00, 00);
 
 console.log("debut_location");
 console.log(debut_location);
+console.log("proposition");
+console.log(proposition);
 
 $.fn.datetimepicker.Constructor.Default =
         $.extend($.fn.datetimepicker.Constructor.Default,
@@ -44,10 +48,9 @@ $(document).ready(function () {
                 sideBySide: true,
                 minDate: debut_location,
                 maxDate: fin_location,
-                defaultDate: proposition,
+                defaultDate: proposition,                
                 stepping: 15,
-                format: 'dddd D MMMM YYYY à HH:mm',     
-               // format: 'dddd D MMMM YYYY à HH:mm',
+                format: 'dddd D MMMM YYYY à HH:mm'
             }
     );
 

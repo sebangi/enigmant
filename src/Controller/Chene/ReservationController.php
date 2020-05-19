@@ -52,8 +52,7 @@ class ReservationController extends BaseController {
         } else
             return false;
     }
-    
-    
+
     /**
      * 
      * @route("/{slug}-{id}", name="chene.location", methods={"GET","POST"})  
@@ -66,21 +65,19 @@ class ReservationController extends BaseController {
         $reservation->setUser($this->getUser());
 
         $flow->bind($reservation);
-
+        
         // form of the current step
         $form = $flow->createForm();
         if ($flow->isValid($form)) {
             $flow->saveCurrentStepData($form);
 
-            if ( $this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
-                if ( $reservation->getUser()->getId() != $this->getUser()->getId())
-                {
-                    return $this->redirect($this->generateUrl('home')); 
+            if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+                if ($reservation->getUser()->getId() != $this->getUser()->getId()) {
+                    return $this->redirect($this->generateUrl('home'));
                 }
-            }
-            else
-                return $this->redirect($this->generateUrl('home')); 
-                
+            } else
+                return $this->redirect($this->generateUrl('home'));
+
             if ($flow->nextStep()) {
                 $form = $flow->createForm();
             } else {
@@ -94,6 +91,7 @@ class ReservationController extends BaseController {
                 return $this->redirect($this->generateUrl('home')); // redirect when done
             }
         }
+dump($reservation);
 
         return $this->monRender('chene/reservation/reservation.html.twig', [
                     'form' => $form->createView(),
@@ -102,6 +100,5 @@ class ReservationController extends BaseController {
                     'flow' => $flow,
         ]);
     }
-
 
 }

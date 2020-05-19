@@ -9,6 +9,10 @@ use App\Form\Chene\CreateReservationForm;
 
 class CreateReservationFlow extends FormFlow {
 
+    public function invalidateStepData($fromStepNumber) {
+        // do nothing, this prevents us from deleting step data when user hits "back" button
+    }
+    
     protected function loadStepsConfig() {
         return [
             [
@@ -28,17 +32,6 @@ class CreateReservationFlow extends FormFlow {
             ]
         ];
     }
-//
-//    public function getFormOptions($step, array $options = []) {
-//        $options = parent::getFormOptions($step, $options);
-//
-//        $formData = $this->getFormData();
-//
-//        if ($step === 2) {
-//            $options['retraitDomicile'] = $formData->getRetraitDomicile();
-//        }
-//
-//        return $options;
-//    }
+
 
 }
