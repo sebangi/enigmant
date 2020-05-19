@@ -20,10 +20,8 @@ class DateTimeTransformer implements DataTransformerInterface {
 
         date_default_timezone_set('Europe/Paris');
         setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
-        
-        dump(' voulu : 22/05/2020 17:00');
-        dump(strftime("%d/%m/%Y %H:%M", $datetime->getTimestamp()));
-        return strftime("%d/%m/%Y %H:%M", $datetime->getTimestamp());
+
+        return strftime("%A %d %B %Y à %H:%M", $datetime->getTimestamp());
     }
 
     /**
@@ -37,8 +35,20 @@ class DateTimeTransformer implements DataTransformerInterface {
         if (!$datetime) {
             return;
         }
+
+        setLocale(LC_TIME, 'fr_FR.utf8');
+        $champsDate = strptime($datetime, '%A %e %B %Y à %H:%M');
+        $str = $champsDate["tm_mday"] . "/" .
+                strval((int) $champsDate["tm_mon"] + 1) . "/" .
+                strval((int) $champsDate["tm_year"] + 1900) . " " .
+                $champsDate["tm_hour"] . ":";
+        if ( strlen($champsDate["tm_min"]) == 1 ) {
+            $str = $str . "0" . $champsDate["tm_min"];
+        } else {
+            $str = $str . $champsDate["tm_min"];
+        }
         
-        return date_create_from_format('d/m/Y H:i', $datetime, new \DateTimeZone('Europe/Madrid'));
+        return date_create_from_format('j/n/Y G:i', $str, new \DateTimeZone('Europe/Paris'));
     }
 
 }

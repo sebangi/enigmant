@@ -8,34 +8,31 @@
 
                 <div class="container ml-4">
                     <div class="row">  
-                        <div class="col-md-3 text-right">
+                        <div class="col-md-3 text-right pt-2 pr-0">
                             <b>Lieu :</b>
                         </div> 
                         <div class="col-md-9">
                             {% if reservation.retraitDomicile %}
-                                Saint Philbert de Grand Lieu
+                                <input class="form-control" readonly value="Saint Philbert de Grand Lieu"> 
+                                </input>   
                                 <textarea readonly class="form-control" hidden>{{ reservation.lieuRDV }}</textarea>
                             {% else %}
-                                Sur rendez-vous au lieu proposé :
-                                <textarea readonly class="form-control">{{ reservation.lieuRDV}}</textarea>
+                                <input class="form-control" readonly value="Sur rendez-vous selon la proposition ci-dessous"> 
+                                </input>   
+                                
+                                <textarea readonly class="form-control mt-2">{{ reservation.lieuRDV}}</textarea>
                             {% endif %}
                         </div>   
                     </div>
                     <div class="row mt-2">  
-                        <div class="col-md-3 text-right">
+                        <div class="col-md-3 text-right mt-2 pr-0">
                             <b>Date proposée :</b>
                         </div>    
                         <div class="col-md-9">
-                            <div class="input-group picker-datetime" id="dateRetrait" data-target-input="nearest">
-                                <div class="input-group-prepend"  data-target="#dateRetrait" data-toggle="datetimepicker">
-                                    <div class="input-group-text">
-                                        <i class=" fas fa-calendar-alt"></i>
-                                    </div>  
-                                </div>
-                                <input class="form-control" readonly value="{{ reservation.dateRetrait | format_datetime('short', 'short', locale='fr') }}">
-                                </input>
-                                
-                            </div>
+                            <div class="input-group picker-datetime-readall" id="dateRetrait" data-target-input="nearest">
+                                <input class="form-control" readonly datat-target="#dateRetrait" value="{{ reservation.dateRetrait | format_datetime('full', 'short', locale='fr') }}"> 
+                                </input>   
+                            </div>                            
                         </div> 
                     </div>
                 </div>
@@ -59,7 +56,7 @@
 
                     </ul>
                     <h5 class="mt-2 font-weight-bold">
-                        Pour le retrait, nous sommes susceptibles de vous contacter également :
+                        Pour le retrait, nous sommes susceptibles de vous contacter :
                     </h5>
                     <ul class="">
                         <li>À votre adresse mail : <b>{{ reservation.user.email }}</b></li>

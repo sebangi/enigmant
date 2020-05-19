@@ -8,6 +8,17 @@ require('tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.js');
 require('tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css');
 
 
+var debut_location = new Date();
+debut_location.setDate(debut_location.getDate() - 1);
+var fin_location = new Date();
+fin_location.setDate(fin_location.getDate() + 7);
+var proposition = new Date();
+proposition.setDate(proposition.getDate() + 3);
+proposition.setHours(17, 00, 00);
+
+console.log("debut_location");
+console.log(debut_location);
+
 $.fn.datetimepicker.Constructor.Default =
         $.extend($.fn.datetimepicker.Constructor.Default,
                 {icons: {
@@ -20,28 +31,23 @@ $.fn.datetimepicker.Constructor.Default =
                         today: 'fas fa-calendar-check-o',
                         clear: 'fas fa-trash',
                         close: 'fas fa-times'
+
                     },
                     locale: 'fr'
                 });
 
 
-var debut_location = new Date();
-debut_location.setDate(debut_location.getDate() + 1);
-var fin_location = new Date();
-fin_location.setDate(fin_location.getDate() + 7);
-var proposition = new Date();
-proposition.setDate(proposition.getDate() + 3);
-proposition.setHours(17, 00, 00);
 
 $(document).ready(function () {
     $('.picker-datetime-location').datetimepicker(
             {
-                format: 'D/MM/YYYY HH:mm',
                 sideBySide: true,
                 minDate: debut_location,
                 maxDate: fin_location,
-                date: proposition,
-                stepping: 15
+                defaultDate: proposition,
+                stepping: 15,
+                format: 'dddd D MMMM YYYY à HH:mm',     
+               // format: 'dddd D MMMM YYYY à HH:mm',
             }
     );
 
@@ -50,10 +56,10 @@ $(document).ready(function () {
                 format: 'D/MM/YYYY HH:mm',
             }
     );
-    
+
     $('.picker-datetime-readall').datetimepicker(
             {
-                format: 'D/MM/YYYY HH:mm',
+                format: 'dddd D MMMM YYYY à HH:mm',
             }
     );
 
