@@ -15,6 +15,8 @@
             <file>file:/home/sebastien/public_html/enigmant/src/Entity/General/User.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Form/General/RegistrationFormType.php</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/base.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/reservation/etape1.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/TypeBabiole.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/CreateReservationForm.php</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/admin/chene/reservation/index.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/outils/exemple_datetime.html.twig</file>
@@ -31,11 +33,13 @@
             <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/index.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/EventSubscriber/RequestSubscriber.php</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/chene/reservation/_progressBar.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/config/services.yaml</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/chene/collectionChene/index.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/chene/collectionChene/_collectionChene.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/security/login.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/translations/forms.fr_FR.yml</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/chene/reservation/etape2.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/JeuEnCheneRechercheType.php</file>
         </group>
     </open-files>
 </project-private>
