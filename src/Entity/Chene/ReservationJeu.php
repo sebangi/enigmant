@@ -94,7 +94,13 @@ class ReservationJeu
      * @ORM\Column(type="text", nullable=true)
      */
     private $lieuRDV;
-
+    
+    /**
+     *
+     * @var bool|null 
+     */
+    private $contactOk = false; 
+    
     /**
      * 
      * @return int|null
@@ -104,6 +110,26 @@ class ReservationJeu
         return $this->id;
     }
 
+    
+    /**
+     * 
+     * @return type
+     */
+    public function getContactOk() {
+        return $this->contactOk;
+    }
+
+    /**
+     * 
+     * @param type $contactOk
+     * @return \App\Entity\Chene\ReservationJeu
+     */
+    public function setContactOk($contactOk) : ReservationJeu {
+        $this->contactOk = $contactOk;
+        return $this;
+    }
+
+        
     /**
      * 
      * @return \DateTimeInterface|null

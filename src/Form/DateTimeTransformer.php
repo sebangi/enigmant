@@ -20,7 +20,10 @@ class DateTimeTransformer implements DataTransformerInterface {
 
         date_default_timezone_set('Europe/Paris');
         setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
-        return strftime("%d %m %Y %H:%M", $datetime->getTimestamp());
+        
+        dump(' voulu : 22/05/2020 17:00');
+        dump(strftime("%d/%m/%Y %H:%M", $datetime->getTimestamp()));
+        return strftime("%d/%m/%Y %H:%M", $datetime->getTimestamp());
     }
 
     /**

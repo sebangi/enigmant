@@ -55,6 +55,18 @@ class CreateReservationForm extends AbstractType {
                 $builder->get('dateRetrait')
                         ->addModelTransformer(new DateTimeTransformer());
                 break;
+            case 3:
+                $builder
+                        ->add('contactOk', CheckboxType::class, [
+                            'attr' => ['class' => "custom-control-input only-one"],
+                            'label' => "Je valide mes coordonnées",
+                            'label_attr' =>
+                            ['class' => 'custom-control-label text-danger',
+                                'name' => 'checkboxValidation'],
+                            'required' => false
+                        ])
+                ;
+                break;
         }
     }
 

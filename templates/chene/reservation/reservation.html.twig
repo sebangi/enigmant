@@ -9,7 +9,7 @@
     
     {{ include('chene/reservation/_progressBar.html.twig', { etape : flow.getCurrentStepNumber() }) }}
 
-    <div class="container mt-4">
+    <div class="container mt-4 mb-2">
         {{ form_start(form) }}
         {{ form_errors(form) }}
 
@@ -23,6 +23,10 @@
                         {% include 'chene/reservation/etape1.html.twig' %}
                     {% elseif flow.getCurrentStepNumber() == 2 %}
                         {% include 'chene/reservation/etape2.html.twig' %}
+                    {% elseif flow.getCurrentStepNumber() == 3 %}
+                        {% include 'chene/reservation/etape3.html.twig' %}
+                    {% elseif flow.getCurrentStepNumber() == 4 %}
+                        {% include 'chene/reservation/etape4.html.twig' %}
                     {% endif %}
                 </div>
             </div>
@@ -30,9 +34,17 @@
         {{ form_rest(form) }}
 
         <div class="ml-4">
-            {% if flow.getCurrentStepNumber() == 1 %}
+            {% if   flow.getCurrentStepNumber() == 1 %}
                 {% include '@CraueFormFlow/FormFlow/buttons.html.twig'with {
 		craue_formflow_button_label_last: 'Étape suivante',
+		craue_formflow_button_label_back: "revenir à l'étape précédente",
+		craue_formflow_button_class_last: 'btn btn-success next1',
+		craue_formflow_button_name_last: 'next1',
+		craue_formflow_button_class_back: 'btn btn-secondary mr-4',
+                craue_formflow_button_render_reset:false } %}
+            {% elseif flow.getCurrentStepNumber() == 3 %}
+                {% include '@CraueFormFlow/FormFlow/buttons.html.twig'with {
+		craue_formflow_button_label_last: 'Valider la location',
 		craue_formflow_button_label_back: "revenir à l'étape précédente",
 		craue_formflow_button_class_last: 'btn btn-success next1',
 		craue_formflow_button_name_last: 'next1',

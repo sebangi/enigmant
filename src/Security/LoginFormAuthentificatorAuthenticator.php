@@ -20,8 +20,8 @@ use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticato
 use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
-class LoginFormAuthentificatorAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
-{
+class LoginFormAuthentificatorAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface {
+
     use TargetPathTrait;
 
     public const LOGIN_ROUTE = 'app_login';
@@ -31,37 +31,32 @@ class LoginFormAuthentificatorAuthenticator extends AbstractFormLoginAuthenticat
     private $csrfTokenManager;
     private $passwordEncoder;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
-    {
+    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder) {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
     }
 
-    public function supports(Request $request)
-    {
-        return self::LOGIN_ROUTE === $request->attributes->get('_route')
-            && $request->isMethod('POST');
+    public function supports(Request $request) {
+        return self::LOGIN_ROUTE === $request->attributes->get('_route') && $request->isMethod('POST');
     }
 
-    public function getCredentials(Request $request)
-    {
+    public function getCredentials(Request $request) {
         $credentials = [
             'username' => $request->request->get('username'),
             'password' => $request->request->get('password'),
             'csrf_token' => $request->request->get('_csrf_token'),
         ];
         $request->getSession()->set(
-            Security::LAST_USERNAME,
-            $credentials['username']
+                Security::LAST_USERNAME,
+                $credentials['username']
         );
 
         return $credentials;
     }
 
-    public function getUser($credentials, UserProviderInterface $userProvider)
-    {
+    public function getUser($credentials, UserProviderInterface $userProvider) {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
@@ -77,35 +72,35 @@ class LoginFormAuthentificatorAuthenticator extends AbstractFormLoginAuthenticat
         return $user;
     }
 
-    public function checkCredentials($credentials, UserInterface $user)
-    {
+    public function checkCredentials($credentials, UserInterface $user) {
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */
-    public function getPassword($credentials): ?string
-    {
+    public function getPassword($credentials): ?string {
         return $credentials['password'];
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
-    {
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey) {
         $targetPath = $this->getTargetPath($request->getSession(), $providerKey);
-        dump($request->getSession());
-        dump($providerKey);
+        dump($this->urlGenerator->generate('registration'));
         dump($targetPath);
 
         if ($targetPath) {
-            return new RedirectResponse($targetPath);
+            if ( ! ( substr_compare(
+                    $targetPath, 
+                    $this->urlGenerator->generate('registration'), 
+                    -strlen($this->urlGenerator->generate('registration'))) === 0 ) )
+                return new RedirectResponse($targetPath);
         }
-        
+
         return new RedirectResponse($this->urlGenerator->generate('home'));
     }
 
-    protected function getLoginUrl()
-    {
+    protected function getLoginUrl() {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
     }
+
 }

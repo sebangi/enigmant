@@ -11,7 +11,7 @@
 
     <div class="container mt-0">
         {% for msg in app.session.flashbag.get('nouveaux_grades') %}
-            <div class="alert alert-success">
+            <div class="alert alert-success mt-2">
                 {% if not msg.title == "" %}
                     <div>
                         {{ msg.title }}

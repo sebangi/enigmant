@@ -28,30 +28,35 @@ $.fn.datetimepicker.Constructor.Default =
 var debut_location = new Date();
 debut_location.setDate(debut_location.getDate() + 1);
 var fin_location = new Date();
-fin_location.setDate(fin_location.getDate() + 8);
+fin_location.setDate(fin_location.getDate() + 7);
 var proposition = new Date();
 proposition.setDate(proposition.getDate() + 3);
 proposition.setHours(17, 00, 00);
 
 $(document).ready(function () {
-        $('.picker-datetime-location').datetimepicker(
+    $('.picker-datetime-location').datetimepicker(
             {
                 format: 'D/MM/YYYY HH:mm',
                 sideBySide: true,
-                minDate: debut_location,                
+                minDate: debut_location,
                 maxDate: fin_location,
                 date: proposition,
                 stepping: 15
             }
     );
-    
-    
+
     $('.picker-datetime').datetimepicker(
             {
                 format: 'D/MM/YYYY HH:mm',
             }
     );
     
+    $('.picker-datetime-readall').datetimepicker(
+            {
+                format: 'D/MM/YYYY HH:mm',
+            }
+    );
+
     $('.picker-date').datetimepicker(
             {
                 format: 'D/MM/YYYY'

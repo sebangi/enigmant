@@ -43,8 +43,8 @@ class SecurityController extends BaseController
      * @return Response
      */
     public function login(Request $request, AuthenticationUtils $authenticationUtils) : Response {
-        //if ($this->get('security.authorization_checker')->isGranted('ROLE_USER'))
-        //    return $this->redirectToRoute('home');
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_USER'))
+            return $this->redirectToRoute('home');
         
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
@@ -96,7 +96,7 @@ class SecurityController extends BaseController
 
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->monRender('registration/register.html.twig', [

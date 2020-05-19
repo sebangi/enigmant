@@ -4,7 +4,7 @@
             Veuillez proposer une date et une heure de retrait :
         </h5>
     </div>
-    <div class="col-md-6 mb-0">
+    <div class="col-md-6 mb-0 pl-0">
         <div class="input-group picker-datetime-location" id="dateRetrait" data-target-input="nearest">
             <div class="input-group-prepend"  data-target="#dateRetrait" data-toggle="datetimepicker">
                 <div class="input-group-text">
@@ -15,3 +15,25 @@
         </div>
     </div>   
 </div>
+
+<div class="row">
+    <div class="col-md-6">
+    </div>
+    <div class="col-md-6 mt-2">
+        <ul class="list-group">
+            <li>
+                {% if reservation.retraitDomicile %}
+                    Tous les jours, à toute heure (Retrait Libre service)
+                {% else %}
+                    Sous réserve d'acceptation du lieu de retrait proposé
+                {% endif %}
+            </li>
+            <li>
+                Vous avez sept jours pour retirer le Jeu en Chêne
+            </li>
+        </ul>
+
+
+    </div>
+</div>
+

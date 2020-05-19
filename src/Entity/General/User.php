@@ -39,6 +39,16 @@ class User implements UserInterface {
     private $username;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min = 10, max = 20, minMessage = "Il faut 10 chiffres", maxMessage = "Votre numéro de téléphone est trop long")
+     * @Assert\Regex(
+     * pattern="/^0[0-9]*$/i", 
+     * htmlPattern="^0[0-9]*$", 
+     * message="Ce n'est pas un numéro de téléphone valide") 
+     */
+    private $telephone;
+
+    /**
      * @ORM\Column(type="json")
      */
     private $roles = [];
@@ -342,7 +352,7 @@ class User implements UserInterface {
             return false;
         }
     }
-    
+
     /**
      * 
      * @return ObtentionNiveaux|null
@@ -426,8 +436,8 @@ class User implements UserInterface {
      */
     public function aReussiJeu(JeuEnChene $jeu): bool {
         foreach ($this->reservations->toArray() as $res) {
-            if ( $res->getJeu() == $jeu && 
-                 $res->getReussi() )
+            if ($res->getJeu() == $jeu &&
+                    $res->getReussi())
                 return true;
         }
 
@@ -575,6 +585,10 @@ class User implements UserInterface {
         ]);
     }
 
+    /**
+     * 
+     * @param type $serialized
+     */
     public function unserialize($serialized) {
         list(
                 $this->id,
@@ -590,7 +604,12 @@ class User implements UserInterface {
         return $this->conversations;
     }
 
-    public function addConversation(Conversation $conversation): self {
+    /**
+     * 
+     * @param \App\Entity\General\Conversation $conversation
+     * @return \App\Entity\General\User
+     */
+    public function addConversation(Conversation $conversation): User {
         if (!$this->conversations->contains($conversation)) {
             $this->conversations[] = $conversation;
             $conversation->setUser($this);
@@ -599,7 +618,12 @@ class User implements UserInterface {
         return $this;
     }
 
-    public function removeConversation(Conversation $conversation): self {
+    /**
+     * 
+     * @param \App\Entity\General\Conversation $conversation
+     * @return \App\Entity\General\User
+     */
+    public function removeConversation(Conversation $conversation): User {
         if ($this->conversations->contains($conversation)) {
             $this->conversations->removeElement($conversation);
             // set the owning side to null (unless already changed)
@@ -614,13 +638,16 @@ class User implements UserInterface {
     /**
      * @return Collection|Babiole[]
      */
-    public function getBabioles(): Collection
-    {
+    public function getBabioles(): Collection {
         return $this->babioles;
     }
 
-    public function addBabiole(Babiole $babiole): self
-    {
+    /**
+     * 
+     * @param Babiole $babiole
+     * @return \App\Entity\General\User
+     */
+    public function addBabiole(Babiole $babiole): User {
         if (!$this->babioles->contains($babiole)) {
             $this->babioles[] = $babiole;
             $babiole->setUser($this);
@@ -629,8 +656,12 @@ class User implements UserInterface {
         return $this;
     }
 
-    public function removeBabiole(Babiole $babiole): self
-    {
+    /**
+     * 
+     * @param Babiole $babiole
+     * @return \App\Entity\General\User
+     */
+    public function removeBabiole(Babiole $babiole): User {
         if ($this->babioles->contains($babiole)) {
             $this->babioles->removeElement($babiole);
             // set the owning side to null (unless already changed)
@@ -638,6 +669,42 @@ class User implements UserInterface {
                 $babiole->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @return string|null
+     */
+    public function getTelephone(): ?string {
+        return $this->telephone;
+    }
+
+    /**
+     * 
+     * @return string|null
+     */
+    public function getTelephoneFormate(): ?string {
+        if (strlen($this->telephone) == 10) {
+            $a1 = substr($this->telephone, 0, 2);
+            $a2 = substr($this->telephone, 2, 2);
+            $a3 = substr($this->telephone, 4, 2);
+            $a4 = substr($this->telephone, 6, 2);
+            $a5 = substr($this->telephone, 8, 2);
+
+            return $a1 . ' ' . $a2 . ' ' . $a3 . ' ' . $a4 . ' ' . $a5;
+        } else
+            return $this->telephone;
+    }
+
+    /**
+     * 
+     * @param string $telephone
+     * @return \App\Entity\General\User
+     */
+    public function setTelephone(string $telephone): User {
+        $this->telephone = $telephone;
 
         return $this;
     }

@@ -20,10 +20,8 @@ class CreateReservationFlow extends FormFlow {
                 'form_type' => CreateReservationForm::class
             ],
             [
-                'label' => 'Contact',
-            ],
-            [
                 'label' => 'Validation',
+                'form_type' => CreateReservationForm::class
             ],
             [
                 'label' => 'Confirmation',

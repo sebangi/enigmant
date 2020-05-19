@@ -30,7 +30,6 @@ class RequestSubscriber implements EventSubscriberInterface
         ) {
             return;
         }
-        
         $this->saveTargetPath($this->session, 'main', $request->getUri());
     }
 

@@ -7,7 +7,7 @@
 {% block body %}
     <div class="jumbotron mon-jumbotron text-center">
         <h4 class="text-center">S'inscrire à Énigmant</h4>
-        Vous avez déjà un compte ? <a href="{{ path("login") }}">Se connecter</a>
+        Vous avez déjà un compte ? <a href="{{ path("app_login") }}">Se connecter</a>
     </div>
 
     <div class="container mt-4">
@@ -19,6 +19,7 @@
                 {{ form_row(registrationForm.plainPassword) }} 
                                 
                 {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.telephone) }}
                 {{ form_row(registrationForm.prenom) }}
                 {{ form_row(registrationForm.nom) }}
                 

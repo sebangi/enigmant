@@ -98,6 +98,7 @@ class ReservationController extends BaseController {
         return $this->monRender('chene/reservation/reservation.html.twig', [
                     'form' => $form->createView(),
                     'jeu' => $jeuEnChene,
+                    'reservation' => $reservation,
                     'flow' => $flow,
         ]);
     }
