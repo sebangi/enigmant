@@ -9,8 +9,8 @@ require('tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css')
 
 
 var debut_location = new Date();
-debut_location.setDate(debut_location.getDate() + 1);
-debut_location.setHours(00, 00, 01);
+debut_location.setDate(debut_location.getDate());
+debut_location.setMinutes(00);
 var fin_location = new Date();
 fin_location.setDate(fin_location.getDate() + 7);
 fin_location.setHours(23, 59, 59);
@@ -37,7 +37,8 @@ $.fn.datetimepicker.Constructor.Default =
                         close: 'fas fa-times'
 
                     },
-                    locale: 'fr'
+                    locale: 'fr',
+//                    format: 'dddd D MMMM YYYY à HH:mm',
                 });
 
 
@@ -45,12 +46,12 @@ $.fn.datetimepicker.Constructor.Default =
 $(document).ready(function () {
     $('.picker-datetime-location').datetimepicker(
             {
-                sideBySide: true,
+                sideBySide: true,        
+                format: 'dddd D MMMM YYYY à HH:mm',      
+                defaultDate: proposition,  
                 minDate: debut_location,
                 maxDate: fin_location,
-                defaultDate: proposition,                
                 stepping: 15,
-                format: 'dddd D MMMM YYYY à HH:mm'
             }
     );
 

@@ -18,26 +18,29 @@ class CreateReservationForm extends AbstractType {
         switch ($options['flow_step']) {
             case 1:
                 $builder
-                        ->add('retraitRDV', CheckboxType::class,
-                                [
-                                    'attr' => ['class' => "custom-control-input only-one case_a_coche"],
-                                    'label' => false,
-                                    'label_attr' =>
-                                    ['class' => 'custom-control-label',
-                                        'name' => 'checkboxValidation'],
-                                    'required' => false
-                        ])
-                        ->add('retraitDomicile', CheckboxType::class, [
-                            'attr' => ['class' => "custom-control-input only-one"],
-                            'label' => false,
-                            'label_attr' =>
-                            ['class' => 'custom-control-label',
-                                'name' => 'checkboxValidation'],
-                            'required' => false
-                        ])
-                        ->add('lieuRDV', TextareaType::class, [
-                            'required' => false
-                        ])
+                ->add('retraitRDV', CheckboxType::class,
+                [
+                'attr' => ['class' => "custom-control-input only-one case_a_coche"],
+                'label' => false,
+                'label_attr' =>
+                ['class' => 'custom-control-label',
+                'name' => 'checkboxValidation'],
+                'required' => false
+                ])
+                ->add('retraitDomicile', CheckboxType::class, [
+                'attr' => ['class' => "custom-control-input only-one"],
+                'label' => false,
+                'label_attr' =>
+                ['class' => 'custom-control-label',
+                'name' => 'checkboxValidation'],
+                'required' => false
+                ])
+                ->add('lieuRDV', TextareaType::class, [
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Lieu proposé'
+                    ]
+                ])
                 ;
                 break;
             case 2:
