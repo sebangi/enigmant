@@ -43,11 +43,12 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function recupererTout( $id ) 
     {
         return $this->createQueryBuilder('u')
-            ->select('u', 'o', 'n', 't', 'c', 'm', 'r')
+            ->select('u', 'o', 'n', 't', 'c', 'm', 'r', 'c2')
             ->LeftJoin('u.obtentionNiveaux', 'o')
             ->Join('o.niveau', 'n')
             ->Join('n.theme', 't')
             ->LeftJoin('u.reservations', 'r')
+            ->LeftJoin('r.conversation', 'c2')
             ->LeftJoin('u.conversations', 'c')
             ->LeftJoin('c.messages', 'm')
             ->Where('u.id = :id')

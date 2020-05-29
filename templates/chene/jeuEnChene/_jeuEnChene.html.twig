@@ -14,14 +14,18 @@
 
     <div class="card-body pt-2 pb-0 d-flex flex-column">
         <h3 class="">
-            <a class="stretched-link d-inline text-dark" href="{{ path("jeuEnChene.show", { slug: jeuEnChene.slug, id: jeuEnChene.id }) }}">
+            {% if sansLien is defined %}
                 {{ jeuEnChene.nom }}
-            </a>  
+            {% else %}  
+                <a class="stretched-link d-inline text-dark" href="{{ path("jeuEnChene.show", { slug: jeuEnChene.slug, id: jeuEnChene.id }) }}">
+                    {{ jeuEnChene.nom }}
+                </a>  
+            {% endif %}  
             {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
                 {% if app.user.aReussiJeu( jeuEnChene ) %}
                     <div class="d-inline float-right font-weight-bold"><span class="fas fa-check text-success" aria-hidden="true"></span></div>                
-                    {% endif %}
-                {% endif %}            
+                {% endif %}
+            {% endif %}            
         </h3>
 
         <div class="font-italic">{{ jeuEnChene.description|nl2br(false) }}</div>   

@@ -64,7 +64,7 @@ class JeuEnChene {
      * @ORM\Column(type="integer")
      */
     private $tempsLocation;
-
+    
     /**
      * @ORM\Column(type="integer", options={"default" : 1})
      */
@@ -313,6 +313,7 @@ class JeuEnChene {
 
         return $this;
     }
+    
 
     /**
      * 

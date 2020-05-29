@@ -1,9 +1,118 @@
 <div class="row">  
     <div class="col-md-8 mb-0">
-    
+        <div class="container  pl-0">
+            <div class="col-md-12 mb-0 pl-0">
+                <h4 class="mt-2 font-weight-bold">
+                    Retrait             
+                </h4>
 
+                <div class="container ml-4">
+                    <div class="row">  
+                        <div class="col-md-4 text-right pt-2 pr-0">
+                            <b>Lieu :</b>
+                        </div> 
+                        <div class="col-md-8">
+                            {% if reservation.retraitDomicile %}
+                                <input class="form-control" readonly value="Saint Philbert de Grand Lieu"> 
+                                </input>   
+                                <textarea readonly class="form-control" hidden>{{ reservation.lieuRDV }}</textarea>
+                            {% else %}
+                                <input class="form-control" readonly value="Sur rendez-vous selon la proposition ci-dessous"> 
+                                </input>   
 
+                                <textarea readonly class="form-control mt-2" placeholder="Aucun">{{ reservation.lieuRDV}}</textarea>
+                            {% endif %}
+                        </div>   
+                    </div>
+                    <div class="row mt-2">  
+                        <div class="col-md-4 text-right mt-2 pr-0">
+                            <b>Date proposée :</b>
+                        </div>    
+                        <div class="col-md-8">
+                            <div class="input-group picker-datetime-readall" id="dateRetrait" data-target-input="nearest">
+                                <input class="form-control" readonly datat-target="#dateRetrait" value="{{ reservation.dateRetrait | format_datetime('full', 'short', locale='fr') }}"> 
+                                </input>   
+                            </div>                            
+                        </div> 
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="col-md-12 mb-0 pl-0">
+                <h4 class="mt-2 font-weight-bold">
+                    Babioles              
+                </h4>
+
+                <div class="container ml-4">
+                    <div class="row">  
+                        <div class="col-md-4 text-right pt-2 pr-0">
+                            <b>Prix conseillé :</b>
+                        </div> 
+                        <div class="col-md-8 pt-2">
+                            {% if jeu.estGratuit( app.user.id ) %}
+                                GRATUIT POUR VOUS ! 
+                            {% else %}
+                                {{ include('outils/_piece.html.twig', {valeur : jeu.prix}) }} Babiole{% if jeu.prix > 1%}s{% endif %}
+                            {% endif %}
+                        </div>   
+                    </div>
+                    <div class="row mt-2">  
+                        <div class="col-md-4 text-right mt-2 pr-0">
+                            <b>Votre porte-monnaie :</b>
+                        </div>    
+                        <div class="col-md-8">
+                            {% if reservation.aBabiole %}
+                                <input class="form-control" readonly value="Vous avez assez de babioles"></input>
+                            {% elseif reservation.aPeutEtreBabiole %}
+                                <input class="form-control" readonly value="Pas sûr(e) de vos babioles"></input>
+                            {% elseif reservation.aPasAssezBabiole %}
+                                <input class="form-control" readonly value="Vous n'avez pas assez de babioles"></input>
+                            {% else %}   
+                                <input class="form-control" readonly value="Vous n'avez aucune babiole"></input>
+                            {% endif%}                            
+                        </div> 
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="col-md-12 mb-0 pl-0">
+                <h4 class="mt-2 font-weight-bold">
+                    Contact              
+                </h4>
+
+                <div class="ml-4">
+                    <h5 class="mt-2 font-weight-bold">
+                        Après validation, une conversation sera créée sur ce site permettant :              
+                    </h5>
+                    <ul class="">
+                        <li>De vous fournir les informations nécessaires pour le retrait</li>
+                        <li>De planifier le retour du Jeu en Chêne</li>
+                        <li>De répondre à vos demandes : allongement de la location, demande d'indices...</li>
+
+                    </ul>
+                    <h5 class="mt-2 font-weight-bold">
+                        Pour le retrait, nous sommes susceptibles de vous contacter :
+                    </h5>
+                    <ul class="">
+                        <li>À votre adresse mail : <b>{{ reservation.user.email }}</b></li>
+                        <li>Ou par SMS au : <b>{{ reservation.user.getTelephoneFormate() }}</b></li>
+                    </ul>
+                    <div class="custom-control-lg custom-control custom-checkbox">
+                        {{ form_widget(form.contactOk) }}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>   
+
+    <div class="d-flex align-items-stretch col-md-4">
+        {%  include 'chene/jeuEnChene/_jeuEnChene.html.twig' with {jeuEnChene: reservation.jeu, sansLien: true} %}
     </div>
-</div>
 
+</div>
 

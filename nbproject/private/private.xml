@@ -8,9 +8,24 @@
             <file>file:/home/sebastien/public_html/enigmant/templates/chene/reservation/reservation.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/chene/reservation/etape3.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/assets/js/datepicker.js</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/General/ConversationController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/show.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/reservation/confirmation.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Chene/ReservationController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Chene/BabioleController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/SecurityController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/CreateReservationFlow.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Chene/JeuEnCheneController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/general/grade/index.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/HomeController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Entity/General/Niveau.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/grade.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/CreateReservationForm.php</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/JeuEnCheneType.php</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/chene/reservation/etape2.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Chene/CollectionCheneController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/General/GradeController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Repository/General/NiveauRepository.php</file>
         </group>
     </open-files>
 </project-private>

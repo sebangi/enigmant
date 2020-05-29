@@ -35,31 +35,6 @@ require('@fortawesome/fontawesome-free/js/all.js');
 
 const $ = require('jquery');
 
-// ACTIVER NEXT1 SEULEMENT SI UN SEUL CHEXBOX EST VALIDE
-function textNext1() {
-    var n = $("input:checked").length;
-    if (n != 1) {
-        $('.next1').attr("disabled", "disabled");
-    } else {
-        $('.next1').removeAttr("disabled");
-    }
-}
-
-// CACHER LIEU DE RESERVATION
-function cacher()
-{
-    var text = document.getElementById("si_case_a_cocher");
-    var checkBox = document.getElementById("createReservation_retraitRDV");
-
-    if (checkBox && text)
-    {
-        if (checkBox.checked == true) {
-            text.style.display = "block";
-        } else {
-            text.style.display = "none";
-        }
-    }
-}
 
 $(document).ready(function ()
 {
@@ -76,20 +51,6 @@ $(document).ready(function ()
     $('[data-toggle="popover"]').popover();
     $('[data-toggle="popover"]').on('click', function (e) {
         $('[data-toggle="popover"]').not(this).popover('hide');
-    });
-
-    $('input.only-one').click(function () {
-        $('input.only-one').not(this).prop('checked', false);
-    });
-
-    textNext1();
-    $(":checkbox").click(function () {
-        textNext1();
-    });
-
-    cacher();
-    $(':checkbox').click(function () {
-        cacher();
     });
 
 });

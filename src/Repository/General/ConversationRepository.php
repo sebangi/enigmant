@@ -50,13 +50,13 @@ class ConversationRepository extends ServiceEntityRepository
                 ->Where('user.id = :id')
                 ->setParameter('id', $user_id)
                 ->addorderBy('mess.vu', 'ASC')
-                ->addOrderBy('mess.date', 'ASC');
+                ->addOrderBy('mess.date', 'DESC');
         }
         else 
         {
             $query = $query
                 ->orderBy('mess.vuGourou', 'ASC')
-                ->addOrderBy('mess.date', 'ASC');
+                ->addOrderBy('mess.date', 'DESC');
         }
         
         return $query   

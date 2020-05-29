@@ -11,6 +11,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ReservationJeu
 {
+    const codePossessionBabiole = [
+                0 => 'a babiole',
+                1 => 'a peut être babiole',
+                2 => 'pas assez de babiole',
+                3 => 'aucune babiole'
+    ];
+    
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -89,6 +97,27 @@ class ReservationJeu
      * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $retraitDomicile = false;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $possessionBabiole;
+    
+    /**
+     */
+    private $aBabiole = false;
+    
+    /**
+     */
+    private $aPasAssezBabiole = false;
+        
+    /**
+     */
+    private $aPeutEtreBabiole = false;
+    
+    /**
+     */
+    private $aAucuneBabiole = false;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -105,7 +134,34 @@ class ReservationJeu
     
     public function __construct() {
         $this->dateRetrait = null;
+    }    
+    
+    /**
+     * 
+     * @return int|null
+     */
+    public function getPossessionBabiole(): ?int {
+        return $this->possessionBabiole;
     }
+
+    /**
+     * @return string
+     */
+    public function getPossessionBabioleString(): string {
+        return self::codePossessionBabiole[$this->possessionBabiole];
+    }
+
+    /**
+     * 
+     * @param int $possessionBabiole
+     * @return \App\Entity\Chene\ReservationJeu
+     */
+    public function setPossessionBabiole(int $possessionBabiole): ReservationJeu {
+        $this->possessionBabiole = $possessionBabiole;
+
+        return $this;
+    }
+    
     
     /**
      * 
@@ -116,7 +172,84 @@ class ReservationJeu
         return $this->id;
     }
 
+    /**
+     * 
+     * @return type
+     */
+    public function getAAucuneBabiole() {
+        return $this->aAucuneBabiole;
+    }
+
+    /**
+     * 
+     * @param type $aAucuneBabiole
+     * @return \App\Entity\Chene\ReservationJeu
+     */
+    public function setAAucuneBabiole($aAucuneBabiole) : ReservationJeu
+    {
+        $this->aAucuneBabiole = $aAucuneBabiole;
+        return $this;
+    }
+
+        
+    /**
+     * 
+     * @return type
+     */
+    public function getAPeutEtreBabiole() {
+        return $this->aPeutEtreBabiole;
+    }
+
+    /**
+     * 
+     * @param type $aPeutEtreBabiole
+     * @return \App\Entity\Chene\ReservationJeu
+     */
+    public function setAPeutEtreBabiole($aPeutEtreBabiole) :ReservationJeu
+    {
+        $this->aPeutEtreBabiole = $aPeutEtreBabiole;
+        return $this;
+    }   
     
+    /**
+     * 
+     * @return type
+     */
+    public function getABabiole() {
+        return $this->aBabiole;
+    }
+
+    /**
+     * 
+     * @param type $aBabiole
+     * @return \App\Entity\Chene\ReservationJeu
+     */
+    public function setABabiole($aBabiole) : ReservationJeu 
+    {
+        $this->aBabiole = $aBabiole;
+        return $this;
+    }
+    
+    /**
+     * 
+     * @return type
+     */
+    public function getAPasAssezBabiole() {
+        return $this->aPasAssezBabiole;
+    }
+
+    /**
+     * 
+     * @param type $aPasAssezBabiole
+     * @return \App\Entity\Chene\ReservationJeu
+     */
+    public function setAPasAssezBabiole($aPasAssezBabiole) : ReservationJeu 
+    {
+        $this->aPasAssezBabiole = $aPasAssezBabiole;
+        return $this;
+    }
+
+        
     /**
      * 
      * @return type
@@ -224,7 +357,7 @@ class ReservationJeu
     public function getIntitule(): ?string
     {
         setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
-        return $this->getUser()->getUserName() . " : " .$this->jeu->getNom() . " réservé le " . strftime("%A %e %B %G", $this->dateDemande->getTimestamp() );
+        return "Location de " .$this->jeu->getNom() . " effectuée le " . strftime("%A %e %B %G", $this->dateDemande->getTimestamp() );
     }
 
     /**

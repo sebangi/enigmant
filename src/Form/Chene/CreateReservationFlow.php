@@ -12,7 +12,7 @@ class CreateReservationFlow extends FormFlow {
     public function invalidateStepData($fromStepNumber) {
         // do nothing, this prevents us from deleting step data when user hits "back" button
     }
-    
+
     protected function loadStepsConfig() {
         return [
             [
@@ -24,14 +24,14 @@ class CreateReservationFlow extends FormFlow {
                 'form_type' => CreateReservationForm::class
             ],
             [
-                'label' => 'Validation',
-                'form_type' => CreateReservationForm::class
+                'label' => 'Babioles',
+                'form_type' => CreateReservationForm::class,
             ],
             [
-                'label' => 'Confirmation',
+                'label' => 'Validation',
+                'form_type' => CreateReservationForm::class
             ]
         ];
     }
-
 
 }

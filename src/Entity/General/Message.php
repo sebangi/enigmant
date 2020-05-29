@@ -62,7 +62,7 @@ class Message
     {
         $this->date = new \DateTime('now');
     }
-    
+        
      /**
      * 
      * @return string

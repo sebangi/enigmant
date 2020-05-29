@@ -64,9 +64,8 @@
                     <div class="col-12">
                         <h5>
                             La conversation porte sur
-                            <a href="{{ path("jeuEnChene.show", 
-                            {   id : conversation.lienReservation.getJeu().getId(), 
-                                slug : conversation.lienReservation.getJeu().getSlug()} ) }}" class="btn-link">
+                            <a href="{{ path("chene.location.show", 
+                            {   id : conversation.lienReservation.getId()} ) }}" class="btn-link">
                                 {{ conversation.lienReservation.getIntitule() }}
                             </a>
                         </h5>  

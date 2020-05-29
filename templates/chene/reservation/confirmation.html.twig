@@ -1,0 +1,45 @@
+{% extends "chene/baseChene.html.twig" %}
+
+{% block body %}
+    <div class="jumbotron mon-jumbotron">
+        <div class="container">
+            <h1 class="text-center">Location du Jeu en Chêne {{ reservation.jeu.getNom() }}</h1>
+        </div>
+    </div>
+
+    {{ include('chene/reservation/_progressBar.html.twig', { etape : 5 }) }}
+
+    <div class="container mt-4 mb-2">
+        <div class="card mb-4 border-dark">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0 mt-0">Confirmation</h4>
+            </div>
+            <div class="card-body p-3">
+                <div class="container">
+                    <div class="row">  
+                        <div class="col-md-8 mb-0">
+                            <h4><span class="fas fa-check text-success mr-2" aria-hidden="true"></span>Le Jeu en Chêne vous est réservé.</h4> 
+                            <div class="ml-4 pl-2">
+                                Nous préparons votre commande.
+                            </div>
+                            <div class="ml-4 pl-2">
+                                Vous avez sept jours pour effectuer le retrait.
+                            </div>
+
+                            <a href="{{ path("chene.location.show", {id : reservation.id} ) }}" class="btn btn-success ml-4 mt-2">Accéder aux modalités de retrait</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('datepicker') }}
+{% endblock %}
+
+
+
+
