@@ -112,7 +112,7 @@
                             <b>Date de retour conseillée : </b> au alentour du {{ reservation.dateFinPrevue | format_datetime('full', 'none', locale='fr') }} 
                         </div>
 
-                        {% if reservation.etat == 2 %}
+                        {% if reservation.etat == 2 and not is_granted('ROLE_ADMIN')%}
                             <div>
                                 <a href="{{ path("chene.location.rendre", {id : reservation.id, slug : reservation.getSlug()} ) }}" class="btn mon-btn mt-2 mr-3">Je souhaite rendre le Jeu en Chêne</a>
                             </div>

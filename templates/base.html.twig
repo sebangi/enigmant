@@ -31,6 +31,7 @@
                         ? 
                         {% if is_granted('ROLE_ADMIN') %}
                             <a href="{{ path("admin.home" ) }}" class="btn btn-warning ml-4">Administration</a>
+                            <a class="btn btn-warning" href="{{ path('admin.chene.reservation.index') }}">Locations</a>
                         {% endif %}           
                     {% endif %}  
 
