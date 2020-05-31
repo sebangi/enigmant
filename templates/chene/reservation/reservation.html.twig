@@ -20,9 +20,9 @@
             <div class="card-body p-3">
                 <div class="container">
                     {% if flow.getCurrentStepNumber() == 1 %}
-                        {% include 'chene/reservation/etape1.html.twig' %}
+                        {% include 'chene/reservation/_lieuRetrait.html.twig' %}
                     {% elseif flow.getCurrentStepNumber() == 2 %}
-                        {% include 'chene/reservation/etape2.html.twig' %}
+                        {% include 'chene/reservation/_dateRetrait.html.twig' %}
                     {% elseif flow.getCurrentStepNumber() == 3 %}
                         {% include 'chene/reservation/etape3.html.twig' %}
                     {% elseif flow.getCurrentStepNumber() == 4 %}
@@ -36,7 +36,7 @@
         <div class="ml-4">
             {% if   flow.getCurrentStepNumber() == 1 or 
                     flow.getCurrentStepNumber() == 3 %}
-                {% include '@CraueFormFlow/FormFlow/buttons.html.twig'with {
+            {% include '@CraueFormFlow/FormFlow/buttons.html.twig'with {
 		craue_formflow_button_label_last: 'Étape suivante',
 		craue_formflow_button_label_back: "revenir à l'étape précédente",
 		craue_formflow_button_class_last: 'btn btn-success next1',
@@ -51,24 +51,24 @@
 		craue_formflow_button_name_last: 'next1',
 		craue_formflow_button_class_back: 'btn btn-secondary mr-4',
                 craue_formflow_button_render_reset:false } %}
-            {% else %}
-                {% include '@CraueFormFlow/FormFlow/buttons.html.twig'with {
+                {% else %}
+                    {% include '@CraueFormFlow/FormFlow/buttons.html.twig'with {
 		craue_formflow_button_label_last: 'Étape suivante',
 		craue_formflow_button_label_back: "revenir à l'étape précédente",
 		craue_formflow_button_class_last: 'btn btn-success',
 		craue_formflow_button_class_back: 'btn btn-secondary mr-4',
                 craue_formflow_button_render_reset:false } %}
-            {% endif %}
-        </div>
+                    {% endif %}
+                    </div>
 
 
-        {{ form_end(form) }}
-    </div>
-{% endblock %}
+                    {{ form_end(form) }}
+                </div>
+                {% endblock %}
 
 
-{% block javascripts %}
-    {{ parent() }}
-    {{ encore_entry_script_tags('checkbox') }}
-    {{ encore_entry_script_tags('datepicker') }}
-{% endblock %}
+                    {% block javascripts %}
+                        {{ parent() }}
+                        {{ encore_entry_script_tags('checkbox') }}
+                        {{ encore_entry_script_tags('datepicker') }}
+                    {% endblock %}

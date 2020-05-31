@@ -26,7 +26,7 @@
                                 Vous avez sept jours pour effectuer le retrait.
                             </div>
 
-                            <a href="{{ path("chene.location.show", {id : reservation.id} ) }}" class="btn btn-success ml-4 mt-2">Accéder aux modalités de retrait</a>
+                            <a href="{{ path("chene.location.show", {id : reservation.id, slug : reservation.getSlug()} ) }}" class="btn btn-success ml-4 mt-2">Accéder aux modalités de retrait</a>
                         </div>
                     </div>
                 </div>

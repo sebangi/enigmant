@@ -1,0 +1,38 @@
+{% extends "chene/baseChene.html.twig" %}
+
+{% block body %}
+    <div class="jumbotron mon-jumbotron">
+        <div class="container">
+            <h1 class="text-center">Location du Jeu en Chêne {{ reservation.jeu.nom }}</h1>
+        </div>
+    </div>
+
+    <div class="container mt-4 mb-2">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        <div class="card mb-4 border-dark">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0 mt-0">
+                    {% if champ == "lieuRetrait" %}
+                        Lieu du retrait
+                    {% elseif champ == "dateRetrait" %}
+                        Date du retrait
+                    {% endif  %}
+                </h4>
+            </div>
+            <div class="card-body p-3">
+                {% include "chene/reservation/_"~champ~".html.twig" %}
+            </div>
+        </div>
+        <button class="btn btn-success">{{ 'Valider mes changements' }}</button>
+        {{ form_widget(form.cancel) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('checkbox') }}
+    {{ encore_entry_script_tags('datepicker') }}
+{% endblock %}

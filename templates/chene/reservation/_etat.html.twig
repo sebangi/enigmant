@@ -1,8 +1,11 @@
 <div class="container mt-4 mb-4">
-    <ul class="progressbar pl-0">
-        <li {% if etape == 1 %}class="active"{% endif %}>En préparation</li>
-        <li {% if etape == 2 %}class="active"{% endif %}>Prêt pour le retrait</li>
-        <li {% if etape == 3 %}class="active"{% endif %}>Chez vous</li>
-        <li {% if etape == 4 %}class="active"{% endif %}>Rendu</li>
+    <ul class="progressbar progressbar6 pl-0">
+        <li class="{% if etape == 0 %}active{% endif %}">En cours de préparation</li>
+        <li class="{% if etape == 1 %}active{% endif %}"><div>En attente</div>de retrait</li>
+        <li class="{% if etape == 2 %}active{% endif %}"><div>Jeu retiré</div> 
+            À vous de jouer !</li>
+        <li class="{% if etape == 3 or etape == 4%}active{% endif %}"><div>En attente</div>de retour</li>
+        <li class="{% if etape == 5 %}active{% endif %}">Location terminée</li>
+        <li class="{% if etape == 6 %}active{% endif %}">Votre avis</li>
     </ul>
 </div>

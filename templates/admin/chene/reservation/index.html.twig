@@ -5,11 +5,11 @@
         <h1>Gérer les locations</h1>
 
         {{ include('outils/_flash.html.twig') }}           
-        
+
         <div class="text-right mb-4">
             <a href="{{ path("admin.chene.reservation.new") }}" class="btn btn-primary">Créer une nouvelle location</a>
         </div>
-        
+
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -34,6 +34,7 @@
                         <td>{{ reservation.dateFinPrevue | date("d/m/Y")}}</td>
                         <td>{{ reservation.dateRendu | date("d/m/Y")}}</td>
                         <td>
+                            <a href="{{ path("chene.location.show",{   id : reservation.getId(), slug : reservation.getSlug()} ) }}" class="btn btn-primary">Voir</a>
                             <a href="{{ path("admin.chene.reservation.edit", {id : reservation.id} ) }}" class="btn btn-secondary">Éditer</a>
                             <form method="post" action="{{ path("admin.chene.reservation.delete", {id: reservation.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
                                 <input type="hidden" name="_method" value="DELETE">

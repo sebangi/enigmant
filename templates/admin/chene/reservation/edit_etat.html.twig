@@ -1,0 +1,19 @@
+{% extends "admin/chene/adminBaseChene.html.twig" %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Éditer la réservation</h1>
+        <h3>Réservation de {{ reservation.jeu.getNomEtCollection() }} par {{ reservation.user.username }}</h3>
+
+        {{ form_start(form) }}
+        
+        <div class="row">
+            <div class="col-md-12">{{ form_row(form.etat) }}</div>
+        </div> 
+
+        <button class="btn btn-success">{{ 'Valider mes changements' }}</button>
+        {{ form_widget(form.cancel) }}
+        {{ form_end(form) }} 
+    </div>
+
+{% endblock %}

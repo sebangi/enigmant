@@ -4,21 +4,30 @@ namespace App\Entity\Chene;
 
 use App\Entity\General\Conversation;
 use App\Entity\General\User;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Chene\ReservationJeuRepository")
  */
-class ReservationJeu
-{
+class ReservationJeu {
+
     const codePossessionBabiole = [
-                0 => 'a babiole',
-                1 => 'a peut être babiole',
-                2 => 'pas assez de babiole',
-                3 => 'aucune babiole'
+        0 => 'a babiole',
+        1 => 'a peut être babiole',
+        2 => 'pas assez de babiole',
+        3 => 'aucune babiole'
     ];
-    
-    
+    const codeEtat = [
+        0 => 'En cours de préparation',
+        1 => 'Prêt pour le retrait',
+        2 => 'Jeu retiré. À vous de jouer !',
+        3 => 'En attente de retour',
+        4 => 'Prêt pour le retour',
+        5 => 'Location terminée',
+        6 => 'Avis donnés',
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -35,17 +44,17 @@ class ReservationJeu
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateRetrait;
-    
+
     /**
      * @ORM\Column(type="date", nullable=true)
      */
     private $dateFinPrevue;
-    
-     /**
+
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateRendu;
-   
+
     /**
      * @ORM\Column(type="text", nullable=true)
      */
@@ -97,24 +106,29 @@ class ReservationJeu
      * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $retraitDomicile = false;
-    
+
     /**
      * @ORM\Column(type="integer")
      */
     private $possessionBabiole;
-    
+
+    /**
+     * @ORM\Column(type="integer", options={"default" : 0})
+     */
+    private $etat = 0;
+
     /**
      */
     private $aBabiole = false;
-    
+
     /**
      */
     private $aPasAssezBabiole = false;
-        
+
     /**
      */
     private $aPeutEtreBabiole = false;
-    
+
     /**
      */
     private $aAucuneBabiole = false;
@@ -124,18 +138,40 @@ class ReservationJeu
      */
     private $lieuRDV;
     
+    
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $retourRDV = false;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $retourDomicile = false;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $lieuRetourRDV;    
+    
     /**
      *
      * @var bool|null 
      */
-    private $contactOk = false; 
-    
-    
-    
+    private $contactOk = false;
+
     public function __construct() {
         $this->dateRetrait = null;
-    }    
-    
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    public function getSlug(): string {
+        return ( new Slugify())->slugify($this->getIntitule());
+    }
+
     /**
      * 
      * @return int|null
@@ -161,14 +197,38 @@ class ReservationJeu
 
         return $this;
     }
-    
-    
+
     /**
      * 
      * @return int|null
      */
-    public function getId(): ?int
-    {
+    public function getEtat(): ?int {
+        return $this->etat;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEtatString(): string {
+        return self::codeEtat[$this->etat];
+    }
+
+    /**
+     * 
+     * @param int $etat
+     * @return \App\Entity\Chene\ReservationJeu
+     */
+    public function setEtat(int $etat): ReservationJeu {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @return int|null
+     */
+    public function getId(): ?int {
         return $this->id;
     }
 
@@ -185,13 +245,11 @@ class ReservationJeu
      * @param type $aAucuneBabiole
      * @return \App\Entity\Chene\ReservationJeu
      */
-    public function setAAucuneBabiole($aAucuneBabiole) : ReservationJeu
-    {
+    public function setAAucuneBabiole($aAucuneBabiole): ReservationJeu {
         $this->aAucuneBabiole = $aAucuneBabiole;
         return $this;
     }
 
-        
     /**
      * 
      * @return type
@@ -205,12 +263,11 @@ class ReservationJeu
      * @param type $aPeutEtreBabiole
      * @return \App\Entity\Chene\ReservationJeu
      */
-    public function setAPeutEtreBabiole($aPeutEtreBabiole) :ReservationJeu
-    {
+    public function setAPeutEtreBabiole($aPeutEtreBabiole): ReservationJeu {
         $this->aPeutEtreBabiole = $aPeutEtreBabiole;
         return $this;
-    }   
-    
+    }
+
     /**
      * 
      * @return type
@@ -224,12 +281,11 @@ class ReservationJeu
      * @param type $aBabiole
      * @return \App\Entity\Chene\ReservationJeu
      */
-    public function setABabiole($aBabiole) : ReservationJeu 
-    {
+    public function setABabiole($aBabiole): ReservationJeu {
         $this->aBabiole = $aBabiole;
         return $this;
     }
-    
+
     /**
      * 
      * @return type
@@ -243,13 +299,11 @@ class ReservationJeu
      * @param type $aPasAssezBabiole
      * @return \App\Entity\Chene\ReservationJeu
      */
-    public function setAPasAssezBabiole($aPasAssezBabiole) : ReservationJeu 
-    {
+    public function setAPasAssezBabiole($aPasAssezBabiole): ReservationJeu {
         $this->aPasAssezBabiole = $aPasAssezBabiole;
         return $this;
     }
 
-        
     /**
      * 
      * @return type
@@ -263,18 +317,16 @@ class ReservationJeu
      * @param type $contactOk
      * @return \App\Entity\Chene\ReservationJeu
      */
-    public function setContactOk($contactOk) : ReservationJeu {
+    public function setContactOk($contactOk): ReservationJeu {
         $this->contactOk = $contactOk;
         return $this;
     }
 
-        
     /**
      * 
      * @return \DateTimeInterface|null
      */
-    public function getDateDemande(): ?\DateTimeInterface
-    {
+    public function getDateDemande(): ?\DateTimeInterface {
         return $this->dateDemande;
     }
 
@@ -283,8 +335,7 @@ class ReservationJeu
      * @param \DateTimeInterface $dateDemande
      * @return \App\Entity\Chene\ReservationJeu
      */
-    public function setDateDemande(\DateTimeInterface $dateDemande): ReservationJeu
-    {
+    public function setDateDemande(\DateTimeInterface $dateDemande): ReservationJeu {
         $this->dateDemande = $dateDemande;
 
         return $this;
@@ -294,8 +345,7 @@ class ReservationJeu
      * 
      * @return \DateTimeInterface|null
      */
-    public function getDateRetrait(): ?\DateTimeInterface
-    {
+    public function getDateRetrait(): ?\DateTimeInterface {
         return $this->dateRetrait;
     }
 
@@ -304,9 +354,18 @@ class ReservationJeu
      * @param \DateTimeInterface $dateRetrait
      * @return \App\Entity\Chene\ReservationJeu
      */
-    public function setDateRetrait(\DateTimeInterface $dateRetrait): ReservationJeu
-    {
+    public function setDateRetrait(\DateTimeInterface $dateRetrait): ReservationJeu {
         $this->dateRetrait = $dateRetrait;
+
+        $date2 = clone $dateRetrait;
+        if ($this->jeu->getTempsLocation() == 0)
+            $date2->modify('+7 day');
+        else if ($this->jeu->getTempsLocation() == 1)
+            $date2->modify('+14 day');
+        else
+            $date2->modify('+1 month');
+
+        $this->setDateFinPrevue($date2);
 
         return $this;
     }
@@ -315,8 +374,7 @@ class ReservationJeu
      * 
      * @return \DateTimeInterface|null
      */
-    public function getDateFinPrevue(): ?\DateTimeInterface
-    {
+    public function getDateFinPrevue(): ?\DateTimeInterface {
         return $this->dateFinPrevue;
     }
 
@@ -325,18 +383,17 @@ class ReservationJeu
      * @param \DateTimeInterface|null $dateFinPrevue
      * @return \App\Entity\Chene\ReservationJeu
      */
-    public function setDateFinPrevue(?\DateTimeInterface $dateFinPrevue): ReservationJeu
-    {
+    public function setDateFinPrevue(?\DateTimeInterface $dateFinPrevue): ReservationJeu {
         $this->dateFinPrevue = $dateFinPrevue;
 
         return $this;
     }
-        
+
     /**
      * 
      * @return \DateTimeInterface|null
      */
-    public function getDateRendu() : ?\DateTimeInterface{
+    public function getDateRendu(): ?\DateTimeInterface {
         return $this->dateRendu;
     }
 
@@ -349,23 +406,21 @@ class ReservationJeu
         $this->dateRendu = $dateRendu;
         return $this;
     }
-    
+
     /**
      * 
      * @return string|null
      */
-    public function getIntitule(): ?string
-    {
+    public function getIntitule(): ?string {
         setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
-        return "Location de " .$this->jeu->getNom() . " effectuée le " . strftime("%A %e %B %G", $this->dateDemande->getTimestamp() );
+        return "Location de " . $this->jeu->getNom() . " effectuée le " . strftime("%A %e %B %G", $this->dateDemande->getTimestamp());
     }
 
     /**
      * 
      * @return string|null
      */
-    public function getAvisPublic(): ?string
-    {
+    public function getAvisPublic(): ?string {
         return $this->avisPublic;
     }
 
@@ -374,8 +429,7 @@ class ReservationJeu
      * @param string|null $avisPublic
      * @return \App\Entity\Chene\ReservationJeu
      */
-    public function setAvisPublic(?string $avisPublic): ReservationJeu
-    {
+    public function setAvisPublic(?string $avisPublic): ReservationJeu {
         $this->avisPublic = $avisPublic;
 
         return $this;
@@ -385,8 +439,7 @@ class ReservationJeu
      * 
      * @return string|null
      */
-    public function getAvisPriveDifficulte(): ?string
-    {
+    public function getAvisPriveDifficulte(): ?string {
         return $this->avisPriveDifficulte;
     }
 
@@ -395,8 +448,7 @@ class ReservationJeu
      * @param string $avisPriveDifficulte
      * @return \App\Entity\Chene\ReservationJeu
      */
-    public function setAvisPriveDifficulte(string $avisPriveDifficulte): ReservationJeu
-    {
+    public function setAvisPriveDifficulte(string $avisPriveDifficulte): ReservationJeu {
         $this->avisPriveDifficulte = $avisPriveDifficulte;
 
         return $this;
@@ -406,8 +458,7 @@ class ReservationJeu
      * 
      * @return string|null
      */
-    public function getAvisPriveTechnique(): ?string
-    {
+    public function getAvisPriveTechnique(): ?string {
         return $this->avisPriveTechnique;
     }
 
@@ -416,8 +467,7 @@ class ReservationJeu
      * @param string|null $avisPriveTechnique
      * @return \App\Entity\Chene\ReservationJeu
      */
-    public function setAvisPriveTechnique(?string $avisPriveTechnique): ReservationJeu
-    {
+    public function setAvisPriveTechnique(?string $avisPriveTechnique): ReservationJeu {
         $this->avisPriveTechnique = $avisPriveTechnique;
 
         return $this;
@@ -427,8 +477,7 @@ class ReservationJeu
      * 
      * @return bool|null
      */
-    public function getReussi(): ?bool
-    {
+    public function getReussi(): ?bool {
         return $this->reussi;
     }
 
@@ -437,8 +486,7 @@ class ReservationJeu
      * @param bool $reussi
      * @return \App\Entity\Chene\ReservationJeu
      */
-    public function setReussi(bool $reussi): ReservationJeu
-    {
+    public function setReussi(bool $reussi): ReservationJeu {
         $this->reussi = $reussi;
 
         return $this;
@@ -448,8 +496,7 @@ class ReservationJeu
      * 
      * @return int|null
      */
-    public function getTempsJeuEstime(): ?int
-    {
+    public function getTempsJeuEstime(): ?int {
         return $this->tempsJeuEstime;
     }
 
@@ -458,8 +505,7 @@ class ReservationJeu
      * @param int|null $tempsJeuEstime
      * @return \App\Entity\Chene\ReservationJeu
      */
-    public function setTempsJeuEstime(?int $tempsJeuEstime): ReservationJeu
-    {
+    public function setTempsJeuEstime(?int $tempsJeuEstime): ReservationJeu {
         $this->tempsJeuEstime = $tempsJeuEstime;
 
         return $this;
@@ -469,8 +515,7 @@ class ReservationJeu
      * 
      * @return User|null
      */
-    public function getUser(): ?User
-    {
+    public function getUser(): ?User {
         return $this->user;
     }
 
@@ -479,8 +524,7 @@ class ReservationJeu
      * @param User|null $user
      * @return \App\Entity\Chene\ReservationJeu
      */
-    public function setUser(?User $user): ReservationJeu
-    {
+    public function setUser(?User $user): ReservationJeu {
         $this->user = $user;
 
         return $this;
@@ -490,8 +534,7 @@ class ReservationJeu
      * 
      * @return \App\Entity\Chene\JeuEnChene|null
      */
-    public function getJeu(): ?JeuEnChene
-    {
+    public function getJeu(): ?JeuEnChene {
         return $this->jeu;
     }
 
@@ -500,20 +543,17 @@ class ReservationJeu
      * @param \App\Entity\Chene\JeuEnChene|null $jeu
      * @return \App\Entity\Chene\ReservationJeu
      */
-    public function setJeu(?JeuEnChene $jeu): ReservationJeu
-    {
+    public function setJeu(?JeuEnChene $jeu): ReservationJeu {
         $this->jeu = $jeu;
 
         return $this;
     }
 
-    public function getConversation(): ?Conversation
-    {
+    public function getConversation(): ?Conversation {
         return $this->conversation;
     }
 
-    public function setConversation(?Conversation $conversation): self
-    {
+    public function setConversation(?Conversation $conversation): self {
         $this->conversation = $conversation;
 
         // set (or unset) the owning side of the relation if necessary
@@ -529,8 +569,7 @@ class ReservationJeu
      * 
      * @return bool|null
      */
-    public function getRetraitRDV(): ?bool
-    {
+    public function getRetraitRDV(): ?bool {
         return $this->retraitRDV;
     }
 
@@ -539,8 +578,7 @@ class ReservationJeu
      * @param bool $retraitRDV
      * @return \App\Entity\Chene\ReservationJeu
      */
-    public function setRetraitRDV(bool $retraitRDV): ReservationJeu
-    {
+    public function setRetraitRDV(bool $retraitRDV): ReservationJeu {
         $this->retraitRDV = $retraitRDV;
 
         return $this;
@@ -550,8 +588,7 @@ class ReservationJeu
      * 
      * @return bool|null
      */
-    public function getRetraitDomicile(): ?bool
-    {
+    public function getRetraitDomicile(): ?bool {
         return $this->retraitDomicile;
     }
 
@@ -560,22 +597,83 @@ class ReservationJeu
      * @param bool $retraitDomicile
      * @return \App\Entity\Chene\ReservationJeu
      */
-    public function setRetraitDomicile(bool $retraitDomicile): ReservationJeu
-    {
+    public function setRetraitDomicile(bool $retraitDomicile): ReservationJeu {
         $this->retraitDomicile = $retraitDomicile;
 
         return $this;
     }
 
-    public function getLieuRDV(): ?string
-    {
+    /**
+     * 
+     * @return string|null
+     */
+    public function getLieuRDV(): ?string {
         return $this->lieuRDV;
     }
 
-    public function setLieuRDV(?string $lieuRDV): self
-    {
+    /**
+     * 
+     * @param string|null $lieuRDV
+     * @return \App\Entity\Chene\ReservationJeu
+     */
+    public function setLieuRDV(?string $lieuRDV): ReservationJeu {
         $this->lieuRDV = $lieuRDV;
 
         return $this;
     }
+    
+    /**
+     * 
+     * @return type
+     */
+    public function getRetourRDV() {
+        return $this->retourRDV;
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function getRetourDomicile() {
+        return $this->retourDomicile;
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function getLieuRetourRDV() {
+        return $this->lieuRetourRDV;
+    }
+
+    /**
+     * 
+     * @param type $retourRDV
+     * @return \App\Entity\Chene\ReservationJeu
+     */
+    public function setRetourRDV($retourRDV) : ReservationJeu {
+        $this->retourRDV = $retourRDV;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param type $retourDomicile
+     * @return \App\Entity\Chene\ReservationJeu
+     */
+    public function setRetourDomicile($retourDomicile) : ReservationJeu {
+        $this->retourDomicile = $retourDomicile;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param type $lieuRetourRDV
+     * @return \App\Entity\Chene\ReservationJeu
+     */
+    public function setLieuRetourRDV($lieuRetourRDV) : ReservationJeu {
+        $this->lieuRetourRDV = $lieuRetourRDV;
+        return $this;
+    }
+
 }

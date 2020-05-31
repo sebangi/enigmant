@@ -65,7 +65,8 @@
                         <h5>
                             La conversation porte sur
                             <a href="{{ path("chene.location.show", 
-                            {   id : conversation.lienReservation.getId()} ) }}" class="btn-link">
+                            {   id : conversation.lienReservation.getId(), 
+                                slug : conversation.lienReservation.getSlug()} ) }}" class="btn-link">
                                 {{ conversation.lienReservation.getIntitule() }}
                             </a>
                         </h5>  

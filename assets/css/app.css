@@ -483,12 +483,16 @@ hr {
     list-style-type: none;
     width: 20%;
     float: left;
-    font-size: 12px;
+    font-size: 14px;
     position: relative;
     text-align: center;
     text-transform: uppercase;
     color: #7d7d7d;
 }
+.progressbar6 li {
+   width: 16.6%; 
+}
+
 .progressbar li:before {
     width: 30px;
     height: 30px;
@@ -516,13 +520,16 @@ hr {
     content: none;
 }
 .progressbar li.active {
-    color: green;
+    /*color: green;*/
+    color: var(--bg-color-2-dark)
 }
 .progressbar li.active:before {
-    border-color: #55b776;
+    /*border-color: #55b776;*/
+    border-color: var(--bg-color-2-dark);
 }
 .progressbar li.active + li:after {
-    background-color: #55b776;
+    /*background-color: #55b776;*/
+    background-color: var(--bg-color-2-dark);
 }
 
 .badge-progression {

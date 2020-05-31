@@ -24,7 +24,7 @@
                         <span class="fas fa-pen" aria-hidden="true"></span>
                     </a>
                 {% endif%} 
-                {% if exp == "user" %}{{ app.user.getUsername() }}{% else %}Grand Gourou{% endif%} 
+                {% if exp == "user" %}{{ message.conversation.user.username }}{% else %}Grand Gourou{% endif%} 
             </div>
             <div class="d-inline float-right font-italic">
                 {{ message.getDateString }}

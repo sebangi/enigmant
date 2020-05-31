@@ -2,19 +2,222 @@
 
 {% block body %}
     <div class="jumbotron mon-jumbotron">
-        <div class="container">
-            <h1 class="text-center">
+        <div class="container text-center">
+            <h1>
                 Location du Jeu en Chêne {{ reservation.jeu.nom }}
             </h1>
+            <div class="font-italic">
+                demande effectuée le {{ reservation.dateDemande | format_datetime('long', 'short', locale='fr')}}
+            </div>
         </div>
     </div>
 
     {{ include('outils/_flash.html.twig') }}   
 
-    
+    {{ include('chene/reservation/_etat.html.twig', { etape : reservation.etat }) }}
+
     <div class="container mt-4">
-        <h5>État du Jeu en Chêne pour la location :</h5>
-        {{ include('chene/reservation/_etat.html.twig', { etape : 1 }) }}
+
+        <a href="{{ path("general.conversation.show", {id : reservation.conversation.id, slug : reservation.conversation.getSlug()} ) }}{{reservation.conversation.getAncreNonVu( is_granted('ROLE_ADMIN') )}}" 
+           class="btn mon-btn mb-4">
+            Accéder à la conversation
+        </a> 
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path("admin.chene.reservation.edit.etat", {id : reservation.id, champ : "etat"} ) }}" class="btn btn-warning float-right mb-4">Modifier l'état</a>
+        {% endif %} 
+
+{#        ######################################################################"
+        RETRAIT DU JEU EN CHENE etat = 0 ou 1
+#}
+
+        <div class="card mb-4 border-dark">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0 mt-0">Retrait le Jeu en Chêne</h4>
+            </div>
+            <div class="card-body p-3">
+                <div class="container">
+                    <div class="row">  
+                        <div class="col-md-2 text-right pt-2 pr-0">
+                            <b>Lieu :</b>
+                        </div> 
+                        <div class="col-md-4">
+                            {% if reservation.retraitDomicile %}
+                                <input class="form-control" readonly value="Saint Philbert de Grand Lieu"> 
+                                </input>   
+                            {% else %}
+                                <input class="form-control" readonly value="Sur rendez-vous. Proposition :"> 
+                                </input>  
+                                <textarea readonly class="form-control mt-2" placeholder="Aucun">{{reservation.lieuRDV}}</textarea>
+                            {% endif %}
+                        </div>   
+                        <div class="col-md-2 text-right mt-2 pr-0">
+                            <b>Date proposée :</b>
+                        </div>    
+                        <div class="col-md-4">
+                            <div class="input-group picker-datetime-readall" id="dateRetrait" data-target-input="nearest">
+                                <input class="form-control" readonly datat-target="#dateRetrait" value="{{ reservation.dateRetrait | format_datetime('full', 'short', locale='fr') }}"> 
+                                </input>   
+                            </div>                            
+                        </div> 
+
+                    </div>
+                    {% if reservation.etat < 1 %}
+                        <div class="row">
+                            <div class="col-md-6 pr-0 text-center">
+                                <a href="{{ path("chene.location.edit.champ", {id : reservation.id, slug : reservation.getSlug(), champ : "lieuRetrait"} ) }}" class="btn mon-btn-outline mt-2 float-right mr-3">Modifier le lieu</a>
+                            </div>
+                            <div class="col-md-6 pr-0 text-center">
+                                <a href="{{ path("chene.location.edit.champ", {id : reservation.id, slug : reservation.getSlug(), champ : "dateRetrait"} ) }}" class="btn mon-btn-outline mt-2 float-right mr-3">Modifier la date</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <hr>
+
+                {% if reservation.etat == 0 %}
+                    <p class="mb-1">Nous préparons le Jeu en Chêne pour le retrait.</p>
+                    {% if reservation.retraitRDV %}
+                        <p class="mb-1 font-weight-bold">Nous vous confirmons très bientôt votre proposition de rendez-vous.</p>
+                    {% endif %}
+                {% elseif reservation.etat == 1 %}
+                    <p class="mb-1"><span class="fas fa-check text-success mr-2" aria-hidden="true"></span>Le jeu est prêt pour le retrait (Voir la conversation pour les modalités).</p>
+                    {% if reservation.retraitDomicile %}
+                        <p class="mb-1"><span class="fas fa-check text-success mr-2" aria-hidden="true"></span>Vous pouvez venir le retirer à la date prévue. Voir la conversation pour les modalités.</p>
+                    {% else %}
+                        <p class="mb-1"><span class="fas fa-check text-success mr-2" aria-hidden="true"></span>Le rendez-vous convenu dans la conversation est confirmé.</p>
+                    {% endif %}
+                {% else %}
+                    <p class="mb-1"><span class="fas fa-check text-success mr-2" aria-hidden="true"></span>Le jeu a été retiré.</p>
+                {% endif %}
+            </div>
+        </div>
+
+{#        ######################################################################"
+        A VOUS DE JOUER etat = 2
+#}
+
+        <div class="card mb-4 border-dark">
+            <div class="card-header {% if reservation.etat < 2 %}bg-secondary{% else %}bg-dark{% endif %} text-white">
+                <h4 class="mb-0 mt-0">À vous de jouer !</h4>
+            </div>
+            {% if reservation.etat > 1 %}
+                <div class="card-body p-3">
+                    <div>    
+                        <div>
+                            <b>Temps conseillé pour ce Jeu en Chêne : </b> {{ reservation.jeu.getTempsLocationString }}
+                        </div>
+                        <div>    
+                            <b>Date de retour conseillée : </b> au alentour du {{ reservation.dateFinPrevue | format_datetime('full', 'none', locale='fr') }} 
+                        </div>
+
+                        {% if reservation.etat == 2 %}
+                            <div>
+                                <a href="{{ path("chene.location.rendre", {id : reservation.id, slug : reservation.getSlug()} ) }}" class="btn mon-btn mt-2 mr-3">Je souhaite rendre le Jeu en Chêne</a>
+                            </div>
+                        {% endif %}
+
+                        <h4 class="mt-4">Avez-vous trouvé le médaillon ?</h4>
+                        <b>Nous sommes à votre écoute dans la conversation en cas de problème ou de blocage important.</b> 
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+{#        ######################################################################"
+        RETOUR DU JEU EN CHENE etat = 3 ou 4
+#}
+        <div class="card mb-4 border-dark">
+            <div class="card-header {% if reservation.etat < 3 %}bg-secondary{% else %}bg-dark{% endif %} text-white">
+                <h4 class="mb-0 mt-0">Retour du Jeu en Chêne</h4>
+            </div>
+            {% if reservation.etat > 2 %}
+                <div class="card-body p-3">
+                    <div class="container">
+                        <div class="row">  
+                            <div class="col-md-2 text-right pt-2 pr-0">
+                                <b>Lieu :</b>
+                            </div> 
+                            <div class="col-md-4">
+                                {% if reservation.retourDomicile %}
+                                    <input class="form-control" readonly value="Saint Philbert de Grand Lieu"> 
+                                    </input>   
+                                {% else %}
+                                    <input class="form-control" readonly value="Sur rendez-vous. Proposition :"> 
+                                    </input>  
+                                    <textarea readonly class="form-control mt-2" placeholder="Aucun">{{reservation.lieuRetourRDV}}</textarea>
+                                {% endif %}
+                            </div>   
+                            <div class="col-md-2 text-right mt-2 pr-0">
+                                <b>Date proposée :</b>
+                            </div>    
+                            <div class="col-md-4">
+                                <div class="input-group picker-datetime-readall" id="dateRetrait" data-target-input="nearest">
+                                    <input class="form-control" readonly datat-target="#dateRetrait" value="{{ reservation.dateRendu | format_datetime('full', 'short', locale='fr') }}"> 
+                                    </input>   
+                                </div>                            
+                            </div> 
+
+                        </div>
+                        {% if reservation.etat < 4 %}
+                            <div class="row">
+                                <div class="col-md-6 pr-0 text-center">
+                                    <a href="{{ path("chene.location.edit.champ", {id : reservation.id, slug : reservation.getSlug(), champ : "lieuRetrait"} ) }}" class="btn mon-btn-outline mt-2 float-right mr-3">Modifier le lieu</a>
+                                </div>
+                                <div class="col-md-6 pr-0 text-center">
+                                    <a href="{{ path("chene.location.edit.champ", {id : reservation.id, slug : reservation.getSlug(), champ : "dateRetrait"} ) }}" class="btn mon-btn-outline mt-2 float-right mr-3">Modifier la date</a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                <hr>
+
+                {% if reservation.etat == 3 %}
+                    {% if reservation.retourRDV %}
+                        <p class="mb-1 font-weight-bold">Nous vous confirmons très bientôt votre proposition de rendez-vous.</p>
+                    {% endif %}
+                {% elseif reservation.etat == 4 %}
+                    {% if reservation.retourDomicile %}
+                        <p class="mb-1"><span class="fas fa-check text-success mr-2" aria-hidden="true"></span>Vous pouvez retourner le Jeu en Chêne à la date prévue. Voir la conversation pour les modalités.</p>
+                    {% else %}
+                        <p class="mb-1"><span class="fas fa-check text-success mr-2" aria-hidden="true"></span>Le rendez-vous convenu dans la conversation est confirmé.</p>
+                    {% endif %}
+                {% elseif reservation.etat > 4 %}
+                    <p class="mb-1"><span class="fas fa-check text-success mr-2" aria-hidden="true"></span>Le jeu a été rendu.</p>
+                {% endif %}
+                </div>
+            {% endif %}
+        </div>
+
+{#        ######################################################################"
+        FIN DE LOCATION etat = 5
+#}       
+        <div class="card mb-4 border-dark">
+            <div class="card-header {% if reservation.etat < 4 %}bg-secondary{% else %}bg-dark{% endif %} text-white">
+                <h4 class="mb-0 mt-0">Fin de la location</h4>
+            </div>
+            {% if reservation.etat > 3 %}
+                <div class="card-body p-3">
+                    Essai
+                </div>
+            {% endif %}
+        </div>
+
+{#        ######################################################################"
+        AVIS etat = 6
+#}
+
+        <div class="card mb-4 border-dark">
+            <div class="card-header {% if reservation.etat < 5 %}bg-secondary{% else %}bg-dark{% endif %} text-white">
+                <h4 class="mb-0 mt-0">Avis</h4>
+            </div>
+            {% if reservation.etat > 4 %}
+                <div class="card-body p-3">
+                    Essai
+                </div>
+            {% endif %}
+        </div>
     </div>
 {% endblock body %}
 

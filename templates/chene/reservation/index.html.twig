@@ -1,0 +1,29 @@
+{% extends "chene/baseChene.html.twig" %}
+
+{% block body %}
+    <div class="jumbotron mon-jumbotron text-center">
+        <h1 class="mb-0">Vos locations</h1>        
+    </div>
+    <div class="container mt-4">
+        {% if reservations|length == 0 %}
+            <div class="text-center">
+                <div class="mt-4">
+                    <h3>Vous n'avez réalisé aucune location.</h3>
+                </div>
+                <div class="mt-4"><h5>Choississez un Jeu en Chêne et lancez-vous !</h5>
+                </div>
+                <div class="mt-4">    
+                    <a class="btn mon-btn chene" href="{{ path('jeuEnChene.index') }}">Voir les Jeux en Chêne</a>
+                </div>
+            </div>
+        {% else%}
+            <div class="row mt-4">
+                {% for reservation in reservations  %}
+                    <div class="col-md-12">
+                        {%  include 'chene/reservation/_reservation.html.twig' %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock body %}

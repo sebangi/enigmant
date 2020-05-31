@@ -45,6 +45,21 @@ class ReservationController extends BaseController {
         $this->em = $em;
     }
 
+    /**
+     * @route("/", name="index")  
+     * @var Request $Request
+     * @return Response
+     */
+    public function index(Request $Requete): Response {
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            $reservation = $this->repository->findAllSelonUser($this->getUser());
+            return $this->monRender('chene/reservation/index.html.twig', [
+                        'reservations' => $reservation,
+            ]);
+        } else
+            return $this->redirect($this->generateUrl('home'));
+    }
+
     private function creerMessage(ReservationJeu $reservation, Conversation $conversation) {
         $message = new Message();
         $message->setConversation($conversation);
@@ -70,12 +85,13 @@ class ReservationController extends BaseController {
         $message1 = $this->creerMessage($reservation, $conversation);
         $message1->setTexte("Bonjour, \n"
                 . "Merci d'avoir loué le Jeu en Chêne " . $reservation->getJeu()->getNom() . ". "
-                . "Nous espèrons qu'il vous plaira.\n" );
+                . "Le jeu est en cours de préparation.\n"
+                . "Nous espèrons qu'il vous plaira !\n");
         $this->em->persist($message1);
 
         if ($reservation->getRetraitDomicile()) {
             $message2 = $this->creerMessage($reservation, $conversation);
-            $message2->setTexte("Vous avez choisi le retrait à Saint Philbert de Grand Lieu.\n\n"
+            $message2->setTexte("Vous avez choisi le retrait à Saint Philbert de Grand Lieu.\n"
                     . "Voici l'adresse pour le retrait :\n"
                     . "24 Ter rue des Guittières \n"
                     . "44 310 SAINT PHILBERT DE GRAND LIEU \n\n"
@@ -87,7 +103,9 @@ class ReservationController extends BaseController {
 
             $message3 = $this->creerMessage($reservation, $conversation);
             $message3->setTexte("Vous avez choisi d'effectuer le retrait le " . strftime("%A %d %B %Y à %H:%M", $reservation->getDateRetrait()->getTimestamp()) . ".\n"
-                    . "En cas de soucis de dernière minute, vous pouvez nous contacter au 06 76 49 57 23.\n");
+                    . "Nous préparons au plus vite le Jeu en Chêne. \n"
+                    . "Nous vous confirmerons le retrait par un nouveau message dès que le Jeu sera prêt.\n"
+                    . "En cas de délai court, vous pouvez nous contacter au 06 76 49 57 23.\n");
 
             $this->em->persist($message3);
         } else {
@@ -100,7 +118,7 @@ class ReservationController extends BaseController {
 
             $this->em->persist($message2);
         }
-        
+
         $message4 = $this->creerMessage($reservation, $conversation);
         $message4->setTexte("Pour toute question liée à cette location, n'hésitez pas à écrire votre demande ci-dessous.");
         $this->em->persist($message4);
@@ -151,7 +169,7 @@ class ReservationController extends BaseController {
                 // flow finished
                 $this->effectuerLocation($reservation);
                 $this->em->persist($reservation);
-                //$reservation->getJeu()->setDisponible(false);
+                $reservation->getJeu()->setDisponible(false);
                 $this->em->persist($reservation->getJeu());
                 $this->em->flush();
 
@@ -172,17 +190,96 @@ class ReservationController extends BaseController {
     }
 
     /**
+     * @Route("/edit/{champ}/{slug}-{id}", name="edit.champ", methods={"GET","POST"}, requirements={"slug": "[a-z0-9\-]*"})
+     */
+    public function editChamp(Request $request, ReservationJeu $reservation, string $slug, $champ): Response {
+        if ($reservation->getSlug() !== $slug)
+            return $this->redirectToRoute('home', [], 301);
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+                if ($reservation->getUser()->getId() != $this->getUser()->getId()) {
+                    return $this->redirect($this->generateUrl('home'));
+                }
+            } else
+                return $this->redirect($this->generateUrl('home'));
+        }
+
+        $form = $this->createForm(ReservationJeuType::class, $reservation,
+                ['champ' => $champ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (!$form->get('cancel')->isClicked()) {
+                $this->getDoctrine()->getManager()->flush();
+                $this->addFlash('success', 'Réservation modifiée avec succès.');
+            }
+
+            return $this->redirectToRoute('chene.location.show', [
+                        'id' => $reservation->getId(),
+                        'slug' => $reservation->getSlug()
+            ]);
+        }
+
+        return $this->monRender('chene/reservation/edit_champ.html.twig', [
+                    'reservation' => $reservation,
+                    'champ' => $champ,
+                    'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/rendre/{slug}-{id}", name="rendre", methods={"GET","POST"}, requirements={"slug": "[a-z0-9\-]*"})
+     */
+    public function rendre(Request $request, ReservationJeu $reservation, string $slug): Response {
+        if ($reservation->getSlug() !== $slug)
+            return $this->redirectToRoute('home', [], 301);
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+                if ($reservation->getUser()->getId() != $this->getUser()->getId()) {
+                    return $this->redirect($this->generateUrl('home'));
+                }
+            } else
+                return $this->redirect($this->generateUrl('home'));
+        }
+
+        $reservation->setEtat(3);
+        $reservation->setDateRendu(new \DateTime('now'));
+        $this->em->persist($reservation);
+
+        $message = new Message();
+        $message->setConversation($reservation->getConversation());
+        $message->setMessageGourou(false);
+        $message->setVu(true);
+        $message->setVuGourou(false);
+        $message->setTexte("Message automatique.\nJe souhaite retourner le Jeu en Chêne.");
+
+        $this->em->persist($message);
+
+        $this->em->flush();
+
+        return $this->redirectToRoute('chene.location.show', [
+                    'id' => $reservation->getId(),
+                    'slug' => $reservation->getSlug()
+        ]);
+    }
+
+    /**
      * 
-     * @route("/voir/{id}", name="show")  
+     * @route("/voir/{slug}-{id}", name="show", requirements={"slug": "[a-z0-9\-]*"})  
      * @return Response
      */
-    public function show(ReservationJeu $reservation) {
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
-            if ($reservation->getUser()->getId() != $this->getUser()->getId()) {
+    public function show(ReservationJeu $reservation, string $slug) {
+        if ($reservation->getSlug() !== $slug)
+            return $this->redirectToRoute('home', [], 301);
+
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+                if ($reservation->getUser()->getId() != $this->getUser()->getId()) {
+                    return $this->redirect($this->generateUrl('home'));
+                }
+            } else
                 return $this->redirect($this->generateUrl('home'));
-            }
-        } else
-            return $this->redirect($this->generateUrl('home'));
+        }
 
         return $this->monRender('chene/reservation/show.html.twig', [
                     'reservation' => $reservation,

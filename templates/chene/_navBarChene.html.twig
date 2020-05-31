@@ -38,7 +38,7 @@
                     <a class="mr-2 nav-link {% if menuCourant is defined and menuCourant == 'Progression' %}active text-jaune{% endif %}" href="{{ path('progressionChene') }}">Ma progression<span class="sr-only">(current)</span></a>
                 </li>
                 <li>
-                    <a class="nav-link {% if menuCourant is defined and menuCourant == 'Reservation' %}active text-jaune{% endif %}" href="{{ path('collectionChene.index') }}">Mes locations<span class="sr-only">(current)</span></a>
+                    <a class="nav-link {% if menuCourant is defined and menuCourant == 'Reservation' %}active text-jaune{% endif %}" href="{{ path('chene.location.index') }}">Mes locations<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
         {% endif %}
