@@ -25,6 +25,12 @@ class JeuEnChene {
                 1 => 'deux semaines',
                 2 => 'un mois'
     ];
+    
+    const codeNiveauDifficulte = [
+                0 => 'facile',
+                1 => 'moyen',
+                2 => 'difficile'
+    ];
 
     /**
      * @ORM\Id()
@@ -60,6 +66,11 @@ class JeuEnChene {
      */
     private $difficulteRaisonnement = 5;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $niveauDifficulte;
+    
     /**
      * @ORM\Column(type="integer")
      */
@@ -312,8 +323,33 @@ class JeuEnChene {
         $this->tempsLocation = $tempsLocation;
 
         return $this;
-    }
+    }      
     
+    /**
+     * 
+     * @return int|null
+     */
+    public function getNiveauDifficulte(): ?int {
+        return $this->niveauDifficulte;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNiveauDifficulteString(): string {
+        return self::codeNiveauDifficulte[$this->niveauDifficulte];
+    }
+
+    /**
+     * 
+     * @param int $niveauDifficulte
+     * @return \App\Entity\Chene\JeuEnChene
+     */
+    public function setNiveauDifficulte(int $niveauDifficulte): JeuEnChene {
+        $this->niveauDifficulte = $niveauDifficulte;
+
+        return $this;
+    }
 
     /**
      * 

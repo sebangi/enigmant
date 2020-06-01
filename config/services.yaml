@@ -51,3 +51,13 @@ services:
         arguments: [App\Entity\Chene\ReservationJeu]
         tags:
             - { name: form.type, alias: reservation_edit }
+                        
+    App\Form\Flow\CreateRetour:
+        class: App\Form\Chene\CreateRetourFlow
+        autoconfigure: true
+
+    App\Form\Chene\retour_edit:
+        class: App\Form\Chene\CreateRetourForm
+        arguments: [App\Entity\Chene\ReservationJeu]
+        tags:
+            - { name: form.type, alias: retour_edit }

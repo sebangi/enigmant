@@ -42,6 +42,12 @@
 
                     <h1 class="text-color-2 font-weight-bold">
                         {{ jeuEnChene.nom }}
+
+                        {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
+                            {% if app.user.aReussiJeu( jeuEnChene ) %}
+                                <div data-toggle="tooltip" title="Vous avez trouvé le médaillon !"  data-placement="bottom" class="d-inline float-right font-weight-bold text-success rounded-circle bg-white pl-1 pr-1"><span class="fas fa-check text-success border-circle" aria-hidden="true"></span></div>                
+                                {% endif %}
+                            {% endif %}     
                     </h1>  
 
                     <div class="mt-4 text-justify">{{ jeuEnChene.description | nl2br(false) }}</div>
@@ -106,6 +112,14 @@
                 <div class="pl-4 pt-2">
                     <table class="table table-striped">
                         <tr>
+                            <td class="font-weight-bold text-right">Niveau :</td>
+                            <td class="pl-0">{{ jeuEnChene.niveauDifficulteString() }}
+                                <a class="d-inline float-right" data-toggle="popover" title="Temps de jeu" data-content="Les Jeux en Chêne sont classés en trois niveaux : facile, moyen et difficile.">
+                                    <span class="fas fa-search text-color-2" aria-hidden="true"></span>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="font-weight-bold text-right">Difficulté de raisonnement :</td>
                             <td class="pl-0">{% if jeuEnChene.difficulteRaisonnement %}{{ jeuEnChene.difficulteRaisonnement }}{% else %}?{% endif %} / 10
                                 <a class="d-inline float-right" data-toggle="popover" title="Difficulté de raisonnement" data-content="Cela correspond à la complexité des énigmes à décrypter. Les Jeux en Chêne sont composés d'énigmes successives. Le niveau de difficulté indiqué correspond à la difficulté de l'énigme la plus coriace du Jeu.">
@@ -128,15 +142,7 @@
                                     <span class="fas fa-search text-color-2" aria-hidden="true"></span>
                                 </a>
                             </td>
-                        </tr>
-                        <tr>
-                            <td class="font-weight-bold text-right">Temps de jeu moyen :</td>
-                            <td class="pl-0">Non défini
-                                <a class="d-inline float-right" data-toggle="popover" title="Temps de jeu" data-content="Le temps de jeu exprimé en heures est la moyenne des temps de jeu indiqués par ceux ayant déjà réservé le Jeu en Chêne.">
-                                    <span class="fas fa-search text-color-2" aria-hidden="true"></span>
-                                </a>
-                            </td>
-                        </tr>
+                        </tr>                        
                     </table>  
                 </div>                
             </div>

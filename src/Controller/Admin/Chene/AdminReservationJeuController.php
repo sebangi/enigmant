@@ -28,7 +28,6 @@ class AdminReservationJeuController extends BaseController {
         return "AdminReservation";
     }
 
-    
     /**
      * @var ReservationJeuRepository
      */
@@ -43,7 +42,7 @@ class AdminReservationJeuController extends BaseController {
         $this->repository = $repository;
         $this->em = $em;
     }
-    
+
     /**
      * @Route("/", name="admin.chene.reservation.index", methods={"GET"})
      */
@@ -120,19 +119,42 @@ class AdminReservationJeuController extends BaseController {
      */
     private function creerMessageRetraitPret(ReservationJeu $reservation) {
 
+        if ($reservation->getRetraitDomicile()) {
+            $message = $this->creerMessage($reservation->getConversation());
+            $message->setTexte("RETRAIT DU JEU EN CHÊNE \n\n"
+                    . "Le Jeu en Chêne est prêt.\n\n"
+                    . "Vous avez choisi le retrait à Saint Philbert de Grand Lieu.\n"
+                    . "Voici l'adresse :\n"
+                    . "24 Ter rue des Guittières \n"
+                    . "44 310 SAINT PHILBERT DE GRAND LIEU \n\n"
+                    . "En cas d'absence de notre part, le Jeu en Chêne avec les instructions sont à retirer dans la boîte en chêne située près du tas de bois. C'est immanquable ! \n\n"
+                    . "Le code du cadenas est 8181.\n"
+                    . "Déposez à la place vos babioles si vous en avez...");
+
+            $this->em->persist($message);
+        } else {
+            $message = $this->creerMessage($reservation->getConversation());
+            $message->setTexte("Le rendez-vous convenu est confirmé.");
+            $this->em->persist($message);
+        }
+    }
+
+    /**
+     * 
+     * @param ReservationJeu $reservation
+     */
+    private function creerMessageRetourOk(ReservationJeu $reservation) {
+
         $message = $this->creerMessage($reservation->getConversation());
 
-        if ( $reservation->getRetraitDomicile() )
-        {
-            $message->setTexte("Le Jeu en Chêne est prêt. Vous pouvez venir le retirer à la date prévue.");
+        if ($reservation->getRetraitDomicile()) {
+            $message->setTexte("Vous pouvez venir retourner le Jeu en Chêne à la date prévue.");
+        } else {
+            $message->setTexte("Le rendez-vous convenu pour le retour est confirmé.");
         }
-        else {
-            $message->setTexte("Le rendez-vous convenu est confirmé.");
-        }
-        
+
         $this->em->persist($message);
     }
-    
     
     /**
      * 
@@ -142,8 +164,100 @@ class AdminReservationJeuController extends BaseController {
 
         $message = $this->creerMessage($reservation->getConversation());
         $message->setTexte("Amusez-vous bien !");
-        
+
         $this->em->persist($message);
+    }
+
+     /**
+     * 
+     * @param ReservationJeu $reservation
+     */
+    private function creerMessageRetourEffectue(ReservationJeu $reservation) {
+
+        $message = $this->creerMessage($reservation->getConversation());
+
+        if ($reservation->getReussi()) {
+            $message->setTexte(
+                    "Bravo ! Vous avez réussi le Jeu en Chêne " . $reservation->getJeu()->getNom() . ".\n"
+                    . "Votre progression a été mise à jour !\n"
+                    . "À très bientôt, j'espère !");
+        } else {
+            $message->setTexte(
+                    "Vous n'avez pas trouvé le médaillon.\n " 
+                    . "Nous espérons que le Jeu en Chêne vous a tout de même plu ! \n" 
+                    . "À très bientôt, j'espère !");
+        }
+
+        $this->em->persist($message);
+    }
+    
+    /**
+     * @Route("/{id}/validerRetrait", name="admin.chene.reservation.validerRetrait")
+     */
+    public function validerRetrait(ReservationJeu $reservation): Response {
+        $reservation->setEtat(1);
+        $this->creerMessageRetraitPret($reservation);
+
+        $this->em->flush();
+        $this->addFlash('success', 'Réservation modifiée avec succès.');
+
+
+        return $this->redirectToRoute('chene.location.show', [
+                    'id' => $reservation->getId(),
+                    'slug' => $reservation->getSlug()
+        ]);
+    }
+        
+    /**
+     * @Route("/{id}/retraitEffectue", name="admin.chene.reservation.retraitEffectue")
+     */
+    public function retraitEffectue(ReservationJeu $reservation): Response {
+        $reservation->setEtat(2);
+        $this->creerMessageJouer($reservation);
+
+        $this->em->flush();
+        $this->addFlash('success', 'Réservation modifiée avec succès.');
+
+        return $this->redirectToRoute('chene.location.show', [
+                    'id' => $reservation->getId(),
+                    'slug' => $reservation->getSlug()
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/validerRetour", name="admin.chene.reservation.validerRetour")
+     */
+    public function validerRetour(ReservationJeu $reservation): Response {
+        $reservation->setEtat(4);
+        $this->creerMessageRetourOk($reservation);
+
+        $this->em->flush();
+        $this->addFlash('success', 'Réservation modifiée avec succès.');
+
+        return $this->redirectToRoute('chene.location.show', [
+                    'id' => $reservation->getId(),
+                    'slug' => $reservation->getSlug()
+        ]);
+    }
+    
+    
+    /**
+     * @Route("/{id}-{reussi}/retourEffectue", name="admin.chene.reservation.retourEffectue")
+     */
+    public function retourEffectue(ReservationJeu $reservation, $reussi): Response {
+        $reservation->setEtat(6);
+        $reservation->setReussi($reussi == "true");
+        $this->creerMessageretourEffectue($reservation);
+        $reservation->getJeu()->setDisponible(true);
+                
+        $this->em->flush();
+        $this->addFlash('success', 'Réservation modifiée avec succès.');
+        $this->addFlash('error', 'Le jeu est à nouveau disponible.');
+
+        return $this->redirectToRoute('chene.location.show', [
+                    'id' => $reservation->getId(),
+                    'slug' => $reservation->getSlug()
+        ]);
     }
 
     /**
@@ -160,7 +274,10 @@ class AdminReservationJeuController extends BaseController {
                     $this->creerMessageRetraitPret($reservation);
                 else if ($reservation->getEtat() === 2)
                     $this->creerMessageJouer($reservation);
-                    
+                else if ($reservation->getEtat() === 4)
+                    $this->creerMessageRetourOk($reservation);
+                else if ($reservation->getEtat() === 5)
+                    $this->creerMessageRetourEffectue($reservation);
 
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('success', 'Réservation modifiée avec succès.');

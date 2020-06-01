@@ -23,12 +23,12 @@
             {% endif %}  
             {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
                 {% if app.user.aReussiJeu( jeuEnChene ) %}
-                    <div class="d-inline float-right font-weight-bold"><span class="fas fa-check text-success" aria-hidden="true"></span></div>                
+                    <div class="d-inline float-right font-weight-bold text-success rounded-circle bg-white pl-1 pr-1"><span class="fas fa-check text-success border-circle" aria-hidden="true"></span></div>                
                 {% endif %}
             {% endif %}            
         </h3>
 
-        <div class="font-italic">{{ jeuEnChene.description|nl2br(false) }}</div>   
+        <div class="font-italic font-weight-bold">{{ jeuEnChene.description|nl2br(false) }}</div>   
 
         <div style="margin-top: auto;">
             <hr class="mt-2 mb-2" style="heigth:10px;">
@@ -51,6 +51,15 @@
                 </div>
             </div> 
 
+            <div class="font-caracteristique">
+                <div class="font-weight-bold d-inline">
+                    Niveau :
+                </div>
+                <div class="d-inline">
+                    {{ jeuEnChene.niveauDifficulteString }}
+                </div>
+            </div>
+                
             <div class="font-caracteristique">
                 <div class="font-weight-bold d-inline">
                     Difficulté de réflexion :

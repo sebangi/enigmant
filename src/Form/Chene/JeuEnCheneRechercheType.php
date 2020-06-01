@@ -3,6 +3,7 @@
 namespace App\Form\Chene;
 
 use App\Entity\Chene\JeuEnCheneRecherche;
+use App\Entity\Chene\JeuEnChene;
 use Symfony\Component\Form\AbstractType;
 use App\Entity\Chene\CollectionChene;
 use App\Repository\Chene\CollectionCheneRepository;
@@ -58,6 +59,9 @@ class JeuEnCheneRechercheType extends AbstractType {
                         'placeholder' => 'Max',
                         'min' => 0
                     ]
+                ])
+                ->add('niveauDifficulte', ChoiceType::class, [
+                'choices' => $this->getNiveauDifficulte()
                 ])
                 ->add('minDifficulteRaisonnement', IntegerType::class, [
                     'required' => false,
@@ -134,5 +138,16 @@ class JeuEnCheneRechercheType extends AbstractType {
     public function getBlockPrefix() {
         return '';
     }
-
+    
+    private function getNiveauDifficulte() {
+        $choix = JeuEnChene::codeNiveauDifficulte;
+        
+        $output = [];
+        foreach ( $choix as $k => $v )
+        {
+            $output[$v] = $k;
+        }
+        
+        return $output;
+    }
 }

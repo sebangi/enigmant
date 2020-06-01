@@ -41,11 +41,13 @@ class JeuEnCheneType extends AbstractType
             ])
             ->add('disponible', CheckboxType::class, [
                     'attr' => [ 'class' => "custom-control-input" ],
-                    'label_attr' => ['class' => 'custom-control-label']
+                    'label_attr' => ['class' => 'custom-control-label'],                            
+                    'required' => false
                 ])
             ->add('construit', CheckboxType::class, [
                     'attr' => [ 'class' => "custom-control-input" ],
-                    'label_attr' => ['class' => 'custom-control-label']
+                    'label_attr' => ['class' => 'custom-control-label'],                            
+                    'required' => false
                 ])
             ->add('difficulteObservation', IntegerType::class, [
                'attr' => [
@@ -70,6 +72,9 @@ class JeuEnCheneType extends AbstractType
             ->add('couleur', ColorType::class)
             ->add('tempsLocation', ChoiceType::class, [
                 'choices' => $this->getChoixLocation()
+            ])
+            ->add('niveauDifficulte', ChoiceType::class, [
+                'choices' => $this->getNiveauDifficulte()
             ])
             ->add('babioles', EntityType::class, [
                 'class' => Babiole::class,
@@ -102,6 +107,19 @@ class JeuEnCheneType extends AbstractType
     
     private function getChoixLocation() {
         $choix = JeuEnChene::codeLocation;
+        
+        $output = [];
+        foreach ( $choix as $k => $v )
+        {
+            $output[$v] = $k;
+        }
+        
+        return $output;
+    }
+    
+    
+    private function getNiveauDifficulte() {
+        $choix = JeuEnChene::codeNiveauDifficulte;
         
         $output = [];
         foreach ( $choix as $k => $v )

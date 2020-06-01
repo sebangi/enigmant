@@ -137,8 +137,7 @@ class ReservationJeu {
      * @ORM\Column(type="text", nullable=true)
      */
     private $lieuRDV;
-    
-    
+
     /**
      * @ORM\Column(type="boolean", options={"default" : false})
      */
@@ -152,8 +151,8 @@ class ReservationJeu {
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $lieuRetourRDV;    
-    
+    private $lieuRetourRDV;
+
     /**
      *
      * @var bool|null 
@@ -211,6 +210,16 @@ class ReservationJeu {
      */
     public function getEtatString(): string {
         return self::codeEtat[$this->etat];
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus(): string {
+        if ($this->etat == 6)
+            return self::codeEtat[5];
+        else
+            return self::codeEtat[$this->etat];
     }
 
     /**
@@ -621,7 +630,7 @@ class ReservationJeu {
 
         return $this;
     }
-    
+
     /**
      * 
      * @return type
@@ -651,7 +660,7 @@ class ReservationJeu {
      * @param type $retourRDV
      * @return \App\Entity\Chene\ReservationJeu
      */
-    public function setRetourRDV($retourRDV) : ReservationJeu {
+    public function setRetourRDV($retourRDV): ReservationJeu {
         $this->retourRDV = $retourRDV;
         return $this;
     }
@@ -661,7 +670,7 @@ class ReservationJeu {
      * @param type $retourDomicile
      * @return \App\Entity\Chene\ReservationJeu
      */
-    public function setRetourDomicile($retourDomicile) : ReservationJeu {
+    public function setRetourDomicile($retourDomicile): ReservationJeu {
         $this->retourDomicile = $retourDomicile;
         return $this;
     }
@@ -671,7 +680,7 @@ class ReservationJeu {
      * @param type $lieuRetourRDV
      * @return \App\Entity\Chene\ReservationJeu
      */
-    public function setLieuRetourRDV($lieuRetourRDV) : ReservationJeu {
+    public function setLieuRetourRDV($lieuRetourRDV): ReservationJeu {
         $this->lieuRetourRDV = $lieuRetourRDV;
         return $this;
     }

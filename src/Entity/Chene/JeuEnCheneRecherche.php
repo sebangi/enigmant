@@ -49,6 +49,12 @@ class JeuEnCheneRecherche {
     /**
      *
      * @var int|null 
+     */
+    private $niveauDifficulte;
+        
+    /**
+     *
+     * @var int|null 
      * @assert\Range(min=0, max=10)
      */
     private $minDifficulteRaisonnement;    
@@ -79,6 +85,33 @@ class JeuEnCheneRecherche {
     function __construct()
     {
         
+    }
+    
+    
+    /**
+     * 
+     * @return int|null
+     */
+    public function getNiveauDifficulte(): ?int {
+        return $this->niveauDifficulte;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNiveauDifficulteString(): string {
+        return self::codeNiveauDifficulte[$this->niveauDifficulte];
+    }
+
+    /**
+     * 
+     * @param int $niveauDifficulte
+     * @return \App\Entity\Chene\JeuEnCheneRecherche
+     */
+    public function setNiveauDifficulte(int $niveauDifficulte): JeuEnCheneRecherche {
+        $this->niveauDifficulte = $niveauDifficulte;
+
+        return $this;
     }
 
     public function getMaxEtape() {

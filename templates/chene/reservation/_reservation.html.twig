@@ -19,7 +19,7 @@
             </div>
             <div class="col-md-2 text-center">
                 <div class="font-weight-bold">Statut :</div>
-                {{ reservation.getEtatString() }}
+                {{ reservation.getStatus() }}
             </div>
             <div class="col-md-3 text-center">
                 <a href="{{ path("chene.location.show", { id : reservation.getId(), slug : reservation.getSlug()} ) }}" class="btn mon-btn chene">

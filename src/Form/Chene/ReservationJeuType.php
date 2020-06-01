@@ -85,6 +85,54 @@ class ReservationJeuType extends AbstractType {
         $builder->get('dateRetrait')
                 ->addModelTransformer(new DateTimeTransformer());
     }
+    
+    
+    private function buildLieuRetour(FormBuilderInterface $builder, array $options) {
+        $this->buildCancel($builder, $options);
+        $builder
+                ->add('retourRDV', CheckboxType::class,
+                        [
+                            'attr' => ['class' => "custom-control-input only-one case_a_cocher1"],
+                            'label' => false,
+                            'label_attr' =>
+                            ['class' => 'custom-control-label',
+                                'name' => 'checkboxValidation'],
+                            'required' => false
+                ])
+                ->add('retourDomicile', CheckboxType::class, [
+                    'attr' => ['class' => "custom-control-input only-one"],
+                    'label' => false,
+                    'label_attr' =>
+                    ['class' => 'custom-control-label',
+                        'name' => 'checkboxValidation'],
+                    'required' => false
+                ])
+                ->add('lieuRetourRDV', TextareaType::class, [
+                    'required' => false,
+                    'attr' => [
+                        'placeholder' => 'Lieu proposé'
+                    ]
+                ])
+        ;
+    }
+
+    private function buildDateRendu(FormBuilderInterface $builder, array $options) {
+        $this->buildCancel($builder, $options);
+        $builder
+                ->add('dateRendu', TextType::class, [
+                    'required' => true,
+                    'label' => false,
+                    'translation_domain' => 'AppBundle',
+                    'attr' => array(
+                        'class' => 'datetimepicker-input',
+                        'data-target' => "#dateRendu"
+                    )
+                ])
+        ;
+
+        $builder->get('dateRendu')
+                ->addModelTransformer(new DateTimeTransformer());
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
@@ -95,6 +143,10 @@ class ReservationJeuType extends AbstractType {
             $this->buildLieuRetrait($builder, $options);
         } else if ($options['champ'] == 'dateRetrait') {
             $this->buildDateRetrait($builder, $options);
+        } else if ($options['champ'] == 'lieuRetour') {
+            $this->buildLieuRetour($builder, $options);
+        } else if ($options['champ'] == 'dateRendu') {
+            $this->buildDateRendu($builder, $options);
         } else {
             if ($options['administration'] == true) {
                 $builder

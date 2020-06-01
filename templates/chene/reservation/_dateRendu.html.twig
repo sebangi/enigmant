@@ -1,0 +1,36 @@
+<div class="row">  
+    <div class="col-md-6 mb-0">
+        <h5 class="text-right mt-2">
+            Veuillez proposer une date et une heure de retour :
+        </h5>
+    </div>
+    <div class="col-md-6 mb-0 pl-0">
+        <div class="input-group picker-datetime-retour" id="dateRendu" data-target-input="nearest">
+            <div class="input-group-prepend"  data-target="#dateRendu" data-toggle="datetimepicker">
+                <div class="input-group-text">
+                    <i class=" fas fa-calendar-alt"></i>
+                </div>                
+            </div>
+            {{ form_widget(form.dateRendu) }}
+        </div>
+    </div>   
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+    </div>
+    <div class="col-md-6 mt-2">
+        <ul class="list-group">
+            <li>
+                {% if reservation.retourDomicile %}
+                    Tous les jours, à toute heure (Retour Libre service)
+                {% else %}
+                    Sous réserve d'acceptation du lieu de retour proposé
+                {% endif %}
+            </li>
+        </ul>
+
+
+    </div>
+</div>
+

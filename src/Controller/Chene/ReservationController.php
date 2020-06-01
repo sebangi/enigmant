@@ -3,6 +3,7 @@
 namespace App\Controller\Chene;
 
 use App\Form\Chene\CreateReservationFlow;
+use App\Form\Chene\CreateRetourFlow;
 use App\Controller\BaseController;
 use App\Entity\Chene\JeuEnChene;
 use App\Entity\Chene\ReservationJeu;
@@ -60,7 +61,7 @@ class ReservationController extends BaseController {
             return $this->redirect($this->generateUrl('home'));
     }
 
-    private function creerMessage(ReservationJeu $reservation, Conversation $conversation) {
+    private function creerMessage(Conversation $conversation) {
         $message = new Message();
         $message->setConversation($conversation);
         $message->setMessageGourou(true);
@@ -68,6 +69,125 @@ class ReservationController extends BaseController {
         $message->setVuGourou(true);
 
         return $message;
+    }
+
+    private function creerMessageRetrait(ReservationJeu $reservation, Conversation $conversation) {
+        if ($reservation->getRetraitDomicile()) {
+            $message = $this->creerMessage($conversation);
+            $message->setTexte("Vous avez choisi d'effectuer le retrait à Saint Philbert de Grand Lieu, le " . strftime("%A %d %B %Y à %H:%M", $reservation->getDateRetrait()->getTimestamp()) . ".\n"
+                    . "Nous vous confirmerons le retrait par un nouveau message dès que le Jeu sera prêt.\n"
+                    . "En cas de délai court, vous pouvez nous contacter au 06 76 49 57 23.\n");
+
+            $this->em->persist($message);
+        } else {
+            $message = $this->creerMessage($conversation);
+            $message->setTexte("RETRAIT DU JEU EN CHÊNE \n\n"
+                    . "Vous avez choisi le retrait sur rendez-vous le " . strftime("%A %d %B %Y à %H:%M", $reservation->getDateRetrait()->getTimestamp()) . " .\n\n"
+                    . "Votre proposition :\n"
+                    . $reservation->getLieuRDV() . "\n\n"
+                    . "Nous vous confirmerons ci-dessous dans un prochain message ce rendez-vous...\n"
+                    . "Si le délai est court, contactez-nous au 06 76 49 57 23.");
+
+            $this->em->persist($message);
+        }
+    }
+    
+    private function creerMessageModificationLieuRetrait(ReservationJeu $reservation, Conversation $conversation) {
+        $message = new Message();
+        $message->setConversation($conversation);
+        $message->setMessageGourou(false);
+        $message->setVu(true);
+        $message->setVuGourou(false);
+        if ( $reservation->getRetraitDomicile() )
+        {
+            $message->setTexte("Message automatique.\n"
+                . "Modification du lieu de retrait : retrait à Saint Philbert de Grand Lieu.");
+        }
+        else
+        {
+            $message->setTexte("Message automatique.\n"
+                . "Modification du lieu de retrait : retrait sur rendez-vous.\n"
+                . "Proposition de lieu : \n"
+                .  $reservation->getLieuRDV() );
+        }
+            
+        $this->em->persist($message);
+        $this->creerMessageRetrait( $reservation, $conversation);
+    }
+    
+    private function creerMessageModificationDateRetrait(ReservationJeu $reservation, Conversation $conversation) {
+        $message = new Message();
+        $message->setConversation($conversation);
+        $message->setMessageGourou(false);
+        $message->setVu(true);
+        $message->setVuGourou(false);
+        $message->setTexte("Message automatique.\n"
+                . "Modification de la date de retrait : "
+                . strftime("%A %d %B %Y à %H:%M", $reservation->getDateRetrait()->getTimestamp()) );
+
+        $this->em->persist($message);
+    }
+    
+    private function creerMessageRetour(ReservationJeu $reservation, Conversation $conversation) {
+        if ($reservation->getRetourDomicile()) {
+            $message = $this->creerMessage($conversation);
+            $message->setTexte("RETOUR DU JEU EN CHÊNE \n\n"
+                    . "Vous avez choisi le retour à Saint Philbert de Grand Lieu.\n"
+                    . "Voici l'adresse pour le retrait :\n"
+                    . "24 Ter rue des Guittières \n"
+                    . "44 310 SAINT PHILBERT DE GRAND LIEU \n\n"
+                    . "En cas d'absence de notre part, Déposez le Jeu en Chêne dans la boîte en chêne située près du tas de bois. C'est immanquable ! \n\n"
+                    . "Le code du cadenas est 8181.\n"
+                    . "Déposez à la place vos babioles si vous ne l'aviez pas fait lors du retrait...");
+
+            $this->em->persist($message);
+        } else {
+            $message = $this->creerMessage($conversation);
+            $message->setTexte("RETOUR DU JEU EN CHÊNE \n\n"
+                    . "Vous avez choisi le retour sur rendez-vous le " . strftime("%A %d %B %Y à %H:%M", $reservation->getDateRetrait()->getTimestamp()) . " .\n\n"
+                    . "Votre proposition :\n"
+                    . $reservation->getLieuRDV() . "\n\n"
+                    . "Nous vous confirmerons ci-dessous dans un prochain message ce rendez-vous...\n"
+                    . "Si le délai est court, contactez-nous au 06 76 49 57 23.");
+
+            $this->em->persist($message);
+        }
+    }
+    
+    private function creerMessageModificationDateRetour(ReservationJeu $reservation, Conversation $conversation) {
+        $message = new Message();
+        $message->setConversation($conversation);
+        $message->setMessageGourou(false);
+        $message->setVu(true);
+        $message->setVuGourou(false);
+        $message->setTexte("Message automatique.\n"
+                . "Modification de la date de retour : "
+                . strftime("%A %d %B %Y à %H:%M", $reservation->getDateRendu()->getTimestamp()) );
+
+        $this->em->persist($message);
+    }
+    
+    private function creerMessageModificationLieuRetour(ReservationJeu $reservation, Conversation $conversation) {
+        $message = new Message();
+        $message->setConversation($conversation);
+        $message->setMessageGourou(false);
+        $message->setVu(true);
+        $message->setVuGourou(false);
+        if ( $reservation->getRetourDomicile() )
+        {
+            $message->setTexte("Message automatique.\n"
+                . "Modification du lieu de retour : retour à Saint Philbert de Grand Lieu.");
+        }
+        else
+        {
+            $message->setTexte("Message automatique.\n"
+                . "Modification du lieu de retour : retour sur rendez-vous.\n"
+                . "Proposition de lieu : \n"
+                .  $reservation->getLieuRetourRDV() );
+        }
+            
+        $this->em->persist($message);
+        $this->creerMessageRetour($reservation, $conversation);
     }
 
     private function creerConversation(ReservationJeu $reservation) {
@@ -82,46 +202,18 @@ class ReservationController extends BaseController {
 
         $this->em->persist($conversation);
 
-        $message1 = $this->creerMessage($reservation, $conversation);
+        $message1 = $this->creerMessage($conversation);
         $message1->setTexte("Bonjour, \n"
                 . "Merci d'avoir loué le Jeu en Chêne " . $reservation->getJeu()->getNom() . ". "
-                . "Le jeu est en cours de préparation.\n"
+                . "Nous préparons au plus vite le Jeu en Chêne.\n"
                 . "Nous espèrons qu'il vous plaira !\n");
         $this->em->persist($message1);
 
-        if ($reservation->getRetraitDomicile()) {
-            $message2 = $this->creerMessage($reservation, $conversation);
-            $message2->setTexte("Vous avez choisi le retrait à Saint Philbert de Grand Lieu.\n"
-                    . "Voici l'adresse pour le retrait :\n"
-                    . "24 Ter rue des Guittières \n"
-                    . "44 310 SAINT PHILBERT DE GRAND LIEU \n\n"
-                    . "En cas d'absence de notre part, le Jeu en Chêne avec les instructions sont à retirer dans la boite en chêne située près du tas de bois. C'est immanquable ! \n\n"
-                    . "Le code du cadenas est 8181.\n"
-                    . "Déposez à la place vos babioles si vous en avez...");
-
-            $this->em->persist($message2);
-
-            $message3 = $this->creerMessage($reservation, $conversation);
-            $message3->setTexte("Vous avez choisi d'effectuer le retrait le " . strftime("%A %d %B %Y à %H:%M", $reservation->getDateRetrait()->getTimestamp()) . ".\n"
-                    . "Nous préparons au plus vite le Jeu en Chêne. \n"
-                    . "Nous vous confirmerons le retrait par un nouveau message dès que le Jeu sera prêt.\n"
-                    . "En cas de délai court, vous pouvez nous contacter au 06 76 49 57 23.\n");
-
-            $this->em->persist($message3);
-        } else {
-            $message2 = $this->creerMessage($reservation, $conversation);
-            $message2->setTexte("Vous avez choisi le retrait sur rendez-vous le " . strftime("%A %d %B %Y à %H:%M", $reservation->getDateRetrait()->getTimestamp()) . " .\n\n"
-                    . "Votre proposition :\n"
-                    . $reservation->getLieuRDV() . "\n\n"
-                    . "Nous vous confirmerons ci-dessous dans un prochain message ce rendez-vous...\n"
-                    . "Si le délai est court, contacter-nous au 06 76 49 57 23.");
-
-            $this->em->persist($message2);
-        }
-
-        $message4 = $this->creerMessage($reservation, $conversation);
-        $message4->setTexte("Pour toute question liée à cette location, n'hésitez pas à écrire votre demande ci-dessous.");
-        $this->em->persist($message4);
+        $this->creerMessageRetrait($reservation, $conversation, false);
+        
+        $message2 = $this->creerMessage($conversation);
+        $message2->setTexte("Pour toute question liée à cette location, n'hésitez pas à écrire votre demande ci-dessous.");
+        $this->em->persist($message2);
     }
 
     private function effectuerLocation(ReservationJeu $reservation) {
@@ -190,6 +282,55 @@ class ReservationController extends BaseController {
     }
 
     /**
+     * 
+     * @route("/retourner/{slug}-{id}", name="retourner", methods={"GET","POST"}, requirements={"slug": "[a-z0-9\-]*"})  
+     * @return Response
+     */
+    public function retourner(CreateRetourFlow $flow, ReservationJeu $reservation, string $slug) {
+        if ($reservation->getSlug() !== $slug)
+            return $this->redirectToRoute('home', [], 301);
+        $reservation->setDateRendu(new \DateTime('now'));
+
+        $flow->bind($reservation);
+
+        // form of the current step
+        $form = $flow->createForm();
+        if ($flow->isValid($form)) {
+            $flow->saveCurrentStepData($form);
+
+            if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+                if ($reservation->getUser()->getId() != $this->getUser()->getId()) {
+                    return $this->redirect($this->generateUrl('home'));
+                }
+            } else
+                return $this->redirect($this->generateUrl('home'));
+
+            if ($flow->nextStep()) {
+                $form = $flow->createForm();
+            } else {
+                // flow finished
+                $this->creerMessageRetour($reservation, $reservation->getConversation());
+        
+                $this->em->flush();
+                $flow->reset(); // remove step data from the session
+
+                return $this->redirectToRoute('chene.location.show', [
+                            'id' => $reservation->getId(),
+                            'slug' => $reservation->getSlug(),
+                            '_fragment' => 'retour'
+                ]);
+            }
+        }
+
+        return $this->monRender('chene/reservation/retour.html.twig', [
+                    'form' => $form->createView(),
+                    'jeu' => $reservation->getJeu(),
+                    'reservation' => $reservation,
+                    'flow' => $flow,
+        ]);
+    }
+
+    /**
      * @Route("/edit/{champ}/{slug}-{id}", name="edit.champ", methods={"GET","POST"}, requirements={"slug": "[a-z0-9\-]*"})
      */
     public function editChamp(Request $request, ReservationJeu $reservation, string $slug, $champ): Response {
@@ -210,6 +351,16 @@ class ReservationController extends BaseController {
 
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$form->get('cancel')->isClicked()) {
+                if ( $champ == "dateRetrait" ) {
+                    $this->creerMessageModificationDateRetrait($reservation, $reservation->getConversation());
+                } else if ( $champ == "lieuRetrait" ) {
+                    $this->creerMessageModificationLieuRetrait($reservation, $reservation->getConversation());
+                } else if ( $champ == "dateRendu" ) {
+                    $this->creerMessageModificationDateRetour($reservation, $reservation->getConversation());
+                } else if ( $champ == "lieuRetour" ) {
+                    $this->creerMessageModificationLieuRetour($reservation, $reservation->getConversation());
+                }
+                
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('success', 'Réservation modifiée avec succès.');
             }
@@ -224,6 +375,48 @@ class ReservationController extends BaseController {
                     'reservation' => $reservation,
                     'champ' => $champ,
                     'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/trouve/{slug}-{id}", name="trouve", methods={"GET","POST"}, requirements={"slug": "[a-z0-9\-]*"})
+     */
+    public function trouve(Request $request, ReservationJeu $reservation, string $slug): Response {
+        if ($reservation->getSlug() !== $slug)
+            return $this->redirectToRoute('home', [], 301);
+
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+                if ($reservation->getUser()->getId() != $this->getUser()->getId()) {
+                    return $this->redirect($this->generateUrl('home'));
+                }
+            } else
+                return $this->redirect($this->generateUrl('home'));
+        }
+
+        if ( $reservation->getEtat() != 2 )
+            return $this->redirectToRoute('chene.location.show', [
+                        'id' => $reservation->getId(),
+                        'slug' => $reservation->getSlug()
+            ]);
+            
+        $reservation->setEtat(3);
+        $reservation->setDateRendu(new \DateTime('now'));
+        $this->em->persist($reservation);
+
+        $message = new Message();
+        $message->setConversation($reservation->getConversation());
+        $message->setMessageGourou(false);
+        $message->setVu(true);
+        $message->setVuGourou(false);
+        $message->setTexte("Message automatique.\nJ'ai trouvé le médaillon.");
+        $this->em->persist($message);
+
+        $this->em->flush();
+
+        return $this->monRender('chene/reservation/trouve.html.twig', [
+                    'jeu' => $reservation->getJeu(),
+                    'reservation' => $reservation
         ]);
     }
 
@@ -257,7 +450,7 @@ class ReservationController extends BaseController {
 
         $this->em->flush();
 
-        return $this->redirectToRoute('chene.location.show', [
+        return $this->redirectToRoute('chene.location.retourner', [
                     'id' => $reservation->getId(),
                     'slug' => $reservation->getSlug()
         ]);

@@ -1,0 +1,25 @@
+{% extends "chene/baseChene.html.twig" %}
+
+{% block body %}
+    <div class="jumbotron mon-jumbotron">
+        <div class="container">
+            <h1 class="text-center">Location du Jeu en Chêne {{ jeu.nom }}</h1>
+        </div>
+    </div>
+
+    <div class="container mt-4 mb-2">
+        <div class="text-center">
+            <h1 class="text-color-2">FÉLICITATIONS</h1>
+            <h2>Vous avez trouvé le médaillon !</h2>
+            <h4 class="font-weight-bold">Gardez-le bien précieusement ! Il pourrait vous servir...</h4>
+            <h5 class="font-italic">
+                Nous validerons votre progression au retour du Jeu en Chêne
+            </h5>
+            <a href="{{ path("chene.location.retourner", {id : reservation.id, slug : reservation.getSlug()} ) }}" class="btn mon-btn mt-4">
+                Planifier le retour du Jeu en Chêne
+            </a>
+        </div>
+
+
+    </div>
+{% endblock %}

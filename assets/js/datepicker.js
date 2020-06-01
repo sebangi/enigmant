@@ -54,6 +54,16 @@ $(document).ready(function () {
                 stepping: 15,
             }
     );
+    
+    $('.picker-datetime-retour').datetimepicker(
+            {
+                sideBySide: true,        
+                format: 'dddd D MMMM YYYY à HH:mm',      
+                defaultDate: proposition,  
+                minDate: debut_location,
+                stepping: 15,
+            }
+    );
 
     $('.picker-datetime').datetimepicker(
             {

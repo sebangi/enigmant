@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-md-1 text-center mb-0">
+        <div class="custom-control-lg custom-control custom-checkbox">{{ form_widget(form.retourDomicile) }}</div> 
+    </div>
+    <div class="col-md-11 mb-0">
+        <h5 class="font-weight-bold">
+            Retour en Libre Service à Saint Philbert de Grand Lieu
+        </h5>
+        <ul class="mb-0">
+            <li>Retour en libre service : possibilité tous les jours, à toute heure de la journée</li>
+            <li>Le lieu de retour et les modalités vous seront fournies après validation</li>
+        </ul>
+    </div>
+</div>   
+
+<hr>
+
+<div class="row">
+    <div class="col-md-1 text-center mb-0">
+        <div class="custom-control-lg custom-control custom-checkbox">{{ form_widget(form.retourRDV) }}</div> 
+    </div>
+    <div class="col-md-11 mb-0">
+        <h5 class="font-weight-bold">
+            Retour sur rendez-vous dans la région Nantes Sud Loire
+        </h5>                            
+        <ul>
+            <li>Votre proposition de rendez-vous n'est pas garanti</li>
+            <li>Nous répondrons au mieux à votre demande suivant nos disponilités</li>
+        </ul>
+        <div class="si_case_a_cocher" id="si_case_a_cocher1" name="si_case_a_cocher1"  style="display: none;">
+            <b>Veuillez proposer un lieu :</b>
+            {{ form_widget(form.lieuRetourRDV) }}
+        </div>         
+    </div>
+</div>
+        
+      

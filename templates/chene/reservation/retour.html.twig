@@ -1,0 +1,57 @@
+{% extends "chene/baseChene.html.twig" %}
+
+{% block body %}
+    <div class="jumbotron mon-jumbotron">
+        <div class="container">
+            <h1 class="text-center">Location du Jeu en Chêne {{ jeu.nom }}</h1>
+        </div>
+    </div>
+
+    <div class="container mt-4 mb-2">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        <div class="card mb-4 border-dark">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0 mt-0">{{ flow.getCurrentStepLabel() }}</h4>
+            </div>
+            <div class="card-body p-3">
+                <div class="container">
+                    {% if flow.getCurrentStepNumber() == 1 %}
+                        {% include 'chene/reservation/_lieuRetour.html.twig' %}
+                    {% elseif flow.getCurrentStepNumber() == 2 %}
+                        {% include 'chene/reservation/_dateRendu.html.twig' %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {{ form_rest(form) }}
+
+        <div class="ml-4">
+            {% if   flow.getCurrentStepNumber() == 1 %}
+                {% include '@CraueFormFlow/FormFlow/buttons.html.twig'with {
+		craue_formflow_button_label_last: 'Étape suivante',
+		craue_formflow_button_label_back: "revenir à l'étape précédente",
+		craue_formflow_button_class_last: 'btn btn-success next1',
+		craue_formflow_button_name_last: 'next1',
+		craue_formflow_button_class_back: 'btn btn-secondary mr-4',
+                craue_formflow_button_render_reset:false } %}
+            {% else %}
+                {% include '@CraueFormFlow/FormFlow/buttons.html.twig'with {
+		craue_formflow_button_label_last: 'Étape suivante',
+		craue_formflow_button_label_back: "revenir à l'étape précédente",
+		craue_formflow_button_class_last: 'btn btn-success',
+		craue_formflow_button_class_back: 'btn btn-secondary mr-4',
+                craue_formflow_button_render_reset:false } %}
+            {% endif %}
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('checkbox') }}
+    {{ encore_entry_script_tags('datepicker') }}
+{% endblock %}
