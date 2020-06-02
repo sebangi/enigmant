@@ -5,6 +5,9 @@
         <div class="container text-center">
             <h1>
                 Location du Jeu en Chêne {{ reservation.jeu.nom }}
+                {% if is_granted('ROLE_ADMIN') %}
+                    par {{ reservation.user.username }}
+                {% endif %} 
             </h1>
             <div class="font-italic">
                 demande effectuée le {{ reservation.dateDemande | format_datetime('long', 'short', locale='fr')}}
@@ -216,10 +219,10 @@
                             {% else %}
                                 <p class="mb-1"><span class="fas fa-check text-success mr-2" aria-hidden="true"></span>Le rendez-vous convenu dans la conversation est confirmé.</p>
                             {% endif %}
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <a href="{{ path("admin.chene.reservation.retourEffectue", {id : reservation.id, reussi : "false"} ) }}" class="btn btn-danger float-right ml-2">Retour effectué et NON RÉUSSI</a>
-                                    <a href="{{ path("admin.chene.reservation.retourEffectue", {id : reservation.id, reussi : "true"} ) }}" class="btn btn-success float-right">Retour effectué et RÉUSSI</a>
-                                {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path("admin.chene.reservation.retourEffectue", {id : reservation.id, reussi : "false"} ) }}" class="btn btn-danger float-right ml-2">Retour effectué et NON RÉUSSI</a>
+                                <a href="{{ path("admin.chene.reservation.retourEffectue", {id : reservation.id, reussi : "true"} ) }}" class="btn btn-success float-right">Retour effectué et RÉUSSI</a>
+                            {% endif %}
                         {% endif %}
                     </div>
                 {% endif %}
@@ -235,13 +238,38 @@
             </div>
             {% if reservation.etat > 4 %}
                 <div class="card-body p-3">
-                    <h5 class="mb-1"><span class="fas fa-check text-success mr-2" aria-hidden="true"></span>Le jeu a été rendu.</h5>
-                    {% if reservation.reussi %}
-                        <h5 class="mb-1"><span class="fas fa-check text-success mr-2" aria-hidden="true"></span>Vous avez trouvé le médaillon.</h5>
-                    {% else %}
-                        <h5 class="mb-1 ml-1"><span class="fas fa-times text-danger mr-2" aria-hidden="true"></span>Vous n'avez pas trouvé le médaillon.</h5>
-                    {% endif%}
-
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="font-weight-bold">État</h4>
+                                <div class="ml-4">
+                                    <h5 class="mb-1"><span class="fas fa-check text-success mr-2" aria-hidden="true"></span>Le jeu a été rendu.</h5>
+                                    {% if reservation.reussi %}
+                                        <h5 class="mb-1"><span class="fas fa-check text-success mr-2" aria-hidden="true"></span>Vous avez trouvé le médaillon.</h5>
+                                    {% else %}
+                                        <h5 class="mb-1 ml-1"><span class="fas fa-times text-danger mr-2" aria-hidden="true"></span>Vous n'avez pas trouvé le médaillon.</h5>
+                                    {% endif%}
+                                </div>
+                            </div>  
+                            <div class="col-md-6">
+                                <h4 class="font-weight-bold">Babiole</h4>
+                                <div class="ml-4">
+                                    <table class="table table-striped">
+                                        {% if reservation.babioles|length == 0%}
+                                            <h5>Nous enregistrerons bientôt vos babioles.</h5>
+                                        {% else %}
+                                            {% for babiole in reservation.babioles  %}
+                                                <tr><td>{{ babiole.nom }}</td></tr>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </table>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a href="{{ path("chene.location.edit.champ", {id : reservation.id, slug : reservation.getSlug(), champ : "babioles"} ) }}" class="btn btn-warning mt-2 float-right">Modifier les babioles</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>   
+                    </div>
                 </div>
             {% endif %}
         </div>
@@ -256,7 +284,88 @@
             </div>
             {% if reservation.etat > 4 %}
                 <div class="card-body p-3">
-                    Essai
+                    {% if reservation.avisPublic or reservation.avisPriveDifficulte or reservation.avisPriveTechnique %}
+                        <div class="container">
+                            <div class="row align-items-center">
+                                <div class="col-md-3 mb-0 pr-0 text-center ">
+                                    <h4 class="font-weight-bold">
+                                        Avis général
+                                    </h4>
+                                    <div class="font italic">
+                                        Cet avis sera visible sur le site
+                                    </div>
+                                </div>
+                                <div class="col-md-9 mb-0 pl-0">
+                                    <div class="card {% if reservation.avisPublic%}bg-color-success{% else %}bg-light{% endif%}">
+                                        <div class="card-body">
+                                            {% if reservation.avisPublic%}
+                                                {{reservation.avisPublic |nl2br()}}
+                                            {% else %} 
+                                                Aucun avis
+                                            {% endif%}
+                                        </div>
+                                    </div>   
+                                </div>
+
+                            </div>   
+
+                            <hr>
+
+                            <div class="row align-items-center">
+                                <div class="col-md-3 mb-0 pr-0 text-center ">
+                                    <h4 class="font-weight-bold">
+                                        Difficultés
+                                    </h4>
+                                    <div class="font italic">
+                                        Cet avis restera privé
+                                    </div>
+                                </div>
+                                <div class="col-md-9 mb-0 pl-0">
+                                    <div class="card {% if reservation.avisPriveDifficulte%}bg-color-success{% else %}bg-light{%endif%}">
+                                        <div class="card-body">
+                                            {% if reservation.avisPriveDifficulte%}
+                                                {{reservation.avisPriveDifficulte}}
+                                            {% else %} 
+                                                Aucun avis
+                                            {% endif%}
+                                        </div>
+                                    </div>   
+                                </div>
+
+                            </div>
+
+                            <hr>
+
+                            <div class="row align-items-center">
+                                <div class="col-md-3 mb-0 pr-0 text-center ">
+                                    <h4 class="font-weight-bold">
+                                        Mécanismes
+                                    </h4>  
+                                    <div class="font italic">
+                                        Cet avis restera privé
+                                    </div>
+                                </div>
+                                <div class="col-md-9 mb-0 pl-0">
+                                    <div class="card {% if reservation.avisPriveTechnique%}bg-color-success{% else %}bg-light{% endif%}">
+                                        <div class="card-body">
+                                            {% if reservation.avisPriveTechnique%}
+                                                {{reservation.avisPriveTechnique}}
+                                            {% else %} 
+                                                Aucun avis
+                                            {% endif%}
+                                        </div>
+                                    </div>                                    
+                                </div>    
+                            </div>
+
+                            <hr>
+
+                            <a href="{{ path("chene.location.edit.champ", {id : reservation.id, slug : reservation.getSlug(), champ : "avis"} ) }}" class="btn mon-btn">Modifier les avis</a>
+
+                        </div>
+                    {% else %}
+                        <a href="{{ path("chene.location.edit.champ", {id : reservation.id, slug : reservation.getSlug(), champ : "avis"} ) }}" class="btn mon-btn">Donner mon avis</a>
+                    {% endif%}
                 </div>
             {% endif %}
         </div>

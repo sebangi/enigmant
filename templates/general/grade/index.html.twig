@@ -63,8 +63,8 @@
                         {% if themeCourant == "General" %}
                             <th style="width: 67%">Réussite / Condition d'obtention</th>
                         {% else %}
-                            <th style="width: 52%">Réussite / Condition d'obtention</th>
-                            <th style="width: 15%">Nombre de personnes</th>
+                            <th style="width: 62%">Réussite / Condition d'obtention</th>
+                            <th style="width: 5%">Qui ?</th>
                         {% endif %}
                     </tr>
                 </thead>
@@ -109,7 +109,7 @@
                                     <td class="font-weight-bold">{{ obt.date | date("d/m/Y") }}</td>                            
                                     <td class="font-weight-bold">{{ grade.raison }}</td>                            
                                 {% endif%}
-                                <td>
+                                <td class="text-center">
                                     {{ grade.getObtentionNiveaux() | length }}
                                 </td>
                             </tr>    

@@ -2,11 +2,16 @@
 
 {% block body %}
     <div class="container mt-4">
-        <h1>Éditer la réservation</h1>
-        <h3>Réservation de {{ reservation.jeu.getNomEtCollection() }} par {{ reservation.user.username }}</h3>
+        <h2>Éditer la réservation de {{ reservation.jeu.getNomEtCollection() }} par {{ reservation.user.username }}</h2>
 
         {{ include('admin/chene/reservation/_form.html.twig', {button: 'Éditer'}) }}       
 
     </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('checkbox') }}
+    {{ encore_entry_script_tags('datepicker') }}
 {% endblock %}

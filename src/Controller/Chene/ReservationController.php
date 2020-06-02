@@ -144,9 +144,9 @@ class ReservationController extends BaseController {
         } else {
             $message = $this->creerMessage($conversation);
             $message->setTexte("RETOUR DU JEU EN CHÊNE \n\n"
-                    . "Vous avez choisi le retour sur rendez-vous le " . strftime("%A %d %B %Y à %H:%M", $reservation->getDateRetrait()->getTimestamp()) . " .\n\n"
+                    . "Vous avez choisi le retour sur rendez-vous le " . strftime("%A %d %B %Y à %H:%M", $reservation->getDateRendu()->getTimestamp()) . " .\n\n"
                     . "Votre proposition :\n"
-                    . $reservation->getLieuRDV() . "\n\n"
+                    . $reservation->getLieuRetourRDV() . "\n\n"
                     . "Nous vous confirmerons ci-dessous dans un prochain message ce rendez-vous...\n"
                     . "Si le délai est court, contactez-nous au 06 76 49 57 23.");
 
@@ -189,6 +189,20 @@ class ReservationController extends BaseController {
         $this->em->persist($message);
         $this->creerMessageRetour($reservation, $conversation);
     }
+    
+    private function creerMessageAvisDonne(ReservationJeu $reservation, Conversation $conversation) {
+        $message = new Message();
+        $message->setConversation($conversation);
+        $message->setMessageGourou(true);
+        $message->setVu(false);
+        $message->setVuGourou(true);
+        $message->setTexte("Merci beaucoup pour votre avis.\n\n"
+                . "À très bientôt.\n"
+                . "Grand Gourou en Chêne Seb");
+
+        $this->em->persist($message);
+    }
+    
 
     private function creerConversation(ReservationJeu $reservation) {
         date_default_timezone_set('Europe/Paris');
@@ -359,10 +373,19 @@ class ReservationController extends BaseController {
                     $this->creerMessageModificationDateRetour($reservation, $reservation->getConversation());
                 } else if ( $champ == "lieuRetour" ) {
                     $this->creerMessageModificationLieuRetour($reservation, $reservation->getConversation());
+                } else if ( $champ == "avis" && ! $reservation->getAvisDonne() ) {
+                    $reservation->setAvisDonne(true);
+                    $this->creerMessageAvisDonne($reservation, $reservation->getConversation());                    
+                    $this->addFlash('success', 'Nous avons bien reçu votre avis. Merci !');
+                } else if ( $champ == "babioles" ) {
+                    $this->addFlash('success', 'La liste des babioles a été modifiée.');
                 }
                 
-                $this->getDoctrine()->getManager()->flush();
-                $this->addFlash('success', 'Réservation modifiée avec succès.');
+                foreach ($reservation->getBabioles() as $babiole) {
+                    $babiole->setReservationJeu($reservation);
+                }
+                
+                $this->em->flush();
             }
 
             return $this->redirectToRoute('chene.location.show', [
@@ -377,7 +400,7 @@ class ReservationController extends BaseController {
                     'form' => $form->createView(),
         ]);
     }
-
+    
     /**
      * @Route("/trouve/{slug}-{id}", name="trouve", methods={"GET","POST"}, requirements={"slug": "[a-z0-9\-]*"})
      */

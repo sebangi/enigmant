@@ -6,21 +6,15 @@
 
         {{ include('outils/_flash.html.twig') }}           
 
-        <div class="text-right mb-4">
-            <a href="{{ path("admin.chene.reservation.new") }}" class="btn btn-primary">Créer une nouvelle location</a>
-        </div>
-
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Joueur</th>
-                    <th>Jeu</th>
-                    <th>Réussi</th>
-                    <th>Demande</th>
-                    <th>RDV Retrait</th>
-                    <th>Fin prévue</th>
-                    <th>RDV Rendu</th>
-                    <th>Actions</th>
+                    <th  style="width: 15%">Joueur</th>
+                    <th  style="width: 15%">Jeu</th>
+                    <th  style="width: 3%">R.</th>
+                    <th  style="width: 20%">Demande</th>
+                    <th  style="width: 16%">État</th>
+                    <th  style="width: 15%">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,18 +22,16 @@
                     <tr>
                         <td>{{ reservation.user.username }}</td>
                         <td>{{ reservation.jeu.nom }}</td>
-                        <td>{{ include('outils/_booleen.html.twig', {bvaleur : reservation.reussi}) }}</td>
-                        <td>{{ reservation.dateDemande | format_datetime('short', 'short', locale='fr')}}</td>
-                        <td>{{ reservation.dateRetrait | format_datetime('short', 'short', locale='fr')}}</td>
-                        <td>{{ reservation.dateFinPrevue | date("d/m/Y")}}</td>
-                        <td>{{ reservation.dateRendu | date("d/m/Y")}}</td>
+                        <td class="text-center">{{ include('outils/_booleen.html.twig', {bvaleur : reservation.reussi}) }}</td>
+                        <td>{{ reservation.dateDemande | format_datetime('full', 'short', locale='fr')}}</td>
+                        <td>{{ reservation.etatStringLong()}}</td>
                         <td>
-                            <a href="{{ path("chene.location.show",{   id : reservation.getId(), slug : reservation.getSlug()} ) }}" class="btn btn-primary">Voir</a>
-                            <a href="{{ path("admin.chene.reservation.edit", {id : reservation.id} ) }}" class="btn btn-secondary">Éditer</a>
+                            <a href="{{ path("chene.location.show",{   id : reservation.getId(), slug : reservation.getSlug()} ) }}" class="btn btn-primary mr-4">Voir</a>
+                            <a href="{{ path("admin.chene.reservation.edit", {id : reservation.id} ) }}" class="btn btn-secondary"><span class="fas fa-pen" aria-hidden="true"></span></a>
                             <form method="post" action="{{ path("admin.chene.reservation.delete", {id: reservation.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.id) }}">
-                                <button class="btn btn-danger">Supprimer</button>
+                                <button class="btn btn-danger"><span class="fas fa-trash-alt" aria-hidden="true"></span></button>
                             </form>
                         </td>
                     </tr>

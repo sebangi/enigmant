@@ -53,6 +53,11 @@ body {
     background-color: var(--bg-color-2-dark);
 }
 
+.bg-color-success { 
+    background-color: honeydew;
+}
+
+
 .bg-chene {
     background-image: url("../../public/images/fond/chene.png");
 }

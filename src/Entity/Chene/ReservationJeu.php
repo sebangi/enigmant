@@ -5,6 +5,8 @@ namespace App\Entity\Chene;
 use App\Entity\General\Conversation;
 use App\Entity\General\User;
 use Cocur\Slugify\Slugify;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,7 +23,7 @@ class ReservationJeu {
     const codeEtat = [
         0 => 'En cours de préparation',
         1 => 'Prêt pour le retrait',
-        2 => 'Jeu retiré. À vous de jouer !',
+        2 => 'Jeu retiré. En jeu !',
         3 => 'En attente de retour',
         4 => 'Prêt pour le retour',
         5 => 'Location terminée',
@@ -74,11 +76,12 @@ class ReservationJeu {
      * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $reussi = false;
-
+    
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean", options={"default" : false})
      */
-    private $tempsJeuEstime;
+    private $avisDonne = false;
+    
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\General\User", inversedBy="reservations")
@@ -108,7 +111,7 @@ class ReservationJeu {
     private $retraitDomicile = false;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $possessionBabiole;
 
@@ -159,8 +162,14 @@ class ReservationJeu {
      */
     private $contactOk = false;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Babiole::class, mappedBy="reservationJeu")
+     */
+    private $babioles;
+
     public function __construct() {
         $this->dateRetrait = null;
+        $this->babioles = new ArrayCollection();
     }
 
     /**
@@ -210,6 +219,13 @@ class ReservationJeu {
      */
     public function getEtatString(): string {
         return self::codeEtat[$this->etat];
+    }
+    
+    /**
+     * @return string
+     */
+    public function getEtatStringLong(): string {
+        return "[". $this->etat . "/6" . "] " . self::codeEtat[$this->etat];
     }
 
     /**
@@ -454,10 +470,10 @@ class ReservationJeu {
 
     /**
      * 
-     * @param string $avisPriveDifficulte
+     * @param string|null $avisPriveDifficulte
      * @return \App\Entity\Chene\ReservationJeu
      */
-    public function setAvisPriveDifficulte(string $avisPriveDifficulte): ReservationJeu {
+    public function setAvisPriveDifficulte(?string $avisPriveDifficulte): ReservationJeu {
         $this->avisPriveDifficulte = $avisPriveDifficulte;
 
         return $this;
@@ -484,6 +500,24 @@ class ReservationJeu {
 
     /**
      * 
+     * @return type
+     */
+    public function getAvisDonne() {
+        return $this->avisDonne;
+    }
+
+    /**
+     * 
+     * @param type $avisDonne
+     * @return \App\Entity\Chene\ReservationJeu
+     */
+    public function setAvisDonne($avisDonne) : ReservationJeu {
+        $this->avisDonne = $avisDonne;
+        return $this;
+    }
+        
+    /**
+     * 
      * @return bool|null
      */
     public function getReussi(): ?bool {
@@ -497,25 +531,6 @@ class ReservationJeu {
      */
     public function setReussi(bool $reussi): ReservationJeu {
         $this->reussi = $reussi;
-
-        return $this;
-    }
-
-    /**
-     * 
-     * @return int|null
-     */
-    public function getTempsJeuEstime(): ?int {
-        return $this->tempsJeuEstime;
-    }
-
-    /**
-     * 
-     * @param int|null $tempsJeuEstime
-     * @return \App\Entity\Chene\ReservationJeu
-     */
-    public function setTempsJeuEstime(?int $tempsJeuEstime): ReservationJeu {
-        $this->tempsJeuEstime = $tempsJeuEstime;
 
         return $this;
     }
@@ -682,6 +697,37 @@ class ReservationJeu {
      */
     public function setLieuRetourRDV($lieuRetourRDV): ReservationJeu {
         $this->lieuRetourRDV = $lieuRetourRDV;
+        return $this;
+    }
+
+    /**
+     * @return Collection|Babiole[]
+     */
+    public function getBabioles(): Collection
+    {
+        return $this->babioles;
+    }
+
+    public function addBabiole(Babiole $babiole): self
+    {
+        if (!$this->babioles->contains($babiole)) {
+            $this->babioles[] = $babiole;
+            $babiole->setReservationJeu($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBabiole(Babiole $babiole): self
+    {
+        if ($this->babioles->contains($babiole)) {
+            $this->babioles->removeElement($babiole);
+            // set the owning side to null (unless already changed)
+            if ($babiole->getReservationJeu() === $this) {
+                $babiole->setReservationJeu(null);
+            }
+        }
+
         return $this;
     }
 

@@ -257,6 +257,26 @@ class ConversationController extends BaseController {
     }
 
     /**
+     * @route("/{id}/supprimerMessage", name="supprimerMessage", methods="DELETE")  
+     * @param Conversation $conversation
+     * @param Request $requete
+     * @return Response
+     */
+    public function deleteMessage(Message $message, Request $requete) {
+        if ($this->isCsrfTokenValid('delete' . $message->getId(), $requete->get('_token'))) {
+            $this->em->remove($message);
+            $this->em->flush();
+
+            $this->addFlash('success', 'Message supprimé avec succès.');
+        }
+
+        return $this->redirectToRoute('general.conversation.show', [
+                        'id' => $message->getConversation()->getId(),
+                        'slug' => $message->getConversation()->getSlug(),
+                        '_fragment' => "nouveau-message"
+            ]);
+    }
+    /**
      * @route("/{id}", name="delete", methods="DELETE")  
      * @param Conversation $conversation
      * @param Request $requete

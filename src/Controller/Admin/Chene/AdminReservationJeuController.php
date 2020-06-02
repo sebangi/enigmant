@@ -86,6 +86,10 @@ class AdminReservationJeuController extends BaseController {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            foreach ($reservation->getBabioles() as $babiole) {
+                $babiole->setReservationJeu($reservation);
+            }
+
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Réservation modifiée avec succès.');
 
@@ -147,7 +151,7 @@ class AdminReservationJeuController extends BaseController {
 
         $message = $this->creerMessage($reservation->getConversation());
 
-        if ($reservation->getRetraitDomicile()) {
+        if ($reservation->getRetourDomicile()) {
             $message->setTexte("Vous pouvez venir retourner le Jeu en Chêne à la date prévue.");
         } else {
             $message->setTexte("Le rendez-vous convenu pour le retour est confirmé.");
@@ -155,7 +159,7 @@ class AdminReservationJeuController extends BaseController {
 
         $this->em->persist($message);
     }
-    
+
     /**
      * 
      * @param ReservationJeu $reservation
@@ -168,7 +172,7 @@ class AdminReservationJeuController extends BaseController {
         $this->em->persist($message);
     }
 
-     /**
+    /**
      * 
      * @param ReservationJeu $reservation
      */
@@ -180,17 +184,19 @@ class AdminReservationJeuController extends BaseController {
             $message->setTexte(
                     "Bravo ! Vous avez réussi le Jeu en Chêne " . $reservation->getJeu()->getNom() . ".\n"
                     . "Votre progression a été mise à jour !\n"
-                    . "À très bientôt, j'espère !");
+                    . "Pour terminer, vous pouvez donner votre avis !\n"
+                    . "À très bientôt !");
         } else {
             $message->setTexte(
-                    "Vous n'avez pas trouvé le médaillon.\n " 
-                    . "Nous espérons que le Jeu en Chêne vous a tout de même plu ! \n" 
-                    . "À très bientôt, j'espère !");
+                    "Vous n'avez pas trouvé le médaillon.\n "
+                    . "Nous espérons que le Jeu en Chêne vous a tout de même plu ! \n"
+                    . "Pour terminer, vous pouvez donner votre avis !\n"
+                    . "À très bientôt !");
         }
 
         $this->em->persist($message);
     }
-    
+
     /**
      * @Route("/{id}/validerRetrait", name="admin.chene.reservation.validerRetrait")
      */
@@ -207,7 +213,7 @@ class AdminReservationJeuController extends BaseController {
                     'slug' => $reservation->getSlug()
         ]);
     }
-        
+
     /**
      * @Route("/{id}/retraitEffectue", name="admin.chene.reservation.retraitEffectue")
      */
@@ -239,8 +245,7 @@ class AdminReservationJeuController extends BaseController {
                     'slug' => $reservation->getSlug()
         ]);
     }
-    
-    
+
     /**
      * @Route("/{id}-{reussi}/retourEffectue", name="admin.chene.reservation.retourEffectue")
      */
@@ -249,7 +254,7 @@ class AdminReservationJeuController extends BaseController {
         $reservation->setReussi($reussi == "true");
         $this->creerMessageretourEffectue($reservation);
         $reservation->getJeu()->setDisponible(true);
-                
+
         $this->em->flush();
         $this->addFlash('success', 'Réservation modifiée avec succès.');
         $this->addFlash('error', 'Le jeu est à nouveau disponible.');

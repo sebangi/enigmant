@@ -1,4 +1,97 @@
 {{ form_start(form) }}
+{{ form_errors(form) }}
+
+<div class="card mb-4 border-dark">
+    <div class="card-header bg-dark text-white">
+        <h4 class="mb-0 mt-0">Général</h4>
+    </div>
+    <div class="card-body p-3">
+        <div class="row mb-2">  
+            <div class="col-md-2">
+                <h5 class="text-right mt-2">
+                    Joueur :
+                </h5>
+            </div>
+            <div class="col-md-4 pl-0">
+                {{ form_widget(form.user) }}
+            </div>
+            <div class="col-md-2">
+                <h5 class="text-right mt-2">
+                    Demande :
+                </h5>
+            </div>
+            <div class="col-md-4 pl-0">
+                <div class="input-group picker-datetime-readall" id="dateDemande" data-target-input="nearest">
+                    <div class="input-group-prepend"  data-target="#dateDemande" data-toggle="datetimepicker">
+                        <div class="input-group-text">
+                            <i class=" fas fa-calendar-alt"></i>
+                        </div>                
+                    </div>
+                    {{ form_widget(form.dateDemande) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-2">  
+            <div class="col-md-2">
+                <h5 class="text-right mt-2">
+                    Jeu :
+                </h5>
+            </div>
+            <div class="col-md-4 pl-0">
+                {{ form_widget(form.jeu) }}
+            </div> 
+            <div class="col-md-2">
+                <h5 class="text-right mt-2">
+                    fin Prévue :
+                </h5>
+            </div>
+            <div class="col-md-4 pl-0">
+                <div class="input-group picker-datetime-readall" id="dateFinPrevue" data-target-input="nearest">
+                    <div class="input-group-prepend"  data-target="#dateFinPrevue" data-toggle="datetimepicker">
+                        <div class="input-group-text">
+                            <i class=" fas fa-calendar-alt"></i>
+                        </div>                
+                    </div>
+                    {{ form_widget(form.dateFinPrevue) }}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row mb-2">  
+            <div class="col-md-2">
+                <h5 class="text-right mt-2">
+                    Réussi :
+                </h5>
+            </div>
+            <div class="col-md-4 pl-0">
+                <div class="custom-control-lg custom-control custom-checkbox pl-1 mt-1">{{ form_widget(form.reussi) }}</div>
+            </div> 
+        </div>
+    </div>
+</div>
+
+{% include "chene/reservation/_cardChamp.html.twig" with {"champ":"lieuRetrait"} %}
+{% include "chene/reservation/_cardChamp.html.twig" with {"champ":"dateRetrait"} %}
+{% include "chene/reservation/_cardChamp.html.twig" with {"champ":"lieuRetour"} %}
+{% include "chene/reservation/_cardChamp.html.twig" with {"champ":"dateRendu"} %}        
+{% include "chene/reservation/_cardChamp.html.twig" with {"champ":"avis"} %}
+{% include "chene/reservation/_cardChamp.html.twig" with {"champ":"babioles"} %}
+
+<div class="mb-4">
+    <button class="btn btn-success">
+        {{ button|default('Enregistrer') }}
+    </button>
+    {{ form_widget(form.cancel) }}
+</div>
+{{ form_end(form) }}
+
+
+{#
+{{ form_start(form) }}
+
+
 <div class="row">
     <div class="col-md-2 custom-control-lg custom-control custom-checkbox">{{ form_row(form.reussi) }}</div>
     <div class="col-md-3">{{ form_row(form.dateDemande) }}</div> 
@@ -35,3 +128,4 @@
 
 <button class="btn btn-primary">{{ button|default('Enregistrer') }}</button>
 {{ form_end(form) }} 
+#}

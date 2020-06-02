@@ -34,10 +34,18 @@ function textNext1() {
 
 $(document).ready(function () {
     
-    $('input.only-one').click(function () {
-        $('input.only-one').not(this).prop('checked', false);
+    $('input.only-one1').click(function () {
+        $('input.only-one1').not(this).prop('checked', false);
     });
-        
+    
+    $('input.only-one2').click(function () {
+        $('input.only-one2').not(this).prop('checked', false);
+    });
+    
+    $('input.only-one3').click(function () {
+        $('input.only-one3').not(this).prop('checked', false);
+    });
+    
     cacher("1");
     cacher("2");
     cacher("3");

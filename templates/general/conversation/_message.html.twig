@@ -24,7 +24,20 @@
                         <span class="fas fa-pen" aria-hidden="true"></span>
                     </a>
                 {% endif%} 
-                {% if exp == "user" %}{{ message.conversation.user.username }}{% else %}Grand Gourou{% endif%} 
+                
+                {% if exp == "user" %}
+                    {% if message.conversation.lienReservation %}
+                        {{ message.conversation.user.GradeString( "Chêne" ) }}
+                    {% endif%}
+                    {{ message.conversation.user.username }}
+                {% else %}
+                    {% if message.conversation.lienReservation %}
+                        Grand Gourou en Chêne Seb
+                    {% else %}
+                        Grand Gourou Seb
+                    {% endif%}
+                {% endif%} 
+            
             </div>
             <div class="d-inline float-right font-italic">
                 {{ message.getDateString }}
@@ -35,6 +48,17 @@
                     {% else %}
                         <span class="fas fa-eye-slash text-danger ml-2"></span>
                     {% endif %}
+                {% endif%}
+                {% if lecteur == "admin" %}
+                    
+                    <form method="post" action="{{ path("general.conversation.supprimerMessage", {id: message.getId()}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer ce message ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ message.id) }}">
+                            <button class="mon-btn-outline {% if exp == "admin" %}border-warning bg-warning{% else %}border-light{% endif%}  text-danger p-0">
+                                <span class="fas fa-trash-alt" aria-hidden="true"></span>
+                            </button>
+                        </form>
+                    
                 {% endif%}
             </div>
         </div>

@@ -10,3 +10,8 @@
 
 {% endblock body %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('checkbox') }}
+    {{ encore_entry_script_tags('datepicker') }}
+{% endblock %}

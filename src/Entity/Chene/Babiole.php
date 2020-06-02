@@ -48,11 +48,6 @@ class Babiole
     private $description;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Chene\JeuEnChene", mappedBy="babioles")
-     */
-    private $jeuEnChenes;
-
-    /**
      * @ORM\ManyToOne(targetEntity="\App\Entity\Chene\TypeBabiole", inversedBy="babioles")
      */
     private $typeBabiole;
@@ -85,6 +80,16 @@ class Babiole
      * @param \DateTimeInterface
      */
     private $majDate;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Chene\JeuEnChene", mappedBy="babioles")
+     */
+    private $jeuEnChenes;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ReservationJeu::class, inversedBy="babioles")
+     */
+    private $reservationJeu;
 
     public function __construct()
     {
@@ -354,4 +359,26 @@ class Babiole
 
         return $this;
     }
+
+    /**
+     * 
+     * @return \App\Entity\Chene\ReservationJeu|null
+     */
+    public function getReservationJeu(): ?ReservationJeu
+    {
+        return $this->reservationJeu;
+    }
+
+    /**
+     * 
+     * @param \App\Entity\Chene\ReservationJeu|null $reservationJeu
+     * @return \App\Entity\Chene\Babiole
+     */
+    public function setReservationJeu(?ReservationJeu $reservationJeu): Babiole
+    {
+        $this->reservationJeu = $reservationJeu;
+
+        return $this;
+    }
+
 }

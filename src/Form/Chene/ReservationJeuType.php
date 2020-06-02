@@ -5,6 +5,8 @@ namespace App\Form\Chene;
 use App\Entity\Chene\ReservationJeu;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use App\Entity\Chene\Babiole;
+use App\Repository\Chene\BabioleRepository;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -44,7 +46,7 @@ class ReservationJeuType extends AbstractType {
         $builder
                 ->add('retraitRDV', CheckboxType::class,
                         [
-                            'attr' => ['class' => "custom-control-input only-one case_a_cocher1"],
+                            'attr' => ['class' => "custom-control-input only-one1 case_a_cocher1"],
                             'label' => false,
                             'label_attr' =>
                             ['class' => 'custom-control-label',
@@ -52,7 +54,7 @@ class ReservationJeuType extends AbstractType {
                             'required' => false
                 ])
                 ->add('retraitDomicile', CheckboxType::class, [
-                    'attr' => ['class' => "custom-control-input only-one"],
+                    'attr' => ['class' => "custom-control-input only-one1"],
                     'label' => false,
                     'label_attr' =>
                     ['class' => 'custom-control-label',
@@ -85,14 +87,13 @@ class ReservationJeuType extends AbstractType {
         $builder->get('dateRetrait')
                 ->addModelTransformer(new DateTimeTransformer());
     }
-    
-    
+
     private function buildLieuRetour(FormBuilderInterface $builder, array $options) {
         $this->buildCancel($builder, $options);
         $builder
                 ->add('retourRDV', CheckboxType::class,
                         [
-                            'attr' => ['class' => "custom-control-input only-one case_a_cocher1"],
+                            'attr' => ['class' => "custom-control-input only-one2 case_a_cocher1"],
                             'label' => false,
                             'label_attr' =>
                             ['class' => 'custom-control-label',
@@ -100,7 +101,7 @@ class ReservationJeuType extends AbstractType {
                             'required' => false
                 ])
                 ->add('retourDomicile', CheckboxType::class, [
-                    'attr' => ['class' => "custom-control-input only-one"],
+                    'attr' => ['class' => "custom-control-input only-one2"],
                     'label' => false,
                     'label_attr' =>
                     ['class' => 'custom-control-label',
@@ -134,69 +135,170 @@ class ReservationJeuType extends AbstractType {
                 ->addModelTransformer(new DateTimeTransformer());
     }
 
+    private function buildAvis(FormBuilderInterface $builder, array $options) {
+        $this->buildCancel($builder, $options);
+
+        if ($options['administration'] == true) {
+            $builder
+                    ->add('avisPublic', TextareaType::class, [
+                        'required' => false,
+                        'attr' => [
+                            'placeholder' => 'Votre avis SANS DONNER DE SOLUTIONS',
+                            'class' => 'mon-area'
+                        ]
+            ]);
+        } else {
+            $builder
+                    ->add('avisPublic', TextareaType::class, [
+                        'required' => true,
+                        'attr' => [
+                            'placeholder' => 'Votre avis SANS DONNER DE SOLUTIONS',
+                            'class' => 'mon-area'
+                        ]
+            ]);
+        }
+
+
+        $builder
+                ->add('avisPriveDifficulte', TextareaType::class, [
+                    'required' => false,
+                    'attr' => [
+                        'placeholder' => 'Y a-t-il des étapes trop faciles ou trop difficiles ?',
+                        'class' => 'mon-area'
+                    ]
+                ])
+                ->add('avisPriveTechnique', TextareaType::class, [
+                    'required' => false,
+                    'attr' => [
+                        'placeholder' => 'Avez-vous eu des soucis techniques ?',
+                        'class' => 'mon-area'
+                    ]
+                ])
+        ;
+    }
+
+    private function buildBabioles(FormBuilderInterface $builder, array $options) {
+        $this->buildCancel($builder, $options);
+        $builder
+                ->add('babioles', EntityType::class, [
+                    'class' => Babiole::class,
+                    'choice_label' => 'nom',
+                    'query_builder' => function (BabioleRepository $er) {
+                        return $er->createQueryBuilder('b')
+                                ->orderBy('b.nom', 'ASC');
+                    },
+                    'multiple' => true,
+                    'required' => false
+                ])
+        ;
+    }
+
+    private $avisPublic;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $avisPriveDifficulte;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $avisPriveTechnique;
+
     public function buildForm(FormBuilderInterface $builder, array $options) {
+        if ($options['administration'] == true) {
+            $builder
+                    ->add('dateDemande', TextType::class, [
+                        'required' => true,
+                        'label' => false,
+                        'translation_domain' => 'AppBundle',
+                        'attr' => array(
+                            'class' => 'datetimepicker-input',
+                            'data-target' => "#dateDemande"
+                        )
+                    ])
+                    ->add('dateFinPrevue', TextType::class, [
+                        'required' => false,
+                        'label' => false,
+                        'translation_domain' => 'AppBundle',
+                        'attr' => array(
+                            'class' => 'datetimepicker-input',
+                            'data-target' => "#dateFinPrevue"
+                        )
+                    ])
+                    ->add('reussi', CheckboxType::class, [
+                        'attr' => ['class' => "custom-control-input"],
+                        'label' => false,
+                        'required' => false,
+                        'attr' => ['class' => "custom-control-input"],
+                        'label_attr' => ['class' => 'custom-control-label']
+                    ])
+                    ->add('user', EntityType::class, [
+                        'class' => User::class,
+                        'choice_label' => 'username',
+                        'query_builder' => function (UserRepository $er) {
+                            return $er->createQueryBuilder('t')
+                                    ->orderBy('t.username', 'ASC');
+                        },
+                        'required' => false
+                    ])
+                    ->add('jeu', EntityType::class, [
+                        'class' => JeuEnChene::class,
+                        'choice_label' => function ($jeu) {
+                            return $jeu->getNomEtCollection();
+                        },
+                        'query_builder' => function (JeuEnCheneRepository $er2) {
+                            return $er2->createQueryBuilder('j')
+                                    ->orderBy('j.nom', 'ASC');
+                        },
+                        'required' => false
+                    ])
+            ;
+
+
+            $builder->get('dateDemande')
+                    ->addModelTransformer(new DateTimeTransformer());
+            $builder->get('dateFinPrevue')
+                    ->addModelTransformer(new DateTimeTransformer());
+        }
 
 
         if ($options['champ'] == 'etat') {
             $this->buildEtat($builder, $options);
-        } else if ($options['champ'] == 'lieuRetrait') {
+        }
+
+        if ($options['administration'] == true || $options['champ'] == 'lieuRetrait') {
             $this->buildLieuRetrait($builder, $options);
-        } else if ($options['champ'] == 'dateRetrait') {
+        }
+
+        if ($options['administration'] == true || $options['champ'] == 'dateRetrait') {
             $this->buildDateRetrait($builder, $options);
-        } else if ($options['champ'] == 'lieuRetour') {
+        }
+
+        if ($options['administration'] == true || $options['champ'] == 'lieuRetour') {
             $this->buildLieuRetour($builder, $options);
-        } else if ($options['champ'] == 'dateRendu') {
+        }
+
+        if ($options['administration'] == true || $options['champ'] == 'dateRendu') {
             $this->buildDateRendu($builder, $options);
-        } else {
-            if ($options['administration'] == true) {
-                $builder
-                        ->add('dateDemande', DateType::class)
-                        ->add('dateFinPrevue', DateType::class)
-                        ->add('dateRendu', DateType::class)
-                        ->add('avisPublic', TextareaType::class, [
-                            'required' => false
-                        ])
-                        ->add('avisPriveDifficulte', TextareaType::class, [
-                            'required' => false
-                        ])
-                        ->add('avisPriveTechnique', TextareaType::class, [
-                            'required' => false
-                        ])
-                        ->add('reussi', CheckboxType::class, [
-                            'attr' => ['class' => "custom-control-input"],
-                            'label_attr' => ['class' => 'custom-control-label']
-                        ])
-                        ->add('tempsJeuEstime')
-                        ->add('user', EntityType::class, [
-                            'class' => User::class,
-                            'choice_label' => 'username',
-                            'query_builder' => function (UserRepository $er) {
-                                return $er->createQueryBuilder('t')
-                                        ->orderBy('t.username', 'ASC');
-                            },
-                            'required' => false
-                        ])
-                        ->add('jeu', EntityType::class, [
-                            'class' => JeuEnChene::class,
-                            'choice_label' => function ($jeu) {
-                                return $jeu->getNomEtCollection();
-                            },
-                            'query_builder' => function (JeuEnCheneRepository $er2) {
-                                return $er2->createQueryBuilder('j')
-                                        ->orderBy('j.nom', 'ASC');
-                            },
-                            'required' => false
-                        ])
-                ;
-            }
+        }
 
-            if ($options['administration'] == true || $options['etape'] == 1) {
-                $this->buildLieuRetrait($builder, $options);
-            }
+        if ($options['administration'] == true || $options['champ'] == 'avis') {
+            $this->buildAvis($builder, $options);
+        }
 
-            if ($options['administration'] == true || $options['etape'] == 2) {
-                $this->buildDateRetrait($builder, $options);
-            }
+        if ($options['administration'] == true || $options['champ'] == 'babioles') {
+            $this->buildBabioles($builder, $options);
+        }
+
+
+
+        if ($options['etape'] == 1) {
+            $this->buildLieuRetrait($builder, $options);
+        }
+
+        if ($options['etape'] == 2) {
+            $this->buildDateRetrait($builder, $options);
         }
     }
 
@@ -210,7 +312,8 @@ class ReservationJeuType extends AbstractType {
         ]);
     }
 
-    private function getChoixEtat() {
+    private
+            function getChoixEtat() {
         $choix = ReservationJeu::codeEtat;
 
         $output = [];

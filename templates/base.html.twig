@@ -30,8 +30,8 @@
                     {% if themeCourant == "General" %}
                         ? 
                         {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path("admin.home" ) }}" class="btn btn-warning ml-4">Administration</a>
-                            <a class="btn btn-warning" href="{{ path('admin.chene.reservation.index') }}">Locations</a>
+                            <a href="{{ path("admin.home" ) }}" class="btn btn-warning ml-4 pt-0 pb-0">Administration</a>
+                            <a class="btn btn-warning pt-0 pb-0" href="{{ path('admin.chene.reservation.index') }}">Locations</a>
                         {% endif %}           
                     {% endif %}  
 

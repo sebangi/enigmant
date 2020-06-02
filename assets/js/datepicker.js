@@ -18,11 +18,6 @@ var proposition = new Date();
 proposition.setDate(proposition.getDate() + 3);
 proposition.setHours(17, 00, 00);
 
-console.log("debut_location");
-console.log(debut_location);
-console.log("proposition");
-console.log(proposition);
-
 $.fn.datetimepicker.Constructor.Default =
         $.extend($.fn.datetimepicker.Constructor.Default,
                 {icons: {
@@ -67,13 +62,17 @@ $(document).ready(function () {
 
     $('.picker-datetime').datetimepicker(
             {
+                sideBySide: true,        
                 format: 'D/MM/YYYY HH:mm',
+                stepping: 15,
             }
     );
 
     $('.picker-datetime-readall').datetimepicker(
             {
+                sideBySide: true,        
                 format: 'dddd D MMMM YYYY à HH:mm',
+                stepping: 15,
             }
     );
 
