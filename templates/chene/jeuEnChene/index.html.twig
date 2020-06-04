@@ -15,19 +15,25 @@
                 {% else %}
                     Il existe actuellement {{nb_jeux_en_chene}} Jeux en Chêne
                 {% endif%}
-            </h1>
-            {% if not filtre %}
-                <p class="text-right no-margin">
+             {% if not filtre %}
+                <p class="text-right no-margin float-right">
                     <a class="btn btn-secondary align-right no-marging" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Options de recherche</a>
                 </p>
             {% endif %}
+            </h1>
             <div class="collapse {% if filtre %}show{% endif %}" id="multiCollapseExample1">
                 <hr class="mb-2 mt-2">
                 {{ form_start(form) }}
+
                 <div class="form-row">
-                    <div class="col-md-3 no-margin pt-2 custom-control-lg custom-control custom-checkbox">
-                        <div class="input-group mb-1 ml-1">
-                            {{ form_widget(form.disponible) }}
+                    <div class="col-md-3 no-margin ">
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Seulement les disponibles</span>
+                            </div>  
+                            <div class="pt-2 custom-control-lg-form custom-control custom-checkbox">
+                                {{ form_widget(form.disponible) }}
+                            </div>
                         </div>
                     </div> 
 
@@ -56,9 +62,19 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="form-row">
                     <div class="col-md-3 no-margin">
-                        
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Niveau de difficulté</span>
+                                    </div>
+                                    {{ form_widget(form.niveauDifficulte) }}
+                                </div>
+                            </div>
+                        </div>
                     </div>    
 
                     <div class="col-md-4 no-margin">

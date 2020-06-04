@@ -158,7 +158,7 @@ class ReservationJeuType extends AbstractType {
         } else {
             $builder
                     ->add('avisPublic', TextareaType::class, [
-                        'required' => true,
+                        'required' => false,
                         'attr' => [
                             'placeholder' => 'Votre avis SANS DONNER DE SOLUTIONS',
                             'class' => 'mon-area'

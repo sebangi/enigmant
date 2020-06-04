@@ -45,7 +45,7 @@
 
                         {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
                             {% if app.user.aReussiJeu( jeuEnChene ) %}
-                                <div data-toggle="tooltip" title="Vous avez trouvé le médaillon !"  data-placement="bottom" class="d-inline float-right font-weight-bold text-success rounded-circle bg-white pl-1 pr-1"><span class="fas fa-check text-success border-circle" aria-hidden="true"></span></div>                
+                                <a data-toggle="tooltip" title="Vous avez trouvé le médaillon !"  data-placement="bottom"  class="jeu-reussi d-inline float-right font-weight-bold rounded-circle bg-white pl-1 pr-1" style="border-color:{{jeuEnChene.couleur}};"><span class="fas fa-check text-success" aria-hidden="true"></span></a>                
                                 {% endif %}
                             {% endif %}     
                     </h1>  
@@ -162,15 +162,166 @@
         </div>
 
         <hr>        
+        <h4><b>Avis des joueurs</b>
 
-        <div class="row  ml-4 mr-4">
-            <div class="col-md-12">
-                <h4>Avis des joueurs :</h4>
-                <table class="table table-striped">
+            {% if reservations|length == 0 %}
+                : aucun n'avis n'a été donné.
+            {% endif%}
+        </h4>
 
-                </table>
+        {% if cardNotes == 0 %}
+            {% set pourcent0 = 0 %}
+            {% set pourcent1 = 0 %}
+            {% set pourcent2 = 0 %}
+            {% set pourcent3 = 0 %}
+            {% set pourcent4 = 0 %}
+            {% set pourcent5 = 0 %}
+        {% else %}
+             {% set pourcent0 = 100 * nbNotes[0] / cardNotes %}
+            {% set pourcent1 = 100 * nbNotes[1] / cardNotes %}
+            {% set pourcent2 = 100 * nbNotes[2] / cardNotes %}
+            {% set pourcent3 = 100 * nbNotes[3] / cardNotes %}
+            {% set pourcent4 = 100 * nbNotes[4] / cardNotes %}
+            {% set pourcent5 = 100 * nbNotes[5] / cardNotes %}
+        {% endif %}
+
+        {% if reservations|length != 0 %}
+            <div class="row  ml-4 mr-4 mb-4">
+                <div class="col-md-1">
+                </div>  
+                <div class="col-md-10">
+                    <div class="card card-avis-general">
+
+                        <div class="container mt-2">
+                            <div class="row align-items-center">
+                                <div class="col-5 text-center">
+                                    <h4>NOTE MOYENNE</h4> 
+
+
+                                    {% if cardNotes == 0 %}
+                                        <h1>? / 5</h1>
+                                    {%  else %}
+                                        <h1 class="font-weight-bold">
+                                            {{ moyenne[0][1]|number_format(1) }} / 5
+                                        </h1>
+                                    {% endif %}
+
+                                    <h2>{%  include 'outils/_rating.html.twig' with {'valeur': moyenne[0][1]|number_format(1) } %}</h2>
+                                    <h4 class="mt-4"><b>{{ cardNotes }}</b> Note{% if cardNotes > 1 %}s{% endif %} et <b>{{ reservations|length }}</b> Avis</h4>                            
+                                </div>
+                                <div class="col-7">
+                                    <div class="container">
+                                        <div class="row align-items-center">
+                                            <div class="col-5 text-right pr-0">
+                                                {%  include 'outils/_rating.html.twig' with {'valeur': 5 } %}
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="progress progress-avis" >
+                                                    <div class="progress-bar  bg-warning" role="progressbar" style="width: {{ pourcent5 }}%" aria-valuenow="{{ pourcent5 }}" aria-valuemin="0" aria-valuemax="100">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-1 pl-0">
+                                                {{ nbNotes[5] }}
+                                            </div>
+                                        </div>
+                                        <div class="row align-items-center">
+                                            <div class="col-5 text-right pr-0">
+                                                {%  include 'outils/_rating.html.twig' with {'valeur': 4 } %}
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="progress progress-avis" >
+                                                    <div class="progress-bar  bg-warning" role="progressbar" style="width: {{ pourcent4 }}%" aria-valuenow="{{ pourcent4 }}" aria-valuemin="0" aria-valuemax="100">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-1 pl-0">
+                                                {{ nbNotes[4] }}
+                                            </div>
+                                        </div>
+                                        <div class="row align-items-center">
+                                            <div class="col-5 text-right pr-0">
+                                                {%  include 'outils/_rating.html.twig' with {'valeur': 3 } %}
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="progress progress-avis" >
+                                                    <div class="progress-bar  bg-warning" role="progressbar" style="width: {{ pourcent3 }}%" aria-valuenow="{{ pourcent3 }}" aria-valuemin="0" aria-valuemax="100">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-1 pl-0">
+                                                {{ nbNotes[3] }}
+                                            </div>
+                                        </div>
+                                        <div class="row align-items-center">
+                                            <div class="col-5 text-right pr-0">
+                                                {%  include 'outils/_rating.html.twig' with {'valeur': 2 } %}
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="progress progress-avis" >
+
+                                                    <div class="progress-bar  bg-warning" role="progressbar" style="width: {{ pourcent2 }}%" aria-valuenow="{{ pourcent2 }}" aria-valuemin="0" aria-valuemax="100">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-1 pl-0">
+                                                {{ nbNotes[2] }}
+                                            </div>
+                                        </div>
+                                        <div class="row align-items-center">
+                                            <div class="col-5 text-right pr-0">
+                                                {%  include 'outils/_rating.html.twig' with {'valeur': 1 } %}
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="progress progress-avis" >
+                                                    <div class="progress-bar  bg-warning" role="progressbar" style="width: {{ pourcent1 }}%" aria-valuenow="{{ pourcent1 }}" aria-valuemin="0" aria-valuemax="100">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-1 pl-0">
+                                                {{ nbNotes[1] }}
+                                            </div>
+                                        </div>
+                                        <div class="row align-items-center">
+                                            <div class="col-5 text-right pr-0">
+                                                {%  include 'outils/_rating.html.twig' with {'valeur': 0 } %}
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="progress progress-avis" >
+                                                    <div class="progress-bar  bg-warning" role="progressbar" style="width: {{ pourcent0 }}%" aria-valuenow="{{ pourcent0 }}" aria-valuemin="0" aria-valuemax="100">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-1 pl-0">
+                                                {{ nbNotes[0] }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="col-md-1">
+                    </div>
+                </div>  
+
             </div>
-        </div>
+
+            <div class="container">
+                <div class="row">
+                    {% for reservation in reservations %}
+                        <div class="d-flex align-items-stretch col-md-6">
+                            {%  include 'chene/jeuEnChene/_avis.html.twig' %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        {% endif%}
     </div>
 {% endblock body %}
 

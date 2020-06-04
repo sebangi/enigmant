@@ -369,7 +369,12 @@ class ReservationController extends BaseController {
                 } else if ($champ == "avis") {
                     $reservation->setNote( $request->get("reservation_jeu")["note"]);
 
-                    if (!$reservation->getAvisDonne()) {
+                    if ( ! $reservation->getAvisDonne() && 
+                         (  !  is_null($reservation->getAvisPublic()) 
+                             || ( $reservation->getNote() != -1 )
+                             || ( ! is_null( $reservation->getAvisPriveDifficulte() ) )
+                             || ( ! is_null( $reservation->getAvisPriveTechnique() ) )
+                            ) ) {
                         $reservation->setAvisDonne(true);
                         $this->creerMessageAvisDonne($reservation, $reservation->getConversation());
                         $this->addFlash('success', 'Nous avons bien reçu votre avis. Merci !');

@@ -64,6 +64,13 @@ class JeuEnCheneRepository extends ServiceEntityRepository
                 ->setParameter( 'maxEtape', $recherche->getMaxEtape() );
         }
         
+        if ( $recherche->getNiveauDifficulte() )
+        {
+            $query = $query
+                ->andwhere( 'j.niveauDifficulte = :niveauDifficulte' )
+                ->setParameter( 'niveauDifficulte', $recherche->getNiveauDifficulte() );
+        }
+        
         if ( $recherche->getMinEtape() )
         {
             $query = $query

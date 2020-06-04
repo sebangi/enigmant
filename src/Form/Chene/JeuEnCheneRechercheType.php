@@ -22,7 +22,7 @@ class JeuEnCheneRechercheType extends AbstractType {
                 ->add('disponible', CheckboxType::class, [
                     'attr' => [ 'class' => "custom-control-input" ],
                     'label_attr' => ['class' => 'custom-control-label'],
-                    'label' => "Seulement les disponibles",
+                    'label' => false,
                     'required' => false
                 ])
                 ->add('collection', EntityType::class, [

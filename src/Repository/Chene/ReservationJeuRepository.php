@@ -34,6 +34,56 @@ class ReservationJeuRepository extends ServiceEntityRepository {
         ;
     }
 
+    /**
+     * @return 
+     */
+    public function findAllReservationsAvecAvis($id_jeu): array {
+        return $this->createQueryBuilder('r')
+                        ->select('r', 'u')
+                        ->Join('r.jeu', 'j')
+                        ->Join('r.user', 'u')
+                        ->where('j.id = :id_jeu')
+                        ->andWhere('r.avisPublic is not null')
+                        ->setParameter('id_jeu', $id_jeu)
+                        ->orderBy('r.dateDemande', 'DESC')
+                        ->getQuery()
+                        ->getResult()
+        ;
+    }
+    
+    /**
+     * @return 
+     */
+    public function findNoteMoyenne($id_jeu): array {
+        return $this->createQueryBuilder('r')
+                        ->select("avg(r.note)")
+                        ->Join('r.jeu', 'j')
+                        ->where('j.id = :id_jeu')
+                        ->andWhere('r.note != -1')
+                        ->setParameter('id_jeu', $id_jeu)
+                        ->getQuery()
+                        ->getResult()
+        ;
+    }
+    
+    /**
+     * @return 
+     */
+    public function findNbNotes($id_jeu, $note): array {
+        return $this->createQueryBuilder('r')
+                        ->select("count(r.note)")
+                        ->Join('r.jeu', 'j')
+                        ->where('j.id = :id_jeu')
+                        ->andWhere('r.note = :note')
+                        ->groupBy('r.note')
+                        ->setParameter('id_jeu', $id_jeu)
+                        ->setParameter('note', $note)
+                        ->getQuery()
+                        ->getResult()
+        ;
+    }
+    
+
     // /**
     //  * @return ReservationJeu[] Returns an array of ReservationJeu objects
     //  */

@@ -1,25 +1,45 @@
-{% if valeur > 0 %}
-    <span class="fas fa-star text-color-gold star-shadow"></span> 
+{% if valeur >= 1 %}
+    <span class="fas fa-star text-warning star-shadow"></span> 
 {% else %}
-    <span class="fas fa-star text-color-clair"></span>  
+    {% if valeur > 0.5 %}
+        <span class="fas fa-star-half-alt text-warning star-shadow"></span>  
+    {% else %}
+        <span class="fas fa-star text-color-clair"></span>  
+    {% endif %}
 {% endif %}
-{% if valeur > 1 %}
-    <span class="fas fa-star text-color-gold star-shadow"></span> 
+{% if valeur >= 2 %}
+    <span class="fas fa-star text-warning star-shadow"></span> 
 {% else %}
-    <span class="fas fa-star text-color-clair"></span>  
+    {% if valeur >= 1.5 %}
+        <span class="fas fa-star-half-alt text-warning star-shadow"></span>  
+    {% else %}
+        <span class="fas fa-star text-color-clair"></span>  
+    {% endif %}
 {% endif %}
-{% if valeur > 2 %}
-    <span class="fas fa-star text-color-gold star-shadow" aria-hidden="true"></span> 
+{% if valeur >= 3 %}
+    <span class="fas fa-star text-warning star-shadow" aria-hidden="true"></span> 
 {% else %}
-    <span class="fas fa-star text-color-clair" aria-hidden="true"></span>  
+    {% if valeur >= 2.5 %}
+        <span class="fas fa-star-half-alt text-warning star-shadow"></span>  
+    {% else %}
+        <span class="fas fa-star text-color-clair"></span>  
+    {% endif %} 
 {% endif %}
-{% if valeur > 3 %}
-    <span class="fas fa-star text-color-gold star-shadow" aria-hidden="true"></span> 
+{% if valeur >= 4 %}
+    <span class="fas fa-star text-warning star-shadow" aria-hidden="true"></span> 
 {% else %}
-    <span class="fas fa-star text-color-clair" aria-hidden="true"></span>  
+    {% if valeur >= 3.5 %}
+        <span class="fas fa-star-half-alt text-warning star-shadow"></span>  
+    {% else %}
+        <span class="fas fa-star text-color-clair"></span>  
+    {% endif %}  
 {% endif %}
-{% if valeur > 4 %}
-    <span class="fas fa-star text-color-gold star-shadow" aria-hidden="true"></span> 
+{% if valeur >= 5 %}
+    <span class="fas fa-star text-warning star-shadow" aria-hidden="true"></span> 
 {% else %}
-    <span class="fas fa-star text-color-clair" aria-hidden="true"></span>  
+    {% if valeur >= 4.5 %}
+        <span class="fas fa-star-half-alt text-warning star-shadow"></span>  
+    {% else %}
+        <span class="fas fa-star text-color-clair"></span>  
+    {% endif %}
 {% endif %}

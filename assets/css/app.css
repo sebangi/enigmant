@@ -66,7 +66,6 @@ body {
     background-color: honeydew;
 }
 
-
 .bg-chene {
     background-image: url("../../public/images/fond/chene.png");
 }
@@ -374,6 +373,24 @@ hr {
     background-image: none;
 }
 
+.progress-avis {
+    background-color: #D3D3D3;
+}
+
+.card-avis-general {
+    background-color: #F2F2F2;
+    border-width: 1px 0px 1px 0px;
+    border-style: solid;
+    border-color: #DEE2E6;
+}
+
+.card-avis {
+    border-radius: 10px 10px 10px 10px;
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+    border-color: dark;
+}
+
 
 .collection-card {
     background-image: url("../../public/images/fond/chene.png");
@@ -561,9 +578,31 @@ hr {
     background-image: url("../../public/images/fond/chene.png");
 }
 
+.jeu-reussi {
+    border-width: 3px;
+    border-style: solid;
+}
+
+
 .card-progression {
     bg-color: #ab5200;
 }
+
+
+.custom-control-lg-form .custom-control-label::before,
+.custom-control-lg-form .custom-control-label::after {
+    top: -0.5rem !important;
+    left: -3.2rem !important;
+    width: 2.4rem !important;
+    height: 2.4rem !important;
+}
+
+.custom-control-lg-form .custom-control-label {
+    margin-left: 0.5rem !important;
+    font-size: 1rem !important;
+}
+
+
 
 .custom-control-lg .custom-control-label::before,
 .custom-control-lg .custom-control-label::after {
@@ -589,83 +628,3 @@ hr {
 .custom-checkbox .custom-control-input:checked~.custom-control-label::after{
     background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='green' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E");
 }
-
-/*@import "compass/css3";
-
-$unchecked-star: '\2606';
-$unchecked-color: #888;
-$checked-star: '\2605';
-$checked-color: #e52;*/
-/*
-.star-cb-group {
-   remove inline-block whitespace 
-  font-size: 0;
-  * {
-    font-size: 1rem;
-  }
-   flip the order so we can use the + and ~ combinators 
-  unicode-bidi: bidi-override;
-  direction: rtl;
-  & > input {
-    display: none;
-    & + label {
-       only enough room for the star 
-      display: inline-block;
-      overflow: hidden;
-      text-indent: 9999px;
-      width: 1em;
-      white-space: nowrap;
-      cursor: pointer;
-      &:before {
-        display: inline-block;
-        text-indent: -9999px;
-        content: '\2606';
-        color: #888;
-      }
-    }
-    &:checked ~ label:before,
-      & + label:hover ~ label:before,
-      & + label:hover:before {
-      content: '\2605';
-      color: #e52;
-      text-shadow: 0 0 1px #333;
-    }
-  }
-  
-   the hidden clearer 
-  & > .star-cb-clear + label {
-    text-indent: -9999px;
-    width: .5em;
-    margin-left: -.5em;
-  }
-  & > .star-cb-clear + label:before {
-    width: .5em;
-  }
-
-  &:hover > input + label:before {
-    content: '\2606';
-    color: #888;
-    text-shadow: none;
-  }
-  &:hover > input + label:hover ~ label:before,
-  &:hover > input + label:hover:before {
-    content: '\2605';
-    color: #e52;
-    text-shadow: 0 0 1px #333;
-  }
-}
-
-fieldset {
-  border: 0;
-  background: #222;
-  width: 5em;
-  border-radius: 1px;
-  padding: 1em 1.5em 0.9em;
-  margin: 1em auto;
-}
-#log {
-  margin: 1em auto;
-  width: 5em;
-  text-align: center;
-  background: transparent;
-}*/

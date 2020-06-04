@@ -22,8 +22,8 @@
                 </a>  
             {% endif %}  
             {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
-                {% if app.user.aReussiJeu( jeuEnChene ) %}
-                    <div class="d-inline float-right font-weight-bold text-success rounded-circle bg-white pl-1 pr-1"><span class="fas fa-check text-success border-circle" aria-hidden="true"></span></div>                
+                {% if app.user.aReussiJeu( jeuEnChene ) %}                    
+                    <div class="jeu-reussi d-inline float-right font-weight-bold text-success rounded-circle bg-white pl-1 pr-1" style="border-color:{{jeuEnChene.couleur}};"><span class="fas fa-check text-success border-circle" aria-hidden="true"></span></div>                
                 {% endif %}
             {% endif %}            
         </h3>

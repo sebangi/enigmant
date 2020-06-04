@@ -12,12 +12,12 @@
                     {% endif%}
                 </div>
                 <div class="col-md-5">
-                    <h1 class ="text-primary">{{ collectionChene.nom }}</h1>
+                    <h1 class ="text-color-2 font-weight-bold">{{ collectionChene.nom }}</h1>
                     <div class="mt-4 text-justify">
                         <h5>{{ collectionChene.description | nl2br }}</h5>                    
                     </div>     
                     <div class="mt-4">
-                        Nombre de Jeux en Chêne de la collection : {{ collectionChene.getJeuEnChenes() | length }}</p>
+                        Nombre de Jeux en Chêne : <b>{{ collectionChene.getJeuEnChenes() | length }}</b></p>
                     </div>     
                 </div>
             </div>

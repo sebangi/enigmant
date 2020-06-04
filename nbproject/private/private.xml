@@ -3,25 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/ReservationJeuType.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/chene/reservation/etape3.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/chene/reservation/edit_champ.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/chene/reservation/retour.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Chene/ReservationController.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/assets/css/global.scss</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/general/grade/index.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/ReservationJeu.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/assets/js/app.js</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/chene/reservation/_avis.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/collectionChene/show.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/assets/css/app.css</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/base.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/chene/reservation/_lieuRetour.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/assets/js/checkbox.js</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Repository/Chene/ReservationJeuRepository.php</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/chene/reservation/show.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/general/conversation/index.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/outils/_rating.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/webpack.config.js</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/general/baseGeneral.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Repository/Chene/JeuEnCheneRepository.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/show.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Chene/ReservationController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/general/grade/index.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/index.html.twig</file>
         </group>
     </open-files>
 </project-private>

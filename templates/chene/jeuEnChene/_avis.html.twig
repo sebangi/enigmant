@@ -1,0 +1,24 @@
+<div class="card mb-4 border-dark card-avis border-secondary w-100">
+    <div class="card-header">
+        {% if reservation.note == -1 %}
+            Avis sans note
+        {% else %}    
+            {%  include 'outils/_rating.html.twig' with {'valeur': reservation.note } %}
+        {% endif%}
+
+        <div class="mt-2">
+            Publié par 
+            {% if reservation.user.masque %}
+                <b>un joueur anonyme</b>
+            {% else %}
+                <b>{{ reservation.user.getGradeString("Chêne") }}</b>
+            {% endif %}
+            le {{ reservation.dateDemande | format_datetime('long', 'none', locale='fr')}}
+        </div>
+
+    </div>
+    <div class="card-body">
+        {{ reservation.avisPublic }}
+    </div>
+
+</div>
