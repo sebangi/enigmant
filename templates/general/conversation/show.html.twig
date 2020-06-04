@@ -35,6 +35,14 @@
                 {% include 'general/conversation/_message_form.html.twig' %}
             </div>    
         </div>
+
     </div>
+
+
 {% endblock body %}
 
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('message') }}
+{% endblock %}

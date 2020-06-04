@@ -16,6 +16,7 @@ use App\Entity\Chene\JeuEnChene;
 use App\Repository\Chene\JeuEnCheneRepository;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use App\Form\DateTimeTransformer;
@@ -137,6 +138,13 @@ class ReservationJeuType extends AbstractType {
 
     private function buildAvis(FormBuilderInterface $builder, array $options) {
         $this->buildCancel($builder, $options);
+        $checked = true;
+        $note = $options['noteValue'];
+        if ( $options['noteValue'] == null )
+        {
+            $note = 3;
+            $checked = false;
+        }
 
         if ($options['administration'] == true) {
             $builder
@@ -155,7 +163,16 @@ class ReservationJeuType extends AbstractType {
                             'placeholder' => 'Votre avis SANS DONNER DE SOLUTIONS',
                             'class' => 'mon-area'
                         ]
-            ]);
+                    ])
+            ;
+
+            $builder->add('note', RadioType::class, [
+                        'label' => false,
+                        'required' => true,
+                        'value' => $note,
+                        'data' => $checked
+                    ])                 
+            ;
         }
 
 
@@ -192,18 +209,6 @@ class ReservationJeuType extends AbstractType {
                 ])
         ;
     }
-
-    private $avisPublic;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $avisPriveDifficulte;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $avisPriveTechnique;
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         if ($options['administration'] == true) {
@@ -308,6 +313,7 @@ class ReservationJeuType extends AbstractType {
             'translation_domain' => 'forms',
             'administration' => false,
             'champ' => "aucun",
+            'noteValue' => 3,
             'etape' => 0,
         ]);
     }

@@ -3,15 +3,15 @@ const $ = require('jquery');
 // CACHER SUIVANT UN CHECKBOX
 function cacher(num)
 {
-    var text = document.getElementById( "si_case_a_cocher" + num );
-    
-    var col_checkBox = document.getElementsByClassName( "case_a_cocher" + num );
+    var text = document.getElementById("si_case_a_cocher" + num);
+
+    var col_checkBox = document.getElementsByClassName("case_a_cocher" + num);
     var checkBox;
-    if ( col_checkBox.length === 0 )
-       checkBox = null;
+    if (col_checkBox.length === 0)
+        checkBox = null;
     else
-       checkBox = col_checkBox[0];
-    
+        checkBox = col_checkBox[0];
+
     if (checkBox && text)
     {
         if (checkBox.checked == true) {
@@ -33,25 +33,32 @@ function textNext1() {
 }
 
 $(document).ready(function () {
-    
+
+    $('[type*="radio"]').change(function () {
+        var me = $(this);
+//        log.html(me.attr('value'));        
+//        
+        console.log(me.attr('value'));
+    });
+
     $('input.only-one1').click(function () {
         $('input.only-one1').not(this).prop('checked', false);
     });
-    
+
     $('input.only-one2').click(function () {
         $('input.only-one2').not(this).prop('checked', false);
     });
-    
+
     $('input.only-one3').click(function () {
         $('input.only-one3').not(this).prop('checked', false);
     });
-    
+
     cacher("1");
     cacher("2");
     cacher("3");
     cacher("4");
     textNext1();
-    
+
     $(':checkbox').click(function () {
         textNext1();
         cacher("1");
@@ -59,7 +66,7 @@ $(document).ready(function () {
         cacher("3");
         cacher("4");
     });
-    
+
 });
 
 console.log('Hello Webpack Encore! Edit me in assets/js/checkbox.js');

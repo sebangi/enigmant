@@ -82,7 +82,12 @@ class ReservationJeu {
      */
     private $avisDonne = false;
     
-
+    /**
+     * @ORM\Column(type="integer", options={"default" : -1})
+     */
+    private $note = -1;
+    
+    
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\General\User", inversedBy="reservations")
      * @ORM\JoinColumn(nullable=false)
@@ -172,6 +177,24 @@ class ReservationJeu {
         $this->babioles = new ArrayCollection();
     }
 
+    /**
+     * 
+     * @return type
+     */
+    public function getNote() {
+        return $this->note;
+    }
+
+    /**
+     * 
+     * @param int|null $note
+     * @return \App\Entity\Chene\ReservationJeu
+     */
+    public function setNote(?int $note) : ReservationJeu {
+        $this->note = $note;
+        return $this;
+    }
+            
     /**
      * 
      * @return string

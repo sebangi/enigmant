@@ -29,6 +29,9 @@ Encore
 
         .addEntry('checkbox', ['./assets/js/checkbox.js'])
         .addEntry('datepicker', ['./assets/js/datepicker.js'])
+        .addEntry('message', ['./assets/js/message.js'])
+
+
 
         // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
         .splitEntryChunks()
@@ -57,7 +60,19 @@ Encore
         })
 
         // enables Sass/SCSS support
-        //.enableSassLoader()
+        // .enableSassLoader()
+
+        .enableSassLoader((options) => {
+            options.sourceMap = true;
+            options.sassOptions = {
+                outputStyle: options.outputStyle,
+                sourceComments: !Encore.isProduction(),
+            };
+            delete options.outputStyle;
+        }, {})
+
+        .addStyleEntry('global', './assets/css/global.scss')
+
 
         // uncomment if you use TypeScript
         //.enableTypeScriptLoader()

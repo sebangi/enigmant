@@ -1,5 +1,10 @@
 {% extends "chene/baseChene.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('global') }}
+{% endblock %}
+
 {% block body %}
     <div class="jumbotron mon-jumbotron">
         <div class="container text-center">
@@ -287,13 +292,37 @@
                     {% if reservation.avisPublic or reservation.avisPriveDifficulte or reservation.avisPriveTechnique %}
                         <div class="container">
                             <div class="row align-items-center">
-                                <div class="col-md-3 mb-0 pr-0 text-center ">
+                                <div class="col-md-12 mb-0 pr-0">
+                                    <h4>Avis visibles sur le site :</h4>
+                                </div>
+                            </div>
+
+                            <div class="row align-items-center">
+                                <div class="col-md-3 mb-0 pr-4 text-right ">
+                                    <h4 class="font-weight-bold">
+                                        Note
+                                    </h4>
+                                </div>
+                                <div class="col-md-9 mb-0 pl-0 mb-2 mt-1">
+                                    {% if reservation.note != -1 %}
+                                        <h4>
+                                            {%  include 'outils/_rating.html.twig' with {'valeur': reservation.note } %}      
+                                        </h4>
+                                    {% else %}
+                                        <div class="card {% if reservation.avisPriveDifficulte%}bg-color-success{% else %}bg-light{%endif%}">
+                                            <div class="card-body">
+                                                Non noté
+                                            </div>
+                                        </div>   
+                                    {% endif %}     
+                                </div>
+                            </div> 
+
+                            <div class="row align-items-center mb-2">
+                                <div class="col-md-3 mb-0 pr-4 text-right ">
                                     <h4 class="font-weight-bold">
                                         Avis général
                                     </h4>
-                                    <div class="font italic">
-                                        Cet avis sera visible sur le site
-                                    </div>
                                 </div>
                                 <div class="col-md-9 mb-0 pl-0">
                                     <div class="card {% if reservation.avisPublic%}bg-color-success{% else %}bg-light{% endif%}">
@@ -312,13 +341,16 @@
                             <hr>
 
                             <div class="row align-items-center">
-                                <div class="col-md-3 mb-0 pr-0 text-center ">
+                                <div class="col-md-12 mb-0 pr-0">
+                                    <h4>Avis privés destinés au Grand Gourou :</h4>
+                                </div>
+                            </div>
+
+                            <div class="row align-items-center mb-2">
+                                <div class="col-md-3 mb-0 pr-4 text-right ">
                                     <h4 class="font-weight-bold">
                                         Difficultés
                                     </h4>
-                                    <div class="font italic">
-                                        Cet avis restera privé
-                                    </div>
                                 </div>
                                 <div class="col-md-9 mb-0 pl-0">
                                     <div class="card {% if reservation.avisPriveDifficulte%}bg-color-success{% else %}bg-light{%endif%}">
@@ -334,16 +366,11 @@
 
                             </div>
 
-                            <hr>
-
                             <div class="row align-items-center">
-                                <div class="col-md-3 mb-0 pr-0 text-center ">
+                                <div class="col-md-3 mb-0 pr-4 text-right ">
                                     <h4 class="font-weight-bold">
                                         Mécanismes
                                     </h4>  
-                                    <div class="font italic">
-                                        Cet avis restera privé
-                                    </div>
                                 </div>
                                 <div class="col-md-9 mb-0 pl-0">
                                     <div class="card {% if reservation.avisPriveTechnique%}bg-color-success{% else %}bg-light{% endif%}">
@@ -371,4 +398,3 @@
         </div>
     </div>
 {% endblock body %}
-

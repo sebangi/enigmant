@@ -1,5 +1,10 @@
 {% extends "chene/baseChene.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('global') }}
+{% endblock %}
+
 {% block body %}
     <div class="jumbotron mon-jumbotron">
         <div class="container">

@@ -91,30 +91,27 @@ class ReservationController extends BaseController {
             $this->em->persist($message);
         }
     }
-    
+
     private function creerMessageModificationLieuRetrait(ReservationJeu $reservation, Conversation $conversation) {
         $message = new Message();
         $message->setConversation($conversation);
         $message->setMessageGourou(false);
         $message->setVu(true);
         $message->setVuGourou(false);
-        if ( $reservation->getRetraitDomicile() )
-        {
+        if ($reservation->getRetraitDomicile()) {
             $message->setTexte("Message automatique.\n"
-                . "Modification du lieu de retrait : retrait à Saint Philbert de Grand Lieu.");
-        }
-        else
-        {
+                    . "Modification du lieu de retrait : retrait à Saint Philbert de Grand Lieu.");
+        } else {
             $message->setTexte("Message automatique.\n"
-                . "Modification du lieu de retrait : retrait sur rendez-vous.\n"
-                . "Proposition de lieu : \n"
-                .  $reservation->getLieuRDV() );
+                    . "Modification du lieu de retrait : retrait sur rendez-vous.\n"
+                    . "Proposition de lieu : \n"
+                    . $reservation->getLieuRDV());
         }
-            
+
         $this->em->persist($message);
-        $this->creerMessageRetrait( $reservation, $conversation);
+        $this->creerMessageRetrait($reservation, $conversation);
     }
-    
+
     private function creerMessageModificationDateRetrait(ReservationJeu $reservation, Conversation $conversation) {
         $message = new Message();
         $message->setConversation($conversation);
@@ -123,11 +120,11 @@ class ReservationController extends BaseController {
         $message->setVuGourou(false);
         $message->setTexte("Message automatique.\n"
                 . "Modification de la date de retrait : "
-                . strftime("%A %d %B %Y à %H:%M", $reservation->getDateRetrait()->getTimestamp()) );
+                . strftime("%A %d %B %Y à %H:%M", $reservation->getDateRetrait()->getTimestamp()));
 
         $this->em->persist($message);
     }
-    
+
     private function creerMessageRetour(ReservationJeu $reservation, Conversation $conversation) {
         if ($reservation->getRetourDomicile()) {
             $message = $this->creerMessage($conversation);
@@ -153,7 +150,7 @@ class ReservationController extends BaseController {
             $this->em->persist($message);
         }
     }
-    
+
     private function creerMessageModificationDateRetour(ReservationJeu $reservation, Conversation $conversation) {
         $message = new Message();
         $message->setConversation($conversation);
@@ -162,34 +159,31 @@ class ReservationController extends BaseController {
         $message->setVuGourou(false);
         $message->setTexte("Message automatique.\n"
                 . "Modification de la date de retour : "
-                . strftime("%A %d %B %Y à %H:%M", $reservation->getDateRendu()->getTimestamp()) );
+                . strftime("%A %d %B %Y à %H:%M", $reservation->getDateRendu()->getTimestamp()));
 
         $this->em->persist($message);
     }
-    
+
     private function creerMessageModificationLieuRetour(ReservationJeu $reservation, Conversation $conversation) {
         $message = new Message();
         $message->setConversation($conversation);
         $message->setMessageGourou(false);
         $message->setVu(true);
         $message->setVuGourou(false);
-        if ( $reservation->getRetourDomicile() )
-        {
+        if ($reservation->getRetourDomicile()) {
             $message->setTexte("Message automatique.\n"
-                . "Modification du lieu de retour : retour à Saint Philbert de Grand Lieu.");
-        }
-        else
-        {
+                    . "Modification du lieu de retour : retour à Saint Philbert de Grand Lieu.");
+        } else {
             $message->setTexte("Message automatique.\n"
-                . "Modification du lieu de retour : retour sur rendez-vous.\n"
-                . "Proposition de lieu : \n"
-                .  $reservation->getLieuRetourRDV() );
+                    . "Modification du lieu de retour : retour sur rendez-vous.\n"
+                    . "Proposition de lieu : \n"
+                    . $reservation->getLieuRetourRDV());
         }
-            
+
         $this->em->persist($message);
         $this->creerMessageRetour($reservation, $conversation);
     }
-    
+
     private function creerMessageAvisDonne(ReservationJeu $reservation, Conversation $conversation) {
         $message = new Message();
         $message->setConversation($conversation);
@@ -202,7 +196,6 @@ class ReservationController extends BaseController {
 
         $this->em->persist($message);
     }
-    
 
     private function creerConversation(ReservationJeu $reservation) {
         date_default_timezone_set('Europe/Paris');
@@ -224,7 +217,7 @@ class ReservationController extends BaseController {
         $this->em->persist($message1);
 
         $this->creerMessageRetrait($reservation, $conversation, false);
-        
+
         $message2 = $this->creerMessage($conversation);
         $message2->setTexte("Pour toute question liée à cette location, n'hésitez pas à écrire votre demande ci-dessous.");
         $this->em->persist($message2);
@@ -324,7 +317,7 @@ class ReservationController extends BaseController {
             } else {
                 // flow finished
                 $this->creerMessageRetour($reservation, $reservation->getConversation());
-        
+
                 $this->em->flush();
                 $flow->reset(); // remove step data from the session
 
@@ -360,31 +353,36 @@ class ReservationController extends BaseController {
         }
 
         $form = $this->createForm(ReservationJeuType::class, $reservation,
-                ['champ' => $champ]);
+                ['champ' => $champ, 'noteValue' => $reservation->getNote() ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$form->get('cancel')->isClicked()) {
-                if ( $champ == "dateRetrait" ) {
+                if ($champ == "dateRetrait") {
                     $this->creerMessageModificationDateRetrait($reservation, $reservation->getConversation());
-                } else if ( $champ == "lieuRetrait" ) {
+                } else if ($champ == "lieuRetrait") {
                     $this->creerMessageModificationLieuRetrait($reservation, $reservation->getConversation());
-                } else if ( $champ == "dateRendu" ) {
+                } else if ($champ == "dateRendu") {
                     $this->creerMessageModificationDateRetour($reservation, $reservation->getConversation());
-                } else if ( $champ == "lieuRetour" ) {
+                } else if ($champ == "lieuRetour") {
                     $this->creerMessageModificationLieuRetour($reservation, $reservation->getConversation());
-                } else if ( $champ == "avis" && ! $reservation->getAvisDonne() ) {
-                    $reservation->setAvisDonne(true);
-                    $this->creerMessageAvisDonne($reservation, $reservation->getConversation());                    
-                    $this->addFlash('success', 'Nous avons bien reçu votre avis. Merci !');
-                } else if ( $champ == "babioles" ) {
+                } else if ($champ == "avis") {
+                    $reservation->setNote( $request->get("reservation_jeu")["note"]);
+
+                    if (!$reservation->getAvisDonne()) {
+                        $reservation->setAvisDonne(true);
+                        $this->creerMessageAvisDonne($reservation, $reservation->getConversation());
+                        $this->addFlash('success', 'Nous avons bien reçu votre avis. Merci !');
+                    }
+                } else if ($champ == "babioles") {
                     $this->addFlash('success', 'La liste des babioles a été modifiée.');
                 }
-                
+
                 foreach ($reservation->getBabioles() as $babiole) {
                     $babiole->setReservationJeu($reservation);
                 }
-                
+
+
                 $this->em->flush();
             }
 
@@ -400,7 +398,7 @@ class ReservationController extends BaseController {
                     'form' => $form->createView(),
         ]);
     }
-    
+
     /**
      * @Route("/trouve/{slug}-{id}", name="trouve", methods={"GET","POST"}, requirements={"slug": "[a-z0-9\-]*"})
      */
@@ -417,12 +415,12 @@ class ReservationController extends BaseController {
                 return $this->redirect($this->generateUrl('home'));
         }
 
-        if ( $reservation->getEtat() != 2 )
+        if ($reservation->getEtat() != 2)
             return $this->redirectToRoute('chene.location.show', [
                         'id' => $reservation->getId(),
                         'slug' => $reservation->getSlug()
             ]);
-            
+
         $reservation->setEtat(3);
         $reservation->setDateRendu(new \DateTime('now'));
         $this->em->persist($reservation);

@@ -36,7 +36,7 @@
 
 
     {% if display_body %}
-        <div class="card-body text-dark">  
+        <div class="card-body text-dark pt-2 pb-2">  
 
             {% if mode == "index" %}
                 <div class="row">
@@ -63,11 +63,11 @@
                 <div class="row">
                     <div class="col-12">
                         <h5>
-                            La conversation porte sur
+                            {{ conversation.lienReservation.getIntitule() }}
                             <a href="{{ path("chene.location.show", 
                             {   id : conversation.lienReservation.getId(), 
-                                slug : conversation.lienReservation.getSlug()} ) }}" class="btn-link">
-                                {{ conversation.lienReservation.getIntitule() }}
+                                slug : conversation.lienReservation.getSlug()} ) }}" class="btn mon-btn float-right">
+                                Accéder à la location
                             </a>
                         </h5>  
 
