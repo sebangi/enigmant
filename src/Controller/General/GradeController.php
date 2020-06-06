@@ -30,6 +30,11 @@ class GradeController extends BaseController
         return "Grades";
     }
         
+    
+    public function __construct(EntityManagerInterface $em) {
+       parent::__construct($em);
+    }
+    
     /**
      * @Route("/{themeCourant}", name="grade.index", methods={"GET"})
      * @param NiveauRepository $niveauRepository

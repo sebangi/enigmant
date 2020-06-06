@@ -34,7 +34,8 @@ class AdminJeuEnCheneController extends BaseController {
         return "AdminJeuEnChene";
     }
 
-    public function __construct(JeuEnCheneRepository $repository) {
+    public function __construct(EntityManagerInterface $em, JeuEnCheneRepository $repository) {
+        parent::__construct($em);
         $this->repository = $repository;
     }
 

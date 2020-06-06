@@ -26,7 +26,8 @@ class CollectionCheneController extends BaseController {
      */
     private $repository;
  
-    public function __construct(CollectionCheneRepository $repository) {
+    public function __construct(EntityManagerInterface $em, CollectionCheneRepository $repository) {
+        parent::__construct($em);
         $this->repository = $repository;
     }
     

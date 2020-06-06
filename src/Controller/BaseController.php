@@ -15,6 +15,7 @@ use App\Entity\General\Niveau;
 use App\Entity\General\ObtentionNiveau;
 use App\Repository\General\NiveauRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\General\Grade;
 
 abstract class BaseController extends AbstractController 
 {
@@ -26,15 +27,17 @@ abstract class BaseController extends AbstractController
      */
     protected $em;
     
-    public function __construct(EntityManagerInterface $em) {
-        $this->em = $em;
+    public function __construct(EntityManagerInterface $entityManager) {
+        $this->em = $entityManager; // $this->getDoctrine()->getManager();
     }      
     
+    // CREATION D'UN NOUVEAU USER
     protected function ajouterPremierGrade(User $user) 
     {
         $niveaux = $this->getDoctrine()->getRepository(Niveau::class)->findBy(array("num" => "1"));
         
         foreach ($niveaux as $niveau) {
+            // optention de la première obtention
             $opt = new ObtentionNiveau();
             $opt->setVu(false);
             $opt->setNiveau($niveau);
@@ -42,6 +45,13 @@ abstract class BaseController extends AbstractController
             $opt->setDate(new \DateTime('now'));
             
             $this->em->persist($opt);
+        
+            // création du grade
+            $gra = new Grade();
+            $gra->setUser($user);
+            $gra->setNum(1);
+            $gra->setTheme($niveau->getTheme());
+            $this->em->persist($gra);            
         }        
     }
         

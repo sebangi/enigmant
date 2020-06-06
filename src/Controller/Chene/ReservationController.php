@@ -36,7 +36,8 @@ class ReservationController extends BaseController {
      */
     private $repository;
 
-    public function __construct(ReservationJeuRepository $repository) {
+    public function __construct(EntityManagerInterface $em, ReservationJeuRepository $repository) {
+        parent::__construct($em);
         $this->repository = $repository;
     }
 

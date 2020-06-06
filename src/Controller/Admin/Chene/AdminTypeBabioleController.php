@@ -34,7 +34,8 @@ class AdminTypeBabioleController extends BaseController {
         return "AdminTypeBabiole";
     }
 
-    public function __construct(TypeBabioleRepository $repository) {
+    public function __construct(EntityManagerInterface $em, TypeBabioleRepository $repository) {
+        parent::__construct($em);
         $this->repository = $repository;
     }
 

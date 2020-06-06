@@ -9,6 +9,7 @@ use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
@@ -27,6 +28,11 @@ class AdminObtentionNiveauController extends BaseController {
         return "AdminObtentionNiveau";
     }
 
+    
+    public function __construct(EntityManagerInterface $em) {
+       parent::__construct($em);
+    }
+    
     /**
      * @Route("/", name="admin.obtentionNiveau.index", methods={"GET"})
      */
@@ -52,8 +58,8 @@ class AdminObtentionNiveauController extends BaseController {
                 return $this->redirectToRoute('admin.obtentionNiveau.index');
             }
 
-            $this->$em->persist($obtentionNiveau);
-            $this->$em->flush();
+            $this->em->persist($obtentionNiveau);
+            $this->em->flush();
             $this->addFlash('success', 'Grade ajouté avec succès.');
 
             return $this->redirectToRoute('admin.obtentionNiveau.index');
@@ -73,7 +79,7 @@ class AdminObtentionNiveauController extends BaseController {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->$em->flush();
+            $this->em->flush();
             $this->addFlash('success', 'Grade créé avec succès.');
 
             return $this->redirectToRoute('admin.obtentionNiveau.index');
@@ -90,8 +96,8 @@ class AdminObtentionNiveauController extends BaseController {
      */
     public function delete(Request $request, ObtentionNiveau $obtentionNiveau): Response {
         if ($this->isCsrfTokenValid('delete' . $obtentionNiveau->getId(), $request->request->get('_token'))) {
-            $this->$em->remove($obtentionNiveau);
-            $this->$em->flush();
+            $this->em->remove($obtentionNiveau);
+            $this->em->flush();
             $this->addFlash('success', 'Grade supprimé avec succès.');
         }
 

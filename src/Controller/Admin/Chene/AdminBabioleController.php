@@ -9,6 +9,7 @@ use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
@@ -25,6 +26,11 @@ class AdminBabioleController extends BaseController
     protected function getMenuCourant() : string
     {
         return "AdminBabiole";
+    }
+    
+    
+    public function __construct(EntityManagerInterface $em) {
+       parent::__construct($em);
     }
     
     /**

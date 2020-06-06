@@ -5,6 +5,7 @@ namespace App\Controller\Admin\Chasse;
 use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
 use Twig\Environment;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
@@ -22,6 +23,10 @@ class AdminChasseController extends BaseController {
     protected function getMenuCourant() : string
     {
         return "AdminChasse";
+    }
+    
+    public function __construct(EntityManagerInterface $em) {
+       parent::__construct($em);
     }
 
     /**

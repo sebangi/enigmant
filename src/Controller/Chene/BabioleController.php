@@ -40,7 +40,8 @@ class BabioleController extends BaseController {
     }
     
 
-    public function __construct(BabioleRepository $repository) {
+    public function __construct(EntityManagerInterface $em, BabioleRepository $repository) {
+        parent::__construct($em);
         $this->repository = $repository;
     }
 

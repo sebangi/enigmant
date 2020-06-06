@@ -26,6 +26,11 @@ class SecurityController extends BaseController
         return null;
     }
     
+    
+    public function __construct(EntityManagerInterface $em) {
+       parent::__construct($em);
+    }
+    
     /**
      * @Route("/login", name="app_login", methods={"GET", "POST"})
      * @return Response

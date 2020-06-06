@@ -33,7 +33,8 @@ class AdminCollectionCheneController extends BaseController
         return "AdminCollectionEnChene";
     }
 
-    public function __construct(CollectionCheneRepository $repository) {
+    public function __construct(EntityManagerInterface $em, CollectionCheneRepository $repository) {
+        parent::__construct($em);
         $this->repository = $repository;
     }
     

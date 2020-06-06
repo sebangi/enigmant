@@ -23,6 +23,11 @@ class HomeController extends BaseController
         return null;
     }
     
+    
+    public function __construct(EntityManagerInterface $em) {
+       parent::__construct($em);
+    }
+    
     /**
      * @route("/", name="home")  
      * @return Response

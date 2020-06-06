@@ -9,6 +9,7 @@ use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
@@ -26,6 +27,10 @@ class AdminNiveauController extends BaseController
     {
         return "AdminNiveau";
     }    
+        
+    public function __construct(EntityManagerInterface $em) {
+       parent::__construct($em);
+    }
     
     /**
      * @Route("/", name="admin.niveau.index", methods={"GET"})
@@ -47,8 +52,8 @@ class AdminNiveauController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->$em->persist($niveau);
-            $this->$em->flush();
+            $this->em->persist($niveau);
+            $this->em->flush();
             $this->addFlash('success', 'Niveau ajouté avec succès.');
             
             return $this->redirectToRoute('admin.niveau.index');
@@ -69,7 +74,7 @@ class AdminNiveauController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->$em->flush();
+            $this->em->flush();
             $this->addFlash('success', 'Niveau créé avec succès.');
             
             return $this->redirectToRoute('admin.niveau.index');
@@ -87,8 +92,8 @@ class AdminNiveauController extends BaseController
     public function delete(Request $request, Niveau $niveau): Response
     {
         if ($this->isCsrfTokenValid('delete'.$niveau->getId(), $request->request->get('_token'))) {
-            $this->$em->remove($niveau);
-            $this->$em->flush();
+            $this->em->remove($niveau);
+            $this->em->flush();
             $this->addFlash('success', 'Niveau supprimé avec succès.');            
         }
 

@@ -42,7 +42,8 @@ class AdminUserController extends BaseController
      * @param UserRepository $repository
      * @param \App\Controller\Admin\General\EntityManagerInterface $em
      */
-    public function __construct(UserRepository $repository) {
+    public function __construct(EntityManagerInterface $em, UserRepository $repository) {
+        parent::__construct($em);
         $this->userRepository = $repository;
     }
     

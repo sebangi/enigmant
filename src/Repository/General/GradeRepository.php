@@ -19,6 +19,27 @@ class GradeRepository extends ServiceEntityRepository
         parent::__construct($registry, Grade::class);
     }
 
+    /**
+     * 
+     * @param type $id_user
+     * @param type $theme
+     * @return Grade|null
+     */
+    public function getGrades( $id_user, $theme ) : ?array//?Grade
+    {
+        return $this->createQueryBuilder('g')
+            ->select('g.num')
+            ->Join('g.theme', 'the')
+            ->Join('g.user', 'user')
+            ->Where('user.id = :id_user')
+            ->AndWhere('the.nom = :theme')
+            ->setParameter('id_user', $id_user)
+            ->setParameter('theme', $theme)
+            ->getQuery()
+            ->getFirstResult()
+        ;
+    }    
+    
     // /**
     //  * @return Grade[] Returns an array of Grade objects
     //  */

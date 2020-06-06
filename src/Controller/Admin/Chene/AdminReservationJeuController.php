@@ -4,7 +4,9 @@ namespace App\Controller\Admin\Chene;
 
 use App\Entity\Chene\ReservationJeu;
 use App\Form\Chene\ReservationJeuType;
+use App\Entity\General\Grade;
 use App\Repository\Chene\ReservationJeuRepository;
+use App\Repository\General\GradeRepository;
 use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,7 +35,8 @@ class AdminReservationJeuController extends BaseController {
      */
     private $repository;
 
-    public function __construct(ReservationJeuRepository $repository) {
+    public function __construct(EntityManagerInterface $em, ReservationJeuRepository $repository) {
+        parent::__construct($em);
         $this->repository = $repository;
     }
 
@@ -189,7 +192,18 @@ class AdminReservationJeuController extends BaseController {
 
         $this->em->persist($message);
     }
-
+    
+    /**
+     * 
+     * @param ReservationJeu $reservation
+     */
+    private function testerPremiereReservation(ReservationJeu $reservation) {
+        $grade = $this->getDoctrine()->getRepository(Grade::class)->getGrades($reservation->getUser()->getId(),"Chêne");
+        dump($grade);
+    
+        $this->addFlash('success', 'testerPremiereReservation efectue.');
+    }
+    
     /**
      * @Route("/{id}/validerRetrait", name="admin.chene.reservation.validerRetrait")
      */
@@ -213,6 +227,7 @@ class AdminReservationJeuController extends BaseController {
     public function retraitEffectue(ReservationJeu $reservation): Response {
         $reservation->setEtat(2);
         $this->creerMessageJouer($reservation);
+        $this->testerPremiereReservation($reservation);
 
         $this->em->flush();
         $this->addFlash('success', 'Réservation modifiée avec succès.');
@@ -271,7 +286,10 @@ class AdminReservationJeuController extends BaseController {
                 if ($reservation->getEtat() === 1)
                     $this->creerMessageRetraitPret($reservation);
                 else if ($reservation->getEtat() === 2)
+                {
                     $this->creerMessageJouer($reservation);
+                    $this->testerPremiereReservation($reservation);
+                }
                 else if ($reservation->getEtat() === 4)
                     $this->creerMessageRetourOk($reservation);
                 else if ($reservation->getEtat() === 5)

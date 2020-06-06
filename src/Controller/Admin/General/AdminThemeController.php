@@ -9,6 +9,7 @@ use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
@@ -25,6 +26,10 @@ class AdminThemeController extends BaseController
     protected function getMenuCourant() : string
     {
         return "AdminTheme";
+    }
+    
+    public function __construct(EntityManagerInterface $em) {
+       parent::__construct($em);
     }
     
     /**
@@ -47,8 +52,8 @@ class AdminThemeController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->$em->persist($theme);
-            $this->$em->flush();
+            $this->em->persist($theme);
+            $this->em->flush();
             $this->addFlash('success', 'Thème ajouté avec succès.');
             
             return $this->redirectToRoute('admin.theme.index');
@@ -69,7 +74,7 @@ class AdminThemeController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->$em->flush();
+            $this->em->flush();
             $this->addFlash('success', 'Thème créé avec succès.');
             
             return $this->redirectToRoute('admin.theme.index');
@@ -87,8 +92,8 @@ class AdminThemeController extends BaseController
     public function delete(Request $request, Theme $theme): Response
     {
         if ($this->isCsrfTokenValid('delete'.$theme->getId(), $request->request->get('_token'))) {
-            $this->$em->remove($theme);
-            $this->$em->flush();
+            $this->em->remove($theme);
+            $this->em->flush();
             $this->addFlash('success', 'Thême supprimé avec succès.');            
         }
 

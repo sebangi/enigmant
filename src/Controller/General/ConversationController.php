@@ -36,7 +36,8 @@ class ConversationController extends BaseController {
         return "Conversations";
     }
 
-    public function __construct(ConversationRepository $repository) {
+    public function __construct(EntityManagerInterface $em, ConversationRepository $repository) {
+        parent::__construct($em);
         $this->repository = $repository;
     }
 
