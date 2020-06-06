@@ -47,9 +47,8 @@ class AdminNiveauController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($niveau);
-            $entityManager->flush();
+            $this->$em->persist($niveau);
+            $this->$em->flush();
             $this->addFlash('success', 'Niveau ajouté avec succès.');
             
             return $this->redirectToRoute('admin.niveau.index');
@@ -70,7 +69,7 @@ class AdminNiveauController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $this->$em->flush();
             $this->addFlash('success', 'Niveau créé avec succès.');
             
             return $this->redirectToRoute('admin.niveau.index');
@@ -88,9 +87,8 @@ class AdminNiveauController extends BaseController
     public function delete(Request $request, Niveau $niveau): Response
     {
         if ($this->isCsrfTokenValid('delete'.$niveau->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($niveau);
-            $entityManager->flush();
+            $this->$em->remove($niveau);
+            $this->$em->flush();
             $this->addFlash('success', 'Niveau supprimé avec succès.');            
         }
 

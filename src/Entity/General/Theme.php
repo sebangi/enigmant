@@ -55,10 +55,16 @@ class Theme
      */
     private $actualites;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Grade::class, mappedBy="theme", orphanRemoval=true)
+     */
+    private $grades;
+
     public function __construct()
     {
         $this->niveaux = new ArrayCollection();
         $this->actualites = new ArrayCollection();
+        $this->grades = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -247,6 +253,37 @@ class Theme
             // set the owning side to null (unless already changed)
             if ($actualite->getTheme() === $this) {
                 $actualite->setTheme(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Grade[]
+     */
+    public function getGrades(): Collection
+    {
+        return $this->grades;
+    }
+
+    public function addGrade(Grade $grade): self
+    {
+        if (!$this->grades->contains($grade)) {
+            $this->grades[] = $grade;
+            $grade->setTheme($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGrade(Grade $grade): self
+    {
+        if ($this->grades->contains($grade)) {
+            $this->grades->removeElement($grade);
+            // set the owning side to null (unless already changed)
+            if ($grade->getTheme() === $this) {
+                $grade->setTheme(null);
             }
         }
 

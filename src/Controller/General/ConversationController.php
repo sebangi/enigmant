@@ -28,11 +28,6 @@ class ConversationController extends BaseController {
      */
     private $repository;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-
     protected function getThemeCourant(): string {
         return "General";
     }
@@ -41,9 +36,8 @@ class ConversationController extends BaseController {
         return "Conversations";
     }
 
-    public function __construct(ConversationRepository $repository, EntityManagerInterface $em) {
+    public function __construct(ConversationRepository $repository) {
         $this->repository = $repository;
-        $this->em = $em;
     }
 
     public function test_non_appartenance($conversation) {

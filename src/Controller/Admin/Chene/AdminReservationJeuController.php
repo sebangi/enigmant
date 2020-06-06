@@ -33,14 +33,8 @@ class AdminReservationJeuController extends BaseController {
      */
     private $repository;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-
-    public function __construct(ReservationJeuRepository $repository, EntityManagerInterface $em) {
+    public function __construct(ReservationJeuRepository $repository) {
         $this->repository = $repository;
-        $this->em = $em;
     }
 
     /**
@@ -63,9 +57,8 @@ class AdminReservationJeuController extends BaseController {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($reservation);
-            $entityManager->flush();
+            $this->em->persist($reservation);
+            $this->em->flush();
             $this->addFlash('success', 'Réservation ajoutée avec succès.');
 
             return $this->redirectToRoute('admin.chene.reservation.index');
@@ -90,7 +83,7 @@ class AdminReservationJeuController extends BaseController {
                 $babiole->setReservationJeu($reservation);
             }
 
-            $this->getDoctrine()->getManager()->flush();
+            $this->em->flush();
             $this->addFlash('success', 'Réservation modifiée avec succès.');
 
             return $this->redirectToRoute('admin.chene.reservation.index');
@@ -284,7 +277,7 @@ class AdminReservationJeuController extends BaseController {
                 else if ($reservation->getEtat() === 5)
                     $this->creerMessageRetourEffectue($reservation);
 
-                $this->getDoctrine()->getManager()->flush();
+                $this->em->flush();
                 $this->addFlash('success', 'Réservation modifiée avec succès.');
             }
 
@@ -305,9 +298,8 @@ class AdminReservationJeuController extends BaseController {
      */
     public function delete(Request $request, ReservationJeu $reservation): Response {
         if ($this->isCsrfTokenValid('delete' . $reservation->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($reservation);
-            $entityManager->flush();
+            $this->em->remove($reservation);
+            $this->em->flush();
             $this->addFlash('success', 'Réservation supprimée avec succès.');
         }
 

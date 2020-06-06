@@ -47,9 +47,8 @@ class AdminBabioleController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($babiole);
-            $entityManager->flush();
+            $this->em->persist($babiole);
+            $this->em->flush();
             $this->addFlash('success', 'Babiole ajoutée avec succès.');
             
             return $this->redirectToRoute('admin.chene.babiole.index');
@@ -70,7 +69,7 @@ class AdminBabioleController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $this->em->flush();
             $this->addFlash('success', 'Babiole créée avec succès.');
             
             return $this->redirectToRoute('admin.chene.babiole.index');
@@ -88,9 +87,8 @@ class AdminBabioleController extends BaseController
     public function delete(Request $request, Babiole $babiole): Response
     {
         if ($this->isCsrfTokenValid('delete'.$babiole->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($babiole);
-            $entityManager->flush();
+            $this->em->remove($babiole);
+            $this->em->flush();
             $this->addFlash('success', 'Babiole supprimée avec succès.');            
         }
 

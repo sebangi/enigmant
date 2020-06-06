@@ -22,11 +22,6 @@ class AdminJeuEnCheneController extends BaseController {
      * @var JeuEnCheneRepository
      */
     private $repository;
-
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
     
     
     protected function getThemeCourant() : string
@@ -39,9 +34,8 @@ class AdminJeuEnCheneController extends BaseController {
         return "AdminJeuEnChene";
     }
 
-    public function __construct(JeuEnCheneRepository $repository, EntityManagerInterface $em) {
+    public function __construct(JeuEnCheneRepository $repository) {
         $this->repository = $repository;
-        $this->em = $em;
     }
 
     /**

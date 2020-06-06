@@ -47,9 +47,8 @@ class AdminActualiteController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($actualite);
-            $entityManager->flush();
+            $this->$em->persist($actualite);
+            $this->$em->flush();
             $this->addFlash('success', 'Actualité ajoutée avec succès.');
             
             return $this->redirectToRoute('admin.actualite.index');
@@ -70,7 +69,7 @@ class AdminActualiteController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $this->$em->flush();
             $this->addFlash('success', 'Actualité créée avec succès.');
             
             return $this->redirectToRoute('admin.actualite.index');
@@ -88,9 +87,8 @@ class AdminActualiteController extends BaseController
     public function delete(Request $request, Actualite $actualite): Response
     {
         if ($this->isCsrfTokenValid('delete'.$actualite->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($actualite);
-            $entityManager->flush();
+            $this->$em->remove($actualite);
+            $this->$em->flush();
             $this->addFlash('success', 'Actualité supprimée avec succès.');            
         }
 

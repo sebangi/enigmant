@@ -23,11 +23,6 @@ class AdminCategorieBabioleController extends BaseController {
      */
     private $repository;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-
     protected function getThemeCourant() : string
     {
         return "Chêne";
@@ -38,9 +33,8 @@ class AdminCategorieBabioleController extends BaseController {
         return "AdminCategorieBabiole";
     }
     
-    public function __construct(CategorieBabioleRepository $repository, EntityManagerInterface $em) {
+    public function __construct(CategorieBabioleRepository $repository) {
         $this->repository = $repository;
-        $this->em = $em;
     }
 
     /**

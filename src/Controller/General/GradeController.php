@@ -20,11 +20,6 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class GradeController extends BaseController
 {    
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-    
     protected function getThemeCourant() : string
     {
         return "General";
@@ -34,10 +29,6 @@ class GradeController extends BaseController
     {
         return "Grades";
     }
-
-    public function __construct(EntityManagerInterface $em) {
-        $this->em = $em;
-    } 
         
     /**
      * @Route("/{themeCourant}", name="grade.index", methods={"GET"})

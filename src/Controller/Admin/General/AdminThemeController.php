@@ -47,9 +47,8 @@ class AdminThemeController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($theme);
-            $entityManager->flush();
+            $this->$em->persist($theme);
+            $this->$em->flush();
             $this->addFlash('success', 'Thème ajouté avec succès.');
             
             return $this->redirectToRoute('admin.theme.index');
@@ -70,7 +69,7 @@ class AdminThemeController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $this->$em->flush();
             $this->addFlash('success', 'Thème créé avec succès.');
             
             return $this->redirectToRoute('admin.theme.index');
@@ -88,9 +87,8 @@ class AdminThemeController extends BaseController
     public function delete(Request $request, Theme $theme): Response
     {
         if ($this->isCsrfTokenValid('delete'.$theme->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($theme);
-            $entityManager->flush();
+            $this->$em->remove($theme);
+            $this->$em->flush();
             $this->addFlash('success', 'Thême supprimé avec succès.');            
         }
 

@@ -12,17 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\General\User;
 use App\Form\General\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\General\Niveau;
-use App\Entity\General\ObtentionNiveau;
-use App\Repository\General\NiveauRepository;
 
 class SecurityController extends BaseController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-
     
     protected function getThemeCourant() : ?string
     {
@@ -33,10 +25,6 @@ class SecurityController extends BaseController
     {
         return null;
     }
-    
-    public function __construct(EntityManagerInterface $em) {
-        $this->em = $em;
-    }        
     
     /**
      * @Route("/login", name="app_login", methods={"GET", "POST"})
@@ -54,23 +42,7 @@ class SecurityController extends BaseController
                     'error' => $error,
         ]);
     }
-    
-    public function ajouterPremierBadge(User $user) 
-    {
-        $niveauRepository = $this->getDoctrine()->getRepository(Niveau::class);
-        $niveaux = $niveauRepository->findBy(array("num" => "1"));
-        
-        foreach ($niveaux as $niveau) {
-            $opt = new ObtentionNiveau();
-            $opt->setVu(false);
-            $opt->setNiveau($niveau);
-            $opt->setUser($user);
-            $opt->setDate(new \DateTime('now'));
             
-            $this->em->persist($opt);
-        }        
-    }
-        
     /**
      * @Route("/register", name="registration")
      */
@@ -90,7 +62,7 @@ class SecurityController extends BaseController
             );
 
             $this->em->persist($user);            
-            $this->ajouterPremierBadge($user);
+            $this->ajouterPremierGrade($user);
             
             $this->em->flush();
 

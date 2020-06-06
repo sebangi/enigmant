@@ -28,10 +28,6 @@ class BabioleController extends BaseController {
      */
     private $repository;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
     
     protected function getThemeCourant() : string
     {
@@ -44,9 +40,8 @@ class BabioleController extends BaseController {
     }
     
 
-    public function __construct(BabioleRepository $repository, EntityManagerInterface $em) {
+    public function __construct(BabioleRepository $repository) {
         $this->repository = $repository;
-        $this->em = $em;
     }
 
     /**

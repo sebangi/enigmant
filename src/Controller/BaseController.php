@@ -11,12 +11,40 @@ use App\Entity\General\Conversation;
 use App\Repository\General\ConversationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use App\Entity\General\Niveau;
+use App\Entity\General\ObtentionNiveau;
+use App\Repository\General\NiveauRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
 abstract class BaseController extends AbstractController 
 {
     abstract protected function getThemeCourant() : ?string;
     abstract protected function getMenuCourant() : ?string;
     
+    /**
+     * @var EntityManagerInterface
+     */
+    protected $em;
+    
+    public function __construct(EntityManagerInterface $em) {
+        $this->em = $em;
+    }      
+    
+    protected function ajouterPremierGrade(User $user) 
+    {
+        $niveaux = $this->getDoctrine()->getRepository(Niveau::class)->findBy(array("num" => "1"));
+        
+        foreach ($niveaux as $niveau) {
+            $opt = new ObtentionNiveau();
+            $opt->setVu(false);
+            $opt->setNiveau($niveau);
+            $opt->setUser($user);
+            $opt->setDate(new \DateTime('now'));
+            
+            $this->em->persist($opt);
+        }        
+    }
+        
     protected function loadUser() 
     {
         if ( $this->getUser() )

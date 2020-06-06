@@ -22,11 +22,6 @@ class AdminTypeBabioleController extends BaseController {
      * @var TypeBabioleRepository
      */
     private $repository;
-
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
     
     
     protected function getThemeCourant() : string
@@ -39,9 +34,8 @@ class AdminTypeBabioleController extends BaseController {
         return "AdminTypeBabiole";
     }
 
-    public function __construct(TypeBabioleRepository $repository, EntityManagerInterface $em) {
+    public function __construct(TypeBabioleRepository $repository) {
         $this->repository = $repository;
-        $this->em = $em;
     }
 
     /**

@@ -13,9 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use App\Entity\General\Niveau;
-use App\Entity\General\ObtentionNiveau;
-use App\Repository\General\NiveauRepository;
 
 /**
  * @Route("/admin/user", name="admin.user.")
@@ -29,12 +26,6 @@ class AdminUserController extends BaseController
      */
     private $userRepository;
     
-    /**
-     *
-     * @var EntityManagerInterface 
-     */
-    private $em;
-
     
     protected function getThemeCourant() : string
     {
@@ -51,9 +42,8 @@ class AdminUserController extends BaseController
      * @param UserRepository $repository
      * @param \App\Controller\Admin\General\EntityManagerInterface $em
      */
-    public function __construct(UserRepository $repository, EntityManagerInterface $em) {
+    public function __construct(UserRepository $repository) {
         $this->userRepository = $repository;
-        $this->em = $em;
     }
     
     /**
@@ -76,22 +66,6 @@ class AdminUserController extends BaseController
         ]);
     }
     
-    public function ajouterPremierBadge(User $user) 
-    {
-        $niveauRepository = $this->getDoctrine()->getRepository(Niveau::class);
-        $niveaux = $niveauRepository->findBy(array("num" => "1"));
-        
-        foreach ($niveaux as $niveau) {
-            $opt = new ObtentionNiveau();
-            $opt->setVu(false);
-            $opt->setNiveau($niveau);
-            $opt->setUser($user);
-            $opt->setDate(new \DateTime('now'));
-            
-            $this->em->persist($opt);
-        }        
-    }
-
     /**
      * @Route("/new", name="new", methods={"GET","POST"})
      */
@@ -105,7 +79,7 @@ class AdminUserController extends BaseController
             $user->setPassword($passwordEncoder->encodePassword($user, $form->get('plainPassword')->getData()));
             
             $this->em->persist($user);
-            $this->ajouterPremierBadge($user);
+            $this->ajouterPremierGrade($user);
             
             $this->em->flush();
             $this->addFlash('success', 'Utilisateur ajouté avec succès.');
@@ -147,9 +121,8 @@ class AdminUserController extends BaseController
     public function delete(Request $request, User $user): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($user);
-            $entityManager->flush();
+            $this->em->remove($user);
+            $this->em->flush();
             $this->addFlash('success', 'Utilisateur supprimé avec succès.');            
         }
 

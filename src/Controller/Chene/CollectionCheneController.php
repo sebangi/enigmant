@@ -25,15 +25,9 @@ class CollectionCheneController extends BaseController {
      * @var CollectionCheneRepository
      */
     private $repository;
-
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
  
-    public function __construct(CollectionCheneRepository $repository, EntityManagerInterface $em) {
+    public function __construct(CollectionCheneRepository $repository) {
         $this->repository = $repository;
-        $this->em = $em;
     }
     
     protected function getThemeCourant() : string

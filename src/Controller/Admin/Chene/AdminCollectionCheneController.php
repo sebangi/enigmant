@@ -22,11 +22,6 @@ class AdminCollectionCheneController extends BaseController
      * @var CollectionCheneRepository
      */
     private $repository;
-
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
         
     protected function getThemeCourant() : string
     {
@@ -38,9 +33,8 @@ class AdminCollectionCheneController extends BaseController
         return "AdminCollectionEnChene";
     }
 
-    public function __construct(CollectionCheneRepository $repository, EntityManagerInterface $em) {
+    public function __construct(CollectionCheneRepository $repository) {
         $this->repository = $repository;
-        $this->em = $em;
     }
     
     /**

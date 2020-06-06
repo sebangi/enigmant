@@ -46,16 +46,14 @@ class AdminObtentionNiveauController extends BaseController {
         $form->handleRequest($request);
             
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-
             if ($obtentionNiveau->getUser()->hasGrade($obtentionNiveau->getNiveau())) {
                 dump($obtentionNiveau->getDate());        
                 $this->addFlash('error', 'Le joueur avait déjà ce grade.');
                 return $this->redirectToRoute('admin.obtentionNiveau.index');
             }
 
-            $entityManager->persist($obtentionNiveau);
-            $entityManager->flush();
+            $this->$em->persist($obtentionNiveau);
+            $this->$em->flush();
             $this->addFlash('success', 'Grade ajouté avec succès.');
 
             return $this->redirectToRoute('admin.obtentionNiveau.index');
@@ -75,7 +73,7 @@ class AdminObtentionNiveauController extends BaseController {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $this->$em->flush();
             $this->addFlash('success', 'Grade créé avec succès.');
 
             return $this->redirectToRoute('admin.obtentionNiveau.index');
@@ -92,9 +90,8 @@ class AdminObtentionNiveauController extends BaseController {
      */
     public function delete(Request $request, ObtentionNiveau $obtentionNiveau): Response {
         if ($this->isCsrfTokenValid('delete' . $obtentionNiveau->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($obtentionNiveau);
-            $entityManager->flush();
+            $this->$em->remove($obtentionNiveau);
+            $this->$em->flush();
             $this->addFlash('success', 'Grade supprimé avec succès.');
         }
 

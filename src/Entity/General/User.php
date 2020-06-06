@@ -31,9 +31,9 @@ class User implements UserInterface {
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\Regex( 
-     * pattern = "/^[a-z0-9]{4,20}$/i", 
-     * htmlPattern = "^[a-zA-Z0-9]{4,20}$", 
-     * message="Votre identifiant doit contenir seulement des lettres et des chiffres et doit contenir entre 4 et 20 caractères"
+     * pattern = "/^[a-zA-Z0-9]{3,20}$/i", 
+     * htmlPattern = "^[a-zA-Z0-9]{3,20}$", 
+     * message="Votre identifiant doit contenir seulement des lettres et des chiffres et doit contenir entre 3 et 20 caractères"
      * )
      */
     private $username;
@@ -117,6 +117,11 @@ class User implements UserInterface {
     private $babioles;
 
     /**
+     * @ORM\OneToMany(targetEntity=Grade::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $grades;
+
+    /**
      * 
      */
     public function __construct() {
@@ -124,6 +129,7 @@ class User implements UserInterface {
         $this->reservationJeux = new ArrayCollection();
         $this->conversations = new ArrayCollection();
         $this->babioles = new ArrayCollection();
+        $this->grades = new ArrayCollection();
     }
 
     /**
@@ -288,6 +294,7 @@ class User implements UserInterface {
     }
 
     /**
+     * A REVOIR CAR ON PEUT MAINTENANT UTILISER LA TABLE GRADE
      * Retourne le plus haut grade acquis d'un thème donné sous forme de chaine
      * @param string|null $theme
      * @return ObtentionNiveau|null
@@ -705,6 +712,37 @@ class User implements UserInterface {
      */
     public function setTelephone(string $telephone): User {
         $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Grade[]
+     */
+    public function getGrades(): Collection
+    {
+        return $this->grades;
+    }
+
+    public function addGrade(Grade $grade): self
+    {
+        if (!$this->grades->contains($grade)) {
+            $this->grades[] = $grade;
+            $grade->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGrade(Grade $grade): self
+    {
+        if ($this->grades->contains($grade)) {
+            $this->grades->removeElement($grade);
+            // set the owning side to null (unless already changed)
+            if ($grade->getUser() === $this) {
+                $grade->setUser(null);
+            }
+        }
 
         return $this;
     }
