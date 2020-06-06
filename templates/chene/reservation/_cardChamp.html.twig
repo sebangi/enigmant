@@ -1,5 +1,10 @@
 <div class="card mb-4 border-dark">
-    <div class="card-header bg-dark text-white">
+    <div class="card-header 
+         {% if is_granted('ROLE_ADMIN') and champ == "avis" %}
+             bg-warning test-dark
+         {% else %}
+            bg-dark text-white
+         {% endif %}">
         <h4 class="mb-0 mt-0">
             {% if champ == "lieuRetrait" %}
                 Lieu du retrait

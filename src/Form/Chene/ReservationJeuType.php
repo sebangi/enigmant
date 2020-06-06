@@ -140,40 +140,28 @@ class ReservationJeuType extends AbstractType {
         $this->buildCancel($builder, $options);
         $checked = true;
         $note = $options['noteValue'];
-        if ( $options['noteValue'] == null )
-        {
+        if ($options['noteValue'] == null) {
             $note = 3;
             $checked = false;
         }
 
-        if ($options['administration'] == true) {
-            $builder
-                    ->add('avisPublic', TextareaType::class, [
-                        'required' => false,
-                        'attr' => [
-                            'placeholder' => 'Votre avis SANS DONNER DE SOLUTIONS',
-                            'class' => 'mon-area'
-                        ]
-            ]);
-        } else {
-            $builder
-                    ->add('avisPublic', TextareaType::class, [
-                        'required' => false,
-                        'attr' => [
-                            'placeholder' => 'Votre avis SANS DONNER DE SOLUTIONS',
-                            'class' => 'mon-area'
-                        ]
-                    ])
-            ;
+        $builder
+                ->add('avisPublic', TextareaType::class, [
+                    'required' => false,
+                    'attr' => [
+                        'placeholder' => 'Votre avis SANS DONNER DE SOLUTIONS',
+                        'class' => 'mon-area'
+                    ]
+                ])
+        ;
 
-            $builder->add('note', RadioType::class, [
-                        'label' => false,
-                        'required' => true,
-                        'value' => $note,
-                        'data' => $checked
-                    ])                 
-            ;
-        }
+        $builder->add('note', RadioType::class, [
+            'label' => false,
+            'required' => true,
+            'value' => $note,
+            'data' => $checked
+        ])
+        ;
 
 
         $builder

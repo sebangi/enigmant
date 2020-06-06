@@ -5,6 +5,10 @@ namespace App\Controller\Admin\Chene;
 use App\Entity\Chene\ReservationJeu;
 use App\Form\Chene\ReservationJeuType;
 use App\Entity\General\Grade;
+use App\Entity\General\Niveau;
+use App\Entity\Chene\CollectionChene;
+use App\Repository\General\NiveauRepository;
+use App\Repository\Chene\CollectionCheneRepository;
 use App\Repository\Chene\ReservationJeuRepository;
 use App\Repository\General\GradeRepository;
 use App\Controller\BaseController;
@@ -15,6 +19,28 @@ use App\Entity\General\Message;
 use App\Entity\General\Conversation;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
+define("NIVEAU_CHENE_VISITEUR", 1);
+define("NIVEAU_CHENE_JEU_RESERVE", 2);
+define("NIVEAU_CHENE_JEU_REUSSI", 3);
+
+define("NIVEAU_CHENE_COLLECTION_MOITIE",
+        [1 => 4, 2 => 7, 3 => 10]);
+define("NIVEAU_CHENE_COLLECTION",
+        [1 => 5, 2 => 8, 3 => 11]);
+define("NIVEAU_CHENE_COLLECTION_BONUS",
+        [1 => 6, 2 => 9, 3 => 12]);
+define("NIVEAU_CHENE_COLLECTION_ENCHAINEMENT",
+        [1 => 13]);
+
+define("NIVEAU_CHASSE_VISITEUR", 1);
+define("NIVEAU_CHASSE_TELECHARGE", 2);
+define("NIVEAU_CHASSE_MOITIE",
+        [1 => 3, 2 => 4]);
+define("NIVEAU_CHASSE_HORMIS_UNE",
+        [1 => 5]);
+define("NIVEAU_CHASSE_GAGNE",
+        [1 => 6, 2 => 7, 3 => 8, 4 => 9, 5 => 10]);
 
 /**
  * @Route("/admin/chene/reservation")
@@ -192,18 +218,65 @@ class AdminReservationJeuController extends BaseController {
 
         $this->em->persist($message);
     }
-    
+
     /**
      * 
      * @param ReservationJeu $reservation
      */
     private function testerPremiereReservation(ReservationJeu $reservation) {
-        $grade = $this->getDoctrine()->getRepository(Grade::class)->getGrades($reservation->getUser()->getId(),"Chêne");
-        dump($grade);
-    
-        $this->addFlash('success', 'testerPremiereReservation efectue.');
+        $gradeActuel = $this->getDoctrine()->getRepository(Grade::class)->getGrades($reservation->getUser()->getId(), "Chêne")[0];
+
+        if ($gradeActuel->getNum() < NIVEAU_CHENE_JEU_RESERVE)
+            $this->donnerGrade($gradeActuel, $reservation->getUser(), "Chêne", NIVEAU_CHENE_JEU_RESERVE);
     }
-    
+
+    /**
+     * 
+     * @param ReservationJeu $reservation
+     */
+    private function jeuReussi(ReservationJeu $reservation) {
+        $gradeActuel = $this->getDoctrine()->getRepository(Grade::class)->getGrades($reservation->getUser()->getId(), "Chêne")[0];
+
+        if ($gradeActuel->getNum() < NIVEAU_CHENE_JEU_REUSSI) {   // Premier Jeu réussi
+            $this->donnerGrade($gradeActuel, $reservation->getUser(), "Chêne", NIVEAU_CHENE_JEU_REUSSI);
+        } else {
+            $collections = $this->getDoctrine()->getRepository(CollectionChene::class)->findAllAvecJeu();
+            $nbReussis = $this->getDoctrine()->getRepository(ReservationJeu::class)->getNbReussi($reservation->getUser());
+
+            dump($collections);
+            dump($nbReussis);
+
+            $tab_jeux = [];
+            $tab_reussi = [];
+            foreach ($collections as $collection) {
+                $tab_jeux[$collection->getNum()] = count($collection->getJeuEnChenes());
+                $tab_reussi[$collection->getNum()] = 0;
+            }
+
+            $nb_moitie = 0;
+            $nb_complet = 0;
+
+            foreach ($nbReussis as $nbReussi) {
+                $tab_reussi[$nbReussi["num"]] = intval($nbReussi["count"]);
+
+                if ($tab_reussi[$nbReussi["num"]] == $tab_jeux[$nbReussi["num"]])
+                    $nb_complet = $nb_complet + 1;
+                else if (2 * $tab_reussi[$nbReussi["num"]] >= $tab_jeux[$nbReussi["num"]])
+                    $nb_moitie = $nb_moitie + 1;
+            }
+
+            dump($tab_jeux);
+            dump($tab_reussi);
+
+            dump($nb_moitie);
+            dump($nb_complet);
+            
+            $this->addFlash('warning', 'moitié = ' . $nb_moitie );
+            $this->addFlash('warning', 'complet = ' . $nb_complet );
+
+        }
+    }
+
     /**
      * @Route("/{id}/validerRetrait", name="admin.chene.reservation.validerRetrait")
      */
@@ -213,7 +286,6 @@ class AdminReservationJeuController extends BaseController {
 
         $this->em->flush();
         $this->addFlash('success', 'Réservation modifiée avec succès.');
-
 
         return $this->redirectToRoute('chene.location.show', [
                     'id' => $reservation->getId(),
@@ -262,8 +334,11 @@ class AdminReservationJeuController extends BaseController {
         $reservation->setReussi($reussi == "true");
         $this->creerMessageretourEffectue($reservation);
         $reservation->getJeu()->setDisponible(true);
-
         $this->em->flush();
+
+        if ($reservation->getReussi())
+            $this->jeuReussi($reservation);
+
         $this->addFlash('success', 'Réservation modifiée avec succès.');
         $this->addFlash('error', 'Le jeu est à nouveau disponible.');
 
@@ -285,12 +360,10 @@ class AdminReservationJeuController extends BaseController {
             if (!$form->get('cancel')->isClicked()) {
                 if ($reservation->getEtat() === 1)
                     $this->creerMessageRetraitPret($reservation);
-                else if ($reservation->getEtat() === 2)
-                {
+                else if ($reservation->getEtat() === 2) {
                     $this->creerMessageJouer($reservation);
                     $this->testerPremiereReservation($reservation);
-                }
-                else if ($reservation->getEtat() === 4)
+                } else if ($reservation->getEtat() === 4)
                     $this->creerMessageRetourOk($reservation);
                 else if ($reservation->getEtat() === 5)
                     $this->creerMessageRetourEffectue($reservation);

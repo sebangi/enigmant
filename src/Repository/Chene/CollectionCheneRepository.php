@@ -32,7 +32,7 @@ class CollectionCheneRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    
+        
     // /**
     //  * @return CollectionChene[] Returns an array of CollectionChene objects
     //  */

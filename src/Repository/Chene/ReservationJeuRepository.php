@@ -83,6 +83,23 @@ class ReservationJeuRepository extends ServiceEntityRepository {
         ;
     }
     
+    public function getNbReussi($id_user) : array
+    {
+        return $this->createQueryBuilder('r')
+            ->select('col.num, count(j.id) as count')
+            ->Join('r.jeu', 'j')
+            ->Join('r.user', 'user')
+            ->LeftJoin('j.collectionChene', 'col')
+            ->orderBy('col.num', 'ASC')
+            ->Where('r.reussi = true')
+            ->andWhere('user.id = :id_u')
+            ->groupBy('col.num')
+            ->setParameter('id_u', $id_user)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
 
     // /**
     //  * @return ReservationJeu[] Returns an array of ReservationJeu objects

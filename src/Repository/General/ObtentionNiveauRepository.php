@@ -36,7 +36,7 @@ class ObtentionNiveauRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    
+   
     /**
      * 
      * @param type $id_user

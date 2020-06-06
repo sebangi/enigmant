@@ -38,6 +38,24 @@ class NiveauRepository extends ServiceEntityRepository
     /**
       * @return Niveau[]
       */
+    public function getNiveauByThemeAndNum($theme, $num) : array
+    {
+        return $this->createQueryBuilder('niveau')
+            ->select('niveau')
+            ->Join('niveau.theme', 'theme')
+            ->Where('niveau.num = :num')
+            ->AndWhere('theme.nom = :theme')
+            ->setParameter('num', $num)
+            ->setParameter('theme', $theme)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
+    
+    /**
+      * @return Niveau[]
+      */
     public function findAllByTheme() : array
     {
         return $this->findAllByThemeQueryBuilder()                

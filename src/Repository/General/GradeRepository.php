@@ -28,7 +28,7 @@ class GradeRepository extends ServiceEntityRepository
     public function getGrades( $id_user, $theme ) : ?array//?Grade
     {
         return $this->createQueryBuilder('g')
-            ->select('g.num')
+            ->select('g')
             ->Join('g.theme', 'the')
             ->Join('g.user', 'user')
             ->Where('user.id = :id_user')
@@ -36,7 +36,7 @@ class GradeRepository extends ServiceEntityRepository
             ->setParameter('id_user', $id_user)
             ->setParameter('theme', $theme)
             ->getQuery()
-            ->getFirstResult()
+            ->getResult()
         ;
     }    
     
