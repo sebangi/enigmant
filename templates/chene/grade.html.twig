@@ -20,15 +20,15 @@
                 </thead>
                 <tbody>
                     {% for grade in grades %}
-                        <tr bgcolor="{{ grade.niveau_couleur }}">
+                        <tr bgcolor="{{ grade.couleur }}">
                             <td class="font-weight-bold">
-                                {% if grade.niveau_nomCache %}
+                                {% if grade.nomCache %}
                                     À deviner
                                 {% else %}
-                                    {{ grade.niveau_nom }} en {{ grade.theme_nom }}
+                                    {{ grade.nom }} en {{ grade.theme.nom }}
                                 {% endif%}
                             </td>
-                            <td>{{ grade.niveau_conditionTexte }}</td>
+                            <td>{{ grade.conditionTexte }}</td>
                         </tr>    
                     {% endfor %}
                 </tbody>

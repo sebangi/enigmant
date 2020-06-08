@@ -3,8 +3,10 @@
 namespace App\Controller\Admin\General;
 
 use App\Entity\General\ObtentionNiveau;
+use App\Entity\General\Grade;
 use App\Form\General\ObtentionNiveauType;
 use App\Repository\General\ObtentionNiveauRepository;
+use App\Repository\General\GradeRepository;
 use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -58,6 +60,14 @@ class AdminObtentionNiveauController extends BaseController {
                 return $this->redirectToRoute('admin.obtentionNiveau.index');
             }
 
+            $gradeActuel = $this->getDoctrine()->getRepository(Grade::class)->getGrades($obtentionNiveau->getUser()->getId(), 
+                    $obtentionNiveau->getNiveau()->getTheme()->getNom())[0];
+            if ( $obtentionNiveau->getNiveau()->getNum() > $gradeActuel->getNum() )
+            {
+                $this->addFlash('warning', 'Nouveau grade actuel : ' . $obtentionNiveau->getNiveau()->getNum() );
+                $gradeActuel->setNum($obtentionNiveau->getNiveau()->getNum());
+            }
+            
             $this->em->persist($obtentionNiveau);
             $this->em->flush();
             $this->addFlash('success', 'Grade ajouté avec succès.');
@@ -80,9 +90,10 @@ class AdminObtentionNiveauController extends BaseController {
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->flush();
-            $this->addFlash('success', 'Grade créé avec succès.');
+            $this->addFlash('success', 'Grade modifié avec succès.');            
+            $this->addFlash('error', "Attention, le plus haut grade n'est peut être plus à jour.");
 
-            return $this->redirectToRoute('admin.obtentionNiveau.index');
+            return $this->redirectToRoute("admin.obtentionNiveau.index");
         }
 
         return $this->monRender('admin/general/obtentionNiveau/edit.html.twig', [
@@ -96,6 +107,14 @@ class AdminObtentionNiveauController extends BaseController {
      */
     public function delete(Request $request, ObtentionNiveau $obtentionNiveau): Response {
         if ($this->isCsrfTokenValid('delete' . $obtentionNiveau->getId(), $request->request->get('_token'))) {
+             $gradeActuel = $this->getDoctrine()->getRepository(Grade::class)->getGrades($obtentionNiveau->getUser()->getId(), 
+                    $obtentionNiveau->getNiveau()->getTheme()->getNom())[0];
+            if ( $obtentionNiveau->getNiveau()->getNum() == $gradeActuel->getNum() )
+            {
+                $this->addFlash('warning', 'Nouveau grade actuel : ' . $gradeActuel->getNum() - 1);
+                $gradeActuel->setNum($gradeActuel->getNum() - 1);
+            }
+            
             $this->em->remove($obtentionNiveau);
             $this->em->flush();
             $this->addFlash('success', 'Grade supprimé avec succès.');

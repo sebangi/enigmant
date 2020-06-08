@@ -60,7 +60,7 @@ class CheneController extends BaseController {
      */
     public function grade(NiveauRepository $niveauRepository): Response {
         $grades = $niveauRepository->getGradesDunTheme($this->getThemeCourant());
-
+        dump($grades);
         return $this->monRender('chene/grade.html.twig', [
                     'menuCourant' => 'Grade',
                     'grades' => $grades

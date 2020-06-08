@@ -60,12 +60,12 @@
                         <th style="width: 3%"></th>
                         <th style="width: 20%">Grade</th>                       
                         <th style="width: 10%">Date</th>
-                        {% if themeCourant == "General" %}
+                            {% if themeCourant == "General" %}
                             <th style="width: 67%">Réussite / Condition d'obtention</th>
-                        {% else %}
+                            {% else %}
                             <th style="width: 60%">Réussite / Condition d'obtention</th>
                             <th class="text-center  " style="width: 7%">Yaki ?</th>
-                        {% endif %}
+                            {% endif %}
                     </tr>
                 </thead>
                 <tbody>
@@ -76,11 +76,7 @@
                                     <span class="fas fa-medal text-success" aria-hidden="true"></span>
                                 </td>
                                 <td class="font-weight-bold">
-                                    {% if grade.niveau.nomCache and obt is null %}
-                                        À deviner
-                                    {% else %}
-                                        {{ grade.niveau.nom }} en {{ grade.niveau.theme.nom }}
-                                    {% endif%}
+                                    {{ grade.niveau.nom }} en {{ grade.niveau.theme.nom }}
                                 </td>
                                 <td>{{ grade.date | date("d/m/Y") }}</td>  
                                 <td>{{ grade.niveau.raison }}</td>

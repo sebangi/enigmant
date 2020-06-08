@@ -6,6 +6,7 @@ use App\Entity\Chene\ReservationJeu;
 use App\Form\Chene\ReservationJeuType;
 use App\Entity\General\Grade;
 use App\Entity\General\Niveau;
+use App\Entity\General\User;
 use App\Entity\Chene\CollectionChene;
 use App\Repository\General\NiveauRepository;
 use App\Repository\Chene\CollectionCheneRepository;
@@ -26,7 +27,7 @@ define("NIVEAU_CHENE_JEU_REUSSI", 3);
 
 define("NIVEAU_CHENE_COLLECTION_MOITIE",
         [1 => 4, 2 => 7, 3 => 10]);
-define("NIVEAU_CHENE_COLLECTION",
+define("NIVEAU_CHENE_COLLECTION_COMPLET",
         [1 => 5, 2 => 8, 3 => 11]);
 define("NIVEAU_CHENE_COLLECTION_BONUS",
         [1 => 6, 2 => 9, 3 => 12]);
@@ -231,6 +232,31 @@ class AdminReservationJeuController extends BaseController {
     }
 
     /**
+     *  Envoyer l'énigme de la collection
+     * @param User $user
+     * @param CollectionChene $collection
+     */
+    protected function envoyerEnigmeCollection(User $user, CollectionChene $collection) {
+        date_default_timezone_set('Europe/Paris');
+        setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
+
+        $conversation = new Conversation();
+        $conversation->setUser($user);
+        $conversation->setSujet("Énigme cachée de la collection " . $collection->getNom());
+        $conversation->setCreeParGourou(true);
+
+        $this->em->persist($conversation);
+
+        $message1 = $this->creerMessage($conversation);
+        $message1->setTexte($collection->getEnigme());
+        $this->em->persist($message1);
+        $this->em->flush();
+        
+        dump($conversation);
+        dump($message1);
+    }
+
+    /**
      * 
      * @param ReservationJeu $reservation
      */
@@ -265,15 +291,34 @@ class AdminReservationJeuController extends BaseController {
                     $nb_moitie = $nb_moitie + 1;
             }
 
-            dump($tab_jeux);
-            dump($tab_reussi);
+            $num_nouveau_grade = 0;
 
-            dump($nb_moitie);
-            dump($nb_complet);
-            
-            $this->addFlash('warning', 'moitié = ' . $nb_moitie );
-            $this->addFlash('warning', 'complet = ' . $nb_complet );
+            if ($nb_moitie > 0) {
+                if ($nb_complet != 0) {
+                    $num_nouveau_grade = NIVEAU_CHENE_COLLECTION_MOITIE[$nb_complet + 1];
+                } else {
+                    $num_nouveau_grade = NIVEAU_CHENE_COLLECTION_MOITIE[1];
+                }
 
+                if ($num_nouveau_grade > $gradeActuel->getNum()) {
+                    $this->addFlash('warning', 'grade actuel = ' . $gradeActuel->getNum());
+                    $this->addFlash('warning', 'grade calculé = ' . $num_nouveau_grade);
+
+                    $this->donnerGrade($gradeActuel, $reservation->getUser(), "Chêne", $num_nouveau_grade);
+                }
+            } else {
+                if ($nb_complet != 0) {
+                    $num_nouveau_grade = NIVEAU_CHENE_COLLECTION_COMPLET[$nb_complet];
+
+                    if ($num_nouveau_grade > $gradeActuel->getNum()) {
+                        $this->addFlash('warning', 'grade actuel = ' . $gradeActuel->getNum());
+                        $this->addFlash('warning', 'grade calculé = ' . $num_nouveau_grade);
+
+                        $this->envoyerEnigmeCollection($reservation->getUser(), $reservation->getJeu()->getCollectionChene() );
+                        $this->donnerGrade($gradeActuel, $reservation->getUser(), "Chêne", $num_nouveau_grade);
+                    }
+                }
+            }
         }
     }
 
@@ -389,6 +434,11 @@ class AdminReservationJeuController extends BaseController {
      */
     public function delete(Request $request, ReservationJeu $reservation): Response {
         if ($this->isCsrfTokenValid('delete' . $reservation->getId(), $request->request->get('_token'))) {
+
+            foreach ($reservation->getBabioles() as $babiole) {
+                $babiole->setReservationJeu(null);
+            }
+
             $this->em->remove($reservation);
             $this->em->flush();
             $this->addFlash('success', 'Réservation supprimée avec succès.');

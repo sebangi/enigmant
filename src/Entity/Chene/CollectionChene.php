@@ -61,9 +61,14 @@ class CollectionChene
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private $description;    
     
-     /**
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $enigme;
+    
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Chene\JeuEnChene", mappedBy="collectionChene")
      * @var ArrayCollection<JeuEnChene> 
      */
@@ -91,7 +96,25 @@ class CollectionChene
         return $this;
     }
 
-   
+    /**
+     * 
+     * @return type
+     */
+    public function getEnigme() {
+        return $this->enigme;
+    }
+
+    /**
+     * 
+     * @param type $enigme
+     * @return \App\Entity\Chene\CollectionChene
+     */
+    public function setEnigme($enigme) : CollectionChene {
+        $this->enigme = $enigme;
+        return $this;
+    }
+
+       
     public function __construct()
     {
         $this->jeuEnChenes = new ArrayCollection();
