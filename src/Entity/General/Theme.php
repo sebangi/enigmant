@@ -258,6 +258,22 @@ class Theme
 
         return $this;
     }
+    
+    /**
+     * @return null|Grade[]
+     */
+    public function getGradesActuel($numNiveau): ?array
+    {
+        $result = [];
+        
+        foreach ($this->grades->toArray() as $gra) {
+            if ($gra->getNum() == $numNiveau) {
+                $result[] = $gra;
+            }
+        }
+        
+        return $result;
+    }
 
     /**
      * @return Collection|Grade[]

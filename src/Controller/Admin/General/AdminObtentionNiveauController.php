@@ -4,6 +4,7 @@ namespace App\Controller\Admin\General;
 
 use App\Entity\General\ObtentionNiveau;
 use App\Entity\General\Grade;
+use App\Entity\General\User;
 use App\Form\General\ObtentionNiveauType;
 use App\Repository\General\ObtentionNiveauRepository;
 use App\Repository\General\GradeRepository;
@@ -13,6 +14,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use \App\Entity\General\ObtentionNiveauRecherche;
+use \App\Form\General\ObtentionNiveauRechercheType;
 
 /**
  * @Route("/admin/grade")
@@ -38,9 +41,16 @@ class AdminObtentionNiveauController extends BaseController {
     /**
      * @Route("/", name="admin.obtentionNiveau.index", methods={"GET"})
      */
-    public function index(ObtentionNiveauRepository $obtentionNiveauRepository): Response {
+    public function index(Request $Requete, ObtentionNiveauRepository $obtentionNiveauRepository): Response {
+        $recherche = new ObtentionNiveauRecherche();
+        $form = $this->createForm(ObtentionNiveauRechercheType::class, $recherche);
+        $form->handleRequest($Requete);
+
+        $obts = $obtentionNiveauRepository->findAllAvecJointure($recherche);
+        
         return $this->monRender('admin/general/obtentionNiveau/index.html.twig', [
-                    'obtentionNiveaux' => $obtentionNiveauRepository->findAllAvecJointure(),
+                    'obtentionNiveaux' => $obts,
+                    'form' => $form->createView()
         ]);
     }
 
@@ -102,6 +112,17 @@ class AdminObtentionNiveauController extends BaseController {
         ]);
     }
 
+    
+    /**
+     * @Route("/{id}-{t}-{num}/setPlusHaut", name="admin.obtentionNiveau.setPlusHaut", methods={"GET","POST"})
+     */
+    public function setPlusHaut(User $user, $t, $num): Response {
+        $gradeActuel = $this->getDoctrine()->getRepository(Grade::class)->getGrades($user->getId(), $t)[0];
+        $this->donnerGrade($gradeActuel, $user,$t, $num);
+        
+        return $this->redirectToRoute('admin.obtentionNiveau.index');
+    }
+    
     /**
      * @Route("/{id}", name="admin.obtentionNiveau.delete", methods={"DELETE"})
      */
@@ -111,7 +132,8 @@ class AdminObtentionNiveauController extends BaseController {
                     $obtentionNiveau->getNiveau()->getTheme()->getNom())[0];
             if ( $obtentionNiveau->getNiveau()->getNum() == $gradeActuel->getNum() )
             {
-                $this->addFlash('warning', 'Nouveau grade actuel : ' . $gradeActuel->getNum() - 1);
+                dump($gradeActuel);
+                $this->addFlash('warning', 'Nouveau grade actuel : ' . strval($gradeActuel->getNum() - 1));
                 $gradeActuel->setNum($gradeActuel->getNum() - 1);
             }
             

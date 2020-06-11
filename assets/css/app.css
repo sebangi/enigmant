@@ -349,6 +349,19 @@ hr {
     border-color: black;
 }
 
+.theme-body-non-disponible {
+    border-radius: 0px 0px 0px 30px;
+    border-width: 0px 0px 0px 1px;
+    border-style: solid;
+    border-color: black;
+}
+
+.badge-yaki {
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+}
+
 .theme-card-disponible:hover {
     background-color: gold;
 }

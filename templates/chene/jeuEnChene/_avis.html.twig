@@ -11,7 +11,7 @@
             {% if reservation.user.masque %}
                 <b>un joueur anonyme</b>
             {% else %}
-                <b>{{ reservation.user.getGradeString("Chêne") }}</b>
+                <b>{{ reservation.user.getGradeString("Chêne") }} {{ reservation.user.getUSername }}</b>
             {% endif %}
             le {{ reservation.dateDemande | format_datetime('long', 'none', locale='fr')}}
         </div>

@@ -274,7 +274,7 @@ class Niveau
 
         return $this;
     }
-
+    
     public function getNomCache(): ?bool
     {
         return $this->nomCache;

@@ -86,7 +86,7 @@ abstract class BaseController extends AbstractController {
 
     protected function monRender(string $view, array $parameters = [], Response $response = null): Response {
         // On prend tout du user
-        $this->loadUser();
+        //$this->loadUser();
 
         $est_admin = $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN');
 

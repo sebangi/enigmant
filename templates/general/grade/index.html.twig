@@ -105,8 +105,32 @@
                                     <td class="font-weight-bold">{{ obt.date | date("d/m/Y") }}</td>                            
                                     <td class="font-weight-bold">{{ grade.raison }}</td>                            
                                 {% endif%}
-                                <td class="text-center">
-                                    {{ grade.getObtentionNiveaux() | length }}
+                                <td class="text-center pb-0 pt-0">
+                                    {%  set yakis = grade.theme.getGradesActuel(grade.num) %}
+                                    <h2 class="badge badge-pill badge-light mt-2 p-2 badge-yaki font-weight-bold" data-toggle="tooltip" data-placement="right"
+                                    {% if yakis|length == 0 %}
+                                        title="Personne n'est à ce niveau actuellement."
+                                    {% else %}
+                                        {% set virgule = false %}
+                                        {% set nb_masque = 0 %}
+                                        title="{% for yaki in yakis  %}
+                                                    {% if yaki.user.masque %}
+                                                        {% set nb_masque = nb_masque + 1 %}
+                                                    {% else %}    
+                                                        {% if virgule %}, {% endif %} 
+                                                        {{ yaki.user.username }}                                                        
+                                                        {% set virgule = true %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% if nb_masque > 0 %} 
+                                                    {% if virgule %}, {% endif %} 
+                                                    et {{ nb_masque }} anonyme{% if nb_masque > 1 %}s{% endif %}
+                                                {% endif %}    
+                                                    "                                        
+                                    {% endif %}
+                                        >
+                                        <b>{{ yakis|length }}</b>
+                                    </h2>    
                                 </td>
                             </tr>    
                         {% endif%}

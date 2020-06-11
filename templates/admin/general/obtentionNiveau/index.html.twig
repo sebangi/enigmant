@@ -10,9 +10,26 @@
 
         {{ include('outils/_flash.html.twig') }}          
 
-        <div class="text-right mb-4">
-            <a href="{{ path("admin.obtentionNiveau.new") }}" class="btn btn-primary">Donner un nouveau grade</a>
-        </div>
+
+
+        {{ form_start(form) }}
+        <div class="form-row">
+            <div class="col-md-3 no-margin">
+                <div class="input-group">
+                    {{ form_widget(form.user) }}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="no-margin">
+                    {{ form_widget(form.recherche) }}
+                </div>
+            </div>
+            <div class="col-md-6  text-right mb-4">
+                <a href="{{ path("admin.obtentionNiveau.new") }}" class="btn btn-primary">Donner un nouveau grade</a>
+            </div>
+        </div> 
+        {{ form_end(form) }}
+
 
         <table class="table table-striped">
             <thead>
@@ -38,6 +55,7 @@
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ obtentionNiveau.id) }}">
                                 <button class="btn btn-danger">Supprimer</button>
                             </form>
+                            <a href="{{ path("admin.obtentionNiveau.setPlusHaut", {id : obtentionNiveau.user.id, t : obtentionNiveau.niveau.theme.nom, num : obtentionNiveau.niveau.num} ) }}" class="btn btn-secondary">Set plus haut</a>
                         </td>
                     </tr>
                 {% endfor %}

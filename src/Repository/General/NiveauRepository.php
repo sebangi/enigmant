@@ -85,9 +85,11 @@ class NiveauRepository extends ServiceEntityRepository
     public function getGradesDunTheme( $theme ) 
     {
         return $this->createQueryBuilder('niveau')
-            ->select('niveau', 'theme', 'opt')
+            ->select('niveau', 'theme', 'opt', 'g', 'u')
             ->LeftJoin('niveau.obtentionNiveaux', 'opt')
             ->Join('niveau.theme', 'theme')
+            ->LeftJoin('theme.grades', 'g')                
+            ->LeftJoin('g.user', 'u')
             ->Where('theme.nom = :theme')
             ->OrderBy('niveau.num', 'ASC')
             ->setParameter('theme', $theme)
