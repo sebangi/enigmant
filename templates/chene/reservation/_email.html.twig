@@ -1,0 +1,27 @@
+<div class="body">
+
+    <h4>
+        Bonjour <b>{{ reservation.user.getGradeString("Chêne") }} {{ reservation.user.username }}</b>,
+    </h4>
+
+    <div class="ml-2 mb-4">
+        Nous préparons votre location du Jeu en Chêne <b>{{ reservation.jeu.nom }}</b>.
+
+        <ul>
+            <li class="mb-2">
+                Pour suivre votre location : 
+                <a href="{{ url("chene.location.show", { id : reservation.getId(), slug : reservation.getSlug()} ) }}">cliquez ici</a>
+            </li>   
+            <li>Pour communiquer avec nous au sujet de cette location : 
+                <a href="{{ url("general.conversation.show", {id : reservation.conversation.id, slug : reservation.conversation.getSlug()} ) }}{{reservation.conversation.getAncreNonVu( false )}}">cliquez ici</a>
+            </li>
+        </ul>
+        <h4>
+            À bientôt pour le retrait,
+        </h4>
+    </div>
+
+    <h4>
+        Grand Gourou en Chêne Seb   
+    </h4>
+</div>

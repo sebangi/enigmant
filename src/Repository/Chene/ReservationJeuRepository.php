@@ -33,6 +33,21 @@ class ReservationJeuRepository extends ServiceEntityRepository {
                         ->getResult()
         ;
     }
+    
+    /**
+     * @return 
+     */
+    public function findAvecConversationEtJeu($id_resa) {
+        return $this->createQueryBuilder('r')
+                        ->select('r', 'j', 'conv')
+                        ->Join('r.jeu', 'j')
+                        ->LeftJoin('r.conversation', 'conv')
+                        ->where('r.id = :id_resa')
+                        ->setParameter('id_resa', $id_resa)
+                        ->getQuery()
+                        ->getResult()
+        ;
+    }
 
     /**
      * @return 

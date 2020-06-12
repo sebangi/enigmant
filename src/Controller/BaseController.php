@@ -29,7 +29,7 @@ abstract class BaseController extends AbstractController {
     protected $em;
 
     public function __construct(EntityManagerInterface $entityManager) {
-        $this->em = $entityManager; // $this->getDoctrine()->getManager();
+        $this->em = $entityManager;         
     }
 
     // CREATION D'UN NOUVEAU USER

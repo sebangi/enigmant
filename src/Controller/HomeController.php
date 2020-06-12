@@ -10,32 +10,30 @@ use App\Repository\General\ThemeRepository;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
-class HomeController extends BaseController
-{    
-    
-    protected function getThemeCourant() : ?string
-    {
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mailer\MailerInterface;
+
+class HomeController extends BaseController {
+
+    protected function getThemeCourant(): ?string {
         return "General";
     }
-    
-    protected function getMenuCourant() : ?string
-    {
+
+    protected function getMenuCourant(): ?string {
         return null;
     }
-    
-    
+
     public function __construct(EntityManagerInterface $em) {
-       parent::__construct($em);
+        parent::__construct($em);
     }
-    
+
     /**
      * @route("/", name="home")  
      * @return Response
      */
-    public function index(ThemeRepository $t_repository, UserPasswordEncoderInterface $passwordEncoder ) : Response
-    {
-          $themes = $t_repository->findAll();
-        
+    public function index(ThemeRepository $t_repository, UserPasswordEncoderInterface $passwordEncoder): Response {
+        $themes = $t_repository->findAll();
+
 //        
 //        $user = $urep->findOneBy(['username' => 'demo']);   
 //        $user->setPassword( $passwordEncoder->encodePassword($user, "demo")  );
@@ -43,42 +41,56 @@ class HomeController extends BaseController
 //        $em->flush();
 //                
         return $this->monRender('home.html.twig', [
-            'themes' => $themes
+                    'themes' => $themes
         ]);
     }
-    
+
     /**
      * @route("/ligne", name="ligne.home")  
      * @return Response
      */
-    public function ligneHome( ) : Response
-    {
+    public function ligneHome(): Response {
         return $this->monRender('nonDisponible.html.twig', [
-            "theme" => "Ligne"
+                    "theme" => "Ligne"
         ]);
     }
-        
+
     /**
      * @route("/rallye", name="rallye.home")  
      * @return Response
      */
-    public function rallyeHome( ) : Response
-    {
+    public function rallyeHome(): Response {
         return $this->monRender('nonDisponible.html.twig', [
-            "theme" => "Rallye"
+                    "theme" => "Rallye"
         ]);
     }
-    
+
     /**
      * @route("/fanteasy", name="fanteasy.home")  
      * @return Response
      */
-    public function fanteasyHome( ) : Response
-    {
+    public function fanteasyHome(): Response {
         return $this->monRender('nonDisponible.html.twig', [
-            "theme" => "Fanteasy"
+                    "theme" => "Fanteasy"
         ]);
-    }    
+    }
+
+    /**
+     * @route("/testMail", name="testMail")  
+     * @return Response
+     */
+    public function testMail(MailerInterface $mailer): Response {
+        $email = (new Email())
+                ->from($this->getParameter('MAIL_FROM_GOUROU'))
+                ->subject("Nouvelle réservation")
+                ->to($this->getParameter('MAIL_DESTINATAIRE_GOUROU'))
+                ->text('Un premier message')
+        ;
+        
+        $mailer->send($email);
+        $this->addFlash('success', 'Mail envoyé.');
+        
+        return $this->redirectToRoute('home');
+    }
+
 }
-
-

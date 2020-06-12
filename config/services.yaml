@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'fr_FR'
+    MAIL_DESTINATAIRE_GOUROU: '%env(MAIL_DESTINATAIRE_GOUROU)%' # from .env file
+    MAIL_FROM_GOUROU: '%env(MAIL_FROM_GOUROU)%' # from .env file
 
 services:
     # default configuration for services in *this* file
@@ -61,3 +63,5 @@ services:
         arguments: [App\Entity\Chene\ReservationJeu]
         tags:
             - { name: form.type, alias: retour_edit }
+            
+            

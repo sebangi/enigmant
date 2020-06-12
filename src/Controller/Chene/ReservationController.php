@@ -17,6 +17,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 /**
  * @route("/chene/location", name="chene.location.") 
@@ -36,9 +39,16 @@ class ReservationController extends BaseController {
      */
     private $repository;
 
-    public function __construct(EntityManagerInterface $em, ReservationJeuRepository $repository) {
+    /**
+     *
+     * @var MailerInterface 
+     */
+    private $mailer;
+
+    public function __construct(EntityManagerInterface $em, ReservationJeuRepository $repository, MailerInterface $mailer) {
         parent::__construct($em);
         $this->repository = $repository;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -218,6 +228,20 @@ class ReservationController extends BaseController {
         $this->em->persist($message2);
     }
 
+    private function envoyerMailLocation(ReservationJeu $reservation) {
+        $email = (new TemplatedEmail())
+                ->from($this->getParameter('MAIL_FROM_GOUROU'))
+                ->subject("Location du Jeu en Chêne " . $reservation->getJeu()->getNom())
+                ->to($this->getParameter('MAIL_DESTINATAIRE_GOUROU'))
+                ->htmlTemplate('chene/reservation/_email.html.twig')
+                ->context([
+                    'reservation' => $reservation,
+                ])
+        ;
+
+        $this->mailer->send($email);
+    }
+
     private function effectuerLocation(ReservationJeu $reservation) {
         // status de Possession
         if ($reservation->getABabiole())
@@ -266,6 +290,10 @@ class ReservationController extends BaseController {
                 $reservation->getJeu()->setDisponible(false);
                 $this->em->persist($reservation->getJeu());
                 $this->em->flush();
+                
+                $reservation2 = $this->repository->findAvecConversationEtJeu($reservation->getId());
+                if ( count($reservation2) != 0 )
+                    $this->envoyerMailLocation($reservation2[0]);
 
                 $flow->reset(); // remove step data from the session
 
@@ -363,11 +391,11 @@ class ReservationController extends BaseController {
                     $this->creerMessageModificationLieuRetour($reservation, $reservation->getConversation());
                 } else if ($champ == "avis") {
                     $reservation->setNote($request->get("reservation_jeu")["note"]);
-                    
+
                     if ((!$reservation->getAvisDonne() ) &&
-                            ( ( $reservation->getNote() != -1 ) || 
-                            (!is_null($reservation->getAvisPublic()) ) || 
-                            (!is_null($reservation->getAvisPriveDifficulte()) ) || 
+                            ( ( $reservation->getNote() != -1 ) ||
+                            (!is_null($reservation->getAvisPublic()) ) ||
+                            (!is_null($reservation->getAvisPriveDifficulte()) ) ||
                             (!is_null($reservation->getAvisPriveTechnique()))
                             )) {
                         $reservation->setAvisDonne(true);
