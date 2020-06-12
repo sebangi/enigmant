@@ -1,9 +1,26 @@
 {% extends "general/baseGeneral.html.twig" %}
 
+{% block meta %}
+    <meta http-equiv="Expires" CONTENT="0">
+    <meta http-equiv="Cache-Control" CONTENT="no-cache">
+    <meta http-equiv="Pragma" CONTENT="no-cache">
+{% endblock meta %}
+
 {% block body %}
     <div class="jumbotron mon-jumbotron text-center">
         {% if is_granted('ROLE_ADMIN') %}
-            Ajouter une recherche par user
+            <div class="container">
+                {{ form_start(form) }}
+                <div class="col-md-10 offset-md-1">
+                    <div class="input-group">
+                        <div class="mr-2">
+                            {{ form_widget(form.user) }}
+                        </div>
+                        {{ form_widget(form.recherche) }}
+                    </div>
+                </div> 
+                {{ form_end(form) }}
+            </div>
         {% else %}
             {% if conversations|length == 0 %}
                 <h1>Vous n'avez aucune conversation avec le grand Gourou</h1>
@@ -16,9 +33,9 @@
             {% endif%} 
         {% endif%}         
     </div>
-    
+
     {{ include('outils/_flash.html.twig') }}   
-    
+
     <div class="container mt-4 mb-4">
         <div class="col-md-10 offset-md-1">
             <a href="{{ path("general.conversation.new" ) }}" class="btn btn-secondary">Créer une nouvelle conversation</a>

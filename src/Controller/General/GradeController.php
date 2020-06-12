@@ -85,9 +85,7 @@ class GradeController extends BaseController
                 $this->em->persist( $nouveau_grade );
                 $this->em->flush();
             }
-            
-            dump($grades);
-            
+                        
             return $this->monRender('general/grade/index.html.twig', [
                 'themeCourant' => $themeCourant,
                 'themes' => $themes,

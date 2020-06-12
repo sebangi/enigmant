@@ -234,7 +234,7 @@ class ReservationController extends BaseController {
 
     /**
      * 
-     * @route("/{slug}-{id}", name="new", methods={"GET","POST"})  
+     * @route("/{slug}-{id}", name="new", methods={"GET","POST"}, requirements={"slug": "[a-z0-9\-]*"})  
      * @return Response
      */
     public function reserver(CreateReservationFlow $flow, JeuEnChene $jeuEnChene, string $slug) {
@@ -348,7 +348,7 @@ class ReservationController extends BaseController {
         }
 
         $form = $this->createForm(ReservationJeuType::class, $reservation,
-                ['champ' => $champ, 'noteValue' => $reservation->getNote() ]);
+                ['champ' => $champ, 'noteValue' => $reservation->getNote()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -362,14 +362,14 @@ class ReservationController extends BaseController {
                 } else if ($champ == "lieuRetour") {
                     $this->creerMessageModificationLieuRetour($reservation, $reservation->getConversation());
                 } else if ($champ == "avis") {
-                    $reservation->setNote( $request->get("reservation_jeu")["note"]);
-
-                    if ( ! $reservation->getAvisDonne() && 
-                         (  !  is_null($reservation->getAvisPublic()) 
-                             || ( $reservation->getNote() != -1 )
-                             || ( ! is_null( $reservation->getAvisPriveDifficulte() ) )
-                             || ( ! is_null( $reservation->getAvisPriveTechnique() ) )
-                            ) ) {
+                    $reservation->setNote($request->get("reservation_jeu")["note"]);
+                    
+                    if ((!$reservation->getAvisDonne() ) &&
+                            ( ( $reservation->getNote() != -1 ) || 
+                            (!is_null($reservation->getAvisPublic()) ) || 
+                            (!is_null($reservation->getAvisPriveDifficulte()) ) || 
+                            (!is_null($reservation->getAvisPriveTechnique()))
+                            )) {
                         $reservation->setAvisDonne(true);
                         $this->creerMessageAvisDonne($reservation, $reservation->getConversation());
                         $this->addFlash('success', 'Nous avons bien reçu votre avis. Merci !');

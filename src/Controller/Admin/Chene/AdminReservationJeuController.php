@@ -251,9 +251,34 @@ class AdminReservationJeuController extends BaseController {
         $message1->setTexte($collection->getEnigme());
         $this->em->persist($message1);
         $this->em->flush();
-        
-        dump($conversation);
-        dump($message1);
+    }
+    
+    
+    /**
+     *  Envoyer l'énigme des trois première collections
+     * @param User $user
+     * @param CollectionChene $collection
+     */
+    protected function envoyerEnigmeCollectionTrois(User $user) {
+        date_default_timezone_set('Europe/Paris');
+        setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
+
+        $conversation = new Conversation();
+        $conversation->setUser($user);
+        $conversation->setSujet("Énigme des trois premières collections");
+        $conversation->setCreeParGourou(true);
+
+        $this->em->persist($conversation);
+
+        $message1 = $this->creerMessage($conversation);
+        $message1->setTexte("Bravo, tu as terminé les trois premières collections ! \n\n" .
+                "Les collections s'enchaînent aussi. Pour devenir Manitou Suprême en Chêne, il te faut résoudre l'énigme cachée de ces trois collections.\n" .
+                "Tu as tout ce qu'il faut avec toi pour compléter la phrase suivante :\n\n" .
+                "J'espère que cette aventure a été pour toi ...\n\n" .
+                "Le mot manquant est à donner ici.\n\n" .
+                "Bonne chance !");
+        $this->em->persist($message1);
+        $this->em->flush();
     }
 
     /**
@@ -268,9 +293,6 @@ class AdminReservationJeuController extends BaseController {
         } else {
             $collections = $this->getDoctrine()->getRepository(CollectionChene::class)->findAllAvecJeu();
             $nbReussis = $this->getDoctrine()->getRepository(ReservationJeu::class)->getNbReussi($reservation->getUser());
-
-            dump($collections);
-            dump($nbReussis);
 
             $tab_jeux = [];
             $tab_reussi = [];
@@ -301,10 +323,8 @@ class AdminReservationJeuController extends BaseController {
                 }
 
                 if ($num_nouveau_grade > $gradeActuel->getNum()) {
-                    $this->addFlash('warning', 'grade actuel = ' . $gradeActuel->getNum());
-                    $this->addFlash('warning', 'grade calculé = ' . $num_nouveau_grade);
-
                     $this->donnerGrade($gradeActuel, $reservation->getUser(), "Chêne", $num_nouveau_grade);
+                    $this->addFlash('warning', 'Nouveau grade : ' . $reservation->getUser()->getGradeString("Chêne") . " " . $reservation->getUser()->getUsername());                    
                 }
             } else {
                 if ($nb_complet != 0) {
@@ -315,6 +335,8 @@ class AdminReservationJeuController extends BaseController {
                         $this->addFlash('warning', 'grade calculé = ' . $num_nouveau_grade);
 
                         $this->envoyerEnigmeCollection($reservation->getUser(), $reservation->getJeu()->getCollectionChene() );
+                        if ( $nb_complet == 3 )
+                            $this->envoyerEnigmeCollectionTrois($reservation->getUser() );
                         $this->donnerGrade($gradeActuel, $reservation->getUser(), "Chêne", $num_nouveau_grade);
                     }
                 }

@@ -95,7 +95,6 @@ class Babiole
     {
         $this->jeuEnChenes = new ArrayCollection();
     }
-
     
     /**
      * 

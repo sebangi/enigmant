@@ -31,11 +31,6 @@
                     <tr>
                         <td>{{ user.username }}</td>
                         <td {% for grade in user.grades %}
-                            {#
-                            getGrade
-                            
-                            >    
-                            #}
                             {% set opt = user.getGrade(grade.theme.nom) %}
                             <span class="{% if not opt %} 
                                             text-danger

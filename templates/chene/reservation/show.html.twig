@@ -289,7 +289,7 @@
             </div>
             {% if reservation.etat > 4 %}
                 <div class="card-body p-3">
-                    {% if reservation.avisPublic or reservation.avisPriveDifficulte or reservation.avisPriveTechnique %}
+                    {% if reservation.avisDonne %}
                         <div class="container">
                             <div class="row align-items-center">
                                 <div class="col-md-12 mb-0 pr-0">
@@ -309,7 +309,7 @@
                                             {%  include 'outils/_rating.html.twig' with {'valeur': reservation.note } %}      
                                         </h4>
                                     {% else %}
-                                        <div class="card {% if reservation.avisPriveDifficulte%}bg-color-success{% else %}bg-light{%endif%}">
+                                        <div class="card bg-light">
                                             <div class="card-body">
                                                 Non noté
                                             </div>

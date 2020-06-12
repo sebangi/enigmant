@@ -17,6 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use \App\Entity\General\ConversationRecherche;
+use \App\Form\General\ConversationRechercheType;
 
 /**
  * @Route("/general/conversation", name="general.conversation.")
@@ -57,15 +59,24 @@ class ConversationController extends BaseController {
      * @return Response
      */
     public function index(Request $Requete): Response {
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            $recherche = new ConversationRecherche();
+            $form = $this->createForm(ConversationRechercheType::class, $recherche);
+            $form->handleRequest($Requete);
 
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
-            $conversations = $this->repository->getByDate(null);
-        else
-            $conversations = $this->repository->getByDate($this->getUser()->getId());
+            $conversations = $this->repository->getByDate(null, $recherche);
 
-        return $this->monRender('/general/conversation/index.html.twig', [
+            return $this->monRender('/general/conversation/index.html.twig', [
                     'conversations' => $conversations,
-        ]);
+                    'form' => $form->createView()                
+            ]);
+        } else {
+            $conversations = $this->repository->getByDate($this->getUser()->getId(), null);
+
+            return $this->monRender('/general/conversation/index.html.twig', [
+                        'conversations' => $conversations,
+            ]);
+        }
     }
 
     public function marquer($messages, $est_admin) {
@@ -241,7 +252,7 @@ class ConversationController extends BaseController {
             return $this->redirectToRoute('general.conversation.show', [
                         'id' => $message->getConversation()->getId(),
                         'slug' => $message->getConversation()->getSlug(),
-                        '_fragment' => 'message-' . $message->getId() 
+                        '_fragment' => 'message-' . $message->getId()
             ]);
         }
 
@@ -266,11 +277,12 @@ class ConversationController extends BaseController {
         }
 
         return $this->redirectToRoute('general.conversation.show', [
-                        'id' => $message->getConversation()->getId(),
-                        'slug' => $message->getConversation()->getSlug(),
-                        '_fragment' => "nouveau-message"
-            ]);
+                    'id' => $message->getConversation()->getId(),
+                    'slug' => $message->getConversation()->getSlug(),
+                    '_fragment' => "nouveau-message"
+        ]);
     }
+
     /**
      * @route("/{id}", name="delete", methods="DELETE")  
      * @param Conversation $conversation
