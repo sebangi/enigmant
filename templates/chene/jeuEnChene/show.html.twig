@@ -164,7 +164,7 @@
         <hr>        
         <h4><b>Avis des joueurs</b>
 
-            {% if reservations|length == 0 %}
+            {% if reservations|length == 0  and cardNotes == 0 %}
                 : aucun n'avis n'a été donné.
             {% endif%}
         </h4>
@@ -185,7 +185,7 @@
             {% set pourcent5 = 100 * nbNotes[5] / cardNotes %}
         {% endif %}
 
-        {% if reservations|length != 0 %}
+        {% if reservations|length != 0 or cardNotes != 0 %}
             <div class="row  ml-4 mr-4 mb-4">
                 <div class="col-md-1">
                 </div>  

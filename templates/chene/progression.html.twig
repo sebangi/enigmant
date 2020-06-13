@@ -53,22 +53,8 @@
                         <div class="text-center">
                             <h2 class="mb-0">
                                 {% for jeu in jeuxEnChene %}
-                                    {% if jeu.collectionChene == collection %}
-                                        <a class="btn rounded-circle badge-progression mt-2 mb-2 " 
-                                           {% if app.user.aReussiJeu( jeu ) %}
-                                               style="border-color:{{jeu.couleur}};"
-                                           {% else %}
-                                               style="border-color:#ab5200;"
-                                           {% endif %}
-                                           data-toggle="tooltip" data-placement="bottom" title="{{ jeu.nom}}" 
-                                           href="{{ path("jeuEnChene.show", { slug: jeu.slug, id: jeu.id }) }}">
-                                            {#                                <span class="fas fa-times align-middle" aria-hidden="true"></span>#}
-                                            {% if app.user.aReussiJeu( jeu ) %}
-                                                <span class="font-weight-bold">{{ jeu.num }}</span>
-                                            {% else %}
-                                                <span class="fas fa-times align-middle" aria-hidden="true"></span>
-                                            {% endif %}
-                                        </a>
+                                    {% if jeu.collectionChene == collection %}                                        
+                                        {% include "chene/_medaillon.html.twig" with { 'jeu' : jeu } %}                                        
                                     {% endif %}
                                 {% endfor %} 
                             </h2>

@@ -1,31 +1,15 @@
-<div class="card mb-4 border-dark">
-    <div class="container">
-        <div class="row position-relative align-items-center">
-            <div class="col-md-2 no-padding">    
-                {% if reservation.jeu.imageName %}
-                    <img class="card-img-top" src="{{ vich_uploader_asset(reservation.jeu, 'imageFile') | imagine_filter("my_thumb") }}" > 
-                {% else %}
-                    <img class="card-img-top" src="{{ 'images/jeuEnChene/vide.jpg' | imagine_filter("my_thumb") }}" > 
-                {% endif%}
-            </div>
-
-            <div class="col-md-5 text-center">
-                <h1 class="text-color-2">
-                    {{ reservation.jeu.nom }}
-                </h1>
-                <div class="font-italic font-weight-bold">
-                    effectuée le {{ reservation.dateDemande | format_datetime('long', 'short', locale='fr')}}
-                </div>
-            </div>
-            <div class="col-md-2 text-center">
-                <div class="font-weight-bold">Statut :</div>
-                {{ reservation.getStatus() }}
-            </div>
-            <div class="col-md-3 text-center">
-                <a href="{{ path("chene.location.show", { id : reservation.getId(), slug : reservation.getSlug()} ) }}" class="btn mon-btn chene">
-                    Voir la location
-                </a>
-            </div>
-        </div>    
-    </div>
-</div>
+<a class="btn rounded-circle badge-progression mt-2 mb-2 " 
+   {% if app.user.aReussiJeu( jeu ) %}
+       style="border-color:{{jeu.couleur}};"
+   {% else %}
+       style="border-color:#ab5200;"
+   {% endif %}
+   data-toggle="tooltip" data-placement="bottom" title="{{ jeu.nom}}" 
+   href="{{ path("jeuEnChene.show", { slug: jeu.slug, id: jeu.id }) }}">
+    {#                                <span class="fas fa-times align-middle" aria-hidden="true"></span>#}
+    {% if app.user.aReussiJeu( jeu ) %}
+        <span class="font-weight-bold">{{ jeu.num }}</span>
+    {% else %}
+        <span class="fas fa-times align-middle" aria-hidden="true"></span>
+    {% endif %}
+</a>

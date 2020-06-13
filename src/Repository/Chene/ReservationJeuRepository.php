@@ -69,6 +69,23 @@ class ReservationJeuRepository extends ServiceEntityRepository {
     /**
      * @return 
      */
+    public function findAllReservationsAvecNotes($id_jeu): array {
+        return $this->createQueryBuilder('r')
+                        ->select('r', 'u')
+                        ->Join('r.jeu', 'j')
+                        ->Join('r.user', 'u')
+                        ->where('j.id = :id_jeu')
+                        ->andWhere('r.note != -1')
+                        ->setParameter('id_jeu', $id_jeu)
+                        ->orderBy('r.dateDemande', 'DESC')
+                        ->getQuery()
+                        ->getResult()
+        ;
+    }
+    
+    /**
+     * @return 
+     */
     public function findNoteMoyenne($id_jeu): array {
         return $this->createQueryBuilder('r')
                         ->select("avg(r.note)")

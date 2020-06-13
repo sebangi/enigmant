@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\General\User;
 use App\Form\General\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\General\Conversation;
+use App\Entity\General\Message;
 
 class SecurityController extends BaseController
 {
@@ -48,6 +50,27 @@ class SecurityController extends BaseController
         ]);
     }
             
+    
+    private function creerConversation(User $user) {
+        date_default_timezone_set('Europe/Paris');
+        setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
+
+        $conversation = new Conversation();
+        $conversation->setUser($user);
+        $conversation->setSujet("Bienvenue");
+        $conversation->setCreeParGourou(true);
+        
+        $this->em->persist($conversation);
+
+        $message1 = $this->creerMessage($conversation);
+        $message1->setVuGourou(false);
+        $message1->setTexte("Bonjour " . $user->getUsername() . ", \n\n"
+                . "Bienvenue sur le site d'Énigmant !\n" 
+                . "Si vous avez des questions, des remarques, des suggestions, n'hésitez pas à écrire ci-dessous votre message.\n\n"
+                . "À bientôt...");
+        $this->em->persist($message1);
+    }
+    
     /**
      * @Route("/register", name="registration")
      */
@@ -68,6 +91,7 @@ class SecurityController extends BaseController
 
             $this->em->persist($user);            
             $this->ajouterPremierGrade($user);
+            $this->creerConversation($user);
             
             $this->em->flush();
 

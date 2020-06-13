@@ -31,6 +31,16 @@ abstract class BaseController extends AbstractController {
     public function __construct(EntityManagerInterface $entityManager) {
         $this->em = $entityManager;         
     }
+    
+    protected function creerMessage(Conversation $conversation) {
+        $message = new Message();
+        $message->setConversation($conversation);
+        $message->setMessageGourou(true);
+        $message->setVu(false);
+        $message->setVuGourou(true);
+
+        return $message;
+    }
 
     // CREATION D'UN NOUVEAU USER
     protected function ajouterPremierGrade(User $user) {

@@ -129,21 +129,6 @@ class AdminReservationJeuController extends BaseController {
 
     /**
      * 
-     * @param \App\Controller\Admin\Chene\Conversation $conversation
-     * @return Message
-     */
-    private function creerMessage(Conversation $conversation) {
-        $message = new Message();
-        $message->setConversation($conversation);
-        $message->setMessageGourou(true);
-        $message->setVu(false);
-        $message->setVuGourou(true);
-
-        return $message;
-    }
-
-    /**
-     * 
      * @param ReservationJeu $reservation
      */
     private function creerMessageRetraitPret(ReservationJeu $reservation) {

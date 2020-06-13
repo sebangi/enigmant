@@ -66,17 +66,7 @@ class ReservationController extends BaseController {
             ]);
         } else
             return $this->redirect($this->generateUrl('home'));
-    }
-
-    private function creerMessage(Conversation $conversation) {
-        $message = new Message();
-        $message->setConversation($conversation);
-        $message->setMessageGourou(true);
-        $message->setVu(false);
-        $message->setVuGourou(true);
-
-        return $message;
-    }
+    }    
 
     private function creerMessageRetrait(ReservationJeu $reservation, Conversation $conversation) {
         if ($reservation->getRetraitDomicile()) {
@@ -219,10 +209,11 @@ class ReservationController extends BaseController {
         $this->em->persist($conversation);
 
         $message1 = $this->creerMessage($conversation);
-        $message1->setTexte("Bonjour, \n"
-                . "Merci d'avoir loué le Jeu en Chêne " . $reservation->getJeu()->getNom() . ". "
-                . "Nous préparons au plus vite le Jeu en Chêne.\n"
-                . "Nous espèrons qu'il vous plaira !\n");
+        $message1->setVuGourou(false);
+        $message1->setTexte("Bonjour " . $reservation->getUser()->getUsername() . ", \n\n"
+                . "Vous avez loué le Jeu en Chêne " . $reservation->getJeu()->getNom() . ".\n"
+                . "Nous préparons au plus vite le Jeu en Chêne.\n\n"
+                . "Nous espèrons vivement qu'il vous plaira !\n");
         $this->em->persist($message1);
 
         $this->creerMessageRetrait($reservation, $conversation, false);

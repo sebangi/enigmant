@@ -10,9 +10,9 @@
             </div>
 
             <div class="col-md-5 text-center">
-                <h1 class="text-color-2">
+                <h2 class="text-color-2">
                     {{ reservation.jeu.nom }}
-                </h1>
+                </h2>
                 <div class="font-italic font-weight-bold">
                     effectuée le {{ reservation.dateDemande | format_datetime('long', 'short', locale='fr')}}
                 </div>
@@ -21,7 +21,19 @@
                 <div class="font-weight-bold">Statut :</div>
                 {{ reservation.getStatus() }}
             </div>
-            <div class="col-md-3 text-center">
+            <div class="col-md-1 text-center">
+                <h1 class="m-0">
+                    {% if reservation.getEtat > 4 %}
+                        {% if reservation.reussi %}
+                            <span class="fas fa-smile text-success" data-toggle="tooltip" data-placement="bottom" title="Bravo ! Vous avez le médaillon"></span>
+                        {% else %}
+                            <span class="fas fa-sad-cry text-danger" data-toggle="tooltip" data-placement="bottom" title="Vous n'avez pas trouvé le médaillon"></span>
+                        {% endif %}
+                    {% endif%}
+
+                </h1>
+            </div>
+            <div class="col-md-2 text-center">
                 <a href="{{ path("chene.location.show", { id : reservation.getId(), slug : reservation.getSlug()} ) }}" class="btn mon-btn chene">
                     Voir la location
                 </a>
