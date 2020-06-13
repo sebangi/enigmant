@@ -69,6 +69,11 @@ class ConversationRepository extends ServiceEntityRepository {
                         ->andwhere('c.theme = :theme')
                         ->setParameter('theme', $recherche->getTheme()->getId());
             }
+            
+            if ($recherche->getQuestion()) {
+                $query = $query
+                        ->andwhere('c.question = true');
+            }
         }
 
         return $query

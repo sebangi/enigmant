@@ -16,6 +16,12 @@ class ConversationRecherche {
      * @var Theme|null     
      */
     private $theme;
+    
+    
+    /**
+     * @var bool|null  
+     */
+    private $question;    
         
     function __construct()
     {
@@ -39,6 +45,16 @@ class ConversationRecherche {
         $this->theme = $theme;
         return $this;
     }
+
+    public function getQuestion() {
+        return $this->question;
+    }
+
+    public function setQuestion($question) {
+        $this->question = $question;
+        return $this;
+    }
+
 
 
 }
