@@ -1,7 +1,11 @@
 <div class="card border-dark">
-    <div class="card-header">
-        <div class="row">
-            <div class="col-md-10">
+    <div class="card-header p-0">
+        <div class="row m-0">
+            <div class="col-md-1 {% if conversation.theme %}bg-{{conversation.theme.route}}{% endif %}">
+                <h4 class="m-0 pb-0 pt-0 ">
+                </h4>
+            </div>
+            <div class="col-md-9 mt-2 mb-2">
                 <h3 class="mb-0">
                     {% if is_granted('ROLE_ADMIN')%}
                         [{{ conversation.user.username }}] 
@@ -12,9 +16,9 @@
                 </h3>
             </div>
             {% if not conversation.getCreeParGourou() or is_granted('ROLE_ADMIN') %}
-                <div class="col-md-2">
+                <div class="col-md-2 mt-2 mb-2">
                     <div class="float-right">
-                        <a href="{{ path("general.conversation.edit", {id : conversation.id} ) }}" class="btn btn-outline-secondary">
+                        <a href="{{ path("general.conversation.edit", {id : conversation.id} ) }}" class="btn btn-outline-dark">
                             <span class="fas fa-pencil-alt" aria-hidden="true"></span>
                         </a>
 
@@ -36,14 +40,21 @@
 
 
     {% if display_body %}
-        <div class="card-body text-dark pt-2 pb-2">  
+        <div class="card-body text-dark pt-2 pb-2 
+             {% if conversation.question %}
+                 {% if conversation.questionReussi %}
+                     bg-color-success
+                 {% else %}
+                     bg-color-danger
+                 {% endif %}
+             {% endif %}">  
 
             {% if mode == "index" %}
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-6 text-right  align-self-center">
                         <a class="btn mon-btn" href="{{ path("general.conversation.show", {id : conversation.id, slug : conversation.getSlug()} ) }}{{conversation.getAncreNonVu( is_granted('ROLE_ADMIN') )}}">Voir la conversation</a>
                     </div> 
-                    <div class="col-md-9 mt-2">                         
+                    <div class="col-md-5 mt-2 align-self-center">                         
                         {% if nbMessagesNonLus == 0 %}
                             <h5><span class="fas fa-envelope" aria-hidden="true"></span> Tous les messages ont été lus</h5>
                         {% elseif nbMessagesNonLus == 1 %}                    
@@ -51,41 +62,61 @@
                         {% else %}                    
                             <h5><span class="fas fa-envelope-open-text text-danger" aria-hidden="true"></span> {{ nbMessagesNonLus }} messages non lus</h5>
                         {% endif%}
-                    </div>                
+                    </div>   
+                    <div class="col-md-1 text-center align-self-center">
+                        {% if conversation.question %}
+                            <h4 class="mb-0 p-2 border border-dark rounded-circle bg-white" data-toggle="tooltip" data-placement="right"
+                                {% if conversation.questionReussi %}
+                                    title="Votre réponse est validée"
+                                {% else %}
+                                    title="Cette conversation nécessite une réponse"
+                                {% endif %}
+                                >
+                                {% if conversation.questionReussi %}
+                                    <span class="fas fa-check text-success" aria-hidden="true"></span>
+                                {% else %}
+                                    <span class="fas fa-question text-danger" aria-hidden="true"></span>
+                                {% endif %}
+
+                            </h4>
+                        {% endif %}
+                    </div> 
                 </div>
             {% endif %}
 
             {% if reference and mode == "index" %}
-                <hr>
+                <hr class="mt-2 mb-2">
             {% endif%}
 
             {% if conversation.lienReservation %}              
-                <div class="row">
-                    <div class="col-12">
-                        <h5>
+                <div class="row ">
+                    <div class="col-9 pr-0 align-self-center">
+                        <h5 class="m-0">
                             {{ conversation.lienReservation.getIntitule() }}
-                            <a href="{{ path("chene.location.show", 
-                            {   id : conversation.lienReservation.getId(), 
-                                slug : conversation.lienReservation.getSlug()} ) }}" class="btn mon-btn float-right">
-                                Accéder à la location
-                            </a>
-                        </h5>  
 
+                        </h5> 
+                    </div>
+                    <div class="col-3 text-right pl-0">
+
+                        <a href="{{ path("chene.location.show", 
+                            {   id : conversation.lienReservation.getId(), 
+                                slug : conversation.lienReservation.getSlug()} ) }}" class="btn mon-btn-outline">
+                            Accéder à la location
+                        </a>
                     </div>
                 </div>
             {% endif %}
             {% if conversation.lienJeuEnChene %}              
                 <div class="row">
-                    <div class="col-12">
-                        <h5>
+                    <div class="col-12 pr-0 align-self-center">
+                        <h5 class="m-0">
                             La conversation porte sur le jeu
                             <a href="{{ path("jeuEnChene.show", 
                             {   id : conversation.lienJeuEnChene.getId(), 
-                                slug : conversation.lienJeuEnChene.getSlug()} ) }}" class="btn-link">
+                                slug : conversation.lienJeuEnChene.getSlug()} ) }}" class="btn mon-btn-outline">
                                 {{ conversation.lienJeuEnChene.getNom() }}
                             </a>
-                        </h5>  
-
+                        </h5> 
                     </div>
                 </div>
             {% endif %}

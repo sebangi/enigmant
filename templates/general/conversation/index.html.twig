@@ -11,10 +11,13 @@
         {% if is_granted('ROLE_ADMIN') %}
             <div class="container">
                 {{ form_start(form) }}
-                <div class="col-md-10 offset-md-1">
+                <div class="col-md-10 offset-md-1  pl-0 pr-0">
                     <div class="input-group">
                         <div class="mr-2">
                             {{ form_widget(form.user) }}
+                        </div>
+                        <div class="mr-2">
+                            {{ form_widget(form.theme) }}
                         </div>
                         {{ form_widget(form.recherche) }}
                     </div>
@@ -37,13 +40,32 @@
     {{ include('outils/_flash.html.twig') }}   
 
     <div class="container mt-4 mb-4">
-        <div class="col-md-10 offset-md-1">
-            <a href="{{ path("general.conversation.new" ) }}" class="btn btn-secondary">Créer une nouvelle conversation</a>
+        {% if not is_granted('ROLE_ADMIN') %}
+                {{ form_start(form) }}
+        {% endif %}    
+                <div class="row">
+            <div class="col-md-5 offset-md-1 pl-0 pr-0">
+                <a href="{{ path("general.conversation.new" ) }}" class="btn btn-secondary">Créer une nouvelle conversation</a>
+            </div>
+
+            {% if not is_granted('ROLE_ADMIN') %}
+                <div class="col-md-3 pl-0 pr-2">
+                    {{ form_widget(form.theme) }}
+                </div> 
+                <div class="col-md-2 text-left pl-0 pr-0">
+                    {{ form_widget(form.recherche) }}
+                </div> 
+                
+            {% endif %}
         </div>
+        {% if not is_granted('ROLE_ADMIN') %}
+             {{ form_end(form) }}
+        {% endif %}    
+        
 
         {% for conversation in conversations  %}
-            <div class="mt-4">
-                <div class="col-md-10 offset-md-1">
+            <div class="row mt-4">
+                <div class="col-md-10 offset-md-1 pl-0 pr-0">
                     {%  include 'general/conversation/_conversation.html.twig' with {'mode': 'index'} %}
                 </div>
             </div>

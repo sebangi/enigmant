@@ -28,16 +28,26 @@
 
         {% set nbMessagesNonLus = reservation.conversation.getNbMessagesNonLus( is_granted('ROLE_ADMIN') )%}
 
-        <a class="btn mon-btn mb-2" href="{{ path("general.conversation.show", {id : reservation.conversation.id, slug : reservation.conversation.getSlug()} ) }}{{reservation.conversation.getAncreNonVu( is_granted('ROLE_ADMIN') )}}">
-            Accéder à la conversation 
-            {% if nbMessagesNonLus > 0 %}                    
-                <span class="fas fa-envelope-open-text text-danger" aria-hidden="true"></span>
-            {% endif%}
-        </a>
-
-        {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path("admin.chene.reservation.edit.etat", {id : reservation.id, champ : "etat"} ) }}" class="btn btn-warning float-right mb-2">Modifier l'état</a>
-        {% endif %} 
+        <div class="row pl-3 pr-3">  
+            <div class="{% if is_granted('ROLE_ADMIN') %}col-md-3 p-0{% else %}col-md-12 p-0{% endif %}">
+                <a class="btn mon-btn mb-2" href="{{ path("general.conversation.show", {id : reservation.conversation.id, slug : reservation.conversation.getSlug()} ) }}{{reservation.conversation.getAncreNonVu( is_granted('ROLE_ADMIN') )}}">
+                    Accéder à la conversation 
+                    {% if nbMessagesNonLus > 0 %}                    
+                        <span class="fas fa-envelope-open-text text-danger" aria-hidden="true"></span>
+                    {% endif%}
+                </a>
+            </div> 
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="col-md-7 text-center mt-2 p-0">
+                    <b>{{ reservation.user.username }}</b> ({{ reservation.user.prenom }} {{ reservation.user.nom }}); 
+                    tel : <b>{{ reservation.user.telephone }}</b>; 
+                    email : <b>{{ reservation.user.email }}</b>
+                </div> 
+                <div class="col-md-2 text-right p-0">
+                    <a href="{{ path("admin.chene.reservation.edit.etat", {id : reservation.id, champ : "etat"} ) }}" class="btn btn-warning float-right mb-2">Modifier l'état</a>
+                </div> 
+            {% endif %} 
+        </div>    
 
         {#        ######################################################################"
                 RETRAIT DU JEU EN CHENE etat = 0 ou 1

@@ -52,8 +52,8 @@ $(document).ready(function ()
     $('[data-toggle="popover"]').on('click', function (e) {
         $('[data-toggle="popover"]').not(this).popover('hide');
     });
-
 });
+
 
 import 'select2';
 $('select').select2();

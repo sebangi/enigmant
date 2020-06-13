@@ -66,6 +66,10 @@ body {
     background-color: honeydew;
 }
 
+.bg-color-danger { 
+    background-color: tomato;
+}
+
 .bg-chene {
     background-image: url("../../public/images/fond/chene.png");
 }

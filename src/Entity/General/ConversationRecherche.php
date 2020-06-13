@@ -2,6 +2,7 @@
 
 namespace App\Entity\General;
 use App\Entity\General\User;
+use App\Entity\General\Theme;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ConversationRecherche {
@@ -10,6 +11,11 @@ class ConversationRecherche {
      * @var User|null     
      */
     private $user;
+    
+    /**
+     * @var Theme|null     
+     */
+    private $theme;
         
     function __construct()
     {
@@ -25,4 +31,14 @@ class ConversationRecherche {
         return $this;
     }    
     
+    public function getTheme() {
+        return $this->theme;
+    }
+
+    public function setTheme(Theme $theme) {
+        $this->theme = $theme;
+        return $this;
+    }
+
+
 }

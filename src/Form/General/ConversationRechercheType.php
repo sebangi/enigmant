@@ -7,6 +7,8 @@ use App\Entity\General\Conversation;
 use Symfony\Component\Form\AbstractType;
 use App\Entity\General\User;
 use App\Repository\General\UserRepository;
+use App\Entity\General\Theme;
+use App\Repository\General\ThemeRepository;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -16,7 +18,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 class ConversationRechercheType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder
+        if ( $options["admin"] )
+            $builder
                 ->add('user', EntityType::class, [
                     'class' => User::class,
                     'choice_label' => 'username',
@@ -25,6 +28,20 @@ class ConversationRechercheType extends AbstractType {
                     'query_builder' => function (UserRepository $er) {
                         return $er->createQueryBuilder('u')
                                 ->orderBy('u.username', 'ASC');
+                    },
+                    'required' => false
+                ]);
+        
+        $builder
+                ->add('theme', EntityType::class, [
+                    'class' => Theme::class,
+                    'choice_label' => 'nom',
+                    'label' => false,
+                    'placeholder' => 'Tous les thèmes',
+                    'query_builder' => function (ThemeRepository $er) {
+                        return $er->createQueryBuilder('t')
+                                ->where('t.disponible = true')
+                                ->orderBy('t.nom', 'ASC');
                     },
                     'required' => false
                 ])
@@ -43,6 +60,7 @@ class ConversationRechercheType extends AbstractType {
             'data_class' => ConversationRecherche::class,
             'translation_domain' => 'forms',
             'method' => 'get',
+            'admin' => false,
             'csrf_protection' => false
         ]);
     }
@@ -50,5 +68,5 @@ class ConversationRechercheType extends AbstractType {
     public function getBlockPrefix() {
         return '';
     }
-    
+
 }

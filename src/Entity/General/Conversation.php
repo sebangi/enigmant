@@ -52,6 +52,22 @@ class Conversation {
      */
     private $creeParGourou = false;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Theme::class)
+     */
+    private $theme;
+    
+    
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $question = false;    
+    
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $questionReussi = false;
+
     public function __construct() {
         $this->messages = new ArrayCollection();
     }
@@ -72,6 +88,25 @@ class Conversation {
         return $this->id;
     }
 
+    public function getQuestion() {
+        return $this->question;
+    }
+
+    public function getQuestionReussi() {
+        return $this->questionReussi;
+    }
+
+    public function setQuestion($question) {
+        $this->question = $question;
+        return $this;
+    }
+
+    public function setQuestionReussi($questionReussi) {
+        $this->questionReussi = $questionReussi;
+        return $this;
+    }
+
+        
     /**
      * 
      * @return string|null
@@ -272,6 +307,18 @@ class Conversation {
     public function setCreeParGourou(bool $creeParGourou): Conversation
     {
         $this->creeParGourou = $creeParGourou;
+
+        return $this;
+    }
+
+    public function getTheme(): ?Theme
+    {
+        return $this->theme;
+    }
+
+    public function setTheme(?Theme $theme): self
+    {
+        $this->theme = $theme;
 
         return $this;
     }

@@ -7,6 +7,8 @@ use App\Form\Chene\ReservationJeuType;
 use App\Entity\General\Grade;
 use App\Entity\General\Niveau;
 use App\Entity\General\User;
+use App\Repository\General\ThemeRepository;
+use App\Entity\General\Theme;
 use App\Entity\Chene\CollectionChene;
 use App\Repository\General\NiveauRepository;
 use App\Repository\Chene\CollectionCheneRepository;
@@ -244,6 +246,10 @@ class AdminReservationJeuController extends BaseController {
         $conversation->setUser($user);
         $conversation->setSujet("Énigme cachée de la collection " . $collection->getNom());
         $conversation->setCreeParGourou(true);
+        $theme = $this->getDoctrine()->getRepository(Theme::class)->findOneBy(["nom" => "chêne"]);
+        $conversation->setTheme($theme);
+        $conversation->setQuestion(true);
+        $conversation->setQuestionReussi(false);        
 
         $this->em->persist($conversation);
 
@@ -255,7 +261,7 @@ class AdminReservationJeuController extends BaseController {
     
     
     /**
-     *  Envoyer l'énigme des trois première collections
+     *  Envoyer l'énigme des trois premières collections
      * @param User $user
      * @param CollectionChene $collection
      */
@@ -267,6 +273,10 @@ class AdminReservationJeuController extends BaseController {
         $conversation->setUser($user);
         $conversation->setSujet("Énigme des trois premières collections");
         $conversation->setCreeParGourou(true);
+        $theme = $this->getDoctrine()->getRepository(Theme::class)->findOneBy(["nom" => "chêne"]);
+        $conversation->setTheme($theme);
+        $conversation->setQuestion(true);
+        $conversation->setQuestionReussi(false);   
 
         $this->em->persist($conversation);
 

@@ -74,23 +74,4 @@ class HomeController extends BaseController {
                     "theme" => "Fanteasy"
         ]);
     }
-
-    /**
-     * @route("/testMail", name="testMail")  
-     * @return Response
-     */
-    public function testMail(MailerInterface $mailer): Response {
-        $email = (new Email())
-                ->from($this->getParameter('MAIL_FROM_GOUROU'))
-                ->subject("Nouvelle réservation")
-                ->to($this->getParameter('MAIL_DESTINATAIRE_GOUROU'))
-                ->text('Un premier message')
-        ;
-        
-        $mailer->send($email);
-        $this->addFlash('success', 'Mail envoyé.');
-        
-        return $this->redirectToRoute('home');
-    }
-
 }

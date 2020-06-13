@@ -10,6 +10,8 @@ use App\Entity\Chene\ReservationJeu;
 use App\Entity\General\Conversation;
 use App\Entity\General\Message;
 use App\Form\Chene\ReservationJeuType;
+use App\Repository\General\ThemeRepository;
+use App\Entity\General\Theme;
 use App\Repository\Chene\ReservationJeuRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -80,7 +82,7 @@ class ReservationController extends BaseController {
         if ($reservation->getRetraitDomicile()) {
             $message = $this->creerMessage($conversation);
             $message->setTexte("Vous avez choisi d'effectuer le retrait à Saint Philbert de Grand Lieu, le " . strftime("%A %d %B %Y à %H:%M", $reservation->getDateRetrait()->getTimestamp()) . ".\n"
-                    . "Nous vous confirmerons le retrait par un nouveau message dès que le Jeu sera prêt.\n"
+                    . "Nous vous confirmerons le retrait ci-dessous dans un prochain message dès que le Jeu sera prêt.\n"
                     . "En cas de délai court, vous pouvez nous contacter au 06 76 49 57 23.\n");
 
             $this->em->persist($message);
@@ -211,6 +213,8 @@ class ReservationController extends BaseController {
         $conversation->setUser($this->getUser());
         $conversation->setSujet("Location du Jeu en Chêne " . $reservation->getJeu()->getNom());
         $conversation->setCreeParGourou(true);
+        $theme = $this->getDoctrine()->getRepository(Theme::class)->findOneBy(["nom" => "chêne"]);
+        $conversation->setTheme($theme);
 
         $this->em->persist($conversation);
 
@@ -229,17 +233,29 @@ class ReservationController extends BaseController {
     }
 
     private function envoyerMailLocation(ReservationJeu $reservation) {
-        $email = (new TemplatedEmail())
+        $email1 = (new TemplatedEmail())
                 ->from($this->getParameter('MAIL_FROM_GOUROU'))
                 ->subject("Location du Jeu en Chêne " . $reservation->getJeu()->getNom())
-                ->to($this->getParameter('MAIL_DESTINATAIRE_GOUROU'))
+                ->to($reservation->getUser()->getEmail())
                 ->htmlTemplate('chene/reservation/_email.html.twig')
                 ->context([
                     'reservation' => $reservation,
                 ])
         ;
 
-        $this->mailer->send($email);
+        $this->mailer->send($email1);
+        
+        $email2 = (new TemplatedEmail())
+                ->from($this->getParameter('MAIL_FROM_GOUROU'))
+                ->subject("ENIGMANT CHÊNE : Location du Jeu en Chêne " . $reservation->getJeu()->getNom())
+                ->to($this->getParameter('MAIL_DESTINATAIRE_GOUROU'))
+                ->htmlTemplate('chene/reservation/_emailGourou.html.twig')
+                ->context([
+                    'reservation' => $reservation,
+                ])
+        ;
+
+        $this->mailer->send($email2);
     }
 
     private function effectuerLocation(ReservationJeu $reservation) {
@@ -520,7 +536,7 @@ class ReservationController extends BaseController {
                     return $this->redirect($this->generateUrl('home'));
                 }
             } else
-                return $this->redirect($this->generateUrl('home'));
+                return $this->redirect($this->generateUrl('app_login'));
         }
 
         return $this->monRender('chene/reservation/show.html.twig', [

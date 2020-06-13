@@ -59,24 +59,26 @@ class ConversationController extends BaseController {
      * @return Response
      */
     public function index(Request $Requete): Response {
+        $recherche = new ConversationRecherche();
+        $form = $this->createForm(ConversationRechercheType::class, $recherche, ["admin" => $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')]);
+        $form->handleRequest($Requete);
+
+
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            $recherche = new ConversationRecherche();
-            $form = $this->createForm(ConversationRechercheType::class, $recherche);
-            $form->handleRequest($Requete);
-
             $conversations = $this->repository->getByDate(null, $recherche);
-
             return $this->monRender('/general/conversation/index.html.twig', [
-                    'conversations' => $conversations,
-                    'form' => $form->createView()                
+                        'conversations' => $conversations,
+                        'form' => $form->createView()
             ]);
-        } else {
-            $conversations = $this->repository->getByDate($this->getUser()->getId(), null);
+        } else if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            $conversations = $this->repository->getByDate($this->getUser()->getId(), $recherche);
 
             return $this->monRender('/general/conversation/index.html.twig', [
                         'conversations' => $conversations,
+                        'form' => $form->createView()
             ]);
-        }
+        } else
+            return $this->redirectToRoute('home');
     }
 
     public function marquer($messages, $est_admin) {
@@ -116,8 +118,15 @@ class ConversationController extends BaseController {
                         'id' => $conversation->getId(),
                         'slug' => $conversation->getSlug()], 301);
 
-        if ($this->test_non_appartenance($conversation))
-            return $this->redirectToRoute('general.conversation.index');
+
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+                if (($conversation->getUser()->getId() != $this->getUser()->getId())) {
+                    return $this->redirectToRoute('general.conversation.index');
+                }
+            } else
+                return $this->redirect($this->generateUrl('app_login'));
+        }
 
         $messages = $m_repository->findBy(array("conversation" => $conversation->getId()), array("date" => "ASC"));
 
