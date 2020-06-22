@@ -87,9 +87,9 @@ class User implements UserInterface {
     private $prenom;
 
     /**
-     * @ORM\Column(type="boolean", options={"default" : false})
+     * @ORM\Column(type="boolean", options={"default" : true})
      */
-    private $masque = false;
+    private $visible = true;
 
     /**
      * @ORM\Column(type="boolean", options={"default" : true})
@@ -105,6 +105,11 @@ class User implements UserInterface {
      * @ORM\Column(type="boolean", options={"default" : true})
      */
     private $receptionInformationGenerale = true;
+        
+    /**
+     * @ORM\Column(type="boolean", options={"default" : true})
+     */
+    private $receptionInformationNouveau = true;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\General\Conversation", mappedBy="user", orphanRemoval=true)
@@ -512,17 +517,17 @@ class User implements UserInterface {
      * 
      * @return bool|null
      */
-    public function getMasque(): ?bool {
-        return $this->masque;
+    public function getVisible(): ?bool {
+        return $this->visible;
     }
 
     /**
      * 
-     * @param bool $masque
+     * @param bool $visible
      * @return \App\Entity\General\User
      */
-    public function setMasque(bool $masque): User {
-        $this->masque = $masque;
+    public function setVisible(bool $visible): User {
+        $this->visible = $visible;
 
         return $this;
     }
@@ -583,7 +588,44 @@ class User implements UserInterface {
 
         return $this;
     }
+    
+    /**
+     * 
+     * @return type
+     */
+    public function getReservations() {
+        return $this->reservations;
+    }
 
+    /**
+     * 
+     * @return type
+     */
+    public function getReceptionInformationNouveau() {
+        return $this->receptionInformationNouveau;
+    }
+
+    /**
+     * 
+     * @param type $reservations
+     * @return \App\Entity\General\User
+     */
+    public function setReservations($reservations): User {
+        $this->reservations = $reservations;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param type $receptionInformationNouveau
+     * @return \App\Entity\General\User
+     */
+    public function setReceptionInformationNouveau($receptionInformationNouveau): User {
+        $this->receptionInformationNouveau = $receptionInformationNouveau;
+        return $this;
+    }
+
+    
     public function serialize() {
         return serialize([
             $this->id,

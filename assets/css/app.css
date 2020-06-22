@@ -98,6 +98,9 @@ body {
     filter: drop-shadow(0 0 1px #333);
 }
 
+.border-top-left {
+    border-radius: 3px 0px 0px 0px;
+}
 
 .mon-btn-outline {
     background-color: white;

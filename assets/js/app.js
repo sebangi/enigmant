@@ -21,6 +21,9 @@ import '../css/app.css';
 // the bootstrap module doesn't export/return anything
 require('bootstrap');
 
+require('bootstrap4-toggle/css/bootstrap4-toggle.min.css');
+require('bootstrap4-toggle/js/bootstrap4-toggle.min.js');
+
 // or you can include specific pieces
 //require('bootstrap/js/dist/tooltip');
 //require('bootstrap/js/dist/popover');

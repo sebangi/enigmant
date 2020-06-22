@@ -1366,6 +1366,11 @@ bootstrap-star-rating@^4.0.6:
   resolved "https://registry.yarnpkg.com/bootstrap-star-rating/-/bootstrap-star-rating-4.0.6.tgz#4ec4cc3a8fdc126b8495454c9e640d3fc6b2a193"
   integrity sha512-i/m2HuIWEQWoqxrlXohvnsiM2Vv77eaaS26/EjmMD4sUb79W+yDKbzEjtiVbGLNdGFaaRyVfdxZONELzqWca0g==
 
+bootstrap4-toggle@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/bootstrap4-toggle/-/bootstrap4-toggle-3.6.1.tgz#867f2c350727022e6358ec0d43e43b7cfb609f74"
+  integrity sha512-eRejcTc9YurhZ64nHY9Ii9DQn+F9/R74H9RPoeANVM3N1+C2lZ2tUuFCx1w3orOJ1y/iG4A7iCwdDZphMDIrYg==
+
 bootstrap@>=4.1.2:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.5.0.tgz#97d9dbcb5a8972f8722c9962483543b907d9b9ec"

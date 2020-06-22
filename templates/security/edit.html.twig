@@ -1,0 +1,81 @@
+{% extends "general/baseGeneral.html.twig" %}
+
+{% block title  %}
+    Mon profil
+{% endblock title  %}
+
+{% block body %}
+    <div class="jumbotron mon-jumbotron third-nav sticky-top">
+        <h1 class="text-center">Mon profil</h1>
+    </div>
+
+    {{ include('outils/_flash.html.twig') }}   
+
+    <div class="container mt-4">
+        <div class="card mb-4 border-dark" >
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0 mt-0">Informations générales</h4>
+            </div>
+            <div class="card-body p-3">
+                <div class="container">
+                    {{ form_start(form) }}
+
+                    <div class="row mb-4">    
+                        {{ form_errors(form) }}                    
+                        <div class="col-md-2 no-margin text-right align-self-center">
+                            Nom d'utilisateur :
+                        </div>
+                        <div class="col-md-4 no-margin  align-self-center">
+                            {{ form_widget(form.username) }}
+                        </div>
+                        <div class="col-md-6 no-margin  align-self-center">
+                            <i>Seul votre nom d'utilisateur est visible sur ce site</i>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">                        
+                        <div class="col-md-2 no-margin text-right align-self-center">
+                            Prénom :
+                        </div>
+                        <div class="col-md-4 no-margin  align-self-center">
+                            {{ form_widget(form.prenom) }}
+                        </div>
+                        <div class="col-md-2 no-margin text-right align-self-center">
+                            Nom :
+                        </div>
+                        <div class="col-md-4 no-margin  align-self-center">
+                            {{ form_widget(form.nom) }}
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">                        
+                        <div class="col-md-2 no-margin text-right align-self-center">
+                            Votre email :
+                        </div>
+                        <div class="col-md-4 no-margin  align-self-center">
+                            {{  form_widget(form.email) }}
+                        </div>
+                        <div class="col-md-2 no-margin text-right align-self-center">
+                            Téléphone :
+                        </div>
+                        <div class="col-md-4 no-margin  align-self-center">
+                            {{  form_widget(form.telephone) }}
+                        </div>
+                    </div>           
+                    
+                    <hr>
+                        
+                    <div class="row mt-2">    
+                        <div class="col-md-12 text-center">
+                            <button class="btn btn-success mr-2">Valider</button>
+                            {{ form_widget(form.cancel) }}  
+                        </div>
+                    </div>            
+                    {{ form_end(form) }}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+{% endblock body %}

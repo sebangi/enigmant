@@ -65,10 +65,51 @@ class RegistrationFormType extends AbstractType {
                 ])
         ->add('prenom')
         ->add('nom')
-        ->add('masque')
-        ->add('receptionInformationChasse')
-        ->add('receptionInformationChene')
-        ->add('receptionInformationGenerale')
+            ->add('visible', CheckboxType::class, [
+                'label' => false,
+                'attr' => [
+                    'data-toggle'   => "toggle",
+                    'data-onstyle'  => "dark",
+                    'data-on'       => "Oui",
+                    'data-off'      => "Non",
+                    ],
+            ])                
+            ->add('receptionInformationChasse', CheckboxType::class, [
+                'label' => false,
+                'attr' => [
+                    'data-toggle'   => "toggle",
+                    'data-onstyle'  => "dark",
+                    'data-on'       => "Oui",
+                    'data-off'      => "Non",
+                    ],
+                ])
+            ->add('receptionInformationChene', CheckboxType::class, [
+                'label' => false,
+                'attr' => [
+                    'data-toggle'   => "toggle",
+                    'data-onstyle'  => "dark",
+                    'data-on'       => "Oui",
+                    'data-off'      => "Non",
+                    ],
+                ])  
+            ->add('receptionInformationGenerale', CheckboxType::class, [
+                'label' => false,
+                'attr' => [
+                    'data-toggle'   => "toggle",
+                    'data-onstyle'  => "dark",
+                    'data-on'       => "Oui",
+                    'data-off'      => "Non",
+                    ],
+                ])  
+            ->add('receptionInformationNouveau', CheckboxType::class, [
+                'label' => false,
+                'attr' => [
+                    'data-toggle'   => "toggle",
+                    'data-onstyle'  => "dark",
+                    'data-on'       => "Oui",
+                    'data-off'      => "Non",
+                    ],
+                ])  
         ;
     }
 

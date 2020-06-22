@@ -144,6 +144,11 @@ class AdminUserController extends BaseController {
      */
     public function delete(Request $request, User $user): Response {
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+            
+            foreach ($user->getBabioles() as $babiole) {
+                $babiole->setUser(null);
+            }
+            
             $this->em->remove($user);
             $this->em->flush();
             $this->addFlash('success', 'Utilisateur supprimé avec succès.');

@@ -79,7 +79,7 @@
                                     <span class="fas fa-envelope" aria-hidden="true"></span>    
                                 {% endif%}
                             </a>    
-                            <a href="{{ path("app_login") }}" class="pb-0 btn" data-toggle="tooltip-navbar" data-placement="bottom" title="Mon profil">
+                            <a href="{{ path('profil', { id : app.user.id }) }}" class="pb-0 btn" data-toggle="tooltip-navbar" data-placement="bottom" title="Mon profil">
                                 <span class="fas fa-user" aria-hidden="true"></span>
                             </a>
                             <a href="{{ path('logout') }}" class="pb-0 nav-link btn" style="display: inline-block" data-toggle="tooltip-navbar" data-placement="bottom" title="Se déconnecter">

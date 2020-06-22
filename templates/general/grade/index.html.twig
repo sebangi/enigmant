@@ -114,7 +114,7 @@
                                         {% set virgule = false %}
                                         {% set nb_masque = 0 %}
                                         title="{% for yaki in yakis  %}
-                                                    {% if yaki.user.masque %}
+                                                    {% if not yaki.user.visible %}
                                                         {% set nb_masque = nb_masque + 1 %}
                                                     {% else %}    
                                                         {% if virgule %}, {% endif %} 
