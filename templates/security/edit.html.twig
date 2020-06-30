@@ -25,7 +25,8 @@
                         <div class="col-md-2 no-margin text-right align-self-center">
                             Nom d'utilisateur :
                         </div>
-                        <div class="col-md-4 no-margin  align-self-center">
+                        <div class="col-md-4 no-margin  align-self-center">                            
+                            {{ form_errors(form.username) }}
                             {{ form_widget(form.username) }}
                         </div>
                         <div class="col-md-6 no-margin  align-self-center">
@@ -37,13 +38,15 @@
                         <div class="col-md-2 no-margin text-right align-self-center">
                             Prénom :
                         </div>
-                        <div class="col-md-4 no-margin  align-self-center">
+                        <div class="col-md-4 no-margin  align-self-center">                       
+                            {{ form_errors(form.prenom) }}
                             {{ form_widget(form.prenom) }}
                         </div>
                         <div class="col-md-2 no-margin text-right align-self-center">
                             Nom :
                         </div>
-                        <div class="col-md-4 no-margin  align-self-center">
+                        <div class="col-md-4 no-margin  align-self-center">                                                   
+                            {{ form_errors(form.nom) }}
                             {{ form_widget(form.nom) }}
                         </div>
                     </div>
@@ -52,13 +55,15 @@
                         <div class="col-md-2 no-margin text-right align-self-center">
                             Email :
                         </div>
-                        <div class="col-md-4 no-margin  align-self-center">
+                        <div class="col-md-4 no-margin  align-self-center">                       
+                            {{ form_errors(form.email) }}
                             {{  form_widget(form.email) }}
                         </div>
                         <div class="col-md-2 no-margin text-right align-self-center">
                             Téléphone :
                         </div>
-                        <div class="col-md-4 no-margin  align-self-center">
+                        <div class="col-md-4 no-margin  align-self-center">                       
+                            {{ form_errors(form.telephone) }}
                             {{  form_widget(form.telephone) }}
                         </div>
                     </div>           

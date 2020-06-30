@@ -11,49 +11,192 @@
     </div>
 
     <div class="container mt-4">
-        <div class="row mt-6 mb-6">
-            <div class="col-md-6 colonne-centree">
-                {{ form_start(registrationForm) }}
-                {{ form_errors(registrationForm) }}
-                
-                {{ form_row(registrationForm.username) }}
-                {{ form_row(registrationForm.plainPassword) }} 
-                                
-                {{ form_row(registrationForm.email) }}
-                {{ form_row(registrationForm.telephone) }}
-                {{ form_row(registrationForm.prenom) }}
-                {{ form_row(registrationForm.nom) }}
-                
-                {{ form_row(registrationForm.receptionInformationGenerale) }}
-                {{ form_row(registrationForm.receptionInformationChene) }}
-                {{ form_row(registrationForm.receptionInformationChasse) }}
-                {{ form_row(registrationForm.receptionInformationNouveau) }}
-                {{ form_row(registrationForm.visible) }}
-                
-                <div class="form-check form-check-inline">
-                    {{ form_widget(registrationForm.agreeTerms) }}
-                    <div class="text-justify ml-2 text-muted" style="font-size:0.8rem">
-                        Je déclare avoir plus de 18 ans et avoir lu, compris et accepté les REF Conditions Générales d’Utilisation.
-                    </div>
-                    {{ form_errors(registrationForm.agreeTerms) }}
-                </div>
+        {{ form_start(registrationForm) }}
+        {{ form_errors(registrationForm) }}
 
-                <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-primary"  display:inline>S'inscrire</button>
-                </div>
 
-                {{ form_end(registrationForm) }}
-                
-                <div class="text-justify mt-4 mb-4 text-muted"  style="font-size:0.8rem">
-                    Les informations que vous communiquez, à l’exception de votre mot de passe qui est crypté et ne peut pas être lu, sont destinées au personnel habilité d’Énigmant qui est le responsable de traitement. Énigmant collecte vos données pour gérer votre compte utilisateur et permettre l’hébergement.
-                    Vous disposez de certains droits (droit d'opposition, droit d'accès à vos données, droit de rectification et d'effacement de vos données). 
-                    Pour exercer ces droits, écrire à privacy@enigmant.fr ou vous rendre directement sur votre compte pour effectuer votre demande. Pour plus de détails :REF Politique de Confidentialité d’Énigmant.
-                </div>
-
+        <div class="card mb-4 border-dark" >
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0 mt-0">Connexion</h4>
             </div>
-        </div>  
+            <div class="card-body p-3">
+                <div class="container">
+                    <div class="row mb-2">
+                        <div class="col-4 text-right align-self-center">
+                            <b>Identifiant</b>
+                        </div>
+                        <div class="col-8">
+                            {{ form_errors(registrationForm.username) }}
+                            {{ form_widget(registrationForm.username) }}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4 text-right align-self-center">
+                            <b>Mot de passe</b>
+                        </div>
+                        <div class="col-8">
+                            {{ form_errors(registrationForm.plainPassword.first) }}
+                            {{ form_widget(registrationForm.plainPassword.first) }} 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 text-right align-self-center">
+                            <b>Répétez le mot de passe</b>
+                        </div>
+                        <div class="col-8">
+                            {{ form_errors(registrationForm.plainPassword.second) }}
+                            {{ form_widget(registrationForm.plainPassword.second) }} 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4 border-dark" >
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0 mt-0">Informations générales</h4>
+            </div>
+            <div class="card-body p-3">
+                <div class="container">
+                    <div class="row mb-2">
+                        <div class="col-4 text-right align-self-center">
+                            <b>Prénom</b>
+                        </div>
+                        <div class="col-8">
+                            {{ form_errors(registrationForm.prenom) }}
+                            {{ form_widget(registrationForm.prenom) }}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4 text-right align-self-center">
+                            <b>Nom</b>
+                        </div>
+                        <div class="col-8">
+                            {{ form_errors(registrationForm.nom) }}
+                            {{ form_widget(registrationForm.nom) }}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4 text-right align-self-center">
+                            <b>Email</b>
+                        </div>
+                        <div class="col-8">
+                            {{ form_errors(registrationForm.email) }}
+                            {{ form_widget(registrationForm.email) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 text-right align-self-center">
+                            <b>Téléphone</b>
+                        </div>
+                        <div class="col-8">
+                            {{ form_errors(registrationForm.telephone) }}
+                            {{ form_widget(registrationForm.telephone) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card mb-4 border-dark" >
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0 mt-0">Préférences</h4>
+            </div>
+            <div class="card-body p-3">
+                <div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-10 text-right align-self-center ">                                        
+                                <b>Voulez-vous que votre progression et vos avis soient visibles</b> <b>?</b>
+                            </div>
+                            <div class="col-2 mb-1 mt-1 pl-0">
+                                {{ form_widget(registrationForm.visible) }}
+                            </div>                                    
+                        </div>
+
+                        <div class="row">
+                            <div class="col-2 align-self-center  text-center">                                        
+                                Énigmant
+                            </div>
+                            <div class="col-8 text-right align-self-center ">                                        
+                                <b>Voulez-vous être informé des actualités générales</b> (Environ 2 mails par an) <b>?</b>
+                            </div>
+                            <div class="col-2 mb-1 mt-1 pl-0">
+                                {{ form_widget(registrationForm.receptionInformationGenerale) }}
+                            </div>                                    
+                        </div>
+
+                        <div class="row">
+                            <div class="col-2 align-self-center  text-center">                                        
+                                Énigmant Chasse
+                            </div>
+                            <div class="col-8 text-right align-self-center ">
+                                <b>Voulez-vous être informé de l'actualité des chasses aux trésor</b> (Environ 4 mails par an) <b>?</b>
+                            </div>
+                            <div class="col-2 mb-1 mt-1 pl-0">
+                                {{ form_widget(registrationForm.receptionInformationChasse) }}
+                            </div>                                    
+                        </div>
+
+                        <div class="row">
+                            <div class="col-2 align-self-center  text-center">                                        
+                                Énigmant Chêne
+                            </div>
+                            <div class="col-8 text-right align-self-center ">                                        
+                                <b>Voulez-vous être informé de l'actualité des Jeux en Chêne</b> (environ 4 mails par an) <b>?</b> 
+                            </div>
+                            <div class="col-2 mb-1 mt-1 pl-0">
+                                {{ form_widget(registrationForm.receptionInformationChene) }}
+                            </div>                                    
+                        </div>
+
+                        <div class="row">
+                            <div class="col-2 align-self-center text-center">                                        
+                                Énigmant Autres...
+                            </div>
+                            <div class="col-8 text-right align-self-center ">                                        
+                                <b>Voulez-vous être informé de l'actualité des futurs thèmes</b> (environ 2 mails par an) <b>?</b> 
+                            </div>
+                            <div class="col-2 mb-1 mt-1 pl-0">
+                                {{ form_widget(registrationForm.receptionInformationNouveau) }}
+                            </div>                                    
+                        </div>
+                    </div>                            
+                </div>
+            </div>
+        </div>
+
+        <div class="form-check form-check-inline">
+            <div class="custom-control-lg custom-control custom-checkbox ">{{ form_widget(registrationForm.agreeTerms) }}</div>
+
+            <div class="text-justify ml-2 " style="font-size:1rem">
+                Je déclare avoir lu, compris et accepté les REF Conditions Générales d’Utilisation.
+            </div>
+            {{ form_errors(registrationForm.agreeTerms) }}
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary next1" name="next1" display:inline>S'inscrire</button>
+        </div>
+
+        {{ form_end(registrationForm) }}
+
+        <div class="text-justify mt-4 mb-4 text-muted"  style="font-size:0.8rem">
+            Les informations que vous communiquez, à l’exception de votre mot de passe qui est crypté et ne peut pas être lu, sont destinées au personnel habilité d’Énigmant qui est le responsable de traitement. Énigmant collecte vos données pour gérer votre compte utilisateur et permettre l’hébergement.
+            Vous disposez de certains droits (droit d'opposition, droit d'accès à vos données, droit de rectification et d'effacement de vos données). 
+            Pour exercer ces droits, écrire à privacy@enigmant.fr ou vous rendre directement sur votre compte pour effectuer votre demande. Pour plus de détails :REF Politique de Confidentialité d’Énigmant.
+        </div>
+
     </div>
+</div>  
+</div>
 {% endblock body %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('checkbox') }}
+{% endblock %}
 
 
 

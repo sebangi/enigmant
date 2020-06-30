@@ -24,7 +24,10 @@ function cacher(num)
 
 // ACTIVER NEXT1 SEULEMENT SI UN SEUL CHEXBOX EST VALIDE
 function textNext1() {
-    var n = $("input:checked").length;
+//    var n = $("input:checked").length;
+    var n = $(".only-one:checked").length;
+    console.log(n);
+    
     if (n != 1) {
         $('.next1').attr("disabled", "disabled");
     } else {
@@ -39,6 +42,10 @@ $(document).ready(function () {
 //        log.html(me.attr('value'));        
 //        
         console.log(me.attr('value'));
+    });
+    
+     $('input.only-one').click(function () {
+        $('input.only-one').not(this).prop('checked', false);
     });
 
     $('input.only-one1').click(function () {
