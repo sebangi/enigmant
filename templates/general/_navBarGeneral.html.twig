@@ -15,10 +15,10 @@
                 <a class="nav-link {% if menuCourant is defined and menuCourant == 'Profil' %}active{% endif %}" href="{{ path('profil', { id : app.user.id }) }}">Mon Profil<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item mr-2">
-                <a class="nav-link {% if menuCourant is defined and menuCourant == 'Conversations' %}active{% endif %}" href="{{ path('general.conversation.index') }}">Mes Conversations<span class="sr-only">(current)</span></a>
+                <a class="nav-link {% if menuCourant is defined and menuCourant == 'Conversations' %}active{% endif %}" href="{{ path('general.conversation.index') }}">Messages<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item mr-2">
-                <a class="nav-link {% if menuCourant is defined and menuCourant == 'Grades' %}active{% endif %}" href="{{ path('grade.index', {themeCourant: "General"}) }}">Mes Grades<span class="sr-only">(current)</span></a>
+                <a class="nav-link {% if menuCourant is defined and menuCourant == 'Grades' %}active{% endif %}" href="{{ path('grade.index', {themeCourant: "General"}) }}">Grades<span class="sr-only">(current)</span></a>
             </li>
         </ul>               
     </div>

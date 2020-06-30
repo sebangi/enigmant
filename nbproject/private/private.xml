@@ -3,16 +3,38 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/sebastien/public_html/enigmant/templates/security/profil.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/templates/general/_navBarGeneral.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Form/General/MessageType.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/BaseController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/assets/js/message.js</file>
+            <file>file:/home/sebastien/public_html/enigmant/assets/js/datepicker.js</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/General/ConversationController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/SecurityController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Form/General/UserType.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/assets/js/app.js</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Entity/General/User.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/general/conversation/_conversation.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Migrations/Version20200411155638.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Form/General/RegistrationFormType.php</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/base.html.twig</file>
             <file>file:/home/sebastien/public_html/enigmant/templates/chene/reservation/show.html.twig</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Entity/Chene/Babiole.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Chene/ReservationController.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Controller/SecurityController.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/Chene/AdminReservationJeuController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/general/conversation/_form.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/webpack.config.js</file>
             <file>file:/home/sebastien/public_html/enigmant/src/Controller/Admin/General/AdminUserController.php</file>
-            <file>file:/home/sebastien/public_html/enigmant/src/Entity/General/User.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Form/Chene/ReservationJeuType.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/security/profil.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/_grade.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/general/grade/index.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/registration/register.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/jeuEnChene/index.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/security/edit.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/chene/reservation/_avis.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/assets/css/app.css</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Migrations/Version20200622160131.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/assets/js/checkbox.js</file>
+            <file>file:/home/sebastien/public_html/enigmant/templates/general/conversation/_message.html.twig</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Migrations/Version20200411160714.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Controller/General/GradeController.php</file>
+            <file>file:/home/sebastien/public_html/enigmant/src/Form/General/ConversationType.php</file>
         </group>
     </open-files>
 </project-private>

@@ -44,7 +44,7 @@
                         <li class="nav-item">
                             <h4 class="mt-0">
                                 {% if themeCourant is defined and themeCourant == theme.getNom() %}<u class="text-color-2"> {% endif %}
-                                    <a class="nav-link {% if themeCourant is defined and themeCourant == theme.getNom() %}active{% endif %}" href="{{ path('grade.index', {themeCourant: theme.nom}  ) }}">Progression en {{ theme.nom }}<span class="sr-only">(current)</span></a>
+                                    <a class="nav-link {% if themeCourant is defined and themeCourant == theme.getNom() %}active{% endif %}" href="{{ path('grade.index', {themeCourant: theme.nom}  ) }}">Grades en {{ theme.nom }}<span class="sr-only">(current)</span></a>
                                     {% if themeCourant is defined and themeCourant == theme.getNom() %}</u> {% endif %}
                             </h4>
                         </li>
@@ -109,7 +109,7 @@
                                     {%  set yakis = grade.theme.getGradesActuel(grade.num) %}
                                     <h2 class="badge badge-pill badge-light mt-2 p-2 badge-yaki font-weight-bold" data-toggle="tooltip" data-placement="right"
                                     {% if yakis|length == 0 %}
-                                        title="Personne n'est à ce niveau actuellement."
+                                        title="Personne n'a ce grade actuellement."
                                     {% else %}
                                         {% set virgule = false %}
                                         {% set nb_masque = 0 %}
