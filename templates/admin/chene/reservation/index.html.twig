@@ -24,7 +24,10 @@
                         <td>{{ reservation.jeu.nom }}</td>
                         <td class="text-center">{{ include('outils/_booleen.html.twig', {bvaleur : reservation.reussi}) }}</td>
                         <td>{{ reservation.dateDemande | format_datetime('full', 'short', locale='fr')}}</td>
-                        <td>{{ reservation.etatStringLong()}}</td>
+                        <td>
+                            <div>{{ reservation.etatStringLong()}}</div>
+                            <div>{% if reservation.note != -1%}{%  include 'outils/_rating.html.twig' with {'valeur': reservation.note } %} {% else %}non noté{% endif %}</div>
+                        </td>
                         <td>
                             <a href="{{ path("chene.location.show",{   id : reservation.getId(), slug : reservation.getSlug()} ) }}" class="btn btn-primary mr-4">Voir</a>
                             <a href="{{ path("admin.chene.reservation.edit", {id : reservation.id} ) }}" class="btn btn-secondary"><span class="fas fa-pen" aria-hidden="true"></span></a>

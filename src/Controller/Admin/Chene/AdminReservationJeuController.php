@@ -392,7 +392,7 @@ class AdminReservationJeuController extends BaseController {
      * @Route("/{id}-{reussi}/retourEffectue", name="admin.chene.reservation.retourEffectue")
      */
     public function retourEffectue(ReservationJeu $reservation, $reussi): Response {
-        $reservation->setEtat(6);
+        $reservation->setEtat(5);
         $reservation->setReussi($reussi == "true");
         $this->creerMessageretourEffectue($reservation);
         $reservation->getJeu()->setDisponible(true);

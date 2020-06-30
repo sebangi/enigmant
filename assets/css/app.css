@@ -70,6 +70,10 @@ body {
     background-color: coral;
 }
 
+.bg-color-lavander { 
+    background-color: lavender;
+}
+
 .bg-chene {
     background-image: url("../../public/images/fond/chene.png");
 }

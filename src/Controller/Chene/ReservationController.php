@@ -405,6 +405,7 @@ class ReservationController extends BaseController {
                             (!is_null($reservation->getAvisPriveDifficulte()) ) ||
                             (!is_null($reservation->getAvisPriveTechnique()))
                             )) {
+                        $reservation->setEtat(6);
                         $reservation->setAvisDonne(true);
                         $this->creerMessageAvisDonne($reservation, $reservation->getConversation());
                         $this->addFlash('success', 'Nous avons bien reçu votre avis. Merci !');

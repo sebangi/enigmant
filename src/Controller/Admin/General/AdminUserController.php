@@ -94,13 +94,16 @@ class AdminUserController extends BaseController {
      * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
      */
     public function edit(Request $request, User $user): Response {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, ["all" => true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->persist($user);
-            $this->em->flush();
-            $this->addFlash('success', 'Utilisateur créé avec succès.');
+
+            if (!$form->get('cancel')->isClicked() && $form->isValid()) {
+                $this->em->persist($user);
+                $this->em->flush();
+                $this->addFlash('success', 'Utilisateur édité avec succès.');
+            }
 
             return $this->redirectToRoute('admin.user.index');
         }
@@ -135,7 +138,7 @@ class AdminUserController extends BaseController {
             }
         }
         $this->em->flush();
-    
+
         return $this->redirectToRoute('admin.user.index');
     }
 
@@ -144,11 +147,11 @@ class AdminUserController extends BaseController {
      */
     public function delete(Request $request, User $user): Response {
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
-            
+
             foreach ($user->getBabioles() as $babiole) {
                 $babiole->setUser(null);
             }
-            
+
             $this->em->remove($user);
             $this->em->flush();
             $this->addFlash('success', 'Utilisateur supprimé avec succès.');

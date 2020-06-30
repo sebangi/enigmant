@@ -148,7 +148,7 @@ class UserType extends AbstractType {
             ;
         }
 
-        if (($options['general'] == true)||($options['password'] == true)) {
+        if (($options['general'] == true)||($options['password'] == true)||($options['all'] == true)) {
             $builder
                     ->add('cancel', SubmitType::class, array(
                         'label' => 'Annuler',

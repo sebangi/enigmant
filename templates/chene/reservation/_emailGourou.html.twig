@@ -6,7 +6,7 @@
         Nouvelle location :
         <ul class="list-group">
             <li>Joueur : {{ reservation.user.getGradeString("Chêne") }} <b>{{ reservation.user.username }}</b></li>
-            <li>Jeu En Chêne : <b>{{ reservation.jeu.nom }}</b></li>
+            <li>Jeu en Chêne : <b>{{ reservation.jeu.nom }}</b></li>
             <li>date : {{ reservation.dateDemande | format_datetime('long', 'short', locale='fr') }}</li>
         </ul>
     </h3>

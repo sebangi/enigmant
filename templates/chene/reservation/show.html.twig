@@ -114,9 +114,9 @@
                             {% endif %}
                         {% endif %}
                     {% elseif reservation.etat == 1 %}
-                        <p class="mb-1"><span class="fas fa-check text-success mr-2" aria-hidden="true"></span>Le jeu est prêt pour le retrait (Voir la conversation pour les modalités).</p>
+                        <p class="mb-1"><span class="fas fa-check text-success mr-2" aria-hidden="true"></span>Le jeu est prêt pour le retrait.</p>
                         {% if reservation.retraitDomicile %}
-                            <p class="mb-1"><span class="fas fa-check text-success mr-2" aria-hidden="true"></span>Vous pouvez venir le retirer à la date prévue. Voir la conversation pour les modalités.</p>
+                            <p class="mb-1"><span class="fas fa-check text-success mr-2" aria-hidden="true"></span>Vous pouvez venir le retirer à la date prévue (Voir la conversation pour les modalités).</p>
                         {% else %}
                             <p class="mb-1"><span class="fas fa-check text-success mr-2" aria-hidden="true"></span>Le rendez-vous convenu dans la conversation est confirmé.</p>
                         {% endif %}

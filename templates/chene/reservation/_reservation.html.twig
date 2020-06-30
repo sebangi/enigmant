@@ -19,7 +19,10 @@
             </div>
             <div class="col-md-2 text-center">
                 <div class="font-weight-bold">Statut :</div>
-                {{ reservation.getStatus() }}
+                <div>{{ reservation.getStatus() }}</div>
+                <hr class="m-1">
+                <div>{% if reservation.note != -1%}{%  include 'outils/_rating.html.twig' with {'valeur': reservation.note } %} {% else %}non noté{% endif %}</div>
+                <div class="font-italic">{% if reservation.avisDonne%}Avis donné{% else %}Aucun avis{% endif %}</div>
             </div>
             <div class="col-md-1 text-center">
                 <h1 class="m-0">
@@ -30,7 +33,6 @@
                             <span class="fas fa-sad-cry text-danger" data-toggle="tooltip" data-placement="bottom" title="Vous n'avez pas trouvé le médaillon"></span>
                         {% endif %}
                     {% endif%}
-
                 </h1>
             </div>
             <div class="col-md-2 text-center">

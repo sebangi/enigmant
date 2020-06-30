@@ -168,14 +168,14 @@ class ReservationJeuType extends AbstractType {
                 ->add('avisPriveDifficulte', TextareaType::class, [
                     'required' => false,
                     'attr' => [
-                        'placeholder' => 'Y a-t-il des étapes trop faciles ou trop difficiles ?',
+                        'placeholder' => 'Y a-t-il des étapes trop faciles ou trop difficiles ? Vous pouvez parler des solutions.',
                         'class' => 'mon-area'
                     ]
                 ])
                 ->add('avisPriveTechnique', TextareaType::class, [
                     'required' => false,
                     'attr' => [
-                        'placeholder' => 'Avez-vous eu des soucis techniques ?',
+                        'placeholder' => 'Avez-vous eu des soucis techniques ? Vous pouvez parler des solutions.',
                         'class' => 'mon-area'
                     ]
                 ])
