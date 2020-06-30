@@ -23,7 +23,7 @@ class SecurityController extends BaseController {
     }
 
     protected function getMenuCourant(): ?string {
-        return null;
+        return "Profil";
     }
 
     public function __construct(EntityManagerInterface $em) {
@@ -116,8 +116,8 @@ class SecurityController extends BaseController {
         $form = $this->createForm(UserType::class, $user, ['general' => true]);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            if (!$form->get('cancel')->isClicked()) {
+        if ($form->isSubmitted()) {
+            if (!$form->get('cancel')->isClicked() && $form->isValid()) {
                 $this->addFlash('success', 'Vos informations générales ont été mises à jour.');
                 $this->em->flush();
             }
@@ -136,7 +136,7 @@ class SecurityController extends BaseController {
      * @Route("/mdp/edit/{id}", name="mdp.edit")
      * @return Response
      */
-    public function mdpEdit(Request $request, User $user): Response {
+    public function mdpEdit(Request $request, UserPasswordEncoderInterface $passwordEncoder, User $user): Response {
         if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             if ($user->getId() != $this->getUser()->getId()) {
                 return $this->redirect($this->generateUrl('home'));
@@ -144,17 +144,39 @@ class SecurityController extends BaseController {
         } else
             return $this->redirect($this->generateUrl('home'));
 
-        $form = $this->createForm(UserType::class, $user, ['preferences' => true]);
+        $form = $this->createForm(UserType::class, $user, ['password' => true]);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->addFlash('success', 'Vos préférences ont été mises à jour.');
-            $this->em->flush();
+        if ($form->get('cancel')->isClicked() )
+            return $this->redirectToRoute('profil', ["id" => $user->getId()]);
+            
+        if ($form->isSubmitted() && $form->isValid() ) {
+            if (!$form->get('cancel')->isClicked() && $form->isValid()) {
+                if ( $passwordEncoder->isPasswordValid($user, $form->get('currentPassword')->getData() ) )
+                {
+                    $this->addFlash('success', "Votre mot de passe a été mis à jour.");
+                    $user->setPassword(
+                        $passwordEncoder->encodePassword(
+                                $user,
+                                $form->get('newPassword')->getData()));
+                    $this->em->flush();
+                }
+                else
+                {
+                    $this->addFlash('error', "Votre mot de passe n'a pas été mis à jour.");
+                }
+            }
+            else
+                {
+                $this->addFlash('error', "Votre mot de passe n'a pas été mis à jour.");
+                $this->em->flush();
+            }
+
             return $this->redirectToRoute('profil', [
                         "id" => $user->getId()]);
         }
 
-        return $this->monRender('security/profil.html.twig', [
+        return $this->monRender('security/editMdp.html.twig', [
                     'form' => $form->createView(),
                     'user' => $this->getUser(),
         ]);
